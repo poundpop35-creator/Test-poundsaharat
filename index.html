@@ -1,560 +1,833 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ตารางรถรับ (โรงแรม -> กรมวิทย์)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* --- CSS Styles --- */
-        :root {
-            --primary-color: #0056b3;      /* สีหลัก (น้ำเงิน) */
-            --secondary-color: #00a8cc;    /* สีรอง (ฟ้าสดใส) */
-            --bg-color: #f4f6f9;           /* สีพื้นหลัง */
-            --card-bg: #ffffff;
-            --text-main: #333333;
-            --text-sub: #666666;
-            --alert-color: #d32f2f;
-            --shadow: 0 4px 10px rgba(0,0,0,0.08);
-        }
-
-        body {
-            font-family: 'Sarabun', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            padding: 20px;
-            line-height: 1.4;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        h1 {
-            color: var(--primary-color);
-            text-align: center;
-            margin-bottom: 5px;
-            font-weight: 800;
-            font-size: 26px;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: var(--text-sub);
-            margin-bottom: 25px;
-            font-size: 16px;
-        }
-
-        /* --- Summary --- */
-        .summary-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-        }
-
-        .summary-badge {
-            background: #fff;
-            padding: 8px 16px;
-            border-radius: 30px;
-            box-shadow: var(--shadow);
-            font-weight: 600;
-            color: var(--primary-color);
-            border: 1px solid #e0e0e0;
-            font-size: 14px;
-        }
-
-        /* --- Controls --- */
-        .controls-container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 16px;
-            box-shadow: var(--shadow);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .search-box { flex: 2; min-width: 250px; }
-        .filter-box { flex: 1; min-width: 200px; }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            font-size: 16px;
-            border: 1px solid #dfe1e5;
-            border-radius: 8px;
-            font-family: 'Sarabun', sans-serif;
-            outline: none;
-            transition: all 0.2s;
-            background-color: #f9fafb;
-        }
-
-        .form-control:focus {
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 0 3px rgba(0, 168, 204, 0.15);
-            background-color: #fff;
-        }
-
-        /* --- Cards --- */
-        .card-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 20px;
-        }
-
-        .guest-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            box-shadow: var(--shadow);
-            overflow: hidden;
-            transition: transform 0.2s;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid #eee;
-        }
-
-        .guest-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
-        }
-
-        /* Header: โรงแรม */
-        .card-header {
-            padding: 15px 20px;
-            color: white;
-            font-weight: 700;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .hotel-icon { margin-right: 8px; font-size: 18px; }
-        .seq-badge {
-            background: rgba(0,0,0,0.2);
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 12px;
-        }
-
-        /* Body */
-        .card-body {
-            padding: 20px;
-            flex-grow: 1;
-        }
-
-        .user-name {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 4px;
-        }
-
-        .user-org {
-            font-size: 14px;
-            color: var(--text-sub);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: flex-start;
-            gap: 6px;
-        }
-
-        /* Info Grid */
-        .info-box {
-            background-color: #f0f8ff;
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1px dashed #b3d7ff;
-        }
-
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-        }
-        .info-row:last-child { margin-bottom: 0; }
-
-        .info-label { font-size: 13px; color: #666; }
-        .info-value { font-size: 15px; font-weight: 700; color: #0056b3; text-align: right; }
-
-        .time-highlight {
-            color: #d63384; /* ชมพูเข้ม */
-            font-size: 18px;
-            font-weight: 800;
-        }
-
-        /* Coordinator Section */
-        .contact-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid #eee;
-        }
-
-        .contact-item {
-            font-size: 12px;
-        }
-        
-        .contact-name { font-weight: 600; color: #333; display: block; margin-bottom: 2px;}
-        .contact-tel { 
-            color: var(--secondary-color); 
-            text-decoration: none; 
-            font-weight: 700; 
-            display: inline-block;
-            padding: 2px 6px;
-            border: 1px solid var(--secondary-color);
-            border-radius: 4px;
-            margin-top: 2px;
-            transition: all 0.2s;
-        }
-        .contact-tel:hover {
-            background-color: var(--secondary-color);
-            color: #fff;
-        }
-
-        /* Footer: Remark */
-        .card-footer {
-            background-color: #fff5f5;
-            padding: 12px 20px;
-            font-size: 15px;
-            color: var(--alert-color);
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border-top: 1px solid #ffdede;
-        }
-
-        .no-result {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 40px;
-            color: #999;
-            background: #fff;
-            border-radius: 12px;
-            display: none;
-        }
-
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ติวสอบ นักวิชาการอุตสาหกรรมปฏิบัติการ — กรมส่งเสริมอุตสาหกรรม (ดีพร้อม)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --indigo:#3D2A6E;--indigo-700:#4A327E;--indigo-500:#6B4FB0;
+  --gold:#D9A327;--gold-soft:#F3E2B3;--paper:#F7F5FB;--card:#FFFFFF;
+  --ink:#211C36;--ink-soft:#5A5470;--line:#E6E1F0;
+  --good:#1E8E6A;--good-bg:#E6F5EF;--bad:#C7384B;--bad-bg:#FBE9EC;
+  --shadow:0 6px 24px rgba(61,42,110,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Sarabun',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;font-size:17px;padding-bottom:60px}
+.wrap{max-width:780px;margin:0 auto;padding:0 16px}
+h1,h2,h3,.kanit{font-family:'Kanit',sans-serif;font-weight:600;line-height:1.35}
+header{background:linear-gradient(135deg,var(--indigo) 0%,var(--indigo-500) 100%);color:#fff;padding:26px 0 22px;position:relative;overflow:hidden}
+header::after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(217,163,39,.35),transparent 70%)}
+.eyebrow{font-family:'Kanit';font-weight:500;letter-spacing:.06em;font-size:13px;color:var(--gold-soft);text-transform:uppercase;opacity:.95}
+header h1{font-size:24px;margin:6px 0 4px;font-weight:700}
+header .sub{font-size:15px;color:#E8E2F5;font-weight:400}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);padding:5px 11px;border-radius:999px;font-size:13px;font-family:'Kanit';font-weight:500}
+.chip b{color:var(--gold-soft)}
+.tabs{display:flex;gap:6px;margin:18px 0 6px;position:sticky;top:0;z-index:20;background:var(--paper);padding:10px 0;border-bottom:1px solid var(--line)}
+.tab{flex:1;text-align:center;font-family:'Kanit';font-weight:500;font-size:15px;padding:9px 6px;border-radius:11px;border:1px solid var(--line);background:var(--card);color:var(--ink-soft);cursor:pointer;transition:.15s}
+.tab.active{background:var(--indigo);color:#fff;border-color:var(--indigo)}
+.view{display:none;animation:fade .25s ease}
+.view.show{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.intro-card{background:linear-gradient(180deg,#fff,#FBFAFE);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin:14px 0;box-shadow:var(--shadow)}
+.intro-card h2{font-size:18px;color:var(--indigo);margin-bottom:6px}
+.intro-card p{font-size:15px;color:var(--ink-soft);margin-bottom:6px}
+.grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:6px}
+.topic{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:15px 16px;box-shadow:var(--shadow);position:relative}
+.topic .num{font-family:'Kanit';font-weight:700;font-size:13px;color:#fff;background:var(--indigo);width:30px;height:30px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.topic .top{display:flex;gap:11px;align-items:flex-start}
+.topic h3{font-size:16.5px;font-weight:600;color:var(--ink)}
+.topic .tag{font-size:12.5px;color:var(--ink-soft);margin-top:3px;font-family:'Kanit'}
+.topic .btns{display:flex;gap:8px;margin-top:12px}
+.btn{font-family:'Kanit';font-weight:500;font-size:14px;border-radius:10px;padding:8px 14px;border:1px solid var(--indigo);cursor:pointer;transition:.15s;flex:1;text-align:center}
+.btn.read{background:#fff;color:var(--indigo)}
+.btn.read:active{background:#F0EAFA}
+.btn.quiz{background:var(--indigo);color:#fff}
+.btn.quiz:active{background:var(--indigo-700)}
+.badge{position:absolute;top:13px;right:14px;font-family:'Kanit';font-size:12px;font-weight:600;color:var(--gold);background:var(--gold-soft);padding:2px 9px;border-radius:999px}
+.read-head{display:flex;align-items:center;gap:10px;margin:16px 0 4px}
+.back{font-family:'Kanit';font-weight:500;font-size:14px;color:var(--indigo);background:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 13px;cursor:pointer}
+.read-title{font-family:'Kanit';font-weight:700;font-size:20px;color:var(--indigo);margin:6px 0 14px;line-height:1.3}
+.content section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:12px;box-shadow:var(--shadow)}
+.content h4{font-family:'Kanit';font-weight:600;font-size:16px;color:var(--indigo-700);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.content h4::before{content:"";width:7px;height:18px;background:var(--gold);border-radius:3px;flex:none}
+.content ul{list-style:none;padding:0}
+.content li{position:relative;padding:4px 0 4px 20px;font-size:15.5px}
+.content li::before{content:"▪";color:var(--indigo-500);position:absolute;left:3px;top:4px}
+.content li b,.content li strong{color:var(--indigo-700)}
+.kbox{background:var(--gold-soft);border-left:4px solid var(--gold);border-radius:8px;padding:9px 13px;margin-top:9px;font-size:14.5px}
+.kbox b{color:#8a6a12}
+.read-quiz-cta{margin:6px 0 30px;text-align:center}
+.quiz-head{margin:16px 0 10px}
+.q-progress{height:8px;background:var(--line);border-radius:999px;overflow:hidden;margin:10px 0 4px}
+.q-progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--indigo),var(--gold));width:0;transition:width .3s}
+.q-meta{display:flex;justify-content:space-between;font-family:'Kanit';font-size:13.5px;color:var(--ink-soft)}
+.q-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 17px;box-shadow:var(--shadow);margin-bottom:14px}
+.q-cat{font-family:'Kanit';font-size:12.5px;font-weight:500;color:var(--gold);background:var(--gold-soft);display:inline-block;padding:2px 10px;border-radius:999px;margin-bottom:9px}
+.q-text{font-size:17.5px;font-weight:500;margin-bottom:14px;line-height:1.55}
+.opt{display:block;width:100%;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:9px;font-size:16px;cursor:pointer;font-family:'Sarabun';transition:.12s;line-height:1.45}
+.opt:hover{border-color:var(--indigo-500)}
+.opt .lab{font-family:'Kanit';font-weight:600;color:var(--indigo);margin-right:8px}
+.opt.correct{background:var(--good-bg);border-color:var(--good)}
+.opt.correct .lab{color:var(--good)}
+.opt.wrong{background:var(--bad-bg);border-color:var(--bad)}
+.opt.wrong .lab{color:var(--bad)}
+.opt.dim{opacity:.6}
+.opt:disabled{cursor:default}
+.explain{display:none;margin-top:4px;border-radius:12px;padding:12px 14px;font-size:15px;background:#F4F1FB;border:1px solid var(--line)}
+.explain.show{display:block;animation:fade .2s}
+.explain .e-tag{font-family:'Kanit';font-weight:600;font-size:13.5px;margin-bottom:3px}
+.explain.ok .e-tag{color:var(--good)}
+.explain.no .e-tag{color:var(--bad)}
+.next{font-family:'Kanit';font-weight:600;font-size:16px;background:var(--indigo);color:#fff;border:none;border-radius:12px;padding:13px;width:100%;cursor:pointer}
+.next:disabled{background:#C3BBD8;cursor:not-allowed}
+.result{text-align:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 18px;box-shadow:var(--shadow);margin:18px 0}
+.score-ring{width:140px;height:140px;margin:6px auto 10px;position:relative}
+.score-ring svg{transform:rotate(-90deg)}
+.score-ring .pct{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score-ring .pct b{font-family:'Kanit';font-size:34px;font-weight:700;color:var(--indigo);line-height:1}
+.score-ring .pct span{font-family:'Kanit';font-size:13px;color:var(--ink-soft)}
+.result h2{font-family:'Kanit';color:var(--indigo);font-size:21px;margin-bottom:4px}
+.result .verdict{font-size:16px;color:var(--ink-soft);margin-bottom:16px}
+.result .actions{display:flex;gap:9px;flex-wrap:wrap;justify-content:center}
+.result .actions .btn{flex:none;min-width:130px}
+.review h3{font-family:'Kanit';color:var(--indigo);font-size:17px;margin:22px 0 10px;text-align:left}
+.rev-item{background:#fff;border:1px solid var(--line);border-left:4px solid var(--bad);border-radius:10px;padding:12px 14px;margin-bottom:10px;text-align:left;font-size:15px}
+.rev-item .rq{font-weight:600;margin-bottom:6px}
+.rev-item .ra{color:var(--good)}
+.rev-item .rw{color:var(--bad)}
+.rev-item .re{color:var(--ink-soft);margin-top:5px;font-size:14.5px}
+footer{text-align:center;color:var(--ink-soft);font-size:13px;margin:28px 0 8px;padding:0 16px}
+.disclaimer{background:#fff;border:1px dashed var(--line);border-radius:12px;padding:11px 14px;font-size:13.5px;color:var(--ink-soft);margin:14px 0}
+@media(min-width:620px){.grid{grid-template-columns:1fr 1fr}.topic.full{grid-column:1/-1}}
+</style>
 </head>
 <body>
-
-    <div class="container">
-        <h1><i class="fas fa-bus-alt"></i> รถรับจากโรงแรม -> กรมวิทย์</h1>
-        <p class="subtitle">ตรวจสอบรายชื่อ โรงแรมที่พัก และเวลารถออก</p>
-
-        <div id="summarySection" class="summary-container"></div>
-
-        <div class="controls-container">
-            <div class="search-box">
-                <input type="text" id="searchInput" class="form-control" placeholder="🔍 ค้นหาชื่อ, หน่วยงาน...">
-            </div>
-            <div class="filter-box">
-                <select id="hotelFilter" class="form-control">
-                    <option value="">🏨 ทุกโรงแรม</option>
-                </select>
-            </div>
-            <div class="filter-box">
-                <select id="carFilter" class="form-control">
-                    <option value="">🚐 ทุกคัน</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="card-container" id="cardContainer"></div>
-        <div id="noResult" class="no-result">ไม่พบข้อมูลที่ค้นหา</div>
+<header>
+  <div class="wrap">
+    <div class="eyebrow">แนวข้อสอบ • ความรู้เฉพาะตำแหน่ง • 200 คะแนน</div>
+    <h1>นักวิชาการอุตสาหกรรมปฏิบัติการ</h1>
+    <div class="sub">กรมส่งเสริมอุตสาหกรรม (ดีพร้อม / DIPROM) • กระทรวงอุตสาหกรรม</div>
+    <div class="meta-row">
+      <span class="chip">วุฒิ <b>ป.ตรี ทุกสาขา</b></span>
+      <span class="chip">เงินเดือน <b>18,150 บ.</b></span>
+      <span class="chip">สอบ <b>ข้อเขียน 13 หมวด</b></span>
     </div>
-
-    <script>
-        // --- 1. ข้อมูล JSON (115 รายการ) ---
-        const rawData = [
-  { "ลำดับ": 1, "หน่วยงาน": "ผู้ตรวจราชการกระทรวงสาธารณสุข เขตสุขภาพที่ 3", "จังหวัดที่ตั้งของหน่วยงาน": "เขตสุขภาพที่ 3", "ชื่อ - สกุล": "นายอดิสรณ์ วรรธนะศักดิ์", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4236", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 2, "หน่วยงาน": "โรงพยาบาลชัยนาทนเรนทร", "จังหวัดที่ตั้งของหน่วยงาน": "ชัยนาท", "ชื่อ - สกุล": "นายเดชพิภัทร์ อมรทิพย์วงศ์", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4237", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 3, "หน่วยงาน": "โรงพยาบาลบ้านหมี่", "จังหวัดที่ตั้งของหน่วยงาน": "ลพบุรี", "ชื่อ - สกุล": "นายอิโณทัย ดำรงค์วุฒิ", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4238", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 4, "หน่วยงาน": "โรงพยาบาลพระปกเกล้า", "จังหวัดที่ตั้งของหน่วยงาน": "จันทบุรี", "ชื่อ - สกุล": "นายธีรพงศ์ ตุนาค", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4239", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 5, "หน่วยงาน": "โรงพยาบาลแพร่", "จังหวัดที่ตั้งของหน่วยงาน": "แพร่", "ชื่อ - สกุล": "นางวิราวรรณ ศรีงามวงศ์", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4240", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 6, "หน่วยงาน": "โรงพยาบาลมหาสารคาม", "จังหวัดที่ตั้งของหน่วยงาน": "มหาสารคาม", "ชื่อ - สกุล": "นายปณัญพงศ์ ภูนาขาว", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4241", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 7, "หน่วยงาน": "โรงพยาบาลสวรรค์ประชารักษ์", "จังหวัดที่ตั้งของหน่วยงาน": "นครสวรรค์", "ชื่อ - สกุล": "นายกิตติกานต์ เจิมขุนทด", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4242", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 8, "หน่วยงาน": "โรงพยาบาลสุโขทัย", "จังหวัดที่ตั้งของหน่วยงาน": "สุโขทัย", "ชื่อ - สกุล": "นายปรีชา ภิญโญพรพาณิชย์", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4243", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 9, "หน่วยงาน": "โรงพยาบาลสุวรรณภูมิ งานผลิตยาสมุนไพร", "จังหวัดที่ตั้งของหน่วยงาน": "ร้อยเอ็ด", "ชื่อ - สกุล": "นางสาวโฉมยงค์ ดงแดง", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4244", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 10, "หน่วยงาน": "โรงพยาบาลหัวหิน", "จังหวัดที่ตั้งของหน่วยงาน": "ประจวบคีรีขันธ์", "ชื่อ - สกุล": "นางสายทอง วงศ์คำ", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4245", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 11, "หน่วยงาน": "สำนักงานสาธารณสุขจังหวัด", "จังหวัดที่ตั้งของหน่วยงาน": "ปราจีนบุรี", "ชื่อ - สกุล": "นางสาวธนัญชนก ฉ่ำเย็นอุรา", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4246", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 12, "หน่วยงาน": "สำนักงานสาธารณสุขจังหวัดกระบี่", "จังหวัดที่ตั้งของหน่วยงาน": "กระบี่", "ชื่อ - สกุล": "นายธีรเดช ชนะกุล", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4247", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 13, "หน่วยงาน": "สำนักงานสาธารณสุขจังหวัดจันทบุรี", "จังหวัดที่ตั้งของหน่วยงาน": "จันทบุรี", "ชื่อ - สกุล": "นางสาวกิตติมา ฉลองธรรม", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4248", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 14, "หน่วยงาน": "สำนักงานสาธารณสุขจังหวัดชุมพร", "จังหวัดที่ตั้งของหน่วยงาน": "ชุมพร", "ชื่อ - สกุล": "นางสาวสุดารัตน์ วงศ์นัฏจิรา", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4249", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 15, "หน่วยงาน": "สำนักงานสาธารณสุขจังหวัดประจวบคีรีขันธ์", "จังหวัดที่ตั้งของหน่วยงาน": "ประจวบคีรีขันธ์", "ชื่อ - สกุล": "นายอมรเทพ บุตรกตัญญู", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4250", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 16, "หน่วยงาน": "สำนักงานสาธารณสุขจังหวัดพังงา", "จังหวัดที่ตั้งของหน่วยงาน": "พังงา", "ชื่อ - สกุล": "นายสาโรช สมชอบ", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4251", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 17, "หน่วยงาน": "สำนักงานสาธารณสุขจังหวัดร้อยเอ็ด", "จังหวัดที่ตั้งของหน่วยงาน": "ร้อยเอ็ด", "ชื่อ - สกุล": "นาย อุทุมพร สุวรรณ", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4252", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 18, "หน่วยงาน": "สำนักงานสาธารณสุขจังหวัดระนอง", "จังหวัดที่ตั้งของหน่วยงาน": "ระนอง", "ชื่อ - สกุล": "นางสาวกชมล นีติโสภณ", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4253", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 19, "หน่วยงาน": "สำนักงานสาธารณสุขจังหวัดสุรินทร์", "จังหวัดที่ตั้งของหน่วยงาน": "สุรินทร์", "ชื่อ - สกุล": "นางสาวใจทิพย์ เชื่อมไธสง", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4254", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 20, "หน่วยงาน": "สำนักงานสาธารณสุขจังหวัดอำนาจเจริญ", "จังหวัดที่ตั้งของหน่วยงาน": "อำนาจเจริญ", "ชื่อ - สกุล": "นายปฐมพงศ์ ปรุโปร่ง", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4255", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 21, "หน่วยงาน": "สำนักงานสาธารณสุขจังหวัดอุบลราชธานี", "จังหวัดที่ตั้งของหน่วยงาน": "อุบลราชธานี", "ชื่อ - สกุล": "นายชัยวัฒน์ ดาราสิชฌน์", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4256", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 22, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอกะทู้", "จังหวัดที่ตั้งของหน่วยงาน": "ภูเก็ต", "ชื่อ - สกุล": "นายพีระพงษ์ ชีพเหล็ก", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4257", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 23, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอกันทรารมย์", "จังหวัดที่ตั้งของหน่วยงาน": "ศรีสะเกษ", "ชื่อ - สกุล": "นางสาวศรีสมบูรณ์ คำผง", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4258", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 24, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอกุดบาก", "จังหวัดที่ตั้งของหน่วยงาน": "สกลนคร", "ชื่อ - สกุล": "นายณัฐพล มีพรหม", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4259", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 25, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอเกาะคา", "จังหวัดที่ตั้งของหน่วยงาน": "ลำปาง", "ชื่อ - สกุล": "นางสาวอริสา หาญเตชะ", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4260", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 26, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอเกาะคา", "จังหวัดที่ตั้งของหน่วยงาน": "ลำปาง", "ชื่อ - สกุล": "นางสาวดรุณี ศรีวรรณ", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4261", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 27, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอเกาะสมุย", "จังหวัดที่ตั้งของหน่วยงาน": "สุราษฎร์ธานี", "ชื่อ - สกุล": "นายบัญญัติ เศวตเวช", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4262", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 28, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอขามทะเลสอ", "จังหวัดที่ตั้งของหน่วยงาน": "นครราชสีมา", "ชื่อ - สกุล": "นางสาวภัทรสุดา อภิรักษ์โยธิน", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4263", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 29, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอคลองขลุง", "จังหวัดที่ตั้งของหน่วยงาน": "กำแพงเพชร", "ชื่อ - สกุล": "นายประจักษ์  แก้วกิจจา", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4264", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 30, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอคลองขลุง", "จังหวัดที่ตั้งของหน่วยงาน": "กำแพงเพชร", "ชื่อ - สกุล": "นายวีระ น้อยพินิจ", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4265", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 31, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอคลองท่อม", "จังหวัดที่ตั้งของหน่วยงาน": "กระบี่", "ชื่อ - สกุล": "นายวิทยา พูลเกิด", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4266", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 32, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอเคียนซา", "จังหวัดที่ตั้งของหน่วยงาน": "สุราษฎร์ธานี", "ชื่อ - สกุล": "นายสุรกิจ สุปันตี", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4267", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 33, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอเคียนซา", "จังหวัดที่ตั้งของหน่วยงาน": "สุราษฎร์ธานี", "ชื่อ - สกุล": "นางพิมพ์พิศา ช่วยจันทร์", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4268", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 34, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอจอมพระ", "จังหวัดที่ตั้งของหน่วยงาน": "สุรินทร์", "ชื่อ - สกุล": "นายฉณะชิฌธิ์ ลับโกษาพิพัฒน์", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4269", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 35, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอเฉลิมพระเกียรติ", "จังหวัดที่ตั้งของหน่วยงาน": "น่าน", "ชื่อ - สกุล": "นายนิคม อุทุมพร", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4270", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 36, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอชนแดน", "จังหวัดที่ตั้งของหน่วยงาน": "เพชรบูรณ์", "ชื่อ - สกุล": "นายประจักษ์ รุ่งฉวี", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4271", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 37, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอชะอวด", "จังหวัดที่ตั้งของหน่วยงาน": "นครศรีธรรมราช", "ชื่อ - สกุล": "นายวารินทร์ นุ่มนวล", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4272", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 38, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอชุมพวง", "จังหวัดที่ตั้งของหน่วยงาน": "นครราชสีมา", "ชื่อ - สกุล": "นายอำนวย เนียมหมื่นไวย์", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4273", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 39, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอไชยา", "จังหวัดที่ตั้งของหน่วยงาน": "สุราษฎร์ธานี", "ชื่อ - สกุล": "นายสุริยา เชื่องช้าง", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4274", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 40, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอตาคลี", "จังหวัดที่ตั้งของหน่วยงาน": "นครสวรรค์", "ชื่อ - สกุล": "นายธนกฤต พงศ์ภูมิพิพัฒน์", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4275", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 41, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอตาลสุม", "จังหวัดที่ตั้งของหน่วยงาน": "อุบลราชธานี", "ชื่อ - สกุล": "นายอุทยาน จันทรโสภา", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4276", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 42, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอทัพทัน", "จังหวัดที่ตั้งของหน่วยงาน": "อุทัยธานี", "ชื่อ - สกุล": "นายชาเวท วราหะ", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4277", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 43, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอท่าแซะ", "จังหวัดที่ตั้งของหน่วยงาน": "ชุมพร", "ชื่อ - สกุล": "นายบูรพา โมกภา", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4278", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 44, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอท้ายเหมือง", "จังหวัดที่ตั้งของหน่วยงาน": "พังงา", "ชื่อ - สกุล": "นางวาสนา เดชะพันธ์", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4279", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 45, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอท้ายเหมือง", "จังหวัดที่ตั้งของหน่วยงาน": "พังงา", "ชื่อ - สกุล": "นางเสาวดี สังข์ทอง", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4280", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 46, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอทุ่งเขาหลวง", "จังหวัดที่ตั้งของหน่วยงาน": "ร้อยเอ็ด", "ชื่อ - สกุล": "นางชวนพิศ เคหาบาล", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4281", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 47, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอนาโยง", "จังหวัดที่ตั้งของหน่วยงาน": "ตรัง", "ชื่อ - สกุล": "นายนฤพงษ์ ระเบียบดี", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4282", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 48, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอโนนคูณ", "จังหวัดที่ตั้งของหน่วยงาน": "ศรีสะเกษ", "ชื่อ - สกุล": "นางสาวยุพยงค์ พาหา", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4283", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 49, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอโนนไทย", "จังหวัดที่ตั้งของหน่วยงาน": "นครราชสีมา", "ชื่อ - สกุล": "นางมนชนก แสงอรุณ", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4284", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 50, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอโนนสูง", "จังหวัดที่ตั้งของหน่วยงาน": "นครราชสีมา", "ชื่อ - สกุล": "นางสาวปิยพัชร์  เมธาทรัพพัทธ์", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 7 - 8", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4285", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 51, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอบางแก้ว", "จังหวัดที่ตั้งของหน่วยงาน": "พัทลุง", "ชื่อ - สกุล": "นางมาธุพร พลพงษ์", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4286", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 52, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอบ้านโคก", "จังหวัดที่ตั้งของหน่วยงาน": "อุตรดิตถ์", "ชื่อ - สกุล": "นายวัชรพงศ์ ใจใหญ่", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4287", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 53, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอบ้านด่านลานหอย", "จังหวัดที่ตั้งของหน่วยงาน": "สุโขทัย", "ชื่อ - สกุล": "นายมหาชาติ โสภณนิธินาท", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4288", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 54, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอบ้านดุง", "จังหวัดที่ตั้งของหน่วยงาน": "อุดรธานี", "ชื่อ - สกุล": "นายนพดล เลี้ยงพรหม", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4289", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 55, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอบ้านนาสาร", "จังหวัดที่ตั้งของหน่วยงาน": "สุราษฎร์ธานี", "ชื่อ - สกุล": "นายสุวรักษ์ บุญพา", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4290", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 56, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอบ้านแหลม", "จังหวัดที่ตั้งของหน่วยงาน": "เพชรบุรี", "ชื่อ - สกุล": "นายธรรมรงค์ ทวีศรี", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4291", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 57, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอบึงสามัคคี", "จังหวัดที่ตั้งของหน่วยงาน": "กำแพงเพชร", "ชื่อ - สกุล": "นายอลงกต พวงพุ่ม", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4292", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 58, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอปลายพระยา", "จังหวัดที่ตั้งของหน่วยงาน": "กระบี่", "ชื่อ - สกุล": "นายชิงชัย บัวทอง", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4293", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 59, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอปัว", "จังหวัดที่ตั้งของหน่วยงาน": "น่าน", "ชื่อ - สกุล": "นายเกษตร ปะทิ", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4294", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 60, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอพนมสารคาม", "จังหวัดที่ตั้งของหน่วยงาน": "ฉะเชิงเทรา", "ชื่อ - สกุล": "นายมนตรี สมบูรณ์ทรัพย์", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4295", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 61, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอพระแสง", "จังหวัดที่ตั้งของหน่วยงาน": "สุราษฎร์ธานี", "ชื่อ - สกุล": "นายพิสิฐ แป้นหอม", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4296", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 62, "หน่วยงาน": "สำนักงานสาธารณสุขอําเภอพิมาย", "จังหวัดที่ตั้งของหน่วยงาน": "นครราชสีมา", "ชื่อ - สกุล": "นายสุริยา จันทา", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4297", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 63, "หน่วยงาน": "สำนักงานสาธารณสุขอําเภอโพธิ์ชัย", "จังหวัดที่ตั้งของหน่วยงาน": "ร้อยเอ็ด", "ชื่อ - สกุล": "นายยุทธนา ผือโย", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4298", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 64, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอโพนสวรรค์", "จังหวัดที่ตั้งของหน่วยงาน": "นครพนม", "ชื่อ - สกุล": "นายธนพัฒน์ ศรีวรขาน", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4299", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 65, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอโพนสวรรค์", "จังหวัดที่ตั้งของหน่วยงาน": "นครพนม", "ชื่อ - สกุล": "นายกิตติศักดิ์ เวฬุวนารักษ์", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4300", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 66, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอไพรบึง", "จังหวัดที่ตั้งของหน่วยงาน": "ศรีสะเกษ", "ชื่อ - สกุล": "นางสาวนิภา อินทนิล", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4301", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 67, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอเมืองนครศรีธรรมราช", "จังหวัดที่ตั้งของหน่วยงาน": "นครศรีธรรมราช", "ชื่อ - สกุล": "นายสมวงค์ แก้วเกตุ", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4302", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 68, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอเมืองนครสวรรค์", "จังหวัดที่ตั้งของหน่วยงาน": "นครสวรรค์", "ชื่อ - สกุล": "นายภูดิศ แก้วจรูญ", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4303", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 69, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอเมืองบึงกาฬ", "จังหวัดที่ตั้งของหน่วยงาน": "บึงกาฬ", "ชื่อ - สกุล": "นายวิชัย ศรีผา", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4304", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 70, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอเมืองร้อยเอ็ด", "จังหวัดที่ตั้งของหน่วยงาน": "ร้อยเอ็ด", "ชื่อ - สกุล": "นางเครือมาส อนันตา", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4305", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 71, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอเมืองอุตรดิตถ์", "จังหวัดที่ตั้งของหน่วยงาน": "อุตรดิตถ์", "ชื่อ - สกุล": "นายเมือง เพชรแบน", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4306", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 72, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอแม่ทะ", "จังหวัดที่ตั้งของหน่วยงาน": "ลำปาง", "ชื่อ - สกุล": "นางสาวพยอม เผ่าใจมา", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4307", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 73, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอแม่ทะ", "จังหวัดที่ตั้งของหน่วยงาน": "ลำปาง", "ชื่อ - สกุล": "นางสาวจริยา พุทธวงค์", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4308", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 74, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอแม่ระมาดตาก", "จังหวัดที่ตั้งของหน่วยงาน": "ตาก", "ชื่อ - สกุล": "นายขวัญชัย กันทะใจ", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4309", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 75, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอยางชุมน้อย", "จังหวัดที่ตั้งของหน่วยงาน": "ศรีสะเกษ", "ชื่อ - สกุล": "นายอนุสรณ์ จันทสิทธิ์", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4310", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 76, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอยางตลาด", "จังหวัดที่ตั้งของหน่วยงาน": "กาฬสินธุ์", "ชื่อ - สกุล": "นางสาวปนัดดา ภูบรรทัด", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4311", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 77, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอรัษฎา", "จังหวัดที่ตั้งของหน่วยงาน": "ตรัง", "ชื่อ - สกุล": "นายประทีป ดวงงาม", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4312", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 78, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอวังสมบูรณ์", "จังหวัดที่ตั้งของหน่วยงาน": "สระแก้ว", "ชื่อ - สกุล": "นางสาวพรนิภา สุบุผา", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4313", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 79, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอวานรนิวาส", "จังหวัดที่ตั้งของหน่วยงาน": "สกลนคร", "ชื่อ - สกุล": "นายชุมพล สารีคำ", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4314", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 80, "หน่วยงาน": "สำนักงาน​สาธารณสุข​อำเภอ​เวียงสระ", "จังหวัดที่ตั้งของหน่วยงาน": "สุราษฎร์ธานี", "ชื่อ - สกุล": "นายพิจารณ์ คงชาตรี", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4315", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 81, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอศรีเทพ", "จังหวัดที่ตั้งของหน่วยงาน": "เพชรบูรณ์", "ชื่อ - สกุล": "นายสินสมุทร์ ตะกรุดราช", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4316", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 82, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอสวรรคโลก", "จังหวัดที่ตั้งของหน่วยงาน": "สุโขทัย", "ชื่อ - สกุล": "นายรัชกร คำถาเครือ", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4317", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 83, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอสวี", "จังหวัดที่ตั้งของหน่วยงาน": "ชุมพร", "ชื่อ - สกุล": "นายวัชรินทร์ แจ้งใจเย็น", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4318", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 84, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอสัตหีบ", "จังหวัดที่ตั้งของหน่วยงาน": "ชลบุรี", "ชื่อ - สกุล": "นายสิทธนะ วชิระสิริกุล", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4319", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 85, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอสามเงา", "จังหวัดที่ตั้งของหน่วยงาน": "ตาก", "ชื่อ - สกุล": "นายไพฑูรย์ จิตเนาวรัตน์", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4320", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 86, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอสิเกา จังหวัดตรัง", "จังหวัดที่ตั้งของหน่วยงาน": "ตรัง", "ชื่อ - สกุล": "นายวุฒิชัย ภักดี", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4321", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 87, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอสีคิ้ว", "จังหวัดที่ตั้งของหน่วยงาน": "นครราชสีมา", "ชื่อ - สกุล": "นางสาวศิริวิมล ศิริกูล", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4322", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 88, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอหนองกุงศรี", "จังหวัดที่ตั้งของหน่วยงาน": "กาฬสินธุ์", "ชื่อ - สกุล": "นางเสาวนีย์ บุตรวงษ์", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4323", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 89, "หน่วยงาน": "สำนักงานสาธารณสุขอําเภอหนองพอก", "จังหวัดที่ตั้งของหน่วยงาน": "ร้อยเอ็ด", "ชื่อ - สกุล": "นายมานะ ภูมิพันธุ์", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4324", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 90, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอห้วยทับทัน", "จังหวัดที่ตั้งของหน่วยงาน": "ศรีสะเกษ", "ชื่อ - สกุล": "นายภาสกร อุ่นคำ", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4325", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 91, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอห้างฉัตร", "จังหวัดที่ตั้งของหน่วยงาน": "ลำปาง", "ชื่อ - สกุล": "นายชัยยะภัทร์ จันทร์ธะระกูล", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4326", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 92, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภอห้างฉัตร", "จังหวัดที่ตั้งของหน่วยงาน": "ลำปาง", "ชื่อ - สกุล": "นายปราชญ์วิทย์ นาคกระแสร์", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4327", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 93, "หน่วยงาน": "สำนักงานสาธารณสุขอำเภออุทุมพรพิสัย", "จังหวัดที่ตั้งของหน่วยงาน": "ศรีสะเกษ", "ชื่อ - สกุล": "นายธีรศักดิ์ แย้มศรี", "โรงแรม": "Mida Hotel Ngamwongwan", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 1- 6", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายประวัติ โตกุลวัฒน์ (เค)", "ติดต่อ": "(09)-8561-4328", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว (บี้)", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 94, "หน่วยงาน": "ศูนย์วิทยาศาสตร์การแพทย์ที่ 10 อุบลราชธานี", "จังหวัดที่ตั้งของหน่วยงาน": "อุบลราชธานี", "ชื่อ - สกุล": "นายคทายุทธ นิกาพฤกษ์", "โรงแรม": "Grand Richmond Hotel", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 7 - 8", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายสหรัฐ เพชรณิชกุล (ปอนด์)", "ติดต่อ": "(09)-4589-5858", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 95, "หน่วยงาน": "ศูนย์วิทยาศาสตร์การแพทย์ที่ 11/1 ภูเก็ต", "จังหวัดที่ตั้งของหน่วยงาน": "ภูเก็ต", "ชื่อ - สกุล": "นางอิริยะพร กองทัพ", "โรงแรม": "Grand Richmond Hotel", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 7 - 8", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายสหรัฐ เพชรณิชกุล (ปอนด์)", "ติดต่อ": "(09)-4589-5859", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 96, "หน่วยงาน": "ศูนย์วิทยาศาสตร์การแพทย์ที่ 11/1 ภูเก็ต", "จังหวัดที่ตั้งของหน่วยงาน": "ภูเก็ต", "ชื่อ - สกุล": "นางสาวกรรณิการ์ คมขำ", "โรงแรม": "Grand Richmond Hotel", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 7 - 8", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายสหรัฐ เพชรณิชกุล (ปอนด์)", "ติดต่อ": "(09)-4589-5860", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 97, "หน่วยงาน": "ศูนย์วิทยาศาสตร์การแพทย์ที่ 1/1 เชียงราย", "จังหวัดที่ตั้งของหน่วยงาน": "เชียงราย", "ชื่อ - สกุล": "นางอภิษฎา สุวรรณ ศิวเสน", "โรงแรม": "Grand Richmond Hotel", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 7 - 8", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายสหรัฐ เพชรณิชกุล (ปอนด์)", "ติดต่อ": "(09)-4589-5861", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 98, "หน่วยงาน": "ศูนย์วิทยาศาสตร์การแพทย์ที่ 11 สุราษฎร์ธานี", "จังหวัดที่ตั้งของหน่วยงาน": "สุราษฎร์ธานี", "ชื่อ - สกุล": "นางสาวจิราภรณ์ เพชรรักษ์", "โรงแรม": "Grand Richmond Hotel", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 7 - 8", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายสหรัฐ เพชรณิชกุล (ปอนด์)", "ติดต่อ": "(09)-4589-5862", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 99, "หน่วยงาน": "ศูนย์วิทยาศาสตร์การแพทย์ที่ 11 สุราษฎร์ธานี", "จังหวัดที่ตั้งของหน่วยงาน": "สุราษฎร์ธานี", "ชื่อ - สกุล": "นายพงษ์ธร ทองบุญ", "โรงแรม": "Grand Richmond Hotel", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 7 - 8", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายสหรัฐ เพชรณิชกุล (ปอนด์)", "ติดต่อ": "(09)-4589-5863", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 100, "หน่วยงาน": "ศูนย์วิทยาศาสตร์การแพทย์ที่ 11 สุราษฎร์ธานี", "จังหวัดที่ตั้งของหน่วยงาน": "สุราษฎร์ธานี", "ชื่อ - สกุล": "นางสาวนิรันดร  แร่กาสินธุ์", "โรงแรม": "Grand Richmond Hotel", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 7 - 8", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายสหรัฐ เพชรณิชกุล (ปอนด์)", "ติดต่อ": "(09)-4589-5864", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 101, "หน่วยงาน": "ศูนย์วิทยาศาสตร์การแพทย์ที่ 12/1 ตรัง", "จังหวัดที่ตั้งของหน่วยงาน": "ตรัง", "ชื่อ - สกุล": "นางอลิสรา เรืองขำ", "โรงแรม": "Grand Richmond Hotel", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 7 - 8", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายสหรัฐ เพชรณิชกุล (ปอนด์)", "ติดต่อ": "(09)-4589-5865", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 102, "หน่วยงาน": "ศูนย์วิทยาศาสตร์การแพทย์ที่ 12/1 ตรัง", "จังหวัดที่ตั้งของหน่วยงาน": "ตรัง", "ชื่อ - สกุล": "นางสาวนิตยา เพียรทรัพย์", "โรงแรม": "Grand Richmond Hotel", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 7 - 8", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายสหรัฐ เพชรณิชกุล (ปอนด์)", "ติดต่อ": "(09)-4589-5866", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 103, "หน่วยงาน": "ศูนย์วิทยาศาสตร์การแพทย์ที่ 1 เชียงใหม่", "จังหวัดที่ตั้งของหน่วยงาน": "เชียงใหม่", "ชื่อ - สกุล": "นายสุริยา ยศพรสกุล", "โรงแรม": "Grand Richmond Hotel", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 7 - 8", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายสหรัฐ เพชรณิชกุล (ปอนด์)", "ติดต่อ": "(09)-4589-5867", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 104, "หน่วยงาน": "ศูนย์วิทยาศาสตร์การแพทย์ที่ 1 เชียงใหม่", "จังหวัดที่ตั้งของหน่วยงาน": "เชียงใหม่", "ชื่อ - สกุล": "นางสาวเจริญศรี ขวัญวงศ์", "โรงแรม": "Grand Richmond Hotel", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 7 - 8", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายสหรัฐ เพชรณิชกุล (ปอนด์)", "ติดต่อ": "(09)-4589-5868", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 105, "หน่วยงาน": "ศูนย์วิทยาศาสตร์การแพทย์ที่ 1 เชียงใหม่", "จังหวัดที่ตั้งของหน่วยงาน": "เชียงใหม่", "ชื่อ - สกุล": "นายก้องภพ ธิเลางาม", "โรงแรม": "Grand Richmond Hotel", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 7 - 8", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายสหรัฐ เพชรณิชกุล (ปอนด์)", "ติดต่อ": "(09)-4589-5869", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 106, "หน่วยงาน": "ศูนย์วิทยาศาสตร์การแพทย์ที่ 2 พิษณุโลก", "จังหวัดที่ตั้งของหน่วยงาน": "พิษณุโลก", "ชื่อ - สกุล": "นางสาววิทิตา ไปบน", "โรงแรม": "Grand Richmond Hotel", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 7 - 8", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายสหรัฐ เพชรณิชกุล (ปอนด์)", "ติดต่อ": "(09)-4589-5870", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 107, "หน่วยงาน": "ศูนย์วิทยาศาสตร์การแพทย์ที่ 2 พิษณุโลก", "จังหวัดที่ตั้งของหน่วยงาน": "พิษณุโลก", "ชื่อ - สกุล": "นางสาวอมรรัตน์ ทัศนกิจ", "โรงแรม": "Grand Richmond Hotel", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 7 - 8", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายสหรัฐ เพชรณิชกุล (ปอนด์)", "ติดต่อ": "(09)-4589-5871", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 108, "หน่วยงาน": "ศูนย์วิทยาศาสตร์การแพทย์ที่ 2 พิษณุโลก", "จังหวัดที่ตั้งของหน่วยงาน": "พิษณุโลก", "ชื่อ - สกุล": "นางวาลีย์ ทองทา", "โรงแรม": "Grand Richmond Hotel", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 7 - 8", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายสหรัฐ เพชรณิชกุล (ปอนด์)", "ติดต่อ": "(09)-4589-5872", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 109, "หน่วยงาน": "ศูนย์วิทยาศาสตร์การแพทย์ที่ 3 นครสวรรค์", "จังหวัดที่ตั้งของหน่วยงาน": "นครสวรรค์", "ชื่อ - สกุล": "นายชาคริต หน่อศิริ", "โรงแรม": "Grand Richmond Hotel", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 7 - 8", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายสหรัฐ เพชรณิชกุล (ปอนด์)", "ติดต่อ": "(09)-4589-5873", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 110, "หน่วยงาน": "ศูนย์วิทยาศาสตร์การแพทย์ที่ 3 นครสวรรค์", "จังหวัดที่ตั้งของหน่วยงาน": "นครสวรรค์", "ชื่อ - สกุล": "นายอนุสรณ์ ดิษฐสวรรค์", "โรงแรม": "Grand Richmond Hotel", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 7 - 8", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายสหรัฐ เพชรณิชกุล (ปอนด์)", "ติดต่อ": "(09)-4589-5874", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 111, "หน่วยงาน": "ศูนย์วิทยาศาสตร์การแพทย์ที่ 7 ขอนแก่น", "จังหวัดที่ตั้งของหน่วยงาน": "ขอนแก่น", "ชื่อ - สกุล": "นายยุรนันท์ พินิจมนตรี", "โรงแรม": "Grand Richmond Hotel", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 7 - 8", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายสหรัฐ เพชรณิชกุล (ปอนด์)", "ติดต่อ": "(09)-4589-5875", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 112, "หน่วยงาน": "ศูนย์วิทยาศาสตร์การแพทย์ที่ 7 ขอนแก่น", "จังหวัดที่ตั้งของหน่วยงาน": "ขอนแก่น", "ชื่อ - สกุล": "นางพชรมน ทาขุลี", "โรงแรม": "Grand Richmond Hotel", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 7 - 8", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายสหรัฐ เพชรณิชกุล (ปอนด์)", "ติดต่อ": "(09)-4589-5876", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 113, "หน่วยงาน": "ศูนย์วิทยาศาสตร์การแพทย์ที่ 7 ขอนแก่น", "จังหวัดที่ตั้งของหน่วยงาน": "ขอนแก่น", "ชื่อ - สกุล": "นายธีรวัฒน์ สุภาวัฒนพันธ์", "โรงแรม": "Grand Richmond Hotel", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 7 - 8", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายสหรัฐ เพชรณิชกุล (ปอนด์)", "ติดต่อ": "(09)-4589-5877", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 114, "หน่วยงาน": "ศูนย์วิทยาศาสตร์การแพทย์ที่ 7 ขอนแก่น", "จังหวัดที่ตั้งของหน่วยงาน": "ขอนแก่น", "ชื่อ - สกุล": "นางศุภลักษณ์ พริ้งเพราะ", "โรงแรม": "Grand Richmond Hotel", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 7 - 8", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายสหรัฐ เพชรณิชกุล (ปอนด์)", "ติดต่อ": "(09)-4589-5878", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" },
-  { "ลำดับ": 115, "หน่วยงาน": "ศูนย์วิทยาศาสตรืการแพทย์ที่12/1ตรัง", "จังหวัดที่ตั้งของหน่วยงาน": "ตรัง", "ชื่อ - สกุล": "นางศิริวรรณ บุญชรัตน์", "โรงแรม": "Grand Richmond Hotel", "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์": "รถคันที่ 7 - 8", "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)": "06.30 - 07.30 น.", "ผู้ประสานงาน ที่ โรงแรม": "นายสหรัฐ เพชรณิชกุล (ปอนด์)", "ติดต่อ": "(09)-4589-5879", "ผู้ประสานงาน ที่ กรม": "นายณัฐดนัย แซ่หลิว", "หมายเหตุ": "รถ รอรับ ณ lobby โรงแรมของท่าน" }
+  </div>
+</header>
+<div class="wrap">
+  <div class="tabs">
+    <div class="tab active" onclick="startHome()">หน้าหลัก</div>
+    <div class="tab" onclick="startMock()">ข้อสอบรวม</div>
+  </div>
+  <div id="home" class="view show">
+    <div class="intro-card">
+      <h2>ครบทั้ง 13 หมวด ตามประกาศ</h2>
+      <p>แต่ละหมวดมี <b>สรุปเนื้อหา (อ่าน)</b> และ <b>ข้อสอบพร้อมเฉลย+คำอธิบาย (ทำข้อสอบ)</b> — เลือกฝึกทีละหมวด หรือกด “ข้อสอบรวม” เพื่อสุ่มทุกหมวดเสมือนสอบจริง</p>
+    </div>
+    <div id="topicGrid" class="grid"></div>
+    <div class="disclaimer">⚠️ <b>หมายเหตุ:</b> ชุดนี้สรุปจากแหล่งราชการ (เว็บไซต์กรมฯ dip.go.th, ตัวบทกฎหมายที่ระบุในประกาศ และข่าวนโยบายปัจจุบัน) เพื่อเป็นแนวทาง ไม่ใช่ข้อสอบจริง ก่อนสอบควรเปิดตัวบท พ.ร.บ. ฉบับเต็มและประกาศกรมฯ ล่าสุดประกอบ เพราะตัวเลข/ผู้บริหาร/นโยบายอาจเปลี่ยนแปลงได้</div>
+  </div>
+  <div id="read" class="view">
+    <div class="read-head"><button class="back" onclick="startHome()">‹ กลับ</button></div>
+    <div id="readTitle" class="read-title"></div>
+    <div id="readBody" class="content"></div>
+    <div class="read-quiz-cta"><button class="btn quiz" style="max-width:260px;margin:auto" onclick="startTopicFromRead()">ทำข้อสอบหมวดนี้ ›</button></div>
+  </div>
+  <div id="quiz" class="view">
+    <div class="read-head"><button class="back" onclick="startHome()">‹ ออก</button></div>
+    <div class="quiz-head">
+      <div id="quizTitle" class="kanit" style="font-size:17px;color:var(--indigo)"></div>
+      <div class="q-progress"><i id="qbar"></i></div>
+      <div class="q-meta"><span id="qcount"></span><span id="qscore"></span></div>
+    </div>
+    <div id="qCard"></div>
+    <button id="nextBtn" class="next" disabled onclick="nextQ()">ตอบ</button>
+  </div>
+  <div id="result" class="view"></div>
+  <footer>จัดทำเพื่อใช้เตรียมสอบส่วนตัว • อ้างอิงประกาศรับสมัครและแหล่งราชการที่เกี่ยวข้อง</footer>
+</div>
+<script>
+const TOPICS = [
+{
+ id:1, full:true,
+ title:"แผนยุทธศาสตร์ ภารกิจ โครงสร้าง หน้าที่และอำนาจของกรมส่งเสริมอุตสาหกรรม",
+ tag:"ความรู้เฉพาะกรมฯ • ออกสอบบ่อย",
+ content:[
+  {h:"ข้อมูลพื้นฐานกรมฯ",points:[
+   "ชื่อย่อ <b>กสอ.</b> ภาษาอังกฤษ <b>Department of Industrial Promotion (DIP)</b> ปัจจุบันใช้แบรนด์ <b>“ดีพร้อม” (DIPROM)</b>",
+   "สังกัด <b>กระทรวงอุตสาหกรรม</b> • ก่อตั้งเป็นกรมส่งเสริมอุตสาหกรรมเมื่อ <b>พ.ศ. 2485</b> (บทบาทเริ่มตั้งแต่ปี 2479)",
+   "ที่ตั้ง ถนนพระรามที่ 6 ราชเทวี กรุงเทพฯ • สายด่วน SMEs <b>1358</b>",
+   "บทบาทหลัก: เป็น <b>“พี่เลี้ยง (Mentor)”</b> เสริมสร้างศักยภาพ <b>SMEs และวิสาหกิจชุมชน</b> ภายใต้คติ <b>“ริเริ่ม–ส่งเสริม–วิจัยและพัฒนา”</b>"
+  ]},
+  {h:"ผู้บริหารและนโยบายปัจจุบัน (ปี 2569)",points:[
+   "อธิบดีกรมส่งเสริมอุตสาหกรรมคนปัจจุบัน <b>นางสาวณัฏฐิญา เนตยสุภา</b> (อธิบดีหญิงคนแรกของกระทรวงฯ)",
+   "รัฐมนตรีว่าการกระทรวงอุตสาหกรรม <b>นายวราวุธ ศิลปอาชา</b> (พรรคภูมิใจไทย ในรัฐบาล <b>นายอนุทิน ชาญวีรกูล</b> ตั้งแต่ มี.ค. 2569)",
+   "ทิศทางกระทรวงปัจจุบัน: ขับเคลื่อนอุตสาหกรรมยุคเปลี่ยนผ่าน หนุน <b>EV–AI–Data Center–SAF</b> และมาตรการกระตุ้นเศรษฐกิจ <b>“ไทยช่วยไทย พลัส”</b> / ดันแพลตฟอร์ม <b>‘Made by Thais’</b> ลดพึ่งพาสินค้านำเข้า",
+   "เป้าหมาย: ผลักดัน GDP ประเทศ <b>เพิ่มอีก 1%</b> (กว่า 180,000 ล้านบาท) ผ่านการลงทุนภาคอุตสาหกรรม"
+  ]},
+  {h:"กลยุทธ์ “4 ให้ และ 1 ปฏิรูป”",points:[
+   "<b>ให้ทักษะใหม่</b> — Upskill, Reskill, New Skill",
+   "<b>ให้เครื่องมือทันสมัย</b> — มาตรฐาน ผลิตภาพ วิจัย นวัตกรรม เครือข่าย",
+   "<b>ให้โอกาสเติบโต</b> — เข้าถึงแหล่งทุน เชื่อมโยงซัพพลายเชน ตลาดในและต่างประเทศ",
+   "<b>ให้ความยั่งยืน</b> — ขับเคลื่อนแนวคิด <b>BCG</b> และอุตสาหกรรมเชิงพื้นที่เพื่อชุมชน/สิ่งแวดล้อม",
+   "<b>1 ปฏิรูป</b> — ปฏิรูปองค์กรและบุคลากร ใช้ดิจิทัลยกระดับบริการ (เช่น DIPROM E-Service, BSC)"
+  ]},
+  {h:"โครงสร้างการแบ่งส่วนราชการ (กอง/ศูนย์)",points:[
+   "หน่วยส่วนกลาง เช่น กองยุทธศาสตร์และแผนงาน, กองพัฒนาขีดความสามารถธุรกิจอุตสาหกรรม, กองพัฒนาดิจิทัลอุตสาหกรรม, กองพัฒนานวัตกรรมและเทคโนโลยีอุตสาหกรรม, กองพัฒนาอุตสาหกรรมสร้างสรรค์, กองพัฒนาอุตสาหกรรมชุมชน, กองพัฒนาเกษตรอุตสาหกรรม, กองโลจิสติกส์, กองส่งเสริมผู้ประกอบการและธุรกิจใหม่, สำนักงานเลขานุการกรม",
+   "หน่วยภูมิภาค: <b>ศูนย์ส่งเสริมอุตสาหกรรมภาคที่ 1–11</b> (รวม 11 ศูนย์ทั่วประเทศ)",
+   "หน่วยตรวจสอบ/พัฒนา: กลุ่มตรวจสอบภายใน, กลุ่มพัฒนาระบบบริหาร"
+  ]},
+  {h:"ภารกิจ/หน้าที่และอำนาจ (สาระสำคัญ)",points:[
+   "ส่งเสริม สนับสนุน พัฒนา <b>อุตสาหกรรม วิสาหกิจขนาดกลางและขนาดย่อม วิสาหกิจชุมชน ผู้ประกอบการและผู้ให้บริการธุรกิจอุตสาหกรรม</b>",
+   "พัฒนา ถ่ายทอด <b>องค์ความรู้ เทคโนโลยี นวัตกรรม</b> และให้บริการเงินทุนหมุนเวียนเพื่อส่งเสริมอุตสาหกรรม",
+   "เพิ่มขีดความสามารถในการแข่งขัน ยกระดับผลิตภาพ และเชื่อมโยงเครือข่ายทั้งในและต่างประเทศ"
+  ],kbox:"<b>จำให้แม่น:</b> ดีพร้อม = DIPROM = กสอ. | คติ ริเริ่ม–ส่งเสริม–วิจัยและพัฒนา | กลยุทธ์ 4 ให้ 1 ปฏิรูป | กลุ่มเป้าหมายหลัก SMEs/วิสาหกิจชุมชน | สังกัดกระทรวงอุตสาหกรรม"}
+ ],
+ q:[
+  {q:"ข้อใดจับคู่ ‘ชื่อย่อ–ภาษาอังกฤษ–แบรนด์’ ของกรมส่งเสริมอุตสาหกรรมได้ถูกต้อง",c:["กรอ. / DIW / ดีพร้อม","กสอ. / DIP / ดีพร้อม (DIPROM)","สมอ. / TISI / ดีพร้อม","สศอ. / OIE / ดีพร้อม"],a:1,e:"กสอ. = Department of Industrial Promotion (DIP) แบรนด์ ‘ดีพร้อม (DIPROM)’; ส่วน DIW=กรมโรงงาน, TISI=สมอ., OIE=สศอ. ล้วนเป็นกรมในกระทรวงเดียวกันแต่คนละหน่วย"},
+  {q:"ข้อใด ‘ไม่ใช่’ หน่วยงานระดับกรมในสังกัดกระทรวงอุตสาหกรรม",c:["กรมส่งเสริมอุตสาหกรรม (กสอ.)","กรมโรงงานอุตสาหกรรม (กรอ.)","กรมพัฒนาธุรกิจการค้า (พค.)","กรมอุตสาหกรรมพื้นฐานและการเหมืองแร่ (กพร.)"],a:2,e:"กรมพัฒนาธุรกิจการค้าอยู่สังกัด ‘กระทรวงพาณิชย์’ ไม่ใช่กระทรวงอุตสาหกรรม ส่วน กสอ./กรอ./กพร. อยู่กระทรวงอุตสาหกรรม"},
+  {q:"กลุ่มเป้าหมายหลักที่กรมฯ ทำหน้าที่เป็น ‘พี่เลี้ยง (Mentor)’ คือกลุ่มใด",c:["รัฐวิสาหกิจและบริษัทมหาชนขนาดใหญ่","SMEs และวิสาหกิจชุมชน","นักลงทุนต่างชาติที่ได้รับ BOI","สถาบันการเงินและธนาคารพาณิชย์"],a:1,e:"บทบาทหลักคือเสริมสร้างศักยภาพผู้ประกอบการ SMEs และวิสาหกิจชุมชน ไม่ใช่กิจการขนาดใหญ่หรือสถาบันการเงิน"},
+  {q:"องค์ประกอบใน ‘4 ให้’ ของดีพร้อม ประกอบด้วยข้อใดครบถ้วน",c:["ให้ทักษะใหม่ • ให้เครื่องมือทันสมัย • ให้โอกาสเติบโต • ให้ความยั่งยืน","ให้ทักษะใหม่ • ให้เงินทุน • ให้ที่ดิน • ให้ภาษี","ให้ความรู้ • ให้เครื่องจักร • ให้ตลาด • ให้แรงงาน","ให้โอกาส • ให้ทุน • ให้สิทธิ์ • ให้รางวัล"],a:0,e:"‘4 ให้’ = ให้ทักษะใหม่, ให้เครื่องมือที่ทันสมัย, ให้โอกาสเติบโต, ให้ความยั่งยืน (บวก ‘1 ปฏิรูป’ องค์กร)"},
+  {q:"ข้อความใดสะท้อน ‘1 ปฏิรูป’ ในกลยุทธ์ ‘4 ให้ 1 ปฏิรูป’ ได้ตรงที่สุด",c:["ปฏิรูปโครงสร้างภาษีอุตสาหกรรม","ปฏิรูปองค์กรและบุคลากร ใช้ดิจิทัลยกระดับบริการ","ปฏิรูปที่ดินเพื่อตั้งนิคมอุตสาหกรรม","ปฏิรูประบบศุลกากรนำเข้า-ส่งออก"],a:1,e:"‘1 ปฏิรูป’ หมายถึงการปฏิรูปองค์กรและบุคลากรของกรมฯ พร้อมใช้ดิจิทัลยกระดับการให้บริการ"},
+  {q:"คติ/ภารกิจดั้งเดิมที่เป็นรากฐานของกรมส่งเสริมอุตสาหกรรมคือข้อใด",c:["วิจัย–พัฒนา–ถ่ายทอด","ริเริ่ม–ส่งเสริม–วิจัยและพัฒนา","ส่งเสริม–สนับสนุน–กำกับ","คิด–ทำ–นำไปใช้"],a:1,e:"กรมฯ ยึดคติ ‘ริเริ่ม – ส่งเสริม – วิจัยและพัฒนา’ เป็นรากฐานการทำงานต่อเนื่อง (ระวังสับสนกับวลีคล้ายกัน)"},
+  {q:"ศูนย์ส่งเสริมอุตสาหกรรมภาค (หน่วยภูมิภาคของกรมฯ) มีทั้งหมดกี่ศูนย์",c:["9 ศูนย์ ตามภูมิภาคหลัก","11 ศูนย์ ครอบคลุมพื้นที่ทั่วประเทศ","12 ศูนย์ ตามเขตตรวจราชการ","18 ศูนย์ ตามกลุ่มจังหวัด"],a:1,e:"กรมฯ มีศูนย์ส่งเสริมอุตสาหกรรมภาคที่ 1–11 รวม 11 ศูนย์ กระจายดูแลพื้นที่ทั่วประเทศ"},
+  {q:"ข้อใดระบุ ‘อธิบดีกรมส่งเสริมอุตสาหกรรม’ คนปัจจุบัน (2569) ได้ถูกต้อง",c:["นายภาสกร ชัยรัตน์ (รองปลัดกระทรวงฯ)","นางสาวณัฏฐิญา เนตยสุภา (อธิบดีหญิงคนแรกของกระทรวงฯ)","นายใบน้อย สุวรรณชาตรี (เลขาธิการ กอน.)","นายณัฐพล รังสิตพล (ปลัดกระทรวงฯ)"],a:1,e:"อธิบดีคนปัจจุบันคือ นางสาวณัฏฐิญา เนตยสุภา ส่วนชื่ออื่นเป็นผู้บริหารตำแหน่งอื่นในกระทรวงอุตสาหกรรม"},
+  {q:"ข้อใดระบุ ‘รัฐมนตรีว่าการกระทรวงอุตสาหกรรม’ คนปัจจุบัน (2569) ได้ถูกต้อง",c:["นายเอกนัฏ พร้อมพันธุ์","นายธนกร วังบุญคงชนะ","นายวราวุธ ศิลปอาชา","นายสุริยะ จึงรุ่งเรืองกิจ"],a:2,e:"รัฐมนตรีคนปัจจุบันคือ นายวราวุธ ศิลปอาชา (รัฐบาลอนุทิน ชาญวีรกูล ตั้งแต่ มี.ค. 2569); เอกนัฏ–ธนกร–สุริยะ ล้วนเป็น ‘อดีต’ รัฐมนตรีในรัฐบาลก่อนหน้า"},
+  {q:"แนวคิด ‘ให้ความยั่งยืน’ ในกลยุทธ์ของดีพร้อม ผลักดันโมเดลเศรษฐกิจใดเป็นหลัก",c:["โมเดลเศรษฐกิจ BCG (ชีวภาพ-หมุนเวียน-สีเขียว)","นโยบายเขตเศรษฐกิจพิเศษชายแดน (SEZ)","ระบบเศรษฐกิจแบบพอเพียงเชิงพาณิชย์","มาตรการ Easy E-Receipt"],a:0,e:"ด้าน ‘ให้ความยั่งยืน’ เน้นขับเคลื่อนโมเดล BCG (Bio-Circular-Green) และอุตสาหกรรมเชิงพื้นที่เพื่อชุมชน/สิ่งแวดล้อม"},
+  {q:"หากต้องการประสานงาน ‘การจัดทำแผนยุทธศาสตร์และการติดตามประเมินผล’ ของกรมฯ ควรติดต่อหน่วยใด",c:["กองพัฒนาขีดความสามารถธุรกิจอุตสาหกรรม","กองยุทธศาสตร์และแผนงาน","กองพัฒนาดิจิทัลอุตสาหกรรม","สำนักงานเลขานุการกรม"],a:1,e:"กองยุทธศาสตร์และแผนงานรับผิดชอบงานแผนยุทธศาสตร์ การจัดทำและติดตามประเมินผลแผนของกรมฯ"},
+  {q:"เป้าหมายเชิงเศรษฐกิจมหภาคที่ดีพร้อมประกาศว่าจะช่วยผลักดันคือข้อใด",c:["ดัน GDP ประเทศเพิ่มอีก 1% (กว่า 180,000 ล้านบาท)","ลดอัตราเงินเฟ้อให้เหลือร้อยละ 0","เพิ่มทุนสำรองระหว่างประเทศ 1 แสนล้านดอลลาร์","ลดอัตราการว่างงานให้ต่ำกว่า 0.5%"],a:0,e:"ดีพร้อมตั้งเป้าช่วยผลักดัน GDP ของประเทศให้โตเพิ่มอีกราว 1% หรือกว่า 180,000 ล้านบาท ผ่านการลงทุนภาคอุตสาหกรรม"}
+ ]
+},
+{
+ id:2,
+ title:"พ.ร.บ. ระเบียบข้าราชการพลเรือน พ.ศ. 2551",
+ tag:"กฎหมาย • หมวดข้าราชการ",
+ content:[
+  {h:"องค์กรกลางบริหารงานบุคคล",points:[
+   "<b>ก.พ. (คณะกรรมการข้าราชการพลเรือน)</b> เป็นองค์กรกลางบริหารทรัพยากรบุคคลภาครัฐ • ประธานคือ <b>นายกรัฐมนตรีหรือรองนายกฯ ที่ได้รับมอบหมาย</b>",
+   "<b>ก.พ.ค. (คณะกรรมการพิทักษ์ระบบคุณธรรม)</b> มี 7 คน วาระ 6 ปี วาระเดียว • พิจารณา <b>อุทธรณ์</b> และ <b>ร้องทุกข์</b> ดูแลระบบคุณธรรม (Merit System)",
+   "สำนักงาน ก.พ. เป็นเจ้าหน้าที่/ฝ่ายเลขานุการของ ก.พ."
+  ]},
+  {h:"ประเภทและระดับตำแหน่ง (4 ประเภท)",points:[
+   "<b>ประเภทบริหาร</b> — ระดับต้น, ระดับสูง",
+   "<b>ประเภทอำนวยการ</b> — ระดับต้น, ระดับสูง",
+   "<b>ประเภทวิชาการ</b> — ปฏิบัติการ, ชำนาญการ, ชำนาญการพิเศษ, เชี่ยวชาญ, ทรงคุณวุฒิ",
+   "<b>ประเภททั่วไป</b> — ปฏิบัติงาน, ชำนาญงาน, อาวุโส, ทักษะพิเศษ",
+   "ตำแหน่ง ‘นักวิชาการอุตสาหกรรมปฏิบัติการ’ อยู่ใน <b>ประเภทวิชาการ ระดับปฏิบัติการ</b>"
+  ]},
+  {h:"คุณสมบัติและการบรรจุ",points:[
+   "คุณสมบัติทั่วไป/ลักษณะต้องห้าม อยู่ใน <b>มาตรา 36</b> เช่น มีสัญชาติไทย อายุไม่ต่ำกว่า 18 ปี ไม่เป็นบุคคลล้มละลาย ฯลฯ",
+   "การบรรจุบุคคลเข้ารับราชการโดยทั่วไปทำโดย <b>การสอบแข่งขัน</b>",
+   "ผู้ได้รับบรรจุใหม่ต้อง <b>ทดลองปฏิบัติหน้าที่ราชการ</b> ตามที่กำหนด"
+  ]},
+  {h:"วินัยและโทษทางวินัย (5 สถาน)",points:[
+   "โทษเรียงจากเบาไปหนัก: <b>1) ภาคทัณฑ์ 2) ตัดเงินเดือน 3) ลดเงินเดือน 4) ปลดออก 5) ไล่ออก</b>",
+   "<b>วินัยไม่ร้ายแรง</b> → ภาคทัณฑ์ / ตัดเงินเดือน / ลดเงินเดือน",
+   "<b>วินัยร้ายแรง</b> → ปลดออก / ไล่ออก",
+   "<b>ปลดออก</b> ยังมีสิทธิได้รับบำเหน็จบำนาญ ส่วน <b>ไล่ออก</b> ไม่มีสิทธิ"
+  ]},
+  {h:"การออกจากราชการ / อุทธรณ์ ร้องทุกข์",points:[
+   "ผู้ถูกลงโทษทางวินัยมีสิทธิ <b>อุทธรณ์ต่อ ก.พ.ค.</b>",
+   "ผู้คับข้องใจจากการปฏิบัติของผู้บังคับบัญชามีสิทธิ <b>ร้องทุกข์</b>"
+  ],kbox:"<b>จำ:</b> 4 ประเภทตำแหน่ง | โทษวินัย 5 สถาน (ภาคทัณฑ์→ไล่ออก) | ปลดออก=ได้บำนาญ, ไล่ออก=ไม่ได้ | ก.พ.ค. ดูแลอุทธรณ์+ร้องทุกข์"}
+ ],
+ q:[
+  {q:"ข้อใดแยกบทบาทของ ก.พ. และ ก.พ.ค. ได้ถูกต้อง",c:["ก.พ. พิทักษ์ระบบคุณธรรม / ก.พ.ค. บริหารงานบุคคล","ก.พ. เป็นองค์กรกลางบริหารงานบุคคล / ก.พ.ค. พิจารณาอุทธรณ์-ร้องทุกข์","ทั้งสองทำหน้าที่จัดสอบแข่งขันร่วมกัน","ก.พ. พัฒนาระบบราชการ / ก.พ.ค. กำหนดเงินเดือน"],a:1,e:"ก.พ. = องค์กรกลางบริหารงานบุคคล; ก.พ.ค. = พิทักษ์ระบบคุณธรรม พิจารณาอุทธรณ์/ร้องทุกข์ (ส่วนพัฒนาระบบราชการเป็นของ ก.พ.ร.)"},
+  {q:"ใครเป็นประธาน ก.พ. ตามกฎหมาย",c:["เลขาธิการ ก.พ.","ปลัดสำนักนายกรัฐมนตรี","นายกรัฐมนตรี หรือรองนายกฯ ที่ได้รับมอบหมาย","รัฐมนตรีประจำสำนักนายกรัฐมนตรี"],a:2,e:"นายกรัฐมนตรีหรือรองนายกรัฐมนตรีที่ได้รับมอบหมายเป็นประธาน ก.พ. (เลขาธิการ ก.พ. เป็นกรรมการและเลขานุการ)"},
+  {q:"คณะกรรมการพิทักษ์ระบบคุณธรรม (ก.พ.ค.) มีจำนวนและวาระตามข้อใด",c:["5 คน วาระ 4 ปี ต่อได้","7 คน วาระ 6 ปี วาระเดียว","9 คน วาระ 9 ปี","11 คน วาระ 5 ปี"],a:1,e:"ก.พ.ค. มี 7 คน วาระ 6 ปี ดำรงตำแหน่งได้วาระเดียว"},
+  {q:"ตำแหน่งข้าราชการพลเรือนสามัญแบ่งเป็น 4 ประเภท ข้อใดถูกต้อง",c:["บริหาร / อำนวยการ / วิชาการ / ทั่วไป","บริหาร / ปฏิบัติการ / ชำนาญการ / ทั่วไป","ระดับ 1–11 (ระบบซี)","วิชาชีพ / เชี่ยวชาญ / ปฏิบัติ / สนับสนุน"],a:0,e:"4 ประเภท = บริหาร อำนวยการ วิชาการ ทั่วไป (ระบบซีถูกยกเลิก ส่วนปฏิบัติการ/ชำนาญการเป็น ‘ระดับ’ ไม่ใช่ ‘ประเภท’)"},
+  {q:"‘นักวิชาการอุตสาหกรรมปฏิบัติการ’ จัดอยู่ในประเภท–ระดับใด",c:["ประเภททั่วไป ระดับปฏิบัติงาน","ประเภทวิชาการ ระดับปฏิบัติการ","ประเภทวิชาการ ระดับชำนาญการ","ประเภทอำนวยการ ระดับต้น"],a:1,e:"คำว่า ‘นักวิชาการ…ปฏิบัติการ’ = ประเภทวิชาการ ระดับปฏิบัติการ (ระวังสับสนกับ ‘ปฏิบัติงาน’ ซึ่งเป็นประเภททั่วไป)"},
+  {q:"เรียงลำดับ ‘ระดับ’ ของตำแหน่งประเภทวิชาการจากต่ำไปสูงข้อใดถูกต้อง",c:["ปฏิบัติการ → ชำนาญการ → ชำนาญการพิเศษ → เชี่ยวชาญ → ทรงคุณวุฒิ","ปฏิบัติงาน → ชำนาญงาน → อาวุโส → ทักษะพิเศษ","ปฏิบัติการ → ชำนาญการพิเศษ → ชำนาญการ → เชี่ยวชาญ → ทรงคุณวุฒิ","ปฏิบัติการ → ชำนาญการ → เชี่ยวชาญ → ชำนาญการพิเศษ → ทรงคุณวุฒิ"],a:0,e:"ประเภทวิชาการ 5 ระดับ: ปฏิบัติการ→ชำนาญการ→ชำนาญการพิเศษ→เชี่ยวชาญ→ทรงคุณวุฒิ (ตัวเลือกที่มี ‘ปฏิบัติงาน/อาวุโส’ คือประเภททั่วไป)"},
+  {q:"โทษทางวินัยของข้าราชการพลเรือนมี 5 สถาน ข้อใดเรียงเบา→หนักถูกต้อง",c:["ภาคทัณฑ์ → ตัดเงินเดือน → ลดเงินเดือน → ปลดออก → ไล่ออก","ว่ากล่าวตักเตือน → ภาคทัณฑ์ → ตัดเงินเดือน → ปลดออก → ไล่ออก","ภาคทัณฑ์ → ลดเงินเดือน → ตัดเงินเดือน → ไล่ออก → ปลดออก","ตัดเงินเดือน → ภาคทัณฑ์ → ลดเงินเดือน → ปลดออก → ไล่ออก"],a:0,e:"5 สถานเบา→หนัก: ภาคทัณฑ์ → ตัดเงินเดือน → ลดเงินเดือน → ปลดออก → ไล่ออก (‘ว่ากล่าวตักเตือน’ ไม่ใช่โทษทางวินัยตามกฎหมายนี้)"},
+  {q:"ข้อใดอธิบายความต่างของ ‘ปลดออก’ กับ ‘ไล่ออก’ ได้ถูกต้อง",c:["ทั้งคู่เป็นโทษวินัยไม่ร้ายแรง","ปลดออกยังมีสิทธิรับบำเหน็จบำนาญ แต่ไล่ออกไม่มีสิทธิ","ไล่ออกกลับเข้ารับราชการได้ทันที ปลดออกไม่ได้","ปลดออกคือพักราชการชั่วคราว ไล่ออกคือถาวร"],a:1,e:"ทั้งสองเป็นโทษวินัย ‘ร้ายแรง’ แต่ ปลดออก ยังมีสิทธิรับบำเหน็จบำนาญ ส่วน ไล่ออก หมดสิทธิ"},
+  {q:"การกระทำผิดวินัย ‘อย่างร้ายแรง’ ลงโทษได้ในข้อใดเท่านั้น",c:["ภาคทัณฑ์ หรือ ตัดเงินเดือน","ลดเงินเดือน หรือ ภาคทัณฑ์","ปลดออก หรือ ไล่ออก","ตัดเงินเดือน หรือ ปลดออก"],a:2,e:"วินัยอย่างร้ายแรงลงโทษได้เฉพาะ ‘ปลดออก’ หรือ ‘ไล่ออก’ เท่านั้น"},
+  {q:"ผู้ถูกลงโทษทางวินัยที่เห็นว่าไม่เป็นธรรม ใช้สิทธิอุทธรณ์ต่อองค์กรใด และต่างจาก ‘ร้องทุกข์’ อย่างไร",c:["อุทธรณ์ต่อ ก.พ. / ร้องทุกข์ต่อศาลปกครอง","อุทธรณ์ต่อ ก.พ.ค. ส่วนร้องทุกข์ใช้กรณีคับข้องใจจากผู้บังคับบัญชา","อุทธรณ์ต่ออธิบดี / ร้องทุกข์ต่อรัฐมนตรี","ทั้งอุทธรณ์และร้องทุกข์ยื่นต่อ ก.พ.ร."],a:1,e:"การ ‘อุทธรณ์’ คำสั่งลงโทษทางวินัยยื่นต่อ ก.พ.ค. ส่วน ‘ร้องทุกข์’ ใช้กรณีคับข้องใจจากการปฏิบัติของผู้บังคับบัญชา"},
+  {q:"โดยหลักทั่วไป การบรรจุบุคคลเข้าเป็นข้าราชการพลเรือนสามัญใช้วิธีใด และมีข้อยกเว้นหรือไม่",c:["การคัดเลือกเป็นหลัก สอบแข่งขันเป็นข้อยกเว้น","การสอบแข่งขันเป็นหลัก แต่บางกรณีกฎหมายให้ใช้การคัดเลือกได้","การแต่งตั้งโดยรัฐมนตรีเท่านั้น","การจับสลากจากผู้สมัครที่มีคุณสมบัติ"],a:1,e:"หลักคือ ‘สอบแข่งขัน’ เพื่อความเป็นธรรมตามระบบคุณธรรม แต่บางกรณีที่กฎหมายกำหนดสามารถใช้วิธี ‘คัดเลือก’ ได้"},
+  {q:"คุณสมบัติทั่วไปและลักษณะต้องห้ามของผู้เข้ารับราชการพลเรือนสามัญ บัญญัติไว้ในมาตราใด",c:["มาตรา 7","มาตรา 36","มาตรา 80","มาตรา 130"],a:1,e:"คุณสมบัติทั่วไปและลักษณะต้องห้าม (เช่น สัญชาติไทย อายุไม่ต่ำกว่า 18 ปี) อยู่ในมาตรา 36 ของ พ.ร.บ. ระเบียบข้าราชการพลเรือน 2551"}
+ ]
+},
+{
+ id:3,
+ title:"พ.ร.บ. ระเบียบบริหารราชการแผ่นดิน พ.ศ. 2534",
+ tag:"กฎหมาย • โครงสร้างรัฐ",
+ content:[
+  {h:"การจัดระเบียบบริหารราชการแผ่นดิน 3 ส่วน",points:[
+   "<b>ส่วนกลาง</b> — สำนักนายกรัฐมนตรี, กระทรวง/ทบวง, กรม (มีฐานะเป็นนิติบุคคล)",
+   "<b>ส่วนภูมิภาค</b> — จังหวัด และ อำเภอ",
+   "<b>ส่วนท้องถิ่น</b> — อบจ., เทศบาล, อบต., กทม., เมืองพัทยา"
+  ]},
+  {h:"ส่วนกลาง — ผู้บังคับบัญชา",points:[
+   "<b>รัฐมนตรีว่าการกระทรวง</b> เป็นผู้บังคับบัญชาสูงสุดของกระทรวง • <b>ปลัดกระทรวง</b> เป็นผู้บังคับบัญชาข้าราชการประจำสูงสุด",
+   "<b>อธิบดี</b> เป็นผู้บังคับบัญชาข้าราชการในกรม และรับผิดชอบการปฏิบัติราชการของกรม"
+  ]},
+  {h:"ส่วนภูมิภาค",points:[
+   "<b>ผู้ว่าราชการจังหวัด</b> เป็นหัวหน้าบังคับบัญชาข้าราชการในจังหวัด (สังกัดกระทรวงมหาดไทย)",
+   "<b>นายอำเภอ</b> เป็นหัวหน้าปกครองบังคับบัญชาในอำเภอ"
+  ]},
+  {h:"การมอบอำนาจ / รักษาราชการแทน",points:[
+   "<b>ปฏิบัติราชการแทน</b> = การ ‘มอบอำนาจ’ ให้ผู้ดำรงตำแหน่งอื่นทำแทน (ภาวะปกติ)",
+   "<b>รักษาราชการแทน</b> = กรณีตำแหน่งว่างหรือผู้ดำรงตำแหน่งไม่อาจปฏิบัติราชการได้"
+  ]},
+  {h:"การบริหารกิจการบ้านเมืองที่ดี",points:[
+   "วางหลักบริหารราชการเพื่อ <b>ประโยชน์สุขของประชาชน เกิดผลสัมฤทธิ์ มีประสิทธิภาพ คุ้มค่า ลดขั้นตอน</b>",
+   "เป็นที่มาของ <b>พระราชกฤษฎีกาว่าด้วยหลักเกณฑ์และวิธีการบริหารกิจการบ้านเมืองที่ดี พ.ศ. 2546</b> และ <b>ก.พ.ร.</b>"
+  ],kbox:"<b>จำ:</b> ระเบียบบริหารราชการ 3 ส่วน = กลาง/ภูมิภาค/ท้องถิ่น | กรมมีฐานะนิติบุคคล มี ‘อธิบดี’ เป็นผู้บังคับบัญชา | ภูมิภาค = จังหวัด+อำเภอ"}
+ ],
+ q:[
+  {q:"การจัดระเบียบบริหารราชการแผ่นดินแบ่งเป็น 3 ส่วน ข้อใดถูกต้อง",c:["ส่วนกลาง / ส่วนภูมิภาค / ส่วนท้องถิ่น","ส่วนกลาง / ส่วนจังหวัด / ส่วนตำบล","ฝ่ายบริหาร / ฝ่ายนิติบัญญัติ / ฝ่ายตุลาการ","ราชการพลเรือน / ทหาร / ตำรวจ"],a:0,e:"3 ส่วน = ส่วนกลาง ส่วนภูมิภาค ส่วนท้องถิ่น (ไม่ใช่การแบ่งอำนาจอธิปไตยหรือประเภทข้าราชการ)"},
+  {q:"ข้อใดจัดกลุ่มหน่วยงานตาม ‘ส่วน’ ได้ถูกต้องทั้งหมด",c:["จังหวัด=ส่วนกลาง / กรม=ส่วนภูมิภาค","กรม=ส่วนกลาง / อำเภอ=ส่วนภูมิภาค / เทศบาล=ส่วนท้องถิ่น","อบต.=ส่วนภูมิภาค / จังหวัด=ส่วนท้องถิ่น","กระทรวง=ส่วนท้องถิ่น / อำเภอ=ส่วนกลาง"],a:1,e:"กระทรวง/กรม=ส่วนกลาง, จังหวัด/อำเภอ=ส่วนภูมิภาค, อบจ./เทศบาล/อบต.=ส่วนท้องถิ่น"},
+  {q:"ข้อใดเป็นราชการบริหารส่วนท้องถิ่นทั้งหมด",c:["จังหวัด และ อำเภอ","อบจ. เทศบาล อบต. กทม. เมืองพัทยา","กรม และ กอง","สำนักนายกรัฐมนตรี และ ทบวง"],a:1,e:"ส่วนท้องถิ่น ได้แก่ อบจ. เทศบาล อบต. และองค์กรปกครองรูปแบบพิเศษ กทม./เมืองพัทยา (จังหวัด-อำเภอเป็นภูมิภาค)"},
+  {q:"ใครเป็นผู้บังคับบัญชาข้าราชการและรับผิดชอบการปฏิบัติราชการของ ‘กรม’",c:["ปลัดกระทรวง","อธิบดี","รองอธิบดีอาวุโส","ผู้ว่าราชการจังหวัด"],a:1,e:"อธิบดีเป็นผู้บังคับบัญชาข้าราชการในกรมและรับผิดชอบการปฏิบัติราชการของกรม"},
+  {q:"ข้อใดเทียบ ‘ผู้บังคับบัญชาสูงสุดเชิงนโยบาย’ กับ ‘ข้าราชการประจำสูงสุด’ ของกระทรวงได้ถูกต้อง",c:["รัฐมนตรีว่าการ (นโยบาย) / ปลัดกระทรวง (ประจำสูงสุด)","ปลัดกระทรวง (นโยบาย) / อธิบดี (ประจำสูงสุด)","นายกรัฐมนตรี (นโยบาย) / รัฐมนตรีว่าการ (ประจำสูงสุด)","เลขานุการรัฐมนตรี (นโยบาย) / ปลัดกระทรวง (ประจำสูงสุด)"],a:0,e:"รัฐมนตรีว่าการเป็นผู้บังคับบัญชาสูงสุดเชิงนโยบาย ส่วนปลัดกระทรวงเป็นข้าราชการประจำสูงสุดของกระทรวง"},
+  {q:"หน่วยงานใดในราชการส่วนกลาง ‘มีฐานะเป็นนิติบุคคล’",c:["กอง","ฝ่าย","กรม","กลุ่มงาน"],a:2,e:"กระทรวง ทบวง กรม มีฐานะเป็นนิติบุคคล ส่วนกอง/ฝ่าย/กลุ่มงานเป็นหน่วยภายในที่ไม่มีฐานะนิติบุคคล"},
+  {q:"กรณีตำแหน่งอธิบดี ‘ว่างลง’ หรือผู้ดำรงตำแหน่ง ‘ไม่อาจปฏิบัติหน้าที่ได้’ ใช้หลักการใด",c:["ใช้ ‘รักษาราชการแทน’ ส่วน ‘ปฏิบัติราชการแทน’ คือการมอบอำนาจในภาวะปกติ","ใช้ ‘ปฏิบัติราชการแทน’ ส่วน ‘รักษาราชการแทน’ ใช้เมื่อมอบอำนาจ","ทั้งสองคำมีความหมายเหมือนกัน","ต้องรอแต่งตั้งอธิบดีใหม่ ห้ามมีผู้ทำแทน"],a:0,e:"ตำแหน่งว่าง/ไม่อาจปฏิบัติหน้าที่ → ‘รักษาราชการแทน’; การมอบอำนาจให้ทำแทนในภาวะปกติ → ‘ปฏิบัติราชการแทน’"},
+  {q:"พ.ร.บ. นี้เป็นฐานแนวคิด ‘การบริหารกิจการบ้านเมืองที่ดี’ ซึ่งนำไปสู่กฎหมายลำดับรองใด",c:["พระราชกฤษฎีกาว่าด้วยหลักเกณฑ์และวิธีการบริหารกิจการบ้านเมืองที่ดี พ.ศ. 2546","พ.ร.บ. วิธีการงบประมาณ","พ.ร.บ. ความรับผิดทางละเมิดของเจ้าหน้าที่","ระเบียบสำนักนายกฯ ว่าด้วยงานสารบรรณ"],a:0,e:"แนวคิดบริหารกิจการบ้านเมืองที่ดีนำไปสู่พระราชกฤษฎีกาฯ พ.ศ. 2546 และเป็นที่มาบทบาทของ ก.พ.ร."},
+  {q:"หัวหน้าผู้รับผิดชอบราชการส่วนภูมิภาค ‘ในจังหวัด’ คือผู้ใด และสังกัดกระทรวงใด",c:["นายอำเภอ สังกัดกระทรวงยุติธรรม","ผู้ว่าราชการจังหวัด สังกัดกระทรวงมหาดไทย","ปลัดจังหวัด สังกัดสำนักนายกรัฐมนตรี","นายก อบจ. สังกัดกระทรวงมหาดไทย"],a:1,e:"ผู้ว่าราชการจังหวัด (สังกัดกระทรวงมหาดไทย) เป็นหัวหน้าบังคับบัญชาข้าราชการส่วนภูมิภาคในจังหวัด ส่วนนายก อบจ. เป็นฝ่ายท้องถิ่น"}
+ ]
+},
+{
+ id:4,
+ title:"พ.ร.บ. การปฏิบัติราชการทางอิเล็กทรอนิกส์ พ.ศ. 2565",
+ tag:"กฎหมาย • รัฐบาลดิจิทัล",
+ content:[
+  {h:"เจตนารมณ์",points:[
+   "อำนวยความสะดวกให้ประชาชน/ภาคธุรกิจ <b>ติดต่อราชการทางอิเล็กทรอนิกส์ได้</b> ลดภาระการเดินทาง/เอกสาร เป็นกฎหมายกลางส่งเสริม <b>รัฐบาลดิจิทัล</b>",
+   "ประกาศในราชกิจจานุเบกษา ต.ค. 2565 มีผลบังคับใช้ในส่วนสำคัญหลังพ้นกำหนด 90 วันนับแต่ประกาศ (ราวต้นปี 2566)"
+  ]},
+  {h:"หลักการสำคัญ",points:[
+   "ประชาชน <b>ยื่นคำขอ/ติดต่อ/ชำระเงิน</b> กับหน่วยงานของรัฐ <b>โดยวิธีการทางอิเล็กทรอนิกส์ได้</b> และถือว่าชอบด้วยกฎหมาย",
+   "หน่วยงานของรัฐ <b>จะปฏิเสธไม่รับ</b> เพียงเพราะผู้ขอใช้วิธีอิเล็กทรอนิกส์ <b>ไม่ได้</b>",
+   "โดยหลักการ <b>ห้ามกำหนดให้ประชาชนต้องมาติดต่อด้วยตนเอง</b> เว้นแต่มีกฎหมายกำหนดหรือโดยสภาพต้องทำเอง",
+   "<b>ใบอนุญาตอิเล็กทรอนิกส์</b> และเอกสารที่ออกโดยวิธีอิเล็กทรอนิกส์ มีผลใช้ได้ตามกฎหมาย"
+  ]},
+  {h:"ขอบเขตการยกเว้น (ไม่ใช้บังคับ)",points:[
+   "เช่น การดำเนินงานของ <b>รัฐสภา</b>, การพิจารณาพิพากษาคดีของ <b>ศาล</b> และการบังคับคดี, การดำเนินการตาม <b>กระบวนการยุติธรรมทางอาญา</b>"
+  ]},
+  {h:"ประโยชน์ต่อการทำงานของกรมฯ",points:[
+   "รองรับบริการออนไลน์ เช่น <b>DIPROM E-Service</b> และระบบยื่นคำขอ/ลงทะเบียนผู้ประกอบการแบบดิจิทัล",
+   "ลดการใช้สำเนาเอกสารราชการ (หลักการ ‘ขอข้อมูลที่รัฐมีอยู่แล้วซ้ำไม่ได้’)"
+  ],kbox:"<b>จำ:</b> รัฐต้องรับการติดต่อทางอิเล็กทรอนิกส์ จะอ้างว่าทำไม่ได้/ไม่รับไม่ได้ | ห้ามบังคับให้มาแสดงตนโดยไม่จำเป็น | ยกเว้น: รัฐสภา ศาล กระบวนการยุติธรรมทางอาญา"}
+ ],
+ q:[
+  {q:"วัตถุประสงค์หลักของ พ.ร.บ. การปฏิบัติราชการทางอิเล็กทรอนิกส์ พ.ศ. 2565 คือข้อใด",c:["กำกับและเก็บภาษีธุรกรรมออนไลน์ของประชาชน","อำนวยความสะดวกให้ประชาชนติดต่อราชการทางอิเล็กทรอนิกส์ได้","กำหนดมาตรฐานความมั่นคงปลอดภัยไซเบอร์ของหน่วยงาน","คุ้มครองข้อมูลส่วนบุคคลในมือหน่วยงานรัฐ"],a:1,e:"เป็นกฎหมายกลางเพื่ออำนวยความสะดวกให้ประชาชนติดต่อราชการทางอิเล็กทรอนิกส์ (เรื่องไซเบอร์/ข้อมูลส่วนบุคคลเป็นของ พ.ร.บ. อื่น)"},
+  {q:"เมื่อประชาชนยื่นคำขอต่อรัฐโดยวิธีอิเล็กทรอนิกส์ตามกฎหมายนี้ ผลทางกฎหมายเป็นอย่างไร",c:["ใช้ได้เฉพาะเรื่องที่ไม่มีค่าธรรมเนียม","ถือว่าชอบด้วยกฎหมายและมีผลเช่นเดียวกับยื่นกระดาษ","ต้องยืนยันด้วยเอกสารตัวจริงภายหลังเสมอ","มีผลต่อเมื่อเจ้าหน้าที่อนุมัติให้ใช้ช่องทางนี้"],a:1,e:"การยื่นโดยวิธีอิเล็กทรอนิกส์ถือว่าชอบด้วยกฎหมายและมีผลเทียบเท่าการยื่นแบบกระดาษ"},
+  {q:"ข้อใดเป็นการกระทำที่หน่วยงานของรัฐ ‘ทำไม่ได้’ ตามกฎหมายนี้",c:["ขอเอกสารเพิ่มเมื่อคำขอไม่ครบถ้วน","ปฏิเสธคำขอเพียงเพราะผู้ยื่นใช้วิธีทางอิเล็กทรอนิกส์","ตรวจสอบความถูกต้องของคำขอก่อนอนุมัติ","กำหนดรูปแบบไฟล์ที่รองรับ"],a:1,e:"กฎหมายห้ามปฏิเสธ ‘เพียงเพราะ’ ผู้ขอเลือกใช้วิธีทางอิเล็กทรอนิกส์ (แต่ยังตรวจสอบ/ขอเอกสารเพิ่มตามเนื้อหาได้)"},
+  {q:"การกำหนดให้ประชาชน ‘ต้องมาแสดงตน/ติดต่อด้วยตนเอง’ ทำได้ในกรณีใด",c:["ทำได้ทุกกรณีเพื่อความปลอดภัย","โดยหลักทำไม่ได้ เว้นแต่มีกฎหมายกำหนดหรือโดยสภาพต้องทำด้วยตนเอง","ทำได้เฉพาะวันและเวลาราชการ","ขึ้นกับดุลพินิจของเจ้าหน้าที่ผู้รับเรื่อง"],a:1,e:"กฎหมายมุ่งลดภาระ จึงห้ามบังคับให้มาแสดงตนโดยไม่จำเป็น ยกเว้นมีกฎหมายเฉพาะกำหนด หรือโดยสภาพของเรื่องต้องทำเอง"},
+  {q:"ข้อใดเป็นกิจการที่ ‘ได้รับยกเว้น’ ไม่อยู่ในบังคับของ พ.ร.บ. นี้",c:["การยื่นคำขอใบอนุญาตต่อกรม","การชำระค่าธรรมเนียมราชการออนไลน์","การพิจารณาพิพากษาคดีของศาลและการบังคับคดี","การลงทะเบียนผู้ประกอบการกับหน่วยงานรัฐ"],a:2,e:"ข้อยกเว้น ได้แก่ การดำเนินงานของรัฐสภา การพิจารณาพิพากษาคดีของศาล/การบังคับคดี และกระบวนการยุติธรรมทางอาญา"},
+  {q:"ใบอนุญาตหรือเอกสารที่หน่วยงานรัฐออกให้โดยวิธีอิเล็กทรอนิกส์ มีผลอย่างไร",c:["เป็นเพียงสำเนาที่ต้องนำไปรับรองอีกครั้ง","มีผลใช้บังคับได้ตามกฎหมายเช่นเดียวกับฉบับกระดาษ","ใช้ได้ชั่วคราวจนกว่าจะออกฉบับจริง","ไม่มีผลจนกว่าจะประทับตราหน่วยงาน"],a:1,e:"ใบอนุญาต/เอกสารอิเล็กทรอนิกส์ที่ออกตามกฎหมายนี้มีผลใช้บังคับได้ตามกฎหมาย"},
+  {q:"หลักการ ‘ลดภาระเอกสารประชาชน’ ที่สอดคล้องกับกฎหมายนี้คือข้อใด",c:["ให้ประชาชนจัดทำสำเนาทุกใบด้วยตนเอง","หน่วยงานไม่เรียกสำเนา/ข้อมูลที่รัฐมีอยู่แล้วซ้ำโดยไม่จำเป็น","เก็บค่าบริการเพิ่มสำหรับช่องทางออนไลน์","ให้ประชาชนรับรองสำเนาถูกต้องทุกฉบับเสมอ"],a:1,e:"แนวคิดสำคัญคือไม่เรียกสำเนา/ข้อมูลที่ภาครัฐมีอยู่แล้วซ้ำ เพื่อลดภาระประชาชน สอดรับการบูรณาการข้อมูลภาครัฐ"}
+ ]
+},
+{
+ id:5,
+ title:"พ.ร.บ. การจัดซื้อจัดจ้างและการบริหารพัสดุภาครัฐ พ.ศ. 2560",
+ tag:"กฎหมาย • พัสดุ/จัดซื้อ",
+ content:[
+  {h:"หลักการพื้นฐาน 4 ข้อ",points:[
+   "<b>คุ้มค่า</b> — ใช้จ่ายงบประมาณอย่างมีประสิทธิภาพ ได้พัสดุตรงตามความต้องการ",
+   "<b>โปร่งใส</b> — เปิดเผย เปิดโอกาสแข่งขันอย่างเป็นธรรม",
+   "<b>มีประสิทธิภาพและประสิทธิผล</b> — มีการวางแผนและประเมินผล",
+   "<b>ตรวจสอบได้</b> — เก็บข้อมูลเป็นระบบ เปิดให้ตรวจสอบ"
+  ]},
+  {h:"องค์กรและระบบกลาง",points:[
+   "<b>คณะกรรมการนโยบายการจัดซื้อจัดจ้างและการบริหารพัสดุภาครัฐ</b> เป็นองค์กรกำหนดนโยบาย",
+   "<b>กรมบัญชีกลาง</b> เป็นหน่วยงานกลางดูแล/กำกับ และให้บริการระบบ <b>e-GP</b>",
+   "มีคณะกรรมการอื่น เช่น คกก.วินิจฉัยปัญหาฯ, คกก.ราคากลางฯ, คกก.ความร่วมมือป้องกันการทุจริต (ข้อตกลงคุณธรรม)"
+  ]},
+  {h:"วิธีการจัดซื้อจัดจ้าง 3 วิธี",points:[
+   "<b>วิธีประกาศเชิญชวนทั่วไป</b> — เปิดให้แข่งขัน (เช่น e-bidding, e-market)",
+   "<b>วิธีคัดเลือก</b> — เชิญเฉพาะผู้มีคุณสมบัติที่กำหนดให้ยื่นข้อเสนอ",
+   "<b>วิธีเฉพาะเจาะจง</b> — ติดต่อผู้ประกอบการรายเดียว (วงเงินเล็ก/มีเหตุจำเป็นตามกฎหมาย)"
+  ]},
+  {h:"ขั้นตอนสำคัญ",points:[
+   "จัดทำ <b>แผนการจัดซื้อจัดจ้าง</b> และประกาศเผยแพร่",
+   "กำหนด <b>ราคากลาง</b> และเผยแพร่ตามหลักเกณฑ์",
+   "แต่งตั้ง <b>คณะกรรมการ</b> เช่น คณะกรรมการพิจารณาผล และ <b>คณะกรรมการตรวจรับพัสดุ</b>",
+   "ผู้เสนอราคาที่ไม่ได้รับการคัดเลือกมีสิทธิ <b>อุทธรณ์</b> ตามขั้นตอน"
+  ]},
+  {h:"การกระทำต้องห้าม",points:[
+   "ห้าม <b>สมยอมราคา (ฮั้ว)</b> หรือขัดขวางการแข่งขันอย่างเป็นธรรม มีโทษตามกฎหมาย",
+   "เจ้าหน้าที่ต้องปฏิบัติตามหลักธรรมาภิบาลและหลีกเลี่ยงผลประโยชน์ทับซ้อน"
+  ],kbox:"<b>จำ:</b> 4 หลักการ = คุ้มค่า/โปร่งใส/มีประสิทธิภาพ-ประสิทธิผล/ตรวจสอบได้ | 3 วิธี = ประกาศเชิญชวนทั่วไป/คัดเลือก/เฉพาะเจาะจง | หน่วยกลาง = กรมบัญชีกลาง + ระบบ e-GP"}
+ ],
+ q:[
+  {q:"หลักการสำคัญ 4 ข้อของการจัดซื้อจัดจ้างภาครัฐ ประกอบด้วยข้อใด",c:["คุ้มค่า / โปร่งใส / มีประสิทธิภาพและประสิทธิผล / ตรวจสอบได้","คุ้มค่า / รวดเร็ว / ประหยัด / ได้กำไร","โปร่งใส / เป็นกลาง / ยืดหยุ่น / เปิดเผย","ถูกต้อง / ครบถ้วน / ทันเวลา / คุ้มค่า"],a:0,e:"4 หลักการ = คุ้มค่า, โปร่งใส, มีประสิทธิภาพและประสิทธิผล, ตรวจสอบได้ (ไม่มี ‘ได้กำไร’ ซึ่งขัดเจตนารมณ์ภาครัฐ)"},
+  {q:"วิธีการจัดซื้อจัดจ้างทั่วไปตาม พ.ร.บ. นี้ มีกี่วิธี และคือข้อใด",c:["2 วิธี: e-bidding และ e-market","3 วิธี: ประกาศเชิญชวนทั่วไป / คัดเลือก / เฉพาะเจาะจง","4 วิธี: ตกลงราคา / สอบราคา / ประกวดราคา / พิเศษ","5 วิธี ตามวงเงินงบประมาณ"],a:1,e:"มี 3 วิธี: ประกาศเชิญชวนทั่วไป, คัดเลือก, เฉพาะเจาะจง (ตกลงราคา/สอบราคา/ประกวดราคา เป็นระบบเดิมก่อนปี 2560)"},
+  {q:"การจัดซื้อโดย ‘ติดต่อผู้ประกอบการรายเดียว’ กรณีวงเงินเล็กหรือมีเหตุจำเป็น ตรงกับวิธีใด",c:["วิธีประกาศเชิญชวนทั่วไป","วิธีคัดเลือก","วิธีเฉพาะเจาะจง","วิธี e-market"],a:2,e:"การติดต่อผู้ประกอบการรายเดียวคือวิธี ‘เฉพาะเจาะจง’ ส่วน ‘คัดเลือก’ คือเชิญหลายรายที่มีคุณสมบัติมายื่นข้อเสนอ"},
+  {q:"หน่วยงานกลางที่กำกับดูแลและให้บริการระบบจัดซื้อจัดจ้างภาครัฐ (e-GP) คือข้อใด",c:["สำนักงบประมาณ","กรมบัญชีกลาง","สำนักงานการตรวจเงินแผ่นดิน (สตง.)","สำนักงาน ป.ป.ช."],a:1,e:"กรมบัญชีกลางเป็นหน่วยงานกลางดูแลการจัดซื้อจัดจ้างและให้บริการระบบ e-GP (สตง./ป.ป.ช. เป็นองค์กรตรวจสอบ ไม่ใช่ผู้กำกับระบบ)"},
+  {q:"e-bidding และ e-market เป็นรูปแบบย่อยของวิธีใด",c:["วิธีเฉพาะเจาะจง","วิธีคัดเลือก","วิธีประกาศเชิญชวนทั่วไป","วิธีพิเศษ"],a:2,e:"e-bidding และ e-market เป็นรูปแบบของ ‘วิธีประกาศเชิญชวนทั่วไป’ ที่เปิดแข่งขันผ่านระบบอิเล็กทรอนิกส์"},
+  {q:"ก่อนเริ่มกระบวนการจัดซื้อจัดจ้าง หน่วยงานต้องดำเนินการใดและเผยแพร่ต่อสาธารณะ",c:["จัดทำงบการเงินประจำปี","จัดทำและประกาศเผยแพร่ ‘แผนการจัดซื้อจัดจ้าง’","ตั้งคณะกรรมการตรวจรับล่วงหน้า","ทำสัญญาจ้างล่วงหน้า"],a:1,e:"หน่วยงานต้องจัดทำและประกาศเผยแพร่ ‘แผนการจัดซื้อจัดจ้าง’ เพื่อความโปร่งใสก่อนดำเนินการจริง"},
+  {q:"คณะกรรมการชุดใดทำหน้าที่ ‘ตรวจรับพัสดุหรืองานจ้าง’ เมื่อมีการส่งมอบ",c:["คณะกรรมการพิจารณาผลการประกวดราคา","คณะกรรมการกำหนดราคากลาง","คณะกรรมการตรวจรับพัสดุ","คณะกรรมการนโยบายฯ"],a:2,e:"คณะกรรมการตรวจรับพัสดุทำหน้าที่ตรวจรับพัสดุ/งานจ้างให้เป็นไปตามสัญญา (คนละชุดกับคณะกรรมการพิจารณาผลฯ)"},
+  {q:"พฤติการณ์ ‘สมยอมกันในการเสนอราคา (ฮั้วประมูล)’ มีผลตามกฎหมายอย่างไร",c:["ทำได้หากทุกฝ่ายยินยอมและไม่ทำให้รัฐเสียหาย","เป็นการกระทำต้องห้าม มีบทกำหนดโทษตามกฎหมาย","เป็นข้อบกพร่องที่แก้ไขได้โดยทำสัญญาใหม่","อนุญาตเฉพาะการจัดซื้อวงเงินสูง"],a:1,e:"การสมยอมราคาหรือขัดขวางการแข่งขันอย่างเป็นธรรมเป็นการกระทำต้องห้ามและมีบทกำหนดโทษ"},
+  {q:"ผู้ยื่นข้อเสนอที่ไม่ได้รับการคัดเลือกและเห็นว่าไม่ได้รับความเป็นธรรม ดำเนินการใดได้เป็นลำดับแรก",c:["ฟ้องคดีอาญาต่อศาลทันที","ยื่นอุทธรณ์ต่อหน่วยงานตามขั้นตอนที่กฎหมายกำหนด","ยึดหลักประกันซองคืนสองเท่า","ร้องเรียนต่อสื่อมวลชน"],a:1,e:"กฎหมายเปิดให้ผู้เสนอราคาที่ไม่ได้รับเลือกใช้สิทธิ ‘อุทธรณ์’ ตามขั้นตอนและระยะเวลาที่กำหนดก่อน"}
+ ]
+},
+{
+ id:6,
+ title:"พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 (PDPA)",
+ tag:"กฎหมาย • ข้อมูลส่วนบุคคล",
+ content:[
+  {h:"สาระสำคัญและการบังคับใช้",points:[
+   "คุ้มครอง <b>ข้อมูลส่วนบุคคล</b> ของบุคคลธรรมดา • บังคับใช้เต็มรูปแบบ <b>1 มิถุนายน 2565</b>",
+   "<b>ข้อมูลส่วนบุคคล</b> = ข้อมูลที่ทำให้ ‘ระบุตัวบุคคลได้’ ทั้งทางตรงและทางอ้อม • <b>ไม่รวม</b> ข้อมูลผู้ถึงแก่กรรม และข้อมูลนิติบุคคล"
+  ]},
+  {h:"บทบาทผู้เกี่ยวข้อง",points:[
+   "<b>เจ้าของข้อมูล (Data Subject)</b>",
+   "<b>ผู้ควบคุมข้อมูล (Data Controller)</b> — มีอำนาจตัดสินใจเกี่ยวกับการเก็บ ใช้ เปิดเผย",
+   "<b>ผู้ประมวลผลข้อมูล (Data Processor)</b> — ดำเนินการตามคำสั่งผู้ควบคุม",
+   "<b>เจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคล (DPO)</b> ในกรณีที่กฎหมายกำหนด"
+  ]},
+  {h:"ฐานการประมวลผลโดยชอบ",points:[
+   "<b>ความยินยอม (Consent)</b> ที่ชัดแจ้ง ถอนได้",
+   "ฐานอื่นที่ไม่ต้องขอความยินยอม เช่น <b>สัญญา, ภารกิจ/อำนาจรัฐ, ประโยชน์โดยชอบด้วยกฎหมาย, ป้องกันอันตรายต่อชีวิต, ปฏิบัติตามกฎหมาย, จดหมายเหตุ/วิจัย/สถิติ</b>"
+  ]},
+  {h:"ข้อมูลอ่อนไหว (Sensitive Data)",points:[
+   "เช่น <b>เชื้อชาติ เผ่าพันธุ์ ความคิดเห็นทางการเมือง ความเชื่อ ศาสนา พฤติกรรมทางเพศ ประวัติอาชญากรรม ข้อมูลสุขภาพ ความพิการ ข้อมูลสหภาพแรงงาน พันธุกรรม และชีวภาพ (biometric)</b>",
+   "ต้องได้รับความยินยอม ‘โดยชัดแจ้ง’ และคุ้มครองเข้มกว่าข้อมูลทั่วไป"
+  ]},
+  {h:"สิทธิของเจ้าของข้อมูล",points:[
+   "สิทธิได้รับแจ้ง, เข้าถึง/ขอสำเนา, แก้ไขให้ถูกต้อง, ลบ/ทำลาย, ระงับการใช้, คัดค้านการประมวลผล, <b>ขอให้โอนย้ายข้อมูล</b>, และ <b>ถอนความยินยอม</b>"
+  ]},
+  {h:"องค์กรกำกับและความรับผิด",points:[
+   "<b>คณะกรรมการคุ้มครองข้อมูลส่วนบุคคล</b> และสำนักงาน (สคส.) เป็นผู้กำกับ",
+   "ความรับผิดมีทั้ง <b>ทางแพ่ง (รวมค่าสินไหมเชิงลงโทษ), ทางอาญา และโทษทางปกครอง (ค่าปรับ)</b>"
+  ],kbox:"<b>จำ:</b> คุ้มครองคนเป็น (ไม่รวมคนตาย/นิติบุคคล) | Controller ตัดสินใจ / Processor ทำตามคำสั่ง | ความยินยอมไม่ใช่ฐานเดียว | ข้อมูลอ่อนไหวต้องยินยอมชัดแจ้ง"}
+ ],
+ q:[
+  {q:"ข้อใดอยู่ในขอบเขตการคุ้มครองของ PDPA",c:["ข้อมูลของบริษัทจำกัดที่จดทะเบียน","ข้อมูลของบุคคลธรรมดาที่ยังมีชีวิตอยู่","ข้อมูลของผู้ถึงแก่กรรม","ข้อมูลงบประมาณของหน่วยงานรัฐ"],a:1,e:"PDPA คุ้มครองข้อมูลส่วนบุคคลของ ‘บุคคลธรรมดาที่มีชีวิต’ ไม่รวมผู้ตายและนิติบุคคล"},
+  {q:"นิยาม ‘ข้อมูลส่วนบุคคล’ ตาม PDPA ตรงกับข้อใดมากที่สุด",c:["ข้อมูลที่เผยแพร่ต่อสาธารณะแล้วเท่านั้น","ข้อมูลที่ทำให้ระบุตัวบุคคลได้ทั้งทางตรงและทางอ้อม","เฉพาะเลขบัตรประชาชนและลายนิ้วมือ","ข้อมูลที่บุคคลยินยอมให้เปิดเผยเท่านั้น"],a:1,e:"ข้อมูลส่วนบุคคลคือข้อมูลที่ทำให้ระบุตัวบุคคลได้ไม่ว่าทางตรงหรือทางอ้อม (ไม่จำกัดเฉพาะที่เปิดเผยหรือยินยอมแล้ว)"},
+  {q:"ข้อใดจับคู่บทบาทตาม PDPA ได้ถูกต้อง",c:["Data Controller = ผู้ทำตามคำสั่ง / Data Processor = ผู้ตัดสินใจ","Data Controller = ผู้มีอำนาจตัดสินใจ / Data Processor = ผู้ประมวลผลตามคำสั่ง","Data Subject = ผู้ควบคุมข้อมูล / DPO = เจ้าของข้อมูล","Data Processor = เจ้าของข้อมูล / DPO = ผู้กำกับนโยบาย"],a:1,e:"ผู้ควบคุมข้อมูล (Controller) มีอำนาจตัดสินใจ ส่วนผู้ประมวลผล (Processor) ทำตามคำสั่งของผู้ควบคุม"},
+  {q:"ข้อใด ‘ไม่ใช่’ ข้อมูลอ่อนไหว (Sensitive Data) ตาม PDPA",c:["ข้อมูลสุขภาพและความพิการ","เชื้อชาติ ศาสนา และความคิดเห็นทางการเมือง","ชื่อ-นามสกุลและเบอร์โทรศัพท์","ข้อมูลพันธุกรรมและชีวภาพ (biometric)"],a:2,e:"ชื่อ-นามสกุล/เบอร์โทรเป็นข้อมูลส่วนบุคคล ‘ทั่วไป’ ส่วนสุขภาพ เชื้อชาติ ศาสนา การเมือง พันธุกรรม/biometric เป็นข้อมูล ‘อ่อนไหว’"},
+  {q:"ข้อใดถูกต้องเกี่ยวกับ ‘ฐาน’ ในการประมวลผลข้อมูลส่วนบุคคล",c:["ต้องขอความยินยอมทุกกรณีเสมอ","ความยินยอมเป็นฐานหนึ่ง แต่ยังมีฐานอื่น เช่น สัญญา ภารกิจรัฐ ปฏิบัติตามกฎหมาย","ข้อมูลที่เปิดเผยต่อสาธารณะแล้วใช้ได้ไม่จำกัด","หน่วยงานรัฐไม่ต้องมีฐานทางกฎหมายในการประมวลผล"],a:1,e:"ความยินยอมเป็นเพียงฐานหนึ่ง ยังมีฐานอื่นที่ประมวลผลได้โดยไม่ต้องขอความยินยอม เช่น สัญญา ภารกิจของรัฐ ป้องกันอันตรายต่อชีวิต ปฏิบัติตามกฎหมาย"},
+  {q:"ข้อใด ‘ไม่ใช่’ สิทธิของเจ้าของข้อมูลส่วนบุคคลตาม PDPA",c:["สิทธิเข้าถึงและขอรับสำเนาข้อมูล","สิทธิขอให้ลบ/ทำลายข้อมูล","สิทธิได้รับค่าตอบแทนจากการให้ข้อมูลทุกครั้ง","สิทธิคัดค้านการประมวลผลและถอนความยินยอม"],a:2,e:"สิทธิตาม PDPA ได้แก่ ได้รับแจ้ง เข้าถึง แก้ไข ลบ ระงับ คัดค้าน โอนย้าย และถอนความยินยอม — ไม่มี ‘สิทธิรับค่าตอบแทนทุกครั้ง’"},
+  {q:"การประมวลผลข้อมูลอ่อนไหว (เช่น ข้อมูลสุขภาพ) โดยอาศัยความยินยอม ต้องเป็นความยินยอมแบบใด",c:["ความยินยอมโดยปริยายก็เพียงพอ","ความยินยอมโดยชัดแจ้ง (Explicit Consent)","ไม่ต้องขอความยินยอมในทุกกรณี","ความยินยอมจากผู้บังคับบัญชาแทนได้"],a:1,e:"ข้อมูลอ่อนไหวต้องได้รับความยินยอม ‘โดยชัดแจ้ง’ และมีมาตรการคุ้มครองเข้มกว่าข้อมูลทั่วไป"},
+  {q:"ความรับผิดตาม PDPA ครอบคลุมด้านใดบ้าง",c:["ทางแพ่งเท่านั้น","ทางอาญาเท่านั้น","ทางแพ่ง ทางอาญา และโทษทางปกครอง","เฉพาะการตักเตือนทางปกครอง"],a:2,e:"PDPA มีความรับผิดทั้งทางแพ่ง (รวมค่าสินไหมเชิงลงโทษ) ทางอาญา และโทษทางปกครอง (ค่าปรับ)"}
+ ]
+},
+{
+ id:7,
+ title:"พ.ร.บ. ข้อมูลข่าวสารของราชการ พ.ศ. 2540",
+ tag:"กฎหมาย • สิทธิรับรู้ข้อมูล",
+ content:[
+  {h:"หลักการสำคัญ",points:[
+   "ยึดหลัก <b>“เปิดเผยเป็นหลัก ปกปิดเป็นข้อยกเว้น”</b> เพื่อให้ประชาชนมีสิทธิรับรู้ข้อมูลข่าวสารของราชการ",
+   "ส่งเสริมการมีส่วนร่วมและตรวจสอบการใช้อำนาจรัฐ"
+  ]},
+  {h:"การเปิดเผยข้อมูล 3 ระดับ",points:[
+   "<b>มาตรา 7</b> — ข้อมูลที่ต้อง <b>ลงพิมพ์ในราชกิจจานุเบกษา</b> (เช่น โครงสร้าง อำนาจหน้าที่ กฎ มติ ครม. ที่มีสภาพเป็นการทั่วไป)",
+   "<b>มาตรา 9</b> — ข้อมูลที่ต้อง <b>จัดไว้ให้ประชาชนเข้าตรวจดูได้</b> (เช่น แผนงาน โครงการ งบประมาณ สัญญาสัมปทาน ผลพิจารณาจัดซื้อจัดจ้าง)",
+   "<b>มาตรา 11</b> — ข้อมูลอื่นที่ประชาชน <b>ยื่นคำขอเป็นการเฉพาะราย</b> ได้"
+  ]},
+  {h:"ข้อมูลที่อาจไม่ต้องเปิดเผย",points:[
+   "<b>มาตรา 14</b> — ข้อมูลที่อาจกระทบ <b>สถาบันพระมหากษัตริย์</b> เปิดเผยไม่ได้",
+   "<b>มาตรา 15</b> — ข้อมูลที่ ‘อาจ’ ไม่เปิดเผยได้ (ใช้ดุลพินิจ) เช่น กระทบความมั่นคง ความสัมพันธ์ระหว่างประเทศ การบังคับใช้กฎหมาย ความเห็นภายในก่อนตัดสินใจ"
+  ]},
+  {h:"องค์กรตามกฎหมาย",points:[
+   "<b>คณะกรรมการข้อมูลข่าวสารของราชการ (กขร.)</b> — ดูแลภาพรวม เสนอแนะ ให้คำปรึกษา",
+   "<b>คณะกรรมการวินิจฉัยการเปิดเผยข้อมูลข่าวสาร (กวฉ.)</b> — วินิจฉัยอุทธรณ์กรณีหน่วยงานไม่เปิดเผย"
+  ]},
+  {h:"ข้อมูลส่วนบุคคล/เอกสารประวัติศาสตร์",points:[
+   "คุ้มครองข้อมูลส่วนบุคคลในความครอบครองของรัฐ • เปิดเผยต่อผู้อื่นโดยหลักต้องได้รับความยินยอม",
+   "เอกสารราชการเมื่อครบกำหนด (โดยทั่วไป <b>20 ปี หรือ 75 ปี</b> ตามประเภท) ส่งมอบ <b>หอจดหมายเหตุแห่งชาติ</b>"
+  ],kbox:"<b>จำ:</b> เปิดเผยเป็นหลัก ปกปิดเป็นข้อยกเว้น | ม.7 ลงราชกิจจาฯ / ม.9 ให้ตรวจดู / ม.11 ขอเฉพาะราย | อุทธรณ์ไปที่ กวฉ."}
+ ],
+ q:[
+  {q:"หลักการพื้นฐานของ พ.ร.บ. ข้อมูลข่าวสารของราชการ พ.ศ. 2540 คือข้อใด",c:["ปกปิดเป็นหลัก เปิดเผยเป็นข้อยกเว้น","เปิดเผยเป็นหลัก ปกปิดเป็นข้อยกเว้น","เปิดเผยเฉพาะเมื่อมีคำสั่งศาล","เปิดเผยเฉพาะแก่คู่กรณีในคดี"],a:1,e:"กฎหมายยึดหลัก ‘เปิดเผยเป็นหลัก ปกปิดเป็นข้อยกเว้น’ เพื่อคุ้มครองสิทธิรับรู้ของประชาชน"},
+  {q:"ข้อมูลข่าวสารที่ ‘ต้องลงพิมพ์ในราชกิจจานุเบกษา’ และที่ ‘ต้องจัดไว้ให้ตรวจดู’ อยู่ในมาตราใดตามลำดับ",c:["มาตรา 7 และ มาตรา 9","มาตรา 9 และ มาตรา 7","มาตรา 11 และ มาตรา 7","มาตรา 7 และ มาตรา 11"],a:0,e:"มาตรา 7 = ลงราชกิจจานุเบกษา; มาตรา 9 = จัดไว้ให้ประชาชนเข้าตรวจดู; มาตรา 11 = ยื่นขอเฉพาะราย"},
+  {q:"ประชาชนต้องการข้อมูลที่ ‘ไม่ได้’ อยู่ในมาตรา 7 หรือ 9 จะใช้สิทธิตามมาตราใด",c:["มาตรา 5","มาตรา 9","มาตรา 11","มาตรา 14"],a:2,e:"มาตรา 11 ให้ประชาชนยื่นคำขอข้อมูลข่าวสารอื่นเป็นการเฉพาะรายได้"},
+  {q:"ข้อมูลข่าวสารที่อาจมีผลกระทบต่อ ‘สถาบันพระมหากษัตริย์’ ตามกฎหมายนี้เป็นอย่างไร และอยู่มาตราใด",c:["เปิดเผยได้เมื่อครบ 20 ปี (มาตรา 9)","เปิดเผยไม่ได้ (มาตรา 14)","ใช้ดุลพินิจเปิดเผยได้ (มาตรา 15)","เปิดเผยได้เสมอ (มาตรา 7)"],a:1,e:"มาตรา 14 กำหนดว่าข้อมูลที่อาจกระทบสถาบันพระมหากษัตริย์ ‘เปิดเผยไม่ได้’ (ต่างจาก ม.15 ที่เป็นดุลพินิจ)"},
+  {q:"กรณีหน่วยงานปฏิเสธไม่เปิดเผยข้อมูล ผู้ขอจะ ‘อุทธรณ์’ ต่อองค์กรใด",c:["คณะกรรมการข้อมูลข่าวสารของราชการ (กขร.)","คณะกรรมการวินิจฉัยการเปิดเผยข้อมูลข่าวสาร (กวฉ.)","ผู้ตรวจการแผ่นดิน","ศาลรัฐธรรมนูญ"],a:1,e:"การอุทธรณ์คำสั่งไม่เปิดเผยข้อมูลให้ยื่นต่อ ‘กวฉ.’ ส่วน ‘กขร.’ ทำหน้าที่ดูแลภาพรวม/ให้คำปรึกษา"},
+  {q:"ข้อใดเป็นข้อมูลที่เจ้าหน้าที่ ‘อาจใช้ดุลพินิจไม่เปิดเผย’ ได้ตามมาตรา 15",c:["โครงสร้างและอำนาจหน้าที่ของหน่วยงาน","ข้อมูลที่หากเปิดเผยจะกระทบความมั่นคงของรัฐ","งบประมาณรายจ่ายประจำปีที่ประกาศแล้ว","กฎและระเบียบที่ลงราชกิจจาฯ แล้ว"],a:1,e:"มาตรา 15 ให้ดุลพินิจไม่เปิดเผยข้อมูลที่กระทบความมั่นคง ความสัมพันธ์ระหว่างประเทศ การบังคับใช้กฎหมาย หรือความเห็นภายในก่อนตัดสินใจ"},
+  {q:"องค์กรที่ดูแล ‘ภาพรวม’ สอดส่อง และให้คำแนะนำการปฏิบัติตามกฎหมายนี้ (คนละชุดกับที่วินิจฉัยอุทธรณ์) คือข้อใด",c:["คณะกรรมการข้อมูลข่าวสารของราชการ (กขร.)","คณะกรรมการวินิจฉัยการเปิดเผยข้อมูลข่าวสาร (กวฉ.)","คณะกรรมการ ป.ป.ช.","คณะกรรมการ ก.พ.ค."],a:0,e:"กขร. ดูแลภาพรวม เสนอแนะ ให้คำปรึกษา ส่วน กวฉ. เป็นผู้วินิจฉัยอุทธรณ์การไม่เปิดเผย"},
+  {q:"เอกสารราชการที่ครบกำหนดเวลาตามกฎหมาย (โดยทั่วไป 20 ปี/75 ปี) ต้องส่งมอบให้หน่วยงานใด",c:["สำนักงานคณะกรรมการกฤษฎีกา","หอจดหมายเหตุแห่งชาติ","สำนักงานการตรวจเงินแผ่นดิน","สำนักเลขาธิการคณะรัฐมนตรี"],a:1,e:"เอกสารราชการที่ครบกำหนดเก็บ ส่งมอบให้หอจดหมายเหตุแห่งชาติเพื่อเก็บรักษาเป็นเอกสารประวัติศาสตร์"}
+ ]
+},
+{
+ id:8,
+ title:"เหตุการณ์ทางเศรษฐกิจ สังคม สิ่งแวดล้อม และการเมือง",
+ tag:"ความรู้ทั่วไป • ข่าวปัจจุบัน",
+ content:[
+  {h:"แนวทางอ่านข่าวเตรียมสอบ",points:[
+   "ติดตามข่าว 3–6 เดือนก่อนสอบ โดยเฉพาะที่เชื่อมโยง <b>ภาคอุตสาหกรรม นโยบายรัฐ และการค้าระหว่างประเทศ</b>",
+   "จำชื่อ <b>ผู้บริหารหลัก/หน่วยงาน/นโยบายเรือธง</b> ที่เกี่ยวกับกระทรวงอุตสาหกรรมและเศรษฐกิจ"
+  ]},
+  {h:"กรอบนโยบาย/แนวคิดที่ออกสอบบ่อย",points:[
+   "<b>BCG Economy Model</b> = Bio (ชีวภาพ) + Circular (หมุนเวียน) + Green (สีเขียว) — วาระแห่งชาติ",
+   "<b>SDGs</b> = เป้าหมายการพัฒนาที่ยั่งยืน 17 ข้อ ของสหประชาชาติ (ถึงปี ค.ศ. 2030)",
+   "<b>Carbon Neutrality 2050 / Net Zero 2065</b> — เป้าหมายลดก๊าซเรือนกระจกของไทย",
+   "<b>Ignite Thailand</b> — วิสัยทัศน์ผลักดันไทยเป็นศูนย์กลาง 8 อุตสาหกรรม",
+   "<b>Soft Power</b> — 1 ครอบครัว 1 ซอฟต์พาวเวอร์ (OFOS), THACCA"
+  ]},
+  {h:"ปัจจัยเศรษฐกิจโลกที่กระทบไทย",points:[
+   "<b>มาตรการกีดกันการค้า/กำแพงภาษี</b> และการทุ่มตลาด (dumping) ของสินค้าราคาถูกที่ทะลักเข้าไทย",
+   "<b>ความผันผวนของห่วงโซ่อุปทานโลก</b>, ราคาพลังงาน, อัตราดอกเบี้ย และค่าเงินบาท",
+   "การเปลี่ยนผ่านสู่ <b>ยานยนต์ไฟฟ้า (EV)</b> และพลังงานสะอาด"
+  ]},
+  {h:"ประเด็นสังคม–สิ่งแวดล้อม",points:[
+   "<b>สังคมสูงวัย (Aging Society)</b> กระทบแรงงานและผลิตภาพ",
+   "<b>PM2.5 / กากอุตสาหกรรม / โรงงานผิดกฎหมาย</b> เป็นวาระที่กระทรวงอุตสาหกรรมเร่งจัดการ"
+  ],kbox:"<b>จำตัวย่อ:</b> BCG = ชีวภาพ/หมุนเวียน/สีเขียว | SDGs 17 ข้อ ปี 2030 | ESG = สิ่งแวดล้อม สังคม ธรรมาภิบาล | Carbon Neutral 2050 / Net Zero 2065"}
+ ],
+ q:[
+  {q:"BCG Economy Model ประกอบด้วยเศรษฐกิจ 3 ด้านใด",c:["Banking – Commerce – Goods","Bio – Circular – Green","Budget – Cost – Growth","Blue – Creative – Global"],a:1,e:"BCG = Bio (ชีวภาพ) + Circular (หมุนเวียน) + Green (สีเขียว) เป็นวาระแห่งชาติด้านการพัฒนาที่ยั่งยืน"},
+  {q:"ข้อใดถูกต้องเกี่ยวกับ ‘SDGs’ ของสหประชาชาติ",c:["มี 8 เป้าหมาย ถึงปี ค.ศ. 2015","มี 17 เป้าหมาย ถึงปี ค.ศ. 2030","มี 17 เป้าหมาย ถึงปี ค.ศ. 2050","มี 30 เป้าหมาย ไม่มีกำหนดสิ้นสุด"],a:1,e:"SDGs มี 17 เป้าหมาย กรอบถึงปี ค.ศ. 2030 (ที่มี 8 เป้าหมายถึงปี 2015 คือ MDGs ซึ่งเป็นชุดก่อนหน้า)"},
+  {q:"ตัวย่อ ‘ESG’ ที่ใช้ประเมินความยั่งยืนขององค์กร หมายถึงข้อใด",c:["Economy – Society – Government","Environment – Social – Governance","Energy – Safety – Growth","Equity – Standard – Goal"],a:1,e:"ESG = Environment (สิ่งแวดล้อม), Social (สังคม), Governance (ธรรมาภิบาล)"},
+  {q:"ข้อใดระบุเป้าหมายด้านสภาพภูมิอากาศของไทยได้ถูกต้อง",c:["Carbon Neutrality ปี 2030 และ Net Zero ปี 2050","Carbon Neutrality ปี 2050 และ Net Zero ปี 2065","Net Zero ปี 2040 ทั้งสองอย่าง","Carbon Neutrality ปี 2065 และ Net Zero ปี 2080"],a:1,e:"ไทยตั้งเป้า Carbon Neutrality (ความเป็นกลางทางคาร์บอน) ภายในปี ค.ศ. 2050 และ Net Zero (ปล่อยสุทธิเป็นศูนย์) ภายในปี ค.ศ. 2065"},
+  {q:"ภัยคุกคามทางการค้าที่ภาคอุตสาหกรรมไทยเผชิญและรัฐเร่งแก้ คือข้อใด",c:["การส่งออกที่เติบโตเร็วเกินไป","สินค้านำเข้าราคาถูกทุ่มตลาดและไม่ได้มาตรฐาน","การลงทุนจากต่างชาติที่มากเกินไป","อัตราแลกเปลี่ยนที่นิ่งเกินไป"],a:1,e:"การทะลักของสินค้าราคาถูก/ทุ่มตลาด/ไม่ได้มาตรฐาน เป็นปัญหาที่กระทรวงอุตสาหกรรมเร่งปกป้องผู้ประกอบการไทย"},
+  {q:"วิสัยทัศน์ ‘Ignite Thailand’ มุ่งผลักดันไทยเป็นศูนย์กลางกี่อุตสาหกรรมเป้าหมาย",c:["3 อุตสาหกรรม","5 อุตสาหกรรม","8 อุตสาหกรรม","12 อุตสาหกรรม"],a:2,e:"Ignite Thailand มุ่งให้ไทยเป็นศูนย์กลาง 8 อุตสาหกรรม (เช่น ท่องเที่ยว การแพทย์ อาหาร การบิน ดิจิทัล ฯลฯ)"},
+  {q:"‘สังคมสูงวัย (Aging Society)’ ส่งผลต่อภาคอุตสาหกรรมอย่างไร และควรรับมือด้วยวิธีใด",c:["แรงงานวัยทำงานเพิ่มขึ้น จึงลดค่าจ้างได้","กำลังแรงงานลดลง/ผลิตภาพเสี่ยงลด ต้องเพิ่มทักษะและระบบอัตโนมัติ","ไม่มีผลต่อการผลิต","ทำให้ความต้องการสินค้าลดลงทุกประเภท"],a:1,e:"สังคมสูงวัยทำให้กำลังแรงงานลดลง กระทบผลิตภาพ จึงต้อง Upskill/Reskill และนำระบบอัตโนมัติ/หุ่นยนต์มาช่วย"}
+ ]
+},
+{
+ id:9,
+ title:"สถานการณ์และผลกระทบต่อเศรษฐกิจอุตสาหกรรม",
+ tag:"เศรษฐกิจอุตสาหกรรม",
+ content:[
+  {h:"ตัวชี้วัดสำคัญของภาคอุตสาหกรรม",points:[
+   "<b>MPI (Manufacturing Production Index)</b> = ดัชนีผลผลิตอุตสาหกรรม สะท้อนทิศทางการผลิต (จัดทำโดย สศอ./OIE)",
+   "<b>อัตราการใช้กำลังการผลิต (Capacity Utilization)</b> สะท้อนความคึกคักของการผลิต",
+   "<b>GDP ภาคอุตสาหกรรม</b> และมูลค่าการส่งออกสินค้าอุตสาหกรรม"
+  ]},
+  {h:"หน่วยงานข้อมูล/นโยบายที่เกี่ยวข้อง",points:[
+   "<b>สศอ. (สำนักงานเศรษฐกิจอุตสาหกรรม / OIE)</b> — จัดทำดัชนีและวิเคราะห์เศรษฐกิจอุตสาหกรรม",
+   "<b>กรมส่งเสริมอุตสาหกรรม (ดีพร้อม)</b> — ส่งเสริม/พัฒนาผู้ประกอบการ",
+   "<b>BOI</b> — ส่งเสริมการลงทุน • <b>สสว. (OSMEP)</b> — ส่งเสริม SMEs"
+  ]},
+  {h:"ปัจจัยกระทบเศรษฐกิจอุตสาหกรรมไทย",points:[
+   "การเปลี่ยนผ่านเทคโนโลยี (Industry 4.0, AI, Automation) และการขาดแคลนแรงงานทักษะสูง",
+   "ความผันผวนของราคาพลังงาน วัตถุดิบ ค่าเงิน และดอกเบี้ย",
+   "<b>มาตรการสิ่งแวดล้อมระหว่างประเทศ</b> เช่น <b>CBAM</b> (มาตรการปรับคาร์บอนก่อนข้ามพรมแดนของ EU)",
+   "การแข่งขันจากสินค้านำเข้าราคาถูกและการย้ายฐานการผลิต"
+  ]},
+  {h:"อุตสาหกรรมเป้าหมาย (S-Curve)",points:[
+   "<b>First S-Curve</b> — ต่อยอด 5 อุตสาหกรรมเดิม (ยานยนต์สมัยใหม่, อิเล็กทรอนิกส์อัจฉริยะ, ท่องเที่ยวกลุ่มรายได้ดี, เกษตร/เทคโนชีวภาพ, อาหารแปรรูป)",
+   "<b>New S-Curve</b> — 5 อุตสาหกรรมอนาคต (หุ่นยนต์, การบิน/โลจิสติกส์, เชื้อเพลิงชีวภาพ/เคมีชีวภาพ, ดิจิทัล, การแพทย์ครบวงจร)"
+  ],kbox:"<b>จำ:</b> MPI = ดัชนีผลผลิตอุตสาหกรรม (สศอ.) | CBAM = มาตรการคาร์บอนข้ามพรมแดนของ EU | S-Curve 5+5 = อุตสาหกรรมเป้าหมาย"}
+ ],
+ q:[
+  {q:"ดัชนี MPI สะท้อนสิ่งใด และหน่วยงานใดเป็นผู้จัดทำ",c:["ระดับราคาผู้บริโภค — ธนาคารแห่งประเทศไทย","ทิศทาง/ปริมาณการผลิตภาคอุตสาหกรรม — สศอ. (OIE)","อัตราการว่างงาน — สำนักงานสถิติแห่งชาติ","ดัชนีตลาดหุ้น — ตลาดหลักทรัพย์ฯ"],a:1,e:"MPI = ดัชนีผลผลิตอุตสาหกรรม สะท้อนทิศทางการผลิต จัดทำโดยสำนักงานเศรษฐกิจอุตสาหกรรม (สศอ./OIE)"},
+  {q:"หน่วยงานใดทำหน้าที่ ‘จัดทำดัชนีและวิเคราะห์เศรษฐกิจอุตสาหกรรม’ โดยตรง (ต่างจากดีพร้อมที่เน้นส่งเสริมผู้ประกอบการ)",c:["กรมโรงงานอุตสาหกรรม (กรอ.)","สำนักงานเศรษฐกิจอุตสาหกรรม (สศอ./OIE)","สำนักงานมาตรฐานผลิตภัณฑ์อุตสาหกรรม (สมอ.)","กรมส่งเสริมอุตสาหกรรม (กสอ.)"],a:1,e:"สศอ. (OIE) เป็นหน่วยจัดทำดัชนี MPI และวิเคราะห์เศรษฐกิจอุตสาหกรรม ส่วน กสอ./ดีพร้อม เน้นส่งเสริม-พัฒนาผู้ประกอบการ"},
+  {q:"มาตรการ ‘CBAM’ ของสหภาพยุโรปที่กระทบสินค้าส่งออกไทย เกี่ยวข้องกับเรื่องใด",c:["การปรับราคาคาร์บอนของสินค้าก่อนข้ามพรมแดน","มาตรฐานแรงงานและสิทธิมนุษยชน","การคุ้มครองทรัพย์สินทางปัญญา","โควตาภาษีสินค้าเกษตร"],a:0,e:"CBAM (Carbon Border Adjustment Mechanism) คือมาตรการปรับคาร์บอนก่อนข้ามพรมแดนของ EU กดดันสินค้าที่ปล่อยคาร์บอนสูง"},
+  {q:"ข้อใดเป็นอุตสาหกรรมใน ‘New S-Curve’ (อุตสาหกรรมอนาคต) ทั้งหมด",c:["ยานยนต์สมัยใหม่ / อาหารแปรรูป / ท่องเที่ยว","หุ่นยนต์ / การบินและโลจิสติกส์ / การแพทย์ครบวงจร","อิเล็กทรอนิกส์อัจฉริยะ / เกษตรชีวภาพ / อาหาร","สิ่งทอ / ยานยนต์สันดาป / ก่อสร้าง"],a:1,e:"New S-Curve = หุ่นยนต์, การบิน/โลจิสติกส์, เชื้อเพลิง/เคมีชีวภาพ, ดิจิทัล, การแพทย์ครบวงจร (กลุ่มยานยนต์สมัยใหม่/อาหาร/ท่องเที่ยวเป็น First S-Curve)"},
+  {q:"ตัวชี้วัด ‘อัตราการใช้กำลังการผลิต (Capacity Utilization)’ บอกอะไร",c:["สัดส่วนการผลิตจริงเทียบกับกำลังการผลิตเต็มที่","จำนวนโรงงานที่จดทะเบียนใหม่","มูลค่าการส่งออกรวม","จำนวนแรงงานต่างด้าวในภาคผลิต"],a:0,e:"อัตราการใช้กำลังการผลิตคือสัดส่วนการผลิตจริงเทียบกับกำลังการผลิตสูงสุด สะท้อนความคึกคักของการผลิต"},
+  {q:"การเปลี่ยนผ่านสู่ ‘ยานยนต์ไฟฟ้า (EV)’ ส่งผลต่อห่วงโซ่อุตสาหกรรมเดิมในด้านใดมากที่สุด",c:["ผู้ผลิตชิ้นส่วนเครื่องยนต์สันดาปภายในต้องปรับตัว/ยกระดับทักษะ","อุตสาหกรรมอาหารต้องปิดกิจการ","ภาคบริการท่องเที่ยวหดตัวรุนแรง","ไม่กระทบผู้ผลิตชิ้นส่วนยานยนต์เลย"],a:0,e:"EV ทำให้ผู้ผลิตชิ้นส่วนเครื่องยนต์สันดาปภายในต้องปรับตัวเข้าสู่ห่วงโซ่ EV (แบตเตอรี่ มอเตอร์ อิเล็กทรอนิกส์)"},
+  {q:"หน่วยงานใดมีบทบาทกำหนดนโยบายส่งเสริม ‘SMEs’ ในภาพรวมของประเทศ",c:["สสว. (OSMEP)","กรมศุลกากร","สำนักงาน ก.พ.","กรมที่ดิน"],a:0,e:"สสว. (สำนักงานส่งเสริมวิสาหกิจขนาดกลางและขนาดย่อม / OSMEP) เป็นหน่วยงานนโยบายภาพรวมด้าน SMEs"}
+ ]
+},
+{
+ id:10,
+ title:"การจัดทำและบริหารโครงการ",
+ tag:"บริหารโครงการ • ติดตามประเมินผล",
+ content:[
+  {h:"วงจรชีวิตโครงการ (Project Life Cycle)",points:[
+   "<b>ริเริ่ม (Initiating) → วางแผน (Planning) → ดำเนินการ (Executing) → ติดตามและควบคุม (Monitoring &amp; Controlling) → ปิดโครงการ (Closing)</b>"
+  ]},
+  {h:"PDCA (วงจรเดมิ่ง)",points:[
+   "<b>Plan</b> วางแผน → <b>Do</b> ปฏิบัติ → <b>Check</b> ตรวจสอบ/ประเมิน → <b>Act</b> ปรับปรุง — ใช้พัฒนาคุณภาพงานอย่างต่อเนื่อง"
+  ]},
+  {h:"Logical Framework และห่วงโซ่ผลลัพธ์",points:[
+   "<b>Input (ปัจจัยนำเข้า) → Process/Activity (กิจกรรม) → Output (ผลผลิต) → Outcome (ผลลัพธ์) → Impact (ผลกระทบ)</b>",
+   "ตัวชี้วัดที่ดีควรเป็น <b>SMART</b> = Specific, Measurable, Achievable, Relevant, Time-bound"
+  ]},
+  {h:"การติดตามและประเมินผล (M&amp;E)",points:[
+   "<b>การติดตาม (Monitoring)</b> = เก็บข้อมูลความก้าวหน้าระหว่างทำเพื่อแก้ไขทันท่วงที",
+   "<b>การประเมินผล (Evaluation)</b> = ตัดสินคุณค่า/ผลสำเร็จเทียบเป้าหมาย",
+   "เกณฑ์ OECD-DAC: <b>ความสอดคล้อง (Relevance), ประสิทธิภาพ (Efficiency), ประสิทธิผล (Effectiveness), ผลกระทบ (Impact), ความยั่งยืน (Sustainability)</b>",
+   "เครื่องมือ เช่น <b>CIPP Model</b> (Context–Input–Process–Product)"
+  ]},
+  {h:"ความเสี่ยงและงบประมาณ",points:[
+   "ระบุ–ประเมิน–จัดการ–ติดตามความเสี่ยง • ควบคุม <b>ขอบเขต (Scope), เวลา (Time), ต้นทุน (Cost)</b> — สามเหลี่ยมข้อจำกัด",
+   "เชื่อมโยงงบประมาณกับ <b>ผลสัมฤทธิ์ (Results-Based)</b> และ KPI"
+  ],kbox:"<b>จำ:</b> PDCA = Plan-Do-Check-Act | ผลผลิต(Output) ≠ ผลลัพธ์(Outcome) ≠ ผลกระทบ(Impact) | ตัวชี้วัดดี = SMART | ติดตาม=ระหว่างทำ / ประเมิน=ตัดสินคุณค่า"}
+ ],
+ q:[
+  {q:"วงจร PDCA เรียงลำดับถูกต้องตามข้อใด",c:["Plan → Do → Check → Act","Plan → Check → Do → Act","Do → Plan → Check → Act","Plan → Do → Act → Check"],a:0,e:"PDCA = Plan (วางแผน) → Do (ปฏิบัติ) → Check (ตรวจสอบ) → Act (ปรับปรุง) ตามวงจรเดมิ่ง"},
+  {q:"‘จำนวนผู้ประกอบการที่เข้าอบรม 200 ราย’ จัดเป็นองค์ประกอบใดในห่วงโซ่ผลลัพธ์",c:["ปัจจัยนำเข้า (Input)","ผลผลิต (Output)","ผลลัพธ์ (Outcome)","ผลกระทบ (Impact)"],a:1,e:"จำนวนผู้เข้าอบรมเป็น ‘ผลผลิต (Output)’ ที่เกิดจากกิจกรรมโดยตรง (ส่วนงบ/วิทยากรเป็น Input)"},
+  {q:"ข้อใดจับคู่ ‘ตัวอย่าง’ กับ ‘ระดับในห่วงโซ่ผลลัพธ์’ ได้ถูกต้อง",c:["งบประมาณที่ใช้ = Outcome","จำนวนคนเข้าอบรม = Impact","รายได้ผู้ประกอบการเพิ่มขึ้น = Outcome","เศรษฐกิจชุมชนเข้มแข็งขึ้นระยะยาว = Output"],a:2,e:"รายได้ที่เพิ่มขึ้นคือ ‘ผลลัพธ์ (Outcome)’; งบ=Input, คนเข้าอบรม=Output, เศรษฐกิจชุมชนเข้มแข็งระยะยาว=Impact"},
+  {q:"หลัก ‘SMART’ ในการตั้งตัวชี้วัด ประกอบด้วยข้อใดครบถ้วน",c:["Specific / Measurable / Achievable / Relevant / Time-bound","Simple / Modern / Active / Real / Tested","Strategic / Measurable / Agile / Reliable / Timely","Specific / Manageable / Accurate / Rapid / Total"],a:0,e:"SMART = Specific (เฉพาะเจาะจง), Measurable (วัดได้), Achievable (ทำได้จริง), Relevant (สอดคล้อง), Time-bound (มีกรอบเวลา)"},
+  {q:"ข้อใดอธิบายความต่างของ ‘การติดตาม (Monitoring)’ กับ ‘การประเมินผล (Evaluation)’ ได้ถูกต้อง",c:["ติดตามทำตอนจบโครงการ ประเมินทำก่อนเริ่ม","ติดตาม=เก็บข้อมูลความก้าวหน้าระหว่างทำ / ประเมิน=ตัดสินคุณค่าและผลสำเร็จ","ทั้งสองคือกิจกรรมเดียวกัน","ประเมินทำโดยผู้รับบริการ ติดตามทำโดยผู้บริหารเท่านั้น"],a:1,e:"ติดตาม = เก็บข้อมูลความก้าวหน้า ‘ระหว่าง’ ดำเนินการเพื่อแก้ไขทัน; ประเมินผล = ตัดสินคุณค่า/ผลสำเร็จเทียบเป้าหมาย"},
+  {q:"เกณฑ์ประเมินโครงการตามแนว OECD-DAC ประกอบด้วยข้อใด",c:["Relevance / Efficiency / Effectiveness / Impact / Sustainability","Plan / Do / Check / Act","Strength / Weakness / Opportunity / Threat","Context / Input / Process / Product"],a:0,e:"เกณฑ์ OECD-DAC = ความสอดคล้อง, ประสิทธิภาพ, ประสิทธิผล, ผลกระทบ, ความยั่งยืน (PDCA เป็นวงจรคุณภาพ, CIPP เป็นโมเดลประเมินอีกแบบ)"},
+  {q:"‘สามเหลี่ยมข้อจำกัด (Triple Constraint)’ ในการบริหารโครงการคือข้อใด",c:["ขอบเขต (Scope) / เวลา (Time) / ต้นทุน (Cost)","คน / เงิน / ของ","นโยบาย / แผน / งบประมาณ","คุณภาพ / ความเสี่ยง / การสื่อสาร"],a:0,e:"Triple Constraint = Scope, Time, Cost ที่ต้องสมดุล หากปรับด้านหนึ่งจะกระทบอีกด้าน"},
+  {q:"โมเดลประเมินผล ‘CIPP’ ประกอบด้วยองค์ประกอบใด",c:["Context – Input – Process – Product","Cost – Income – Profit – Plan","Control – Inspect – Pay – Provide","Concept – Idea – Project – Plan"],a:0,e:"CIPP Model = Context (บริบท), Input (ปัจจัยนำเข้า), Process (กระบวนการ), Product (ผลผลิต)"}
+ ]
+},
+{
+ id:11,
+ title:"การเพิ่มขีดความสามารถธุรกิจอุตสาหกรรม",
+ tag:"ขีดความสามารถ • ผลิตภาพ",
+ content:[
+  {h:"แนวคิดผลิตภาพและการแข่งขัน",points:[
+   "<b>ผลิตภาพ (Productivity)</b> = ผลผลิต ÷ ปัจจัยการผลิต — ยิ่งสูงยิ่งแข่งขันได้",
+   "<b>ห่วงโซ่คุณค่า (Value Chain)</b> ของ Michael Porter — เพิ่มมูลค่าในแต่ละกิจกรรม",
+   "<b>ความได้เปรียบในการแข่งขัน</b> = ต้นทุนต่ำ (Cost Leadership) หรือสร้างความแตกต่าง (Differentiation)"
+  ]},
+  {h:"เครื่องมือเพิ่มผลิตภาพ (ที่ดีพร้อมส่งเสริม)",points:[
+   "<b>Lean / 5ส / Kaizen</b> — ลดความสูญเปล่า ปรับปรุงต่อเนื่อง",
+   "<b>มาตรฐาน</b> เช่น <b>มอก., ISO 9001, ISO 14001, GMP/HACCP</b> สร้างความน่าเชื่อถือและเปิดตลาด",
+   "<b>การวินิจฉัยสถานประกอบการ (Diagnosis) และให้คำปรึกษาเชิงลึก</b> โดยผู้เชี่ยวชาญ",
+   "<b>เทคโนโลยี/ดิจิทัล</b> — IoT, Automation, Big Data, AI ยกระดับสู่ <b>Industry 4.0</b>"
+  ]},
+  {h:"การเข้าถึงปัจจัยเอื้อ",points:[
+   "<b>แหล่งเงินทุน</b> — เงินทุนหมุนเวียนเพื่อการส่งเสริมอาชีพอุตสาหกรรม, สินเชื่อ SMEs",
+   "<b>ตลาด</b> — เชื่อมโยงตลาดในประเทศ/ส่งออก, แพลตฟอร์มออนไลน์, งานแสดงสินค้า",
+   "<b>เครือข่ายและองค์ความรู้</b> — บ่มเพาะ (Incubation), คพอ., DIPROM Connection"
+  ]},
+  {h:"ยกระดับด้วยนวัตกรรมและแบรนด์",points:[
+   "<b>R&amp;D และนวัตกรรม</b> สร้างสินค้ามูลค่าสูง (High Value)",
+   "<b>การสร้างแบรนด์/Storytelling/Soft Power</b> เพิ่มมูลค่าและความแตกต่าง"
+  ],kbox:"<b>จำ:</b> ผลิตภาพ = ผลผลิต/ปัจจัยนำเข้า | เครื่องมือลดสูญเปล่า = Lean/5ส/Kaizen | มาตรฐานเปิดตลาด = มอก./ISO | ยกระดับสู่ Industry 4.0"}
+ ],
+ q:[
+  {q:"‘ผลิตภาพ (Productivity)’ คำนวณจากอะไร",c:["ผลผลิต ÷ ปัจจัยการผลิต","รายได้ − ต้นทุน","กำไรสุทธิ ÷ ยอดขาย","ยอดขาย × ราคาต่อหน่วย"],a:0,e:"ผลิตภาพ = ผลผลิต (Output) ÷ ปัจจัยการผลิต (Input) — ส่วน ‘รายได้−ต้นทุน’ คือกำไร ไม่ใช่ผลิตภาพ"},
+  {q:"ข้อใดเป็นเครื่องมือ ‘ลดความสูญเปล่า/ปรับปรุงต่อเนื่อง’ ในกระบวนการผลิตทั้งหมด",c:["Lean / Kaizen / 5ส","SWOT / PEST / Five Forces","CRM / ERP / POS","BSC / KPI / OKR"],a:0,e:"Lean, Kaizen และ 5ส เป็นเครื่องมือลดความสูญเปล่า (Waste) และปรับปรุงงานต่อเนื่อง (กลุ่มอื่นเป็นเครื่องมือวิเคราะห์/บริหารคนละด้าน)"},
+  {q:"ผู้ประกอบการต้องการเครื่องหมายรับรอง ‘มาตรฐานผลิตภัณฑ์อุตสาหกรรม’ ของไทย ควรขอสิ่งใด และจากหน่วยใด",c:["มอก. จาก สมอ.","อย. จาก สำนักงานคณะกรรมการอาหารและยา","BOI จาก สำนักงานคณะกรรมการส่งเสริมการลงทุน","ISO จาก กรมบัญชีกลาง"],a:0,e:"มอก. (มาตรฐานผลิตภัณฑ์อุตสาหกรรม) ออกโดย สมอ. ส่วน อย. เป็นมาตรฐานอาหาร/ยา และ ISO เป็นมาตรฐานสากล (ไม่ได้ออกโดยกรมบัญชีกลาง)"},
+  {q:"แนวคิด ‘ห่วงโซ่คุณค่า (Value Chain)’ เป็นของนักวิชาการท่านใด",c:["Peter Drucker","Michael Porter","Philip Kotler","W. Edwards Deming"],a:1,e:"Value Chain เป็นแนวคิดของ Michael Porter (Deming=คุณภาพ/PDCA, Kotler=การตลาด, Drucker=การจัดการ)"},
+  {q:"การยกระดับโรงงานสู่ ‘Industry 4.0’ เน้นการใช้เทคโนโลยีกลุ่มใด",c:["เครื่องจักรไอน้ำและสายพานยุคแรก","แรงงานคนเข้มข้นแทนเครื่องจักร","IoT, Automation, Big Data และ AI","ระบบบัญชีมือและแฟ้มกระดาษ"],a:2,e:"Industry 4.0 เน้นการเชื่อมต่อข้อมูลและระบบอัตโนมัติอัจฉริยะด้วย IoT, Automation, Big Data และ AI"},
+  {q:"กลยุทธ์การแข่งขันของ Porter ที่อาศัยการ ‘สร้างความแตกต่าง’ ของสินค้า/บริการ เรียกว่าอะไร และต่างจากอีกกลยุทธ์อย่างไร",c:["Differentiation (สร้างความแตกต่าง) — ต่างจาก Cost Leadership ที่เน้นต้นทุนต่ำ","Cost Leadership (ต้นทุนต่ำ) — ต่างจาก Outsourcing","Downsizing (ลดขนาด) — ต่างจาก Merger","Diversification (กระจายธุรกิจ) — ต่างจาก Branding"],a:0,e:"Differentiation = สร้างความแตกต่างของสินค้า/บริการ; Cost Leadership = แข่งด้วยต้นทุน/ราคาต่ำ เป็นสองกลยุทธ์หลักของ Porter"},
+  {q:"กิจกรรม ‘วินิจฉัยสถานประกอบการ (Diagnosis)’ ของดีพร้อม มีเป้าหมายหลักเพื่ออะไร",c:["ตรวจจับและปิดโรงงานที่ทำผิดกฎหมาย","ค้นหาปัญหา/ศักยภาพเพื่อออกแบบการให้คำปรึกษายกระดับธุรกิจ","ประเมินภาษีย้อนหลังของกิจการ","คัดผู้ประกอบการที่อ่อนแอออกจากระบบ"],a:1,e:"การวินิจฉัยสถานประกอบการมุ่งค้นหาปัญหาและศักยภาพ เพื่อออกแบบการให้คำปรึกษาเชิงลึกและยกระดับธุรกิจ (ไม่ใช่บทบาทกำกับ/ลงโทษ)"}
+ ]
+},
+{
+ id:12,
+ title:"แนวทางการพัฒนาอุตสาหกรรมทั้งในและต่างประเทศ",
+ tag:"นโยบายพัฒนาอุตสาหกรรม",
+ content:[
+  {h:"กรอบพัฒนาในประเทศ",points:[
+   "<b>ยุทธศาสตร์ชาติ 20 ปี (พ.ศ. 2561–2580)</b> และ <b>แผนพัฒนาฯ ฉบับที่ 13</b> เน้นเศรษฐกิจสร้างมูลค่า เศรษฐกิจสีเขียว และดิจิทัล",
+   "<b>Thailand 4.0</b> — ขับเคลื่อนเศรษฐกิจด้วยนวัตกรรม เปลี่ยนจาก ‘ทำมาก ได้น้อย’ เป็น ‘ทำน้อย ได้มาก’",
+   "<b>EEC (เขตพัฒนาพิเศษภาคตะวันออก)</b> ฉะเชิงเทรา–ชลบุรี–ระยอง ดึงดูดการลงทุนอุตสาหกรรมเป้าหมาย"
+  ]},
+  {h:"กลไกส่งเสริมการลงทุน",points:[
+   "<b>BOI</b> ให้สิทธิประโยชน์การลงทุน • <b>นิคมอุตสาหกรรม (กนอ./IEAT)</b> จัดพื้นที่",
+   "ส่งเสริม <b>คลัสเตอร์อุตสาหกรรม (Cluster)</b> และห่วงโซ่อุปทานเชื่อมโยง"
+  ]},
+  {h:"แนวทางต่างประเทศ (เทียบเคียง/Benchmark)",points:[
+   "<b>เยอรมนี – Industrie 4.0</b> ต้นแบบโรงงานอัจฉริยะ",
+   "<b>ญี่ปุ่น – Monozukuri / Kaizen / Society 5.0</b> เน้นคุณภาพและสังคมขับเคลื่อนด้วยข้อมูล",
+   "<b>เกาหลีใต้</b> – ขับเคลื่อนด้วย R&amp;D และ Soft Power • <b>จีน</b> – Made in China 2025",
+   "ความร่วมมือระหว่างประเทศ เช่น <b>JICA, GIZ</b> และการเชื่อมตลาด ASEAN/RCEP"
+  ]},
+  {h:"การเชื่อมโยงระดับภูมิภาค",points:[
+   "<b>RCEP</b> และ <b>เขตการค้าเสรี (FTA)</b> เปิดตลาดและลดภาษี",
+   "<b>ประชาคมเศรษฐกิจอาเซียน (AEC)</b> ตลาดและฐานการผลิตเดียว"
+  ],kbox:"<b>จำ:</b> ในประเทศ = ยุทธศาสตร์ชาติ 20 ปี + Thailand 4.0 + EEC | ต่างประเทศ = เยอรมนี Industrie 4.0 / ญี่ปุ่น Society 5.0 / จีน Made in China 2025"}
+ ],
+ q:[
+  {q:"กรอบแผนระยะยาวสูงสุดตามรัฐธรรมนูญที่ชี้นำการพัฒนาประเทศไทยคือข้อใด และมีช่วงเวลาใด",c:["ยุทธศาสตร์ชาติ 20 ปี (พ.ศ. 2561–2580)","แผนพัฒนาฯ ฉบับที่ 13 (5 ปี)","วิสัยทัศน์ Thailand 2030","นโยบายไทยแลนด์ 4.0 (10 ปี)"],a:0,e:"ยุทธศาสตร์ชาติ 20 ปี (2561–2580) เป็นกรอบสูงสุดตามรัฐธรรมนูญ ส่วนแผนพัฒนาฯ ฉบับที่ 13 เป็นแผนระดับรองที่สอดคล้องกัน"},
+  {q:"แนวคิด ‘Thailand 4.0’ มุ่งเปลี่ยนเศรษฐกิจไทยไปในทิศทางใด",c:["เน้นเกษตรกรรมดั้งเดิมเป็นหลัก","ขับเคลื่อนด้วยนวัตกรรม จาก ‘ทำมากได้น้อย’ เป็น ‘ทำน้อยได้มาก’","มุ่งอุตสาหกรรมหนักใช้แรงงานเข้มข้น","เพิ่มการพึ่งพาการนำเข้าเทคโนโลยี"],a:1,e:"Thailand 4.0 มุ่งสู่เศรษฐกิจฐานนวัตกรรมและมูลค่าสูง เปลี่ยนจาก ‘ทำมากได้น้อย’ เป็น ‘ทำน้อยได้มาก’"},
+  {q:"พื้นที่ ‘EEC’ ครอบคลุม 3 จังหวัดใด",c:["เชียงใหม่ – ลำพูน – ลำปาง","ฉะเชิงเทรา – ชลบุรี – ระยอง","สงขลา – ปัตตานี – ยะลา","พระนครศรีอยุธยา – สระบุรี – ลพบุรี"],a:1,e:"EEC (เขตพัฒนาพิเศษภาคตะวันออก) ครอบคลุม ฉะเชิงเทรา ชลบุรี และระยอง"},
+  {q:"จับคู่ ‘ประเทศ–นโยบาย/แนวคิดอุตสาหกรรม’ ข้อใดถูกต้อง",c:["เยอรมนี = Society 5.0 / ญี่ปุ่น = Industrie 4.0","เยอรมนี = Industrie 4.0 / ญี่ปุ่น = Society 5.0 / จีน = Made in China 2025","จีน = Industrie 4.0 / เยอรมนี = Monozukuri","ญี่ปุ่น = Made in China 2025 / จีน = Society 5.0"],a:1,e:"Industrie 4.0 = เยอรมนี, Society 5.0/Monozukuri = ญี่ปุ่น, Made in China 2025 = จีน"},
+  {q:"แนวคิด ‘Monozukuri’ (ศิลปะการผลิตที่ประณีต) มาจากประเทศใด",c:["เกาหลีใต้","ญี่ปุ่น","เยอรมนี","สิงคโปร์"],a:1,e:"Monozukuri เป็นปรัชญาการผลิตที่ประณีตและใส่ใจคุณภาพของประเทศญี่ปุ่น"},
+  {q:"หน่วยงานใดทำหน้าที่ ‘ให้สิทธิประโยชน์ส่งเสริมการลงทุน’ และหน่วยใด ‘จัดพื้นที่นิคมอุตสาหกรรม’",c:["BOI ให้สิทธิประโยชน์ / กนอ. (IEAT) จัดพื้นที่นิคมฯ","กนอ. ให้สิทธิประโยชน์ / BOI จัดพื้นที่","กรมสรรพากร ให้สิทธิประโยชน์ / BOI จัดพื้นที่","BOI ทำทั้งสองอย่างเพียงหน่วยเดียว"],a:0,e:"BOI ให้สิทธิประโยชน์การลงทุน ส่วนการนิคมอุตสาหกรรมแห่งประเทศไทย (กนอ./IEAT) เป็นผู้จัดตั้ง/บริหารพื้นที่นิคมฯ"},
+  {q:"ความตกลง ‘RCEP’ ที่ไทยเป็นสมาชิก จัดเป็นความตกลงประเภทใด",c:["ความตกลงหุ้นส่วนทางเศรษฐกิจ/เขตการค้าเสรีระดับภูมิภาค","สนธิสัญญาด้านความมั่นคงทางทหาร","ความตกลงด้านการเปลี่ยนแปลงสภาพภูมิอากาศ","กรอบความร่วมมือด้านสาธารณสุข"],a:0,e:"RCEP (Regional Comprehensive Economic Partnership) เป็นความตกลงหุ้นส่วนทางเศรษฐกิจ/เขตการค้าเสรีระดับภูมิภาคที่ใหญ่ที่สุดในโลก"}
+ ]
+},
+{
+ id:13,
+ title:"ส่งเสริมและพัฒนาอุตสาหกรรมให้เป็นมิตรกับชุมชนและสิ่งแวดล้อมอย่างยั่งยืน",
+ tag:"อุตสาหกรรมยั่งยืน • สีเขียว",
+ content:[
+  {h:"อุตสาหกรรมสีเขียว (Green Industry) 5 ระดับ",points:[
+   "<b>ระดับ 1 ความมุ่งมั่นสีเขียว</b> (Green Commitment)",
+   "<b>ระดับ 2 ปฏิบัติการสีเขียว</b> (Green Activity)",
+   "<b>ระดับ 3 ระบบสีเขียว</b> (Green System)",
+   "<b>ระดับ 4 วัฒนธรรมสีเขียว</b> (Green Culture)",
+   "<b>ระดับ 5 เครือข่ายสีเขียว</b> (Green Network) — ขยายสู่คู่ค้าและชุมชน"
+  ]},
+  {h:"เศรษฐกิจหมุนเวียนและคาร์บอนต่ำ",points:[
+   "<b>Circular Economy</b> — ใช้ทรัพยากรหมุนเวียน ลดของเสีย หลัก <b>3R (Reduce–Reuse–Recycle)</b>",
+   "<b>Carbon Footprint / Carbon Neutral / Net Zero</b> — ลดการปล่อยก๊าซเรือนกระจก",
+   "<b>BCG Model</b> — ฐานคิดหลักของการพัฒนาที่ยั่งยืนของไทย"
+  ]},
+  {h:"การอยู่ร่วมกับชุมชน (CSR/CSV)",points:[
+   "<b>CSR</b> = ความรับผิดชอบต่อสังคม • <b>CSV (Creating Shared Value)</b> = สร้างคุณค่าร่วมระหว่างธุรกิจกับชุมชน",
+   "<b>EIA</b> = การประเมินผลกระทบสิ่งแวดล้อมสำหรับโครงการที่กระทบสิ่งแวดล้อม และการมีส่วนร่วมของชุมชน",
+   "ดีพร้อมส่งเสริม <b>อุตสาหกรรมเชิงพื้นที่ / อุตสาหกรรมชุมชน</b> ให้เติบโตคู่ชุมชน"
+  ]},
+  {h:"มาตรฐาน/เครื่องมือด้านสิ่งแวดล้อม",points:[
+   "<b>ISO 14001</b> ระบบการจัดการสิ่งแวดล้อม • <b>ฉลากเขียว / ฉลากคาร์บอน</b>",
+   "<b>โรงงานอุตสาหกรรมเชิงนิเวศ (Eco Factory) / เมืองอุตสาหกรรมเชิงนิเวศ (Eco Industrial Town)</b>"
+  ],kbox:"<b>จำ:</b> Green Industry มี 5 ระดับ (สูงสุด=เครือข่ายสีเขียว) | 3R = Reduce-Reuse-Recycle | CSV = สร้างคุณค่าร่วม | ISO 14001 = ระบบจัดการสิ่งแวดล้อม"}
+ ],
+ q:[
+  {q:"การรับรอง ‘อุตสาหกรรมสีเขียว (Green Industry)’ ของกระทรวงอุตสาหกรรมแบ่งเป็นกี่ระดับ",c:["3 ระดับ","4 ระดับ","5 ระดับ","7 ระดับ"],a:2,e:"Green Industry มี 5 ระดับ ตั้งแต่ความมุ่งมั่นสีเขียว จนถึงเครือข่ายสีเขียว"},
+  {q:"เรียงลำดับระดับ ‘อุตสาหกรรมสีเขียว’ จากต่ำสุดไปสูงสุดข้อใดถูกต้อง",c:["ความมุ่งมั่น → ปฏิบัติการ → ระบบ → วัฒนธรรม → เครือข่ายสีเขียว","เครือข่าย → วัฒนธรรม → ระบบ → ปฏิบัติการ → ความมุ่งมั่น","ระบบ → ความมุ่งมั่น → ปฏิบัติการ → เครือข่าย → วัฒนธรรม","ปฏิบัติการ → ความมุ่งมั่น → ระบบ → เครือข่าย → วัฒนธรรม"],a:0,e:"ลำดับ 1→5: ความมุ่งมั่นสีเขียว → ปฏิบัติการสีเขียว → ระบบสีเขียว → วัฒนธรรมสีเขียว → เครือข่ายสีเขียว (สูงสุด)"},
+  {q:"หลัก ‘3R’ ในเศรษฐกิจหมุนเวียนหมายถึงข้อใด",c:["Reduce – Reuse – Recycle","Repair – Return – Resell","Reduce – Refuse – Remove","Rethink – Redesign – Rebuild"],a:0,e:"3R = Reduce (ลดใช้), Reuse (ใช้ซ้ำ), Recycle (แปรรูปกลับมาใช้ใหม่)"},
+  {q:"แนวคิด ‘CSV (Creating Shared Value)’ ต่างจาก ‘CSR’ อย่างไร",c:["CSV คือการบริจาคเงินให้ชุมชนเป็นครั้งคราว","CSV เน้นสร้างคุณค่าร่วมที่เป็นประโยชน์ทั้งธุรกิจและสังคมไปพร้อมกัน","CSV ทำได้เฉพาะองค์กรขนาดใหญ่","CSV ไม่เกี่ยวข้องกับแกนธุรกิจหลัก"],a:1,e:"CSV มุ่งสร้างคุณค่าให้ธุรกิจและสังคม/ชุมชน ‘ไปพร้อมกัน’ ฝังในแกนธุรกิจ ขณะที่ CSR มักเป็นกิจกรรมเพื่อสังคมแยกจากแกนธุรกิจ"},
+  {q:"ข้อใดจับคู่ ‘มาตรฐาน ISO – เรื่องที่รับรอง’ ได้ถูกต้อง",c:["ISO 9001 = สิ่งแวดล้อม / ISO 14001 = คุณภาพ","ISO 14001 = ระบบการจัดการสิ่งแวดล้อม","ISO 45001 = ความมั่นคงสารสนเทศ","ISO 27001 = อาชีวอนามัยและความปลอดภัย"],a:1,e:"ISO 14001 = ระบบการจัดการสิ่งแวดล้อม (ISO 9001=คุณภาพ, 45001=อาชีวอนามัยและความปลอดภัย, 27001=ความมั่นคงสารสนเทศ)"},
+  {q:"เครื่องมือที่ใช้ ‘ประเมินผลกระทบสิ่งแวดล้อม’ ก่อนดำเนินโครงการบางประเภทคือข้อใด",c:["EIA (รายงานการประเมินผลกระทบสิ่งแวดล้อม)","KPI (ตัวชี้วัดผลงาน)","ROI (ผลตอบแทนการลงทุน)","SWOT (วิเคราะห์จุดแข็งจุดอ่อน)"],a:0,e:"EIA (Environmental Impact Assessment) คือการประเมินผลกระทบสิ่งแวดล้อมที่กฎหมายกำหนดให้บางโครงการต้องจัดทำ"},
+  {q:"แนวคิด ‘Eco Industrial Town (เมืองอุตสาหกรรมเชิงนิเวศ)’ มีเป้าหมายหลักใด",c:["ย้ายโรงงานออกจากทุกชุมชน","ให้ภาคอุตสาหกรรม เศรษฐกิจ ชุมชน และสิ่งแวดล้อมเติบโตและอยู่ร่วมกันอย่างสมดุล","เพิ่มกำลังการผลิตสูงสุดโดยไม่คำนึงถึงมลพิษ","ห้ามตั้งโรงงานใหม่ในทุกพื้นที่"],a:1,e:"เมืองอุตสาหกรรมเชิงนิเวศมุ่งให้อุตสาหกรรม เศรษฐกิจ ชุมชน และสิ่งแวดล้อมเติบโตและอยู่ร่วมกันอย่างสมดุลและยั่งยืน"},
+  {q:"ในโมเดล BCG ตัวอักษร ‘C’ หมายถึงเศรษฐกิจแบบใด",c:["เศรษฐกิจชีวภาพ (Bio)","เศรษฐกิจหมุนเวียน (Circular Economy)","เศรษฐกิจสร้างสรรค์ (Creative)","เศรษฐกิจดิจิทัล (Digital)"],a:1,e:"BCG: B=Bio (ชีวภาพ), C=Circular (หมุนเวียน), G=Green (สีเขียว) — ตัว C คือเศรษฐกิจหมุนเวียนที่ใช้ทรัพยากรคุ้มค่าและลดของเสีย"}
+ ]
+}
 ];
 
-        // --- 2. ตัวแปร DOM ---
-        const cardContainer = document.getElementById('cardContainer');
-        const searchInput = document.getElementById('searchInput');
-        const hotelFilter = document.getElementById('hotelFilter');
-        const carFilter = document.getElementById('carFilter');
-        const summarySection = document.getElementById('summarySection');
-        const noResultMsg = document.getElementById('noResult');
+/* ============ APP LOGIC ============ */
+let S={list:[],idx:0,score:0,wrong:[],answered:false,title:"",topicId:null};
 
-        // --- 3. ฟังก์ชันจัดเตรียม Dropdown Filters ---
-        function populateFilters() {
-            // Filter: โรงแรม
-            const hotels = [...new Set(rawData.map(item => item["โรงแรม"]))].sort();
-            hotels.forEach(h => {
-                const option = document.createElement('option');
-                option.value = h;
-                option.textContent = h;
-                hotelFilter.appendChild(option);
-            });
+function $(id){return document.getElementById(id)}
+function show(v){document.querySelectorAll('.view').forEach(x=>x.classList.remove('show'));$(v).classList.add('show');window.scrollTo(0,0)}
+function setTab(i){const t=document.querySelectorAll('.tab');t.forEach(x=>x.classList.remove('active'));if(i>=0)t[i].classList.add('active')}
 
-            // Filter: รถ (ทะเบียน) - ใช้ Key ยาวๆ ตาม JSON
-            const carKey = "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์";
-            const cars = [...new Set(rawData.map(item => item[carKey]))].sort();
-            cars.forEach(c => {
-                const option = document.createElement('option');
-                option.value = c;
-                option.textContent = c;
-                carFilter.appendChild(option);
-            });
-        }
+function startHome(){setTab(0);renderGrid();show('home')}
 
-        // --- 4. ฟังก์ชันสรุปยอด (Summary) ---
-        function renderSummary() {
-            const totalPeople = rawData.length;
-            const carKey = "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์";
-            const uniqueCars = new Set(rawData.map(i => i[carKey])).size;
-            
-            summarySection.innerHTML = `
-                <div class="summary-badge"><i class="fas fa-users"></i> ผู้เดินทาง ${totalPeople} ท่าน</div>
-                <div class="summary-badge"><i class="fas fa-shuttle-van"></i> รถรับส่ง ${uniqueCars} กลุ่ม</div>
-            `;
-        }
+function renderGrid(){
+  let h="";
+  TOPICS.forEach(t=>{
+    h+=`<div class="topic ${t.full?'full':''}">
+      <span class="badge">${t.q.length} ข้อ</span>
+      <div class="top"><span class="num">${t.id}</span>
+        <div><h3>${t.title}</h3><div class="tag">${t.tag}</div></div></div>
+      <div class="btns">
+        <button class="btn read" onclick="openRead(${t.id})">อ่านเนื้อหา</button>
+        <button class="btn quiz" onclick="startTopic(${t.id})">ทำข้อสอบ</button>
+      </div></div>`;
+  });
+  $('topicGrid').innerHTML=h;
+}
 
-        // --- 5. ฟังก์ชันแสดงผลการ์ด ---
-        function renderCards(data) {
-            cardContainer.innerHTML = '';
-            
-            if (data.length === 0) {
-                noResultMsg.style.display = 'block';
-                return;
-            } else {
-                noResultMsg.style.display = 'none';
-            }
+let curRead=null;
+function openRead(id){
+  const t=TOPICS.find(x=>x.id===id);curRead=id;
+  $('readTitle').innerHTML=`หมวด ${t.id} • ${t.title}`;
+  let h="";
+  t.content.forEach(sec=>{
+    h+=`<section><h4>${sec.h}</h4>`;
+    if(sec.points&&sec.points.length){h+="<ul>";sec.points.forEach(p=>h+=`<li>${p}</li>`);h+="</ul>"}
+    if(sec.kbox)h+=`<div class="kbox">${sec.kbox}</div>`;
+    h+="</section>";
+  });
+  $('readBody').innerHTML=h;
+  setTab(-1);show('read');
+}
+function startTopicFromRead(){if(curRead)startTopic(curRead)}
 
-            data.forEach(item => {
-                // ดึงข้อมูล
-                const carKey = "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์";
-                const timeKey = "เวลา\n(เริ่มออกจากโรงแรมตั้งแต่)";
-                
-                const hotel = item["โรงแรม"] || "ไม่ระบุ";
-                const car = item[carKey] || "-";
-                const time = item[timeKey] || "-";
-                const name = item["ชื่อ - สกุล"] || "-";
-                const org = item["หน่วยงาน"] || "-";
-                const prov = item["จังหวัดที่ตั้งของหน่วยงาน"] || "-";
-                const seq = item["ลำดับ"];
-                const contactPersonHotel = item["ผู้ประสานงาน ที่ โรงแรม"] || "-";
-                const contactTel = item["ติดต่อ"] || "";
-                // แปลงเบอร์โทรให้กดโทรได้ (ลบวงเล็บ ขีด เว้นวรรค)
-                const telLink = contactTel.replace(/[^0-9]/g, ''); 
-                
-                const contactPersonDept = item["ผู้ประสานงาน ที่ กรม"] || "-";
-                const remark = item["หมายเหตุ"] || "-";
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 
-                // กำหนดธีมสีตามโรงแรม
-                let headerColor = "#0056b3"; // Default Blue (Mida)
-                if(hotel.includes("Grand Richmond")) {
-                    headerColor = "#6f42c1"; // Purple for Richmond
-                }
+function buildQ(topic){
+  // returns array of {cat,q,c,a,e} with shuffled choices
+  return topic.q.map(item=>{
+    const opts=item.c.map((text,i)=>({text,correct:i===item.a}));
+    shuffle(opts);
+    return{cat:topic.title,q:item.q,opts,e:item.e,ans:opts.findIndex(o=>o.correct)};
+  });
+}
 
-                const html = `
-                    <div class="guest-card">
-                        <div class="card-header" style="background-color: ${headerColor};">
-                            <div>
-                                <i class="fas fa-hotel hotel-icon"></i> 
-                                ${hotel}
-                            </div>
-                            <span class="seq-badge">#${seq}</span>
-                        </div>
-                        
-                        <div class="card-body">
-                            <div class="user-name">${name}</div>
-                            <div class="user-org">
-                                <i class="fas fa-id-card-alt" style="margin-top:3px;"></i> 
-                                <span>${org} (${prov})</span>
-                            </div>
+function startTopic(id){
+  const t=TOPICS.find(x=>x.id===id);
+  S={list:shuffle(buildQ(t)),idx:0,score:0,wrong:[],answered:false,title:`หมวด ${t.id} • ${t.title}`,topicId:id};
+  setTab(-1);show('quiz');renderQ();
+}
 
-                            <div class="info-box">
-                                <div class="info-row">
-                                    <span class="info-label">รถรับส่ง</span>
-                                    <span class="info-value">${car}</span>
-                                </div>
-                                <div class="info-row">
-                                    <span class="info-label">เวลารถออก</span>
-                                    <span class="info-value time-highlight">${time}</span>
-                                </div>
-                            </div>
+function startMock(){
+  setTab(1);
+  let all=[];
+  TOPICS.forEach(t=>{all=all.concat(buildQ(t))});
+  shuffle(all);
+  all=all.slice(0,40); // mock exam = 40 random questions
+  S={list:all,idx:0,score:0,wrong:[],answered:false,title:"ข้อสอบรวมเสมือนจริง • 40 ข้อสุ่มทุกหมวด",topicId:null};
+  show('quiz');renderQ();
+}
 
-                            <div class="contact-section">
-                                <div class="contact-item">
-                                    <span style="color:#888;">ผู้ประสานงานโรงแรม:</span>
-                                    <span class="contact-name">${contactPersonHotel}</span>
-                                    ${contactTel ? `<a href="tel:${telLink}" class="contact-tel"><i class="fas fa-phone-alt"></i> โทร ${contactTel}</a>` : ''}
-                                </div>
-                                <div class="contact-item">
-                                    <span style="color:#888;">ผู้ประสานงานกรม:</span>
-                                    <span class="contact-name">${contactPersonDept}</span>
-                                </div>
-                            </div>
-                        </div>
+function renderQ(){
+  const item=S.list[S.idx];S.answered=false;
+  $('quizTitle').textContent=S.title;
+  $('qbar').style.width=((S.idx)/S.list.length*100)+'%';
+  $('qcount').textContent=`ข้อ ${S.idx+1} / ${S.list.length}`;
+  $('qscore').textContent=`คะแนน ${S.score}`;
+  const labels=['ก','ข','ค','ง'];
+  let h=`<div class="q-card"><span class="q-cat">${item.cat.length>40?item.cat.slice(0,40)+'…':item.cat}</span>
+    <div class="q-text">${item.q}</div><div id="opts">`;
+  item.opts.forEach((o,i)=>{
+    h+=`<button class="opt" id="opt${i}" onclick="pick(${i})"><span class="lab">${labels[i]}.</span>${o.text}</button>`;
+  });
+  h+=`</div><div class="explain" id="exp"><div class="e-tag"></div><div id="expText"></div></div></div>`;
+  $('qCard').innerHTML=h;
+  const nb=$('nextBtn');nb.disabled=true;nb.textContent='เลือกคำตอบ';
+}
 
-                        <div class="card-footer">
-                            <i class="fas fa-bullhorn"></i>
-                            <span>${remark}</span>
-                        </div>
-                    </div>
-                `;
-                cardContainer.innerHTML += html;
-            });
-        }
+function pick(i){
+  if(S.answered)return;
+  S.answered=true;
+  const item=S.list[S.idx];
+  const correct=item.ans;
+  document.querySelectorAll('.opt').forEach((b,idx)=>{
+    b.disabled=true;
+    if(idx===correct)b.classList.add('correct');
+    else if(idx===i)b.classList.add('wrong');
+    else b.classList.add('dim');
+  });
+  const exp=$('exp');exp.classList.add('show');
+  if(i===correct){
+    S.score++;
+    exp.classList.add('ok');exp.classList.remove('no');
+    exp.querySelector('.e-tag').textContent='✓ ถูกต้อง';
+  }else{
+    exp.classList.add('no');exp.classList.remove('ok');
+    exp.querySelector('.e-tag').textContent='✗ ยังไม่ถูก';
+    S.wrong.push({q:item.q,correct:item.opts[correct].text,chosen:item.opts[i].text,e:item.e});
+  }
+  $('expText').innerHTML=item.e;
+  $('qscore').textContent=`คะแนน ${S.score}`;
+  const nb=$('nextBtn');nb.disabled=false;
+  nb.textContent=(S.idx===S.list.length-1)?'ดูผลคะแนน':'ข้อถัดไป ›';
+}
 
-        // --- 6. ฟังก์ชันกรองข้อมูล ---
-        function filterData() {
-            const searchText = searchInput.value.toLowerCase().trim();
-            const selectedHotel = hotelFilter.value;
-            const selectedCar = carFilter.value;
-            const carKey = "ทะเบียนรถรับลส่ง\nที่พัก - กรมวิทย์";
+function nextQ(){
+  if(!S.answered)return;
+  if(S.idx<S.list.length-1){S.idx++;renderQ();}
+  else showResult();
+}
 
-            const filtered = rawData.filter(item => {
-                const textMatch = 
-                    (item["ชื่อ - สกุล"] || "").toLowerCase().includes(searchText) ||
-                    (item["หน่วยงาน"] || "").toLowerCase().includes(searchText) ||
-                    (item["จังหวัดที่ตั้งของหน่วยงาน"] || "").toLowerCase().includes(searchText);
+function showResult(){
+  const total=S.list.length,pct=Math.round(S.score/total*100);
+  const C=2*Math.PI*54,off=C*(1-pct/100);
+  let verdict,color;
+  if(pct>=80){verdict='ยอดเยี่ยม! พร้อมสอบมาก 💪';color='var(--good)';}
+  else if(pct>=60){verdict='ดี ผ่านเกณฑ์ — ทบทวนข้อที่พลาดอีกนิด';color='var(--gold)';}
+  else{verdict='ต้องทบทวนเนื้อหาเพิ่ม สู้ ๆ!';color='var(--bad)';}
+  let h=`<div class="result">
+    <div class="score-ring"><svg width="140" height="140">
+      <circle cx="70" cy="70" r="54" fill="none" stroke="#E6E1F0" stroke-width="12"/>
+      <circle cx="70" cy="70" r="54" fill="none" stroke="${color}" stroke-width="12"
+        stroke-dasharray="${C}" stroke-dashoffset="${off}" stroke-linecap="round"/>
+    </svg><div class="pct"><b>${pct}%</b><span>${S.score}/${total} ข้อ</span></div></div>
+    <h2>ผลการทำข้อสอบ</h2>
+    <div class="verdict">${verdict}</div>
+    <div class="actions">
+      <button class="btn quiz" onclick="retry()">ทำชุดนี้ใหม่</button>
+      <button class="btn read" onclick="startHome()">กลับหน้าหลัก</button>
+    </div>`;
+  if(S.wrong.length){
+    h+=`<div class="review"><h3>ทบทวนข้อที่ตอบผิด (${S.wrong.length} ข้อ)</h3>`;
+    S.wrong.forEach((w,i)=>{
+      h+=`<div class="rev-item"><div class="rq">${i+1}. ${w.q}</div>
+        <div class="ra">✓ คำตอบที่ถูก: ${w.correct}</div>
+        <div class="rw">✗ ที่คุณเลือก: ${w.chosen}</div>
+        <div class="re">💡 ${w.e}</div></div>`;
+    });
+    h+=`</div>`;
+  }else{
+    h+=`<div class="review"><h3 style="color:var(--good)">เก่งมาก! ตอบถูกทุกข้อ 🎉</h3></div>`;
+  }
+  h+=`</div>`;
+  $('result').innerHTML=h;
+  setTab(-1);show('result');
+}
 
-                const hotelMatch = selectedHotel === "" || item["โรงแรม"] === selectedHotel;
-                const carMatch = selectedCar === "" || item[carKey] === selectedCar;
+function retry(){
+  if(S.topicId)startTopic(S.topicId);
+  else startMock();
+}
 
-                return textMatch && hotelMatch && carMatch;
-            });
-            
-            renderCards(filtered);
-        }
-
-        // --- Init ---
-        populateFilters();
-        renderSummary();
-        renderCards(rawData);
-
-        // --- Events ---
-        searchInput.addEventListener('keyup', filterData);
-        hotelFilter.addEventListener('change', filterData);
-        carFilter.addEventListener('change', filterData);
-
-    </script>
+/* init */
+startHome();
+</script>
 </body>
 </html>
