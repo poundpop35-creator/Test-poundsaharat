@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ติวภาษาอังกฤษในชีวิตประจำวัน — เริ่มจากศูนย์</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#1E8E6A;--teal-700:#177255;--teal-500:#25A67E;
+  --gold:#D9A327;--gold-soft:#FBEFCE;--paper:#F4FAF8;--card:#FFFFFF;
+  --ink:#17251F;--ink-soft:#54685F;--line:#DCEBE5;
+  --good:#1E8E6A;--good-bg:#E4F5EE;--bad:#C7384B;--bad-bg:#FBE9EC;
+  --shadow:0 6px 22px rgba(30,142,106,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Sarabun',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;font-size:17px;padding-bottom:70px}
+.wrap{max-width:780px;margin:0 auto;padding:0 16px}
+h1,h2,h3,.kanit{font-family:'Kanit',sans-serif;font-weight:600;line-height:1.35}
+header{background:linear-gradient(135deg,var(--teal) 0%,var(--teal-500) 100%);color:#fff;padding:24px 0 20px;position:relative;overflow:hidden}
+header::after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(217,163,39,.35),transparent 70%)}
+header a.back{display:inline-flex;align-items:center;gap:6px;color:#DDF3EA;text-decoration:none;font-family:'Kanit';font-size:14px;font-weight:500;margin-bottom:10px}
+.eyebrow{font-family:'Kanit';font-weight:500;letter-spacing:.06em;font-size:13px;color:var(--gold-soft);text-transform:uppercase}
+header h1{font-size:23px;margin:5px 0 4px;font-weight:700}
+header .sub{font-size:14.5px;color:#E7F5F0}
+.view{display:none;animation:fade .25s ease}
+.view.show{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.intro-card{background:linear-gradient(180deg,#fff,#F4FBF9);border:1px solid var(--line);border-radius:16px;padding:15px 17px;margin:16px 0 6px;box-shadow:var(--shadow)}
+.intro-card h2{font-size:17px;color:var(--teal-700);margin-bottom:5px}
+.intro-card p{font-size:14.5px;color:var(--ink-soft)}
+.grid{display:grid;grid-template-columns:1fr;gap:12px;margin:12px 0}
+.lesson{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:14px 15px;box-shadow:var(--shadow);position:relative}
+.lesson .top{display:flex;gap:12px;align-items:center}
+.lesson .emo{width:46px;height:46px;border-radius:12px;background:var(--good-bg);display:flex;align-items:center;justify-content:center;font-size:24px;flex:none}
+.lesson h3{font-size:16.5px;font-weight:600}
+.lesson .tag{font-size:12.5px;color:var(--ink-soft);font-family:'Kanit';margin-top:2px}
+.lesson .btns{display:flex;gap:8px;margin-top:12px}
+.btn{font-family:'Kanit';font-weight:500;font-size:14px;border-radius:10px;padding:8px 14px;border:1px solid var(--teal);cursor:pointer;flex:1;text-align:center;transition:.15s}
+.btn.read{background:#fff;color:var(--teal-700)}
+.btn.read:active{background:#EAF6F1}
+.btn.quiz{background:var(--teal);color:#fff}
+.btn.quiz:active{background:var(--teal-700)}
+.head-row{display:flex;align-items:center;gap:10px;margin:16px 0 4px}
+.back-btn{font-family:'Kanit';font-weight:500;font-size:14px;color:var(--teal-700);background:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 13px;cursor:pointer}
+.l-title{font-family:'Kanit';font-weight:700;font-size:20px;color:var(--teal-700);margin:6px 0 4px;line-height:1.3}
+.l-note{font-size:14px;color:var(--ink-soft);margin-bottom:12px}
+.sec{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 15px;margin-bottom:12px;box-shadow:var(--shadow)}
+.sec h4{font-family:'Kanit';font-weight:600;font-size:15.5px;color:var(--teal-700);margin-bottom:9px;display:flex;align-items:center;gap:8px}
+.sec h4::before{content:"";width:6px;height:17px;background:var(--gold);border-radius:3px}
+.voc{display:flex;align-items:center;gap:11px;padding:9px 0;border-bottom:1px dashed var(--line)}
+.voc:last-child{border-bottom:none}
+.voc .spk{width:38px;height:38px;border-radius:10px;background:var(--good-bg);border:none;color:var(--teal-700);font-size:18px;cursor:pointer;flex:none;transition:.1s}
+.voc .spk:active{transform:scale(.9);background:#CDECE0}
+.voc .txt{flex:1;min-width:0}
+.voc .en{font-family:'Kanit';font-weight:600;font-size:17px;color:var(--ink)}
+.voc .rd{font-size:13.5px;color:var(--teal);font-family:'Kanit'}
+.voc .th{font-size:15px;color:var(--ink-soft)}
+.dlg{padding:7px 0}
+.dlg .line{display:flex;gap:9px;align-items:flex-start;margin-bottom:8px}
+.dlg .spk2{width:34px;height:34px;border-radius:9px;background:var(--good-bg);border:none;color:var(--teal-700);font-size:16px;cursor:pointer;flex:none}
+.dlg .who{font-family:'Kanit';font-weight:700;color:var(--teal);flex:none;width:20px;font-size:15px;padding-top:6px}
+.dlg .en{font-family:'Kanit';font-weight:500;font-size:16px}
+.dlg .th{font-size:14px;color:var(--ink-soft)}
+.tipbox{background:var(--gold-soft);border-radius:10px;padding:10px 13px;font-size:14.5px;color:#6b5411;margin-top:4px}
+.tipbox b{color:#8a6a15}
+.cta{display:flex;justify-content:center;margin:6px 0 2px}
+.cta .btn{max-width:280px}
+/* quiz */
+.q-bar{height:7px;background:var(--line);border-radius:99px;overflow:hidden;margin:14px 0 8px}
+.q-bar i{display:block;height:100%;background:var(--teal);border-radius:99px;transition:.3s}
+.q-meta{display:flex;justify-content:space-between;font-family:'Kanit';font-size:13.5px;color:var(--ink-soft);margin-bottom:12px}
+.q-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 16px;box-shadow:var(--shadow)}
+.q-kind{font-family:'Kanit';font-size:12.5px;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
+.q-text{font-family:'Kanit';font-weight:600;font-size:20px;margin-bottom:6px;line-height:1.4}
+.q-sub{font-size:14px;color:var(--ink-soft);margin-bottom:14px}
+.listen-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:var(--good-bg);border:2px solid var(--teal);color:var(--teal-700);font-family:'Kanit';font-weight:600;font-size:17px;border-radius:14px;padding:16px;cursor:pointer;margin-bottom:16px}
+.listen-btn:active{background:#CDECE0}
+.listen-btn .ico{font-size:26px}
+.opt{display:block;width:100%;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:13px 15px;margin-bottom:9px;font-family:'Kanit';font-weight:500;font-size:16.5px;cursor:pointer;transition:.12s;color:var(--ink)}
+.opt:active{border-color:var(--teal)}
+.opt.correct{background:var(--good-bg);border-color:var(--good);color:var(--good)}
+.opt.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+.opt .lab{display:inline-block;width:24px;font-weight:700;color:var(--ink-soft)}
+.explain{display:none;margin-top:12px;background:var(--good-bg);border-radius:12px;padding:12px 14px;font-size:15px;color:var(--teal-700)}
+.explain.show{display:block}
+.next{margin-top:16px;width:100%;background:var(--teal);color:#fff;border:none;border-radius:13px;padding:15px;font-family:'Kanit';font-weight:600;font-size:17px;cursor:pointer}
+.next:disabled{background:#B8D8CD;cursor:not-allowed}
+.result{text-align:center;padding:24px 6px}
+.result .big{font-size:56px;margin-bottom:6px}
+.result h2{font-size:24px;color:var(--teal-700)}
+.result .score{font-size:19px;margin:10px 0;font-family:'Kanit'}
+.result .msg{color:var(--ink-soft);margin-bottom:18px}
+.result .btn{display:inline-block;margin:5px;max-width:220px}
+.audio-warn{display:none;background:#FFF6E5;border:1px solid #F0D89A;color:#8a6a15;font-size:13.5px;border-radius:10px;padding:9px 12px;margin:10px 0}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="index.html">← กลับหน้าแรก</a>
+    <div class="eyebrow">คอร์สปูพื้นฐาน • เริ่มจากศูนย์</div>
+    <h1>ติวภาษาอังกฤษในชีวิตประจำวัน</h1>
+    <div class="sub">ฟังได้ 🔊 • อ่านได้ 📖 • สื่อสารได้ 💬 — สำหรับคนที่ไม่เก่งอังกฤษเลย</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <!-- HOME -->
+  <div id="home" class="view show">
+    <div class="intro-card">
+      <h2>เริ่มยังไงดี?</h2>
+      <p>แต่ละบทมี <b>คำศัพท์+เสียงอ่าน</b> (กดปุ่ม 🔊 ฟังเจ้าของภาษาได้เลย) <b>ประโยคใช้จริง</b> และ <b>บทสนทนา</b> — อ่านจบแล้วกด “ฝึกทำโจทย์” เพื่อทดสอบ เริ่มจากบทที่ 1 ไล่ลงไปตามลำดับได้เลย</p>
+    </div>
+    <div id="audioWarn" class="audio-warn">💡 ถ้ากดปุ่ม 🔊 แล้วไม่มีเสียง ลองเปิดเสียงเครื่อง/ถอดหูฟัง แล้วแตะปุ่มอีกครั้ง (บางเครื่องต้องแตะหน้าจอก่อนจึงจะเล่นเสียงได้)</div>
+    <div id="lessonGrid" class="grid"></div>
+  </div>
+
+  <!-- LESSON -->
+  <div id="lesson" class="view">
+    <div class="head-row"><button class="back-btn" onclick="goHome()">← บทเรียน</button></div>
+    <div id="lTitle" class="l-title"></div>
+    <div id="lNote" class="l-note"></div>
+    <div id="lBody"></div>
+    <div class="cta"><button class="btn quiz" onclick="startQuizFromLesson()">ฝึกทำโจทย์บทนี้ ›</button></div>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz" class="view">
+    <div class="head-row"><button class="back-btn" onclick="goHome()">← ออก</button>
+      <div id="qTitle" class="kanit" style="font-size:16px;color:var(--teal-700)"></div></div>
+    <div class="q-bar"><i id="qbar"></i></div>
+    <div class="q-meta"><span id="qcount"></span><span id="qscore"></span></div>
+    <div id="qCard"></div>
+    <button id="nextBtn" class="next" disabled onclick="nextQ()">ตอบ</button>
+  </div>
+
+  <!-- RESULT -->
+  <div id="result" class="view"></div>
+</div>
+
+<script>
+/* ============ CONTENT ============ */
+const LESSONS = [
+{
+ id:1, emoji:"👋", title:"ทักทาย & แนะนำตัว", tag:"คำทักทายที่ใช้ทุกวัน",
+ note:"บทแรกสุด — คำทักทายและการบอกชื่อ ใช้ได้ทันทีเมื่อเจอคนต่างชาติ",
+ vocab:[
+  {en:"Hello",rd:"เฮ็ล-โล่",th:"สวัสดี"},
+  {en:"Hi",rd:"ไฮ",th:"หวัดดี (เป็นกันเอง)"},
+  {en:"Good morning",rd:"กู๊ด มอร์-นิ่ง",th:"สวัสดีตอนเช้า"},
+  {en:"Good afternoon",rd:"กู๊ด อาฟ-เตอร์-นูน",th:"สวัสดีตอนบ่าย"},
+  {en:"Good evening",rd:"กู๊ด อี๊ฟ-นิ่ง",th:"สวัสดีตอนเย็น"},
+  {en:"Goodbye",rd:"กู๊ด-บาย",th:"ลาก่อน"},
+  {en:"Thank you",rd:"แ-ธง-คิว",th:"ขอบคุณ"},
+  {en:"Sorry",rd:"ซอ-รี่",th:"ขอโทษ / เสียใจด้วย"},
+  {en:"Yes",rd:"เยส",th:"ใช่ / ครับ-ค่ะ"},
+  {en:"No",rd:"โน",th:"ไม่ / ไม่ใช่"}
+ ],
+ phrases:[
+  {en:"How are you?",rd:"ฮาว อาร์ ยู",th:"สบายดีไหม"},
+  {en:"I'm fine, thank you.",rd:"ไอม์ ไฟน์ แ-ธง-คิว",th:"สบายดี ขอบคุณ"},
+  {en:"What's your name?",rd:"วอทส์ ยัวร์ เนม",th:"คุณชื่ออะไร"},
+  {en:"My name is Nok.",rd:"มาย เนม อีส นก",th:"ฉันชื่อนก"},
+  {en:"Nice to meet you.",rd:"ไน๊ซ์ ทู มีท ยู",th:"ยินดีที่ได้รู้จัก"},
+  {en:"See you later.",rd:"ซี ยู เล-เท่อร์",th:"แล้วเจอกันนะ"}
+ ],
+ dialogue:[
+  {who:"A",en:"Hello! How are you?",th:"สวัสดี! สบายดีไหม"},
+  {who:"B",en:"I'm fine, thank you. And you?",th:"สบายดี ขอบคุณ แล้วคุณล่ะ"},
+  {who:"A",en:"I'm fine too. What's your name?",th:"ฉันก็สบายดี คุณชื่ออะไร"},
+  {who:"B",en:"My name is Nok. Nice to meet you.",th:"ฉันชื่อนก ยินดีที่ได้รู้จัก"}
+ ],
+ tip:"คำว่า <b>“I'm”</b> ย่อมาจาก <b>“I am”</b> = “ฉัน...” เจอบ่อยมาก จำไว้เลย",
+ quiz:[
+  {t:"th",q:"Thank you",c:["ขอบคุณ","ขอโทษ","ลาก่อน","สวัสดี"],a:0,e:"Thank you = ขอบคุณ"},
+  {t:"en",q:"ขอโทษ",c:["Hello","Sorry","Yes","Name"],a:1,e:"ขอโทษ = Sorry"},
+  {t:"th",q:"Good morning",c:["สวัสดีตอนเย็น","ราตรีสวัสดิ์","สวัสดีตอนเช้า","ลาก่อน"],a:2,e:"Good morning = สวัสดีตอนเช้า"},
+  {t:"listen",au:"Hello",q:"ได้ยินคำว่าอะไร",c:["Sorry","Goodbye","Thank you","Hello"],a:3,e:"เสียงที่ได้ยินคือ Hello = สวัสดี"},
+  {t:"th",q:"How are you?",c:["คุณชื่ออะไร","สบายดีไหม","คุณอยู่ที่ไหน","กี่โมงแล้ว"],a:1,e:"How are you? = สบายดีไหม"},
+  {t:"en",q:"คุณชื่ออะไร",c:["Where are you?","How old are you?","What's your name?","How are you?"],a:2,e:"คุณชื่ออะไร = What's your name?"},
+  {t:"listen",au:"Thank you",q:"ได้ยินว่าอะไร",c:["Thank you","Good night","See you","No"],a:0,e:"Thank you = ขอบคุณ"},
+  {t:"th",q:"Nice to meet you.",c:["แล้วเจอกัน","ยินดีที่ได้รู้จัก","ราตรีสวัสดิ์","ขอโทษด้วย"],a:1,e:"Nice to meet you. = ยินดีที่ได้รู้จัก"}
+ ]
+},
+{
+ id:2, emoji:"🔢", title:"ตัวเลข & เวลา", tag:"นับเลข บอกเวลา ราคา",
+ note:"ตัวเลขใช้ตลอด ทั้งบอกราคา เบอร์โทร เวลา และอายุ",
+ vocab:[
+  {en:"One",rd:"วัน",th:"หนึ่ง (1)"},
+  {en:"Two",rd:"ทู",th:"สอง (2)"},
+  {en:"Three",rd:"ธรี",th:"สาม (3)"},
+  {en:"Four",rd:"โฟร์",th:"สี่ (4)"},
+  {en:"Five",rd:"ไฟฟ์",th:"ห้า (5)"},
+  {en:"Ten",rd:"เท็น",th:"สิบ (10)"},
+  {en:"Twenty",rd:"เท็วน-ที่",th:"ยี่สิบ (20)"},
+  {en:"Hundred",rd:"ฮัน-เดร็ด",th:"ร้อย (100)"},
+  {en:"Today",rd:"ทู-เดย์",th:"วันนี้"},
+  {en:"Tomorrow",rd:"ทู-มอ-โร่ว",th:"พรุ่งนี้"}
+ ],
+ phrases:[
+  {en:"How much is it?",rd:"ฮาว มัช อีส อิท",th:"อันนี้ราคาเท่าไหร่"},
+  {en:"It's fifty baht.",rd:"อิทส์ ฟิฟ-ที่ บาท",th:"ห้าสิบบาท"},
+  {en:"What time is it?",rd:"วอท ไทม์ อีส อิท",th:"กี่โมงแล้ว"},
+  {en:"It's nine o'clock.",rd:"อิทส์ ไนน์ โอ-คล็อก",th:"เก้าโมง"},
+  {en:"How old are you?",rd:"ฮาว โอลด์ อาร์ ยู",th:"คุณอายุเท่าไหร่"}
+ ],
+ dialogue:[
+  {who:"A",en:"How much is this?",th:"อันนี้เท่าไหร่"},
+  {who:"B",en:"It's one hundred baht.",th:"หนึ่งร้อยบาท"},
+  {who:"A",en:"OK, thank you.",th:"โอเค ขอบคุณ"}
+ ],
+ tip:"บอกราคาไทยใช้ <b>“It's ... baht.”</b> เช่น It's twenty baht = 20 บาท",
+ quiz:[
+  {t:"th",q:"Three",c:["สาม","ห้า","สิบ","สอง"],a:0,e:"Three = สาม (3)"},
+  {t:"en",q:"ห้า",c:["Four","Five","Nine","One"],a:1,e:"ห้า = Five"},
+  {t:"th",q:"How much is it?",c:["กี่โมงแล้ว","ราคาเท่าไหร่","อยู่ที่ไหน","ชื่ออะไร"],a:1,e:"How much is it? = ราคาเท่าไหร่"},
+  {t:"listen",au:"Ten",q:"ได้ยินตัวเลขอะไร",c:["Two","Ten","Twenty","Four"],a:1,e:"Ten = สิบ (10)"},
+  {t:"th",q:"Today",c:["เมื่อวาน","พรุ่งนี้","วันนี้","สัปดาห์หน้า"],a:2,e:"Today = วันนี้"},
+  {t:"en",q:"พรุ่งนี้",c:["Today","Yesterday","Tomorrow","Morning"],a:2,e:"พรุ่งนี้ = Tomorrow"},
+  {t:"listen",au:"How much is it?",q:"ประโยคนี้ถามเรื่องอะไร",c:["ถามเวลา","ถามราคา","ถามชื่อ","ถามทาง"],a:1,e:"How much is it? = ถามราคา"},
+  {t:"th",q:"What time is it?",c:["กี่โมงแล้ว","เท่าไหร่","ใครคะ","ทำไม"],a:0,e:"What time is it? = กี่โมงแล้ว"}
+ ]
+},
+{
+ id:3, emoji:"❓", title:"คำถามพื้นฐาน (Wh-)", tag:"What / Where / Who / When",
+ note:"5 คำถามหลักที่ใช้ถามอะไรก็ได้ในชีวิตประจำวัน",
+ vocab:[
+  {en:"What",rd:"วอท",th:"อะไร"},
+  {en:"Where",rd:"แวร์",th:"ที่ไหน"},
+  {en:"Who",rd:"ฮู",th:"ใคร"},
+  {en:"When",rd:"เวน",th:"เมื่อไหร่"},
+  {en:"Why",rd:"วาย",th:"ทำไม"},
+  {en:"How",rd:"ฮาว",th:"อย่างไร"},
+  {en:"Which",rd:"วิช",th:"อันไหน"},
+  {en:"Here",rd:"เฮียร์",th:"ที่นี่"},
+  {en:"There",rd:"แดร์",th:"ที่นั่น"},
+  {en:"Now",rd:"นาว",th:"ตอนนี้"}
+ ],
+ phrases:[
+  {en:"Where is the toilet?",rd:"แวร์ อีส เดอะ ทอย-เล็ท",th:"ห้องน้ำอยู่ที่ไหน"},
+  {en:"What is this?",rd:"วอท อีส ดิส",th:"นี่คืออะไร"},
+  {en:"Who is he?",rd:"ฮู อีส ฮี",th:"เขาเป็นใคร"},
+  {en:"When do we go?",rd:"เวน ดู วี โก",th:"เราไปเมื่อไหร่"},
+  {en:"I don't understand.",rd:"ไอ โด้นท์ อัน-เดอร์-สแตนด์",th:"ฉันไม่เข้าใจ"}
+ ],
+ dialogue:[
+  {who:"A",en:"Excuse me, where is the station?",th:"ขอโทษนะ สถานีอยู่ที่ไหน"},
+  {who:"B",en:"It's over there.",th:"อยู่ตรงนั้น"},
+  {who:"A",en:"Thank you very much.",th:"ขอบคุณมาก"}
+ ],
+ tip:"จำง่าย ๆ: คำถามส่วนใหญ่ขึ้นต้นด้วย <b>Wh-</b> (What, Where, Who, When, Why) และ <b>How</b>",
+ quiz:[
+  {t:"th",q:"Where",c:["ใคร","อะไร","ที่ไหน","ทำไม"],a:2,e:"Where = ที่ไหน"},
+  {t:"en",q:"ทำไม",c:["What","Why","Who","When"],a:1,e:"ทำไม = Why"},
+  {t:"th",q:"Where is the toilet?",c:["ห้องน้ำอยู่ที่ไหน","นี่คืออะไร","กี่โมงแล้ว","ใครคะ"],a:0,e:"Where is the toilet? = ห้องน้ำอยู่ที่ไหน"},
+  {t:"listen",au:"What is this?",q:"เขาถามว่าอะไร",c:["นี่คืออะไร","อยู่ที่ไหน","ราคาเท่าไหร่","ใครคะ"],a:0,e:"What is this? = นี่คืออะไร"},
+  {t:"th",q:"I don't understand.",c:["ฉันเข้าใจแล้ว","ฉันไม่เข้าใจ","ฉันเห็นด้วย","ฉันไม่รู้จัก"],a:1,e:"I don't understand. = ฉันไม่เข้าใจ (ประโยคช่วยชีวิต!)"},
+  {t:"en",q:"ใคร",c:["Where","When","Who","Why"],a:2,e:"ใคร = Who"},
+  {t:"listen",au:"Where",q:"ได้ยินคำถามว่าอะไร",c:["What (อะไร)","Where (ที่ไหน)","Who (ใคร)","Why (ทำไม)"],a:1,e:"Where = ที่ไหน"},
+  {t:"th",q:"Now",c:["เมื่อวาน","ตอนนี้","ทีหลัง","พรุ่งนี้"],a:1,e:"Now = ตอนนี้"}
+ ]
+},
+{
+ id:4, emoji:"🍜", title:"ที่ร้านอาหาร", tag:"สั่งอาหาร จ่ายเงิน",
+ note:"ประโยคที่ใช้เวลาไปกินข้าว สั่งอาหาร และจ่ายเงิน",
+ vocab:[
+  {en:"Water",rd:"วอ-เท่อร์",th:"น้ำเปล่า"},
+  {en:"Rice",rd:"ไรซ์",th:"ข้าว"},
+  {en:"Coffee",rd:"คอ-ฟี่",th:"กาแฟ"},
+  {en:"Chicken",rd:"ชิค-เค่น",th:"ไก่"},
+  {en:"Spicy",rd:"สไป-ซี่",th:"เผ็ด"},
+  {en:"Delicious",rd:"ดิ-ลิ-เชี่ยส",th:"อร่อย"},
+  {en:"Menu",rd:"เม-นู",th:"เมนู"},
+  {en:"Bill / Check",rd:"บิล / เช็ค",th:"บิล / เก็บเงิน"}
+ ],
+ phrases:[
+  {en:"I would like this, please.",rd:"ไอ วูด ไลค์ ดิส พลีส",th:"ขออันนี้หน่อยครับ/ค่ะ"},
+  {en:"Not spicy, please.",rd:"น็อท สไป-ซี่ พลีส",th:"ไม่เผ็ดนะครับ/ค่ะ"},
+  {en:"Can I have water?",rd:"แคน ไอ แฮฟ วอ-เท่อร์",th:"ขอน้ำเปล่าได้ไหม"},
+  {en:"It's delicious!",rd:"อิทส์ ดิ-ลิ-เชี่ยส",th:"อร่อยมาก!"},
+  {en:"Can I have the bill?",rd:"แคน ไอ แฮฟ เดอะ บิล",th:"ขอเช็คบิลหน่อย / คิดเงินด้วย"}
+ ],
+ dialogue:[
+  {who:"A",en:"Hello, can I have the menu?",th:"สวัสดีครับ ขอเมนูหน่อย"},
+  {who:"B",en:"Here you are.",th:"นี่ครับ"},
+  {who:"A",en:"I would like chicken rice, not spicy, please.",th:"ขอข้าวไก่ ไม่เผ็ดครับ"},
+  {who:"B",en:"OK, one moment please.",th:"ได้ครับ รอสักครู่นะ"}
+ ],
+ tip:"<b>“I would like ...”</b> (ขอ...) และ <b>“Can I have ...?”</b> (ขอ...ได้ไหม) สุภาพและใช้สั่งของได้ทุกอย่าง",
+ quiz:[
+  {t:"th",q:"Water",c:["ข้าว","น้ำเปล่า","กาแฟ","ไก่"],a:1,e:"Water = น้ำเปล่า"},
+  {t:"en",q:"อร่อย",c:["Spicy","Hungry","Delicious","Menu"],a:2,e:"อร่อย = Delicious"},
+  {t:"th",q:"Not spicy, please.",c:["เผ็ดมากนะ","ไม่เผ็ดนะ","ไม่ใส่น้ำแข็ง","เอาเผ็ดน้อย"],a:1,e:"Not spicy, please. = ไม่เผ็ดนะครับ/ค่ะ"},
+  {t:"listen",au:"Can I have the bill?",q:"ประโยคนี้หมายความว่า?",c:["ขอเมนูหน่อย","ขอเช็คบิล/คิดเงิน","ขอน้ำเปล่า","อร่อยมาก"],a:1,e:"Can I have the bill? = ขอเช็คบิล / คิดเงินด้วย"},
+  {t:"th",q:"Chicken",c:["หมู","ไก่","ปลา","กุ้ง"],a:1,e:"Chicken = ไก่"},
+  {t:"en",q:"เผ็ด",c:["Sweet","Salty","Spicy","Sour"],a:2,e:"เผ็ด = Spicy"},
+  {t:"listen",au:"Can I have water?",q:"เขาขออะไร",c:["ขอน้ำเปล่า","ขอกาแฟ","ขอเมนู","ขอบิล"],a:0,e:"Can I have water? = ขอน้ำเปล่าได้ไหม"},
+  {t:"th",q:"I would like this, please.",c:["ขออันนี้หน่อย","อันนี้เท่าไหร่","อันนี้อร่อยไหม","ไม่เอาอันนี้"],a:0,e:"I would like this, please. = ขออันนี้หน่อยครับ/ค่ะ"}
+ ]
+},
+{
+ id:5, emoji:"🛍️", title:"ซื้อของ & ตลาด", tag:"ต่อราคา จ่ายเงิน",
+ note:"ประโยคเวลาไปซื้อของ ถามราคา และต่อราคา",
+ vocab:[
+  {en:"Money",rd:"มัน-นี่",th:"เงิน"},
+  {en:"Cheap",rd:"ชีพ",th:"ถูก (ราคา)"},
+  {en:"Expensive",rd:"เอ็กซ์-เพน-ซีฟ",th:"แพง"},
+  {en:"Big",rd:"บิก",th:"ใหญ่"},
+  {en:"Small",rd:"สมอล",th:"เล็ก"},
+  {en:"Color",rd:"คัล-เล่อร์",th:"สี"},
+  {en:"Size",rd:"ไซซ์",th:"ขนาด/ไซซ์"},
+  {en:"Card",rd:"การ์ด",th:"บัตร (เครดิต)"}
+ ],
+ phrases:[
+  {en:"How much is this?",rd:"ฮาว มัช อีส ดิส",th:"อันนี้เท่าไหร่"},
+  {en:"It's too expensive.",rd:"อิทส์ ทู เอ็กซ์-เพน-ซีฟ",th:"แพงไป"},
+  {en:"Can you lower the price?",rd:"แคน ยู โล-เว่อร์ เดอะ ไพรซ์",th:"ลดราคาได้ไหม"},
+  {en:"Do you have a bigger size?",rd:"ดู ยู แฮฟ อะ บิ๊ก-เก่อร์ ไซซ์",th:"มีไซซ์ใหญ่กว่านี้ไหม"},
+  {en:"Can I pay by card?",rd:"แคน ไอ เพย์ บาย การ์ด",th:"จ่ายด้วยบัตรได้ไหม"}
+ ],
+ dialogue:[
+  {who:"A",en:"How much is this bag?",th:"กระเป๋าใบนี้เท่าไหร่"},
+  {who:"B",en:"It's three hundred baht.",th:"สามร้อยบาท"},
+  {who:"A",en:"It's too expensive. Can you lower the price?",th:"แพงไป ลดได้ไหม"},
+  {who:"B",en:"OK, two hundred and fifty.",th:"ได้ สองร้อยห้าสิบ"}
+ ],
+ tip:"<b>“too + คำ”</b> = “...เกินไป” เช่น too expensive (แพงไป), too big (ใหญ่ไป), too small (เล็กไป)",
+ quiz:[
+  {t:"th",q:"Expensive",c:["ถูก","แพง","ใหญ่","สวย"],a:1,e:"Expensive = แพง"},
+  {t:"en",q:"ถูก (ราคา)",c:["Cheap","Small","Money","Card"],a:0,e:"ถูก = Cheap"},
+  {t:"th",q:"Can you lower the price?",c:["ราคาเท่าไหร่","ลดราคาได้ไหม","มีสีอื่นไหม","จ่ายเงินที่ไหน"],a:1,e:"Can you lower the price? = ลดราคาได้ไหม"},
+  {t:"listen",au:"It's too expensive.",q:"ประโยคนี้บ่นว่าอะไร",c:["ถูกมาก","แพงไป","เล็กไป","สวยมาก"],a:1,e:"It's too expensive. = แพงไป"},
+  {t:"th",q:"Small",c:["ใหญ่","เล็ก","ยาว","หนัก"],a:1,e:"Small = เล็ก"},
+  {t:"en",q:"จ่ายด้วยบัตรได้ไหม",c:["How much is this?","Can I pay by card?","Do you have money?","Where is the shop?"],a:1,e:"จ่ายด้วยบัตรได้ไหม = Can I pay by card?"},
+  {t:"listen",au:"Do you have a bigger size?",q:"เขาถามหาอะไร",c:["ไซซ์ใหญ่กว่านี้","สีอื่น","ราคาถูกกว่า","ของใหม่"],a:0,e:"Do you have a bigger size? = มีไซซ์ใหญ่กว่านี้ไหม"},
+  {t:"th",q:"Money",c:["บัตร","เงิน","สี","ขนาด"],a:1,e:"Money = เงิน"}
+ ]
+},
+{
+ id:6, emoji:"🧭", title:"ถามทาง & เดินทาง", tag:"หาที่ ไปไหน",
+ note:"ประโยคเวลาหลงทาง ถามทาง หรือใช้บริการเดินทาง",
+ vocab:[
+  {en:"Left",rd:"เลฟท์",th:"ซ้าย"},
+  {en:"Right",rd:"ไรท์",th:"ขวา"},
+  {en:"Straight",rd:"สเตรท",th:"ตรงไป"},
+  {en:"Near",rd:"เนียร์",th:"ใกล้"},
+  {en:"Far",rd:"ฟาร์",th:"ไกล"},
+  {en:"Station",rd:"สเต-ชั่น",th:"สถานี"},
+  {en:"Airport",rd:"แอร์-พอร์ท",th:"สนามบิน"},
+  {en:"Hospital",rd:"ฮอส-พิ-ท่อล",th:"โรงพยาบาล"},
+  {en:"Hotel",rd:"โฮ-เทล",th:"โรงแรม"},
+  {en:"Taxi",rd:"แท็ก-ซี่",th:"แท็กซี่"}
+ ],
+ phrases:[
+  {en:"How do I get to the airport?",rd:"ฮาว ดู ไอ เก็ท ทู ดิ แอร์-พอร์ท",th:"ไปสนามบินยังไง"},
+  {en:"Turn left.",rd:"เทิร์น เลฟท์",th:"เลี้ยวซ้าย"},
+  {en:"Go straight.",rd:"โก สเตรท",th:"ตรงไป"},
+  {en:"Is it far?",rd:"อีส อิท ฟาร์",th:"ไกลไหม"},
+  {en:"Please take me here.",rd:"พลีส เทค มี เฮียร์",th:"ช่วยพาไปที่นี่หน่อย (ชี้แผนที่)"}
+ ],
+ dialogue:[
+  {who:"A",en:"Excuse me, how do I get to the station?",th:"ขอโทษครับ ไปสถานียังไง"},
+  {who:"B",en:"Go straight and turn right.",th:"ตรงไปแล้วเลี้ยวขวา"},
+  {who:"A",en:"Is it far?",th:"ไกลไหม"},
+  {who:"B",en:"No, it's near.",th:"ไม่ ใกล้ ๆ นี่เอง"}
+ ],
+ tip:"เวลาไม่รู้จะพูดยังไง ให้ชี้แผนที่ในมือถือแล้วพูด <b>“Please take me here.”</b> ก็สื่อสารได้แล้ว",
+ quiz:[
+  {t:"th",q:"Left",c:["ขวา","ซ้าย","ตรงไป","กลับหลัง"],a:1,e:"Left = ซ้าย"},
+  {t:"en",q:"ตรงไป",c:["Turn","Straight","Near","Stop"],a:1,e:"ตรงไป = Straight (Go straight = ตรงไป)"},
+  {t:"th",q:"Is it far?",c:["ไกลไหม","ที่ไหน","เท่าไหร่","กี่โมง"],a:0,e:"Is it far? = ไกลไหม"},
+  {t:"listen",au:"Turn left.",q:"เขาบอกให้ทำอะไร",c:["เลี้ยวซ้าย","เลี้ยวขวา","ตรงไป","หยุด"],a:0,e:"Turn left. = เลี้ยวซ้าย"},
+  {t:"th",q:"Hospital",c:["โรงแรม","โรงเรียน","โรงพยาบาล","สนามบิน"],a:2,e:"Hospital = โรงพยาบาล"},
+  {t:"en",q:"สนามบิน",c:["Station","Airport","Hotel","Hospital"],a:1,e:"สนามบิน = Airport"},
+  {t:"listen",au:"Go straight.",q:"เขาบอกทางว่าอย่างไร",c:["เลี้ยวซ้าย","เลี้ยวขวา","ตรงไป","กลับรถ"],a:2,e:"Go straight. = ตรงไป"},
+  {t:"th",q:"Near",c:["ไกล","ใกล้","บน","ล่าง"],a:1,e:"Near = ใกล้"}
+ ]
+},
+{
+ id:7, emoji:"👪", title:"ครอบครัว & ผู้คน", tag:"เรียกคน บอกความสัมพันธ์",
+ note:"คำเรียกคนในครอบครัวและคำสรรพนามพื้นฐาน",
+ vocab:[
+  {en:"Father / Dad",rd:"ฟา-เท่อร์ / แดด",th:"พ่อ"},
+  {en:"Mother / Mom",rd:"มา-เท่อร์ / มอม",th:"แม่"},
+  {en:"Brother",rd:"บรา-เท่อร์",th:"พี่ชาย/น้องชาย"},
+  {en:"Sister",rd:"ซิส-เท่อร์",th:"พี่สาว/น้องสาว"},
+  {en:"Friend",rd:"เฟรนด์",th:"เพื่อน"},
+  {en:"Man",rd:"แมน",th:"ผู้ชาย"},
+  {en:"Woman",rd:"วู-แม่น",th:"ผู้หญิง"},
+  {en:"Child",rd:"ไชลด์",th:"เด็ก"},
+  {en:"He",rd:"ฮี",th:"เขา (ผู้ชาย)"},
+  {en:"She",rd:"ชี",th:"เธอ (ผู้หญิง)"}
+ ],
+ phrases:[
+  {en:"This is my father.",rd:"ดิส อีส มาย ฟา-เท่อร์",th:"นี่คือพ่อของฉัน"},
+  {en:"She is my friend.",rd:"ชี อีส มาย เฟรนด์",th:"เธอเป็นเพื่อนของฉัน"},
+  {en:"I have one sister.",rd:"ไอ แฮฟ วัน ซิส-เท่อร์",th:"ฉันมีพี่สาว/น้องสาวหนึ่งคน"},
+  {en:"Do you have children?",rd:"ดู ยู แฮฟ ชิล-เดร็น",th:"คุณมีลูกไหม"},
+  {en:"He is a doctor.",rd:"ฮี อีส อะ ด็อก-เท่อร์",th:"เขาเป็นหมอ"}
+ ],
+ dialogue:[
+  {who:"A",en:"Who is she?",th:"เธอเป็นใคร"},
+  {who:"B",en:"She is my sister.",th:"เธอเป็นน้องสาวฉัน"},
+  {who:"A",en:"Do you have brothers?",th:"คุณมีพี่ชาย/น้องชายไหม"},
+  {who:"B",en:"Yes, I have one brother.",th:"มี ฉันมีพี่ชายหนึ่งคน"}
+ ],
+ tip:"ผู้ชายใช้ <b>He</b> (เขา) ผู้หญิงใช้ <b>She</b> (เธอ) — และ <b>“This is ...”</b> = “นี่คือ...” ใช้แนะนำคน/สิ่งของ",
+ quiz:[
+  {t:"th",q:"Mother",c:["พ่อ","แม่","พี่สาว","เพื่อน"],a:1,e:"Mother = แม่"},
+  {t:"en",q:"เพื่อน",c:["Family","Friend","Sister","Child"],a:1,e:"เพื่อน = Friend"},
+  {t:"th",q:"She is my friend.",c:["เธอเป็นพี่สาวฉัน","เธอเป็นเพื่อนฉัน","เขาเป็นพ่อฉัน","เธอเป็นหมอ"],a:1,e:"She is my friend. = เธอเป็นเพื่อนของฉัน"},
+  {t:"listen",au:"This is my father.",q:"เขากำลังแนะนำใคร",c:["แม่","พ่อ","พี่ชาย","เพื่อน"],a:1,e:"This is my father. = นี่คือพ่อของฉัน"},
+  {t:"th",q:"Woman",c:["ผู้ชาย","ผู้หญิง","เด็ก","ผู้ใหญ่"],a:1,e:"Woman = ผู้หญิง"},
+  {t:"en",q:"เขา (ผู้ชาย)",c:["She","He","We","They"],a:1,e:"เขา (ผู้ชาย) = He"},
+  {t:"listen",au:"Do you have children?",q:"เขาถามว่าอะไร",c:["คุณมีลูกไหม","คุณมีเพื่อนไหม","คุณแต่งงานหรือยัง","คุณอยู่กับใคร"],a:0,e:"Do you have children? = คุณมีลูกไหม"},
+  {t:"th",q:"Brother",c:["พี่สาว/น้องสาว","พ่อ","พี่ชาย/น้องชาย","ลูก"],a:2,e:"Brother = พี่ชาย/น้องชาย"}
+ ]
+},
+{
+ id:8, emoji:"🌦️", title:"บอกความรู้สึก & อากาศ", tag:"รู้สึกยังไง วันนี้อากาศแบบไหน",
+ note:"บอกอาการ ความรู้สึก และคุยเรื่องอากาศ (เรื่องคุยเล่นยอดฮิต)",
+ vocab:[
+  {en:"Happy",rd:"แฮ้พ-พี่",th:"มีความสุข/ดีใจ"},
+  {en:"Tired",rd:"ไท-เอิร์ด",th:"เหนื่อย/ง่วง"},
+  {en:"Hungry",rd:"ฮัง-กรี่",th:"หิว"},
+  {en:"Sick",rd:"ซิค",th:"ป่วย"},
+  {en:"Hot",rd:"ฮอท",th:"ร้อน"},
+  {en:"Cold",rd:"โคลด์",th:"หนาว/เย็น"},
+  {en:"Rain",rd:"เรน",th:"ฝน"},
+  {en:"Sunny",rd:"ซัน-นี่",th:"แดดออก"},
+  {en:"Good",rd:"กู๊ด",th:"ดี"},
+  {en:"Bad",rd:"แบด",th:"แย่/ไม่ดี"}
+ ],
+ phrases:[
+  {en:"I am hungry.",rd:"ไอ แอม ฮัง-กรี่",th:"ฉันหิว"},
+  {en:"I am tired.",rd:"ไอ แอม ไท-เอิร์ด",th:"ฉันเหนื่อย"},
+  {en:"I am not feeling well.",rd:"ไอ แอม น็อท ฟี-ลิ่ง เวล",th:"ฉันรู้สึกไม่สบาย"},
+  {en:"It's very hot today.",rd:"อิทส์ เว-รี่ ฮอท ทู-เดย์",th:"วันนี้ร้อนมาก"},
+  {en:"It's raining.",rd:"อิทส์ เร-นิ่ง",th:"ฝนตก"}
+ ],
+ dialogue:[
+  {who:"A",en:"How are you today?",th:"วันนี้เป็นยังไงบ้าง"},
+  {who:"B",en:"I am a little tired. And it's very hot.",th:"เหนื่อยนิดหน่อย แล้วก็ร้อนมากด้วย"},
+  {who:"A",en:"Yes, let's drink some water.",th:"ใช่ ไปดื่มน้ำกันเถอะ"}
+ ],
+ tip:"บอกความรู้สึกใช้ <b>“I am + คำ”</b> เช่น I am happy (ฉันมีความสุข), I am hungry (ฉันหิว), I am tired (ฉันเหนื่อย)",
+ quiz:[
+  {t:"th",q:"Hungry",c:["เหนื่อย","หิว","ป่วย","ง่วง"],a:1,e:"Hungry = หิว"},
+  {t:"en",q:"ร้อน",c:["Cold","Hot","Rain","Bad"],a:1,e:"ร้อน = Hot"},
+  {t:"th",q:"I am not feeling well.",c:["ฉันสบายดี","ฉันรู้สึกไม่สบาย","ฉันมีความสุข","ฉันหิว"],a:1,e:"I am not feeling well. = ฉันรู้สึกไม่สบาย"},
+  {t:"listen",au:"I am tired.",q:"เขาบอกว่ารู้สึกยังไง",c:["หิว","เหนื่อย","ดีใจ","หนาว"],a:1,e:"I am tired. = ฉันเหนื่อย"},
+  {t:"th",q:"Cold",c:["ร้อน","หนาว/เย็น","เปียก","แห้ง"],a:1,e:"Cold = หนาว/เย็น"},
+  {t:"en",q:"ฝนตก",c:["It's sunny.","It's raining.","It's cold.","It's hot."],a:1,e:"ฝนตก = It's raining."},
+  {t:"listen",au:"It's very hot today.",q:"เขาพูดถึงอากาศว่าอย่างไร",c:["วันนี้ร้อนมาก","วันนี้ฝนตก","วันนี้หนาว","วันนี้แดดออก"],a:0,e:"It's very hot today. = วันนี้ร้อนมาก"},
+  {t:"th",q:"Happy",c:["เศร้า","โกรธ","มีความสุข","กลัว"],a:2,e:"Happy = มีความสุข/ดีใจ"}
+ ]
+}
+];
+
+/* ============ TEXT-TO-SPEECH ============ */
+let voices=[];
+function loadVoices(){ voices = window.speechSynthesis ? speechSynthesis.getVoices() : []; }
+if('speechSynthesis' in window){ loadVoices(); speechSynthesis.onvoiceschanged=loadVoices; }
+else { document.addEventListener('DOMContentLoaded',()=>{const w=$('audioWarn'); if(w){w.style.display='block'; w.textContent='⚠️ เบราว์เซอร์นี้อาจไม่รองรับเสียงอ่าน ลองเปิดด้วย Chrome หรือ Safari';}}); }
+function speak(text, rate){
+  if(!('speechSynthesis' in window)) return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US'; u.rate=rate||0.85; u.pitch=1;
+  if(!voices.length) loadVoices();
+  const v = voices.find(x=>/en[-_]?US/i.test(x.lang)) || voices.find(x=>/^en/i.test(x.lang));
+  if(v) u.voice=v;
+  speechSynthesis.speak(u);
+}
+
+/* ============ APP ============ */
+function $(id){return document.getElementById(id)}
+function show(v){document.querySelectorAll('.view').forEach(x=>x.classList.remove('show'));$(v).classList.add('show');window.scrollTo(0,0)}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+function renderHome(){
+  let h="";
+  LESSONS.forEach(l=>{
+    h+=`<div class="lesson">
+      <div class="top"><span class="emo">${l.emoji}</span>
+        <div><h3>บทที่ ${l.id} · ${l.title}</h3><div class="tag">${l.tag} • ${l.vocab.length} คำศัพท์ • ${l.quiz.length} ข้อ</div></div></div>
+      <div class="btns">
+        <button class="btn read" onclick="openLesson(${l.id})">เรียน + ฟังเสียง</button>
+        <button class="btn quiz" onclick="startQuiz(${l.id})">ฝึกทำโจทย์</button>
+      </div></div>`;
+  });
+  $('lessonGrid').innerHTML=h;
+}
+function goHome(){ if('speechSynthesis' in window) speechSynthesis.cancel(); show('home'); }
+
+let curLesson=null;
+function openLesson(id){
+  const l=LESSONS.find(x=>x.id===id); curLesson=id;
+  $('lTitle').textContent=`บทที่ ${l.id} · ${l.title}`;
+  $('lNote').textContent=l.note;
+  let h="";
+  // vocab
+  h+=`<div class="sec"><h4>📖 คำศัพท์ (กด 🔊 เพื่อฟัง)</h4>`;
+  l.vocab.forEach(v=>{
+    h+=`<div class="voc"><button class="spk" onclick="speak('${esc(v.en).replace(/'/g,"\\'")}')">🔊</button>
+      <div class="txt"><div class="en">${esc(v.en)}</div><div class="rd">อ่านว่า ${esc(v.rd)}</div><div class="th">${esc(v.th)}</div></div></div>`;
+  });
+  h+=`</div>`;
+  // phrases
+  h+=`<div class="sec"><h4>💬 ประโยคใช้จริง</h4>`;
+  l.phrases.forEach(p=>{
+    h+=`<div class="voc"><button class="spk" onclick="speak('${esc(p.en).replace(/'/g,"\\'")}')">🔊</button>
+      <div class="txt"><div class="en">${esc(p.en)}</div><div class="rd">${esc(p.rd)}</div><div class="th">${esc(p.th)}</div></div></div>`;
+  });
+  h+=`</div>`;
+  // dialogue
+  if(l.dialogue&&l.dialogue.length){
+    h+=`<div class="sec"><h4>🎭 บทสนทนา</h4><div class="dlg">`;
+    l.dialogue.forEach(d=>{
+      h+=`<div class="line"><button class="spk2" onclick="speak('${esc(d.en).replace(/'/g,"\\'")}')">🔊</button>
+        <span class="who">${d.who}</span>
+        <div><div class="en">${esc(d.en)}</div><div class="th">${esc(d.th)}</div></div></div>`;
+    });
+    h+=`</div>`;
+    h+=`<div style="text-align:center;margin-top:6px"><button class="btn read" style="max-width:220px;display:inline-block" onclick="playDialogue(${l.id})">▶ ฟังทั้งบทสนทนา</button></div>`;
+    h+=`</div>`;
+  }
+  if(l.tip) h+=`<div class="tipbox">💡 ${l.tip}</div>`;
+  $('lBody').innerHTML=h;
+  show('lesson');
+}
+function playDialogue(id){
+  const l=LESSONS.find(x=>x.id===id);
+  if(!('speechSynthesis' in window)) return;
+  speechSynthesis.cancel();
+  l.dialogue.forEach(d=>{
+    const u=new SpeechSynthesisUtterance(d.en); u.lang='en-US'; u.rate=0.85;
+    if(!voices.length) loadVoices();
+    const v=voices.find(x=>/en[-_]?US/i.test(x.lang))||voices.find(x=>/^en/i.test(x.lang));
+    if(v)u.voice=v;
+    speechSynthesis.speak(u);
+  });
+}
+function startQuizFromLesson(){ if(curLesson) startQuiz(curLesson); }
+
+/* quiz */
+let S={list:[],idx:0,score:0,answered:false,title:""};
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function buildQuiz(l){
+  return shuffle(l.quiz.map(item=>{
+    const opts=item.c.map((text,i)=>({text,correct:i===item.a}));
+    shuffle(opts);
+    return {t:item.t, au:item.au, q:item.q, opts, e:item.e, ans:opts.findIndex(o=>o.correct)};
+  }));
+}
+function startQuiz(id){
+  const l=LESSONS.find(x=>x.id===id); curLesson=id;
+  S={list:buildQuiz(l),idx:0,score:0,answered:false,title:`บทที่ ${l.id} · ${l.title}`,lessonId:id};
+  show('quiz'); renderQ();
+}
+const LAB=['ก','ข','ค','ง'];
+function renderQ(){
+  const item=S.list[S.idx]; S.answered=false;
+  $('qTitle').textContent=S.title;
+  $('qbar').style.width=(S.idx/S.list.length*100)+'%';
+  $('qcount').textContent=`ข้อ ${S.idx+1} / ${S.list.length}`;
+  $('qscore').textContent=`ถูก ${S.score} ข้อ`;
+  let kind = item.t==='th' ? 'อ่านอังกฤษ → เลือกคำแปลไทย' : item.t==='en' ? 'อ่านไทย → เลือกคำอังกฤษ' : '🔊 ฟังเสียง → เลือกคำตอบ';
+  let h=`<div class="q-card"><div class="q-kind">${kind}</div>`;
+  if(item.t==='listen'){
+    h+=`<button class="listen-btn" onclick="speak('${esc(item.au).replace(/'/g,"\\'")}')"><span class="ico">🔊</span> แตะเพื่อฟังอีกครั้ง</button>`;
+    h+=`<div class="q-text">${esc(item.q)}</div>`;
+  } else if(item.t==='th'){
+    h+=`<div class="q-text">${esc(item.q)} <button class="spk" style="vertical-align:middle" onclick="speak('${esc(item.q).replace(/'/g,"\\'")}')">🔊</button></div><div class="q-sub">คำนี้แปลว่าอะไร?</div>`;
+  } else {
+    h+=`<div class="q-text">${esc(item.q)}</div><div class="q-sub">ตรงกับคำ/ประโยคภาษาอังกฤษข้อใด?</div>`;
+  }
+  h+=`<div id="opts">`;
+  item.opts.forEach((o,i)=>{ h+=`<button class="opt" id="opt${i}" onclick="pick(${i})"><span class="lab">${LAB[i]}.</span>${esc(o.text)}</button>`; });
+  h+=`</div><div class="explain" id="exp"></div></div>`;
+  $('qCard').innerHTML=h;
+  $('nextBtn').disabled=true; $('nextBtn').textContent='ตอบ';
+  if(item.t==='listen') setTimeout(()=>speak(item.au),250);
+}
+function pick(i){
+  if(S.answered) return; S.answered=true;
+  const item=S.list[S.idx];
+  document.querySelectorAll('.opt').forEach(b=>b.style.pointerEvents='none');
+  if(i===item.ans){ $('opt'+i).classList.add('correct'); S.score++; }
+  else { $('opt'+i).classList.add('wrong'); $('opt'+item.ans).classList.add('correct'); }
+  const e=$('exp'); e.innerHTML='✅ '+esc(item.e); e.classList.add('show');
+  $('nextBtn').disabled=false;
+  $('nextBtn').textContent = (S.idx===S.list.length-1)?'ดูผล':'ข้อถัดไป ›';
+  // auto-hear the correct English answer for listen/en questions
+  const correctText=item.opts[item.ans].text;
+  if(item.t==='en' && /[A-Za-z]/.test(correctText)) setTimeout(()=>speak(correctText),200);
+}
+function nextQ(){
+  if(!S.answered) return;
+  if(S.idx<S.list.length-1){ S.idx++; renderQ(); }
+  else showResult();
+}
+function showResult(){
+  $('qbar').style.width='100%';
+  const pct=Math.round(S.score/S.list.length*100);
+  let emo,msg;
+  if(pct===100){emo='🏆';msg='เต็ม! เก่งมาก ไปบทต่อไปได้เลย';}
+  else if(pct>=70){emo='🎉';msg='เยี่ยมมาก! ทบทวนข้อที่พลาดอีกนิดนะ';}
+  else if(pct>=40){emo='💪';msg='มาถูกทางแล้ว ลองอ่านเนื้อหาแล้วทำใหม่อีกรอบ';}
+  else {emo='📖';msg='ไม่เป็นไร ค่อย ๆ ฟังเสียงและอ่านซ้ำ แล้วลองใหม่นะ';}
+  const nextId = S.lessonId+1;
+  const hasNext = LESSONS.some(l=>l.id===nextId);
+  let h=`<div class="result"><div class="big">${emo}</div><h2>ทำเสร็จแล้ว!</h2>
+    <div class="score">ได้ <b style="color:var(--teal-700)">${S.score}</b> / ${S.list.length} ข้อ (${pct}%)</div>
+    <div class="msg">${msg}</div>
+    <div>
+      <button class="btn quiz" onclick="startQuiz(${S.lessonId})">ทำบทนี้อีกครั้ง</button>
+      <button class="btn read" onclick="openLesson(${S.lessonId})">กลับไปอ่านเนื้อหา</button>`;
+  if(hasNext) h+=`<button class="btn quiz" onclick="openLesson(${nextId})">ไปบทที่ ${nextId} ›</button>`;
+  h+=`<button class="btn read" onclick="goHome()">หน้าบทเรียน</button></div></div>`;
+  $('result').innerHTML=h; show('result');
+}
+
+renderHome();
+</script>
+</body>
+</html>
