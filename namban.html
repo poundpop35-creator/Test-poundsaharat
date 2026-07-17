@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ติวสอบภาค ข. เฉพาะตำแหน่ง — กรมทรัพยากรน้ำบาดาล</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --indigo:#215F8C;--indigo-700:#184A6E;--indigo-500:#2C7BB0;
+  --gold:#2FA7A0;--gold-soft:#D6F0EC;--paper:#F4F8FA;--card:#FFFFFF;
+  --ink:#1B2733;--ink-soft:#57697A;--line:#DCE7EC;
+  --good:#1E8E6A;--good-bg:#E6F5EF;--bad:#C7384B;--bad-bg:#FBE9EC;
+  --shadow:0 6px 24px rgba(33,95,140,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Sarabun',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;font-size:17px;padding-bottom:60px}
+.wrap{max-width:780px;margin:0 auto;padding:0 16px}
+h1,h2,h3,.kanit{font-family:'Kanit',sans-serif;font-weight:600;line-height:1.35}
+header{background:linear-gradient(135deg,var(--indigo) 0%,var(--indigo-500) 100%);color:#fff;padding:26px 0 22px;position:relative;overflow:hidden}
+header::after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(47,167,160,.35),transparent 70%)}
+.eyebrow{font-family:'Kanit';font-weight:500;letter-spacing:.06em;font-size:13px;color:var(--gold-soft);text-transform:uppercase;opacity:.95}
+header h1{font-size:24px;margin:6px 0 4px;font-weight:700}
+header .sub{font-size:15px;color:#E4F1F7;font-weight:400}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);padding:5px 11px;border-radius:999px;font-size:13px;font-family:'Kanit';font-weight:500}
+.chip b{color:var(--gold-soft)}
+.tabs{display:flex;gap:6px;margin:18px 0 6px;position:sticky;top:0;z-index:20;background:var(--paper);padding:10px 0;border-bottom:1px solid var(--line)}
+.tab{flex:1;text-align:center;font-family:'Kanit';font-weight:500;font-size:15px;padding:9px 6px;border-radius:11px;border:1px solid var(--line);background:var(--card);color:var(--ink-soft);cursor:pointer;transition:.15s}
+.tab.active{background:var(--indigo);color:#fff;border-color:var(--indigo)}
+.view{display:none;animation:fade .25s ease}
+.view.show{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.intro-card{background:linear-gradient(180deg,#fff,#FAFDFE);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin:14px 0;box-shadow:var(--shadow)}
+.intro-card h2{font-size:18px;color:var(--indigo);margin-bottom:6px}
+.intro-card p{font-size:15px;color:var(--ink-soft);margin-bottom:6px}
+.grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:6px}
+.topic{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:15px 16px;box-shadow:var(--shadow);position:relative}
+.topic .num{font-family:'Kanit';font-weight:700;font-size:13px;color:#fff;background:var(--indigo);width:30px;height:30px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.topic .top{display:flex;gap:11px;align-items:flex-start}
+.topic h3{font-size:16.5px;font-weight:600;color:var(--ink)}
+.topic .tag{font-size:12.5px;color:var(--ink-soft);margin-top:3px;font-family:'Kanit'}
+.topic .btns{display:flex;gap:8px;margin-top:12px}
+.btn{font-family:'Kanit';font-weight:500;font-size:14px;border-radius:10px;padding:8px 14px;border:1px solid var(--indigo);cursor:pointer;transition:.15s;flex:1;text-align:center}
+.btn.read{background:#fff;color:var(--indigo)}
+.btn.read:active{background:#EAF4F8}
+.btn.quiz{background:var(--indigo);color:#fff}
+.btn.quiz:active{background:var(--indigo-700)}
+.badge{position:absolute;top:13px;right:14px;font-family:'Kanit';font-size:12px;font-weight:600;color:#178077;background:var(--gold-soft);padding:2px 9px;border-radius:999px}
+.read-head{display:flex;align-items:center;gap:10px;margin:16px 0 4px}
+.back{font-family:'Kanit';font-weight:500;font-size:14px;color:var(--indigo);background:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 13px;cursor:pointer}
+.read-title{font-family:'Kanit';font-weight:700;font-size:20px;color:var(--indigo);margin:6px 0 14px;line-height:1.3}
+.content section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:12px;box-shadow:var(--shadow)}
+.content h4{font-family:'Kanit';font-weight:600;font-size:16px;color:var(--indigo-700);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.content h4::before{content:"";width:7px;height:18px;background:var(--gold);border-radius:3px;flex:none}
+.content ul{list-style:none;padding:0}
+.content li{position:relative;padding:4px 0 4px 20px;font-size:15.5px}
+.content li::before{content:"▪";color:var(--indigo-500);position:absolute;left:3px;top:4px}
+.content li b,.content li strong{color:var(--indigo-700)}
+.kbox{background:var(--gold-soft);border-left:4px solid var(--gold);border-radius:8px;padding:9px 13px;margin-top:9px;font-size:14.5px}
+.kbox b{color:#0F6E67}
+.read-quiz-cta{margin:6px 0 30px;text-align:center}
+.quiz-head{margin:16px 0 10px}
+.q-progress{height:8px;background:var(--line);border-radius:999px;overflow:hidden;margin:10px 0 4px}
+.q-progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--indigo),var(--gold));width:0;transition:width .3s}
+.q-meta{display:flex;justify-content:space-between;font-family:'Kanit';font-size:13.5px;color:var(--ink-soft)}
+.q-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 17px;box-shadow:var(--shadow);margin-bottom:14px}
+.q-cat{font-family:'Kanit';font-size:12.5px;font-weight:500;color:#178077;background:var(--gold-soft);display:inline-block;padding:2px 10px;border-radius:999px;margin-bottom:9px}
+.q-text{font-size:17.5px;font-weight:500;margin-bottom:14px;line-height:1.55}
+.opt{display:block;width:100%;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:9px;font-size:16px;cursor:pointer;font-family:'Sarabun';transition:.12s;line-height:1.45}
+.opt:hover{border-color:var(--indigo-500)}
+.opt .lab{font-family:'Kanit';font-weight:600;color:var(--indigo);margin-right:8px}
+.opt.correct{background:var(--good-bg);border-color:var(--good)}
+.opt.correct .lab{color:var(--good)}
+.opt.wrong{background:var(--bad-bg);border-color:var(--bad)}
+.opt.wrong .lab{color:var(--bad)}
+.opt.dim{opacity:.6}
+.opt:disabled{cursor:default}
+.explain{display:none;margin-top:4px;border-radius:12px;padding:12px 14px;font-size:15px;background:#EEF6F5;border:1px solid var(--line)}
+.explain.show{display:block;animation:fade .2s}
+.explain .e-tag{font-family:'Kanit';font-weight:600;font-size:13.5px;margin-bottom:3px}
+.explain.ok .e-tag{color:var(--good)}
+.explain.no .e-tag{color:var(--bad)}
+.next{font-family:'Kanit';font-weight:600;font-size:16px;background:var(--indigo);color:#fff;border:none;border-radius:12px;padding:13px;width:100%;cursor:pointer}
+.next:disabled{background:#B9C9D2;cursor:not-allowed}
+.result{text-align:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 18px;box-shadow:var(--shadow);margin:18px 0}
+.score-ring{width:140px;height:140px;margin:6px auto 10px;position:relative}
+.score-ring svg{transform:rotate(-90deg)}
+.score-ring .pct{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score-ring .pct b{font-family:'Kanit';font-size:34px;font-weight:700;color:var(--indigo);line-height:1}
+.score-ring .pct span{font-family:'Kanit';font-size:13px;color:var(--ink-soft)}
+.result h2{font-family:'Kanit';color:var(--indigo);font-size:21px;margin-bottom:4px}
+.result .verdict{font-size:16px;color:var(--ink-soft);margin-bottom:16px}
+.result .actions{display:flex;gap:9px;flex-wrap:wrap;justify-content:center}
+.result .actions .btn{flex:none;min-width:130px}
+.review h3{font-family:'Kanit';color:var(--indigo);font-size:17px;margin:22px 0 10px;text-align:left}
+.rev-item{background:#fff;border:1px solid var(--line);border-left:4px solid var(--bad);border-radius:10px;padding:12px 14px;margin-bottom:10px;text-align:left;font-size:15px}
+.rev-item .rq{font-weight:600;margin-bottom:6px}
+.rev-item .ra{color:var(--good)}
+.rev-item .rw{color:var(--bad)}
+.rev-item .re{color:var(--ink-soft);margin-top:5px;font-size:14.5px}
+footer{text-align:center;color:var(--ink-soft);font-size:13px;margin:28px 0 8px;padding:0 16px}
+.disclaimer{background:#fff;border:1px dashed var(--line);border-radius:12px;padding:11px 14px;font-size:13.5px;color:var(--ink-soft);margin:14px 0}
+@media(min-width:620px){.grid{grid-template-columns:1fr 1fr}.topic.full{grid-column:1/-1}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:#E4F1F7;text-decoration:none;font-family:'Kanit';font-size:14px;font-weight:500;margin-bottom:10px">← กลับหน้าแรก</a>
+    <div class="eyebrow">แนวข้อสอบ • ความรู้ความสามารถเฉพาะตำแหน่ง • 200 คะแนน</div>
+    <h1>ติวสอบภาค ข. เฉพาะตำแหน่ง</h1>
+    <div class="sub">กรมทรัพยากรน้ำบาดาล (DGR) • กระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม</div>
+    <div class="meta-row">
+      <span class="chip">ข้อเขียน <b>6 วิชา</b></span>
+      <span class="chip">คะแนนเต็ม <b>200 คะแนน</b></span>
+      <span class="chip">ตามประกาศ <b>ข้อ 6.1</b></span>
+    </div>
+  </div>
+</header>
+<div class="wrap">
+  <div class="tabs">
+    <div class="tab active" onclick="startHome()">หน้าหลัก</div>
+    <div class="tab" onclick="startMock()">ข้อสอบรวม</div>
+  </div>
+  <div id="home" class="view show">
+    <div class="intro-card">
+      <h2>ครบทั้ง 6 วิชา ตามประกาศ ข้อ 6.1</h2>
+      <p>แต่ละวิชามี <b>สรุปเนื้อหา (อ่าน)</b> และ <b>ข้อสอบพร้อมเฉลย+คำอธิบาย (ทำข้อสอบ)</b> — เลือกฝึกทีละวิชา หรือกด “ข้อสอบรวม” เพื่อสุ่มทุกวิชาเสมือนสอบจริง</p>
+    </div>
+    <div id="topicGrid" class="grid"></div>
+    <div class="disclaimer">⚠️ <b>หมายเหตุ:</b> ชุดนี้จัดทำจากประกาศรับสมัครสอบแข่งขัน (หลักสูตรและวิธีการสอบแข่งขัน ข้อ 6.1 คะแนนเต็ม 200 คะแนน 6 หัวข้อ) และแหล่งราชการที่เกี่ยวข้อง (เว็บไซต์กรมฯ dgr.go.th, ตัวบทกฎหมาย/ระเบียบที่ระบุในประกาศ และข่าวนโยบายปัจจุบัน) เพื่อเป็นแนวทางเท่านั้น ไม่ใช่ข้อสอบจริง ก่อนสอบควรเปิดตัวบท พ.ร.บ./ระเบียบฉบับเต็มและประกาศกรมฯ ล่าสุดประกอบ เพราะตัวเลข ผู้บริหาร และสถานการณ์ปัจจุบันอาจเปลี่ยนแปลงได้</div>
+  </div>
+  <div id="read" class="view">
+    <div class="read-head"><button class="back" onclick="startHome()">‹ กลับ</button></div>
+    <div id="readTitle" class="read-title"></div>
+    <div id="readBody" class="content"></div>
+    <div class="read-quiz-cta"><button class="btn quiz" style="max-width:260px;margin:auto" onclick="startTopicFromRead()">ทำข้อสอบวิชานี้ ›</button></div>
+  </div>
+  <div id="quiz" class="view">
+    <div class="read-head"><button class="back" onclick="startHome()">‹ ออก</button></div>
+    <div class="quiz-head">
+      <div id="quizTitle" class="kanit" style="font-size:17px;color:var(--indigo)"></div>
+      <div class="q-progress"><i id="qbar"></i></div>
+      <div class="q-meta"><span id="qcount"></span><span id="qscore"></span></div>
+    </div>
+    <div id="qCard"></div>
+    <button id="nextBtn" class="next" disabled onclick="nextQ()">ตอบ</button>
+  </div>
+  <div id="result" class="view"></div>
+  <footer>จัดทำเพื่อใช้เตรียมสอบส่วนตัว • อ้างอิงประกาศรับสมัครและแหล่งราชการที่เกี่ยวข้อง</footer>
+</div>
+<script>
+const TOPICS = [
+{
+ id:1, full:true,
+ title:"วิสัยทัศน์ พันธกิจ อำนาจหน้าที่ นโยบายและยุทธศาสตร์ของกรมทรัพยากรน้ำบาดาล",
+ tag:"ความรู้เฉพาะกรมฯ • ออกสอบบ่อย",
+ content:[
+  {h:"ข้อมูลพื้นฐานกรมฯ",points:[
+   "ชื่อภาษาอังกฤษ <b>Department of Groundwater Resources (DGR)</b> สังกัด <b>กระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม (ทส.)</b>",
+   "ก่อตั้งเมื่อ <b>3 ตุลาคม 2545</b> โดยยกฐานะ “กองน้ำบาดาล” สังกัดกรมทรัพยากรธรณี ขึ้นเป็นกรม ตามพระราชบัญญัติปรับปรุงกระทรวง ทบวง กรม พ.ศ. 2545 (การปฏิรูประบบราชการครั้งใหญ่)",
+   "กฎหมายหลักที่กรมฯ ใช้กำกับดูแลการประกอบกิจการน้ำบาดาลคือ <b>พระราชบัญญัติน้ำบาดาล พ.ศ. 2520</b> และที่แก้ไขเพิ่มเติม"
+  ]},
+  {h:"วิสัยทัศน์และภารกิจ",points:[
+   "วิสัยทัศน์ (ตามเว็บไซต์กรมฯ): <b>“มุ่งสู่การบริหารจัดการทรัพยากรน้ำบาดาลเชิงพื้นที่เพื่อเสริมความมั่นคงด้านน้ำและการใช้ประโยชน์อย่างสมดุลและยั่งยืน ภายในปี 2575”</b>",
+   "ภารกิจหลัก: สำรวจ ศึกษา วิจัย พัฒนา อนุรักษ์ ฟื้นฟู และบริหารจัดการทรัพยากรน้ำบาดาลของประเทศ พร้อมกำกับดูแลการประกอบกิจการน้ำบาดาลให้เป็นไปตามกฎหมาย",
+   "กลุ่มเป้าหมาย: หน่วยงานราชการ ท้องถิ่น เกษตรกร ภาคอุตสาหกรรม และประชาชนที่ใช้น้ำบาดาลในพื้นที่ขาดแคลนน้ำผิวดิน"
+  ]},
+  {h:"ยุทธศาสตร์และแผนที่เกี่ยวข้อง",points:[
+   "<b>ยุทธศาสตร์การบริหารจัดการทรัพยากรน้ำบาดาล ระยะ 20 ปี (พ.ศ. 2560–2579)</b> จัดทำให้สอดคล้องกับยุทธศาสตร์ชาติ 20 ปี (พ.ศ. 2561–2580)",
+   "ภารกิจกรมฯ เชื่อมโยงโดยตรงกับ <b>แผนแม่บทภายใต้ยุทธศาสตร์ชาติ ประเด็นที่ 19 การบริหารจัดการน้ำทั้งระบบ</b>",
+   "แผนงานเน้นการบริหารจัดการน้ำบาดาลเชิงพื้นที่ (Area-based) ควบคู่กับการใช้น้ำผิวดิน เพื่อความมั่นคงด้านน้ำของประเทศ"
+  ]},
+  {h:"ผู้บริหารและนโยบายปัจจุบัน (ปี 2569)",points:[
+   "อธิบดีกรมทรัพยากรน้ำบาดาลคนปัจจุบัน คือ <b>นายภาดล ถาวรกฤชรัตน์</b> (เข้ารับตำแหน่งตั้งแต่ 1 ตุลาคม 2567)",
+   "รัฐมนตรีว่าการกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อมคนปัจจุบัน คือ <b>นายสุชาติ ชมกลิ่น</b> (พรรคภูมิใจไทย ดำรงตำแหน่งต่อเนื่องสมัยที่ 2 ในรัฐบาล <b>นายอนุทิน ชาญวีรกูล</b> — ครม.อนุทิน 2 ตั้งแต่ 30 มี.ค. 2569)",
+   "นายกรัฐมนตรีคนปัจจุบันคือ <b>นายอนุทิน ชาญวีรกูล</b> นายกรัฐมนตรีคนที่ 32 หัวหน้าพรรคภูมิใจไทย ควบตำแหน่งรัฐมนตรีว่าการกระทรวงมหาดไทย"
+  ]},
+  {h:"โครงสร้างหน่วยงาน",points:[
+   "ส่วนกลาง: สำนัก/กองด้านวิชาการ แผนงาน กฎหมาย และควบคุมกิจการน้ำบาดาล เช่น <b>สำนักควบคุมกิจการน้ำบาดาล</b>",
+   "หน่วยภูมิภาค: <b>สำนักทรัพยากรน้ำบาดาลเขต 1–12</b> กระจายดูแลพื้นที่ทั่วประเทศ",
+   "หน่วยงานสมทบ: <b>กองทุนพัฒนาน้ำบาดาล (Groundwater Development Fund)</b> สนับสนุนเงินทุนหมุนเวียนด้านน้ำบาดาล"
+  ],kbox:"<b>จำให้แม่น:</b> DGR = Department of Groundwater Resources | สังกัด ทส. | ก่อตั้ง 3 ต.ค. 2545 จากกองน้ำบาดาล กรมทรัพยากรธรณี | วิสัยทัศน์เป้าหมายปี 2575 | ยุทธศาสตร์น้ำบาดาล 20 ปี (2560–2579) | สำนักทรัพยากรน้ำบาดาลเขต 1–12"}
+ ],
+ q:[
+  {q:"กรมทรัพยากรน้ำบาดาลก่อตั้งขึ้นเมื่อใด และยกฐานะมาจากหน่วยงานใด",c:["3 ตุลาคม 2545 ยกฐานะจากกองน้ำบาดาล กรมทรัพยากรธรณี","1 ตุลาคม 2545 ยกฐานะจากกรมทรัพยากรน้ำ","3 ตุลาคม 2540 ยกฐานะจากกรมโยธาธิการ","1 ตุลาคม 2550 ยกฐานะจากกรมชลประทาน"],a:0,e:"กรมทรัพยากรน้ำบาดาลก่อตั้งเมื่อ 3 ตุลาคม 2545 โดยยกฐานะ “กองน้ำบาดาล” ซึ่งเดิมสังกัดกรมทรัพยากรธรณี ขึ้นเป็นกรม ตาม พ.ร.บ.ปรับปรุงกระทรวง ทบวง กรม พ.ศ. 2545"},
+  {q:"กรมทรัพยากรน้ำบาดาลสังกัดกระทรวงใด",c:["กระทรวงเกษตรและสหกรณ์","กระทรวงมหาดไทย","กระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม","กระทรวงอุตสาหกรรม"],a:2,e:"กรมทรัพยากรน้ำบาดาลสังกัดกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม (ทส.) ซึ่งจัดตั้งขึ้นพร้อมกันในการปฏิรูประบบราชการปี 2545"},
+  {q:"กฎหมายหลักที่กรมทรัพยากรน้ำบาดาลใช้กำกับดูแลการประกอบกิจการน้ำบาดาลคือข้อใด",c:["พระราชบัญญัติน้ำ พ.ศ. 2561","พระราชบัญญัติน้ำบาดาล พ.ศ. 2520","พระราชบัญญัติทรัพยากรน้ำแห่งชาติ พ.ศ. 2560","พระราชบัญญัติชลประทานหลวง พ.ศ. 2485"],a:1,e:"กรมฯ ใช้พระราชบัญญัติน้ำบาดาล พ.ศ. 2520 และที่แก้ไขเพิ่มเติม เป็นกฎหมายหลักในการกำกับดูแลการเจาะ การใช้ และการประกอบกิจการน้ำบาดาล"},
+  {q:"วิสัยทัศน์ของกรมทรัพยากรน้ำบาดาลกำหนดเป้าหมายไว้ถึงปีใด",c:["พ.ศ. 2570","พ.ศ. 2575","พ.ศ. 2580","พ.ศ. 2585"],a:1,e:"วิสัยทัศน์กรมฯ คือ “มุ่งสู่การบริหารจัดการทรัพยากรน้ำบาดาลเชิงพื้นที่เพื่อเสริมความมั่นคงด้านน้ำและการใช้ประโยชน์อย่างสมดุลและยั่งยืน ภายในปี 2575”"},
+  {q:"ยุทธศาสตร์การบริหารจัดการทรัพยากรน้ำบาดาลของกรมฯ มีระยะเวลาและครอบคลุมช่วงปีใด",c:["ระยะ 10 ปี (พ.ศ. 2560–2570)","ระยะ 20 ปี (พ.ศ. 2560–2579)","ระยะ 20 ปี (พ.ศ. 2561–2580)","ระยะ 5 ปี (พ.ศ. 2566–2570)"],a:1,e:"กรมฯ มียุทธศาสตร์การบริหารจัดการทรัพยากรน้ำบาดาล ระยะ 20 ปี พ.ศ. 2560–2579 ซึ่งจัดทำสอดคล้องกับยุทธศาสตร์ชาติ 20 ปี (2561–2580) แต่คนละกรอบเวลา"},
+  {q:"ภารกิจของกรมทรัพยากรน้ำบาดาลเชื่อมโยงโดยตรงกับแผนแม่บทภายใต้ยุทธศาสตร์ชาติประเด็นใด",c:["ประเด็นที่ 6 การปรับสมดุลและพัฒนาระบบการบริหารจัดการภาครัฐ","ประเด็นที่ 19 การบริหารจัดการน้ำทั้งระบบ","ประเด็นที่ 18 การเติบโตอย่างยั่งยืน","ประเด็นที่ 3 การเกษตร"],a:1,e:"ภารกิจด้านน้ำบาดาลเชื่อมโยงกับแผนแม่บทภายใต้ยุทธศาสตร์ชาติ ประเด็นที่ (19) การบริหารจัดการน้ำทั้งระบบ โดยตรง"},
+  {q:"อธิบดีกรมทรัพยากรน้ำบาดาลคนปัจจุบัน (พ.ศ. 2569) คือใคร",c:["นายศักดิ์ดา วิเชียรศิลป์","นายภาดล ถาวรกฤชรัตน์","นายณัฐพล รังสิตพล","นายชูชาติ รักจิตร"],a:1,e:"อธิบดีกรมทรัพยากรน้ำบาดาลคนปัจจุบันคือ นายภาดล ถาวรกฤชรัตน์ เข้ารับตำแหน่งตั้งแต่วันที่ 1 ตุลาคม 2567 ส่วนนายศักดิ์ดา วิเชียรศิลป์ เป็นอดีตอธิบดี"},
+  {q:"รัฐมนตรีว่าการกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อมคนปัจจุบัน (พ.ศ. 2569) คือใคร",c:["นายวราวุธ ศิลปอาชา","นายสุชาติ ชมกลิ่น","นายเฉลิมชัย ศรีอ่อน","นายจตุพร บุรุษพัฒน์"],a:1,e:"รัฐมนตรีว่าการกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อมคนปัจจุบันคือ นายสุชาติ ชมกลิ่น (พรรคภูมิใจไทย) ดำรงตำแหน่งต่อเนื่องสมัยที่ 2 ในรัฐบาลอนุทิน ชาญวีรกูล (ครม.อนุทิน 2 ตั้งแต่ 30 มี.ค. 2569)"},
+  {q:"หน่วยงานภูมิภาคของกรมทรัพยากรน้ำบาดาลเรียกว่าอะไร และมีทั้งหมดกี่เขต",c:["สำนักงานทรัพยากรธรรมชาติและสิ่งแวดล้อมจังหวัด มี 76 จังหวัด","สำนักทรัพยากรน้ำบาดาลเขต มี 12 เขต","ศูนย์บริหารจัดการน้ำบาดาลภาค มี 9 ศูนย์","สำนักงานชลประทานเขต มี 17 เขต"],a:1,e:"กรมฯ มีหน่วยภูมิภาคคือ สำนักทรัพยากรน้ำบาดาลเขต 1–12 รวม 12 เขต กระจายดูแลพื้นที่ทั่วประเทศ (ต่างจากสำนักงานทรัพยากรธรรมชาติและสิ่งแวดล้อมจังหวัดซึ่งเป็นหน่วยของสำนักงานปลัดกระทรวง)"},
+  {q:"หน่วยงานใดของกรมฯ ทำหน้าที่บริหารจัดการเงินทุนหมุนเวียนเพื่อสนับสนุนงานด้านน้ำบาดาล",c:["กองทุนพัฒนาน้ำบาดาล (Groundwater Development Fund)","กองทุนสิ่งแวดล้อม","กองทุนหมู่บ้านและชุมชนเมือง","กองทุนน้ำเพื่อการเกษตร"],a:0,e:"กองทุนพัฒนาน้ำบาดาล (Groundwater Development Fund) เป็นกลไกทางการเงินของกรมฯ เพื่อสนับสนุนงานพัฒนาและบริหารจัดการน้ำบาดาล"},
+  {q:"ข้อใดสรุปภารกิจหลักของกรมทรัพยากรน้ำบาดาลได้ถูกต้องที่สุด",c:["ก่อสร้างเขื่อนและอ่างเก็บน้ำขนาดใหญ่ทั่วประเทศ","สำรวจ ศึกษาวิจัย พัฒนา อนุรักษ์ ฟื้นฟู บริหารจัดการทรัพยากรน้ำบาดาล และกำกับดูแลการประกอบกิจการน้ำบาดาล","จัดเก็บภาษีและค่าธรรมเนียมการใช้น้ำผิวดินทั่วประเทศ","ควบคุมคุณภาพน้ำประปาในเขตเทศบาล"],a:1,e:"ภารกิจหลักของกรมฯ คือสำรวจ ศึกษาวิจัย พัฒนา อนุรักษ์ ฟื้นฟู และบริหารจัดการทรัพยากรน้ำบาดาล พร้อมกำกับดูแลการประกอบกิจการน้ำบาดาลตามกฎหมาย ไม่ใช่การสร้างเขื่อนหรือดูแลน้ำประปา"},
+  {q:"ข้อใด “ไม่ใช่” หน่วยงานระดับกรมในสังกัดกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม",c:["กรมทรัพยากรน้ำบาดาล","กรมทรัพยากรธรณี","กรมชลประทาน","กรมอุทยานแห่งชาติ สัตว์ป่า และพันธุ์พืช"],a:2,e:"กรมชลประทานสังกัดกระทรวงเกษตรและสหกรณ์ ไม่ใช่กระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม ส่วนกรมทรัพยากรน้ำบาดาล กรมทรัพยากรธรณี และกรมอุทยานฯ ล้วนสังกัด ทส."},
+  {q:"นายกรัฐมนตรีคนปัจจุบัน (พ.ศ. 2569) ซึ่งเป็นผู้กำกับดูแลนโยบายภาพรวมของรัฐบาลที่กระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อมสังกัดอยู่คือใคร",c:["นายเศรษฐา ทวีสิน","นายอนุทิน ชาญวีรกูล","นางสาวแพทองธาร ชินวัตร","นายพีระพันธุ์ สาลีรัฐวิภาค"],a:1,e:"นายกรัฐมนตรีคนปัจจุบันคือ นายอนุทิน ชาญวีรกูล นายกรัฐมนตรีคนที่ 32 หัวหน้าพรรคภูมิใจไทย ซึ่งชนะการเลือกตั้งทั่วไป 8 กุมภาพันธ์ 2569"}
+ ]
+},
+{
+ id:2,
+ title:"การวางแผนเชิงกลยุทธ์ แผนงาน โครงการ การติดตามและประเมินผลการบริหารจัดการ",
+ tag:"ความรู้เฉพาะตำแหน่ง • เครื่องมือบริหารแผน",
+ content:[
+  {h:"การวางแผนเชิงกลยุทธ์ (Strategic Planning)",points:[
+   "<b>SWOT Analysis</b> วิเคราะห์ปัจจัยภายใน (Strengths จุดแข็ง, Weaknesses จุดอ่อน) และปัจจัยภายนอก (Opportunities โอกาส, Threats อุปสรรค)",
+   "<b>TOWS Matrix</b> นำผล SWOT มาจับคู่กำหนดกลยุทธ์ 4 แบบ: SO (เชิงรุก) WO (เชิงแก้ไข) ST (เชิงป้องกัน) WT (เชิงรับ)",
+   "ลำดับชั้นการวางแผน: <b>วิสัยทัศน์ (Vision) → พันธกิจ (Mission) → เป้าหมาย (Goal) → ยุทธศาสตร์/กลยุทธ์ (Strategy) → ตัวชี้วัด (KPI)</b>",
+   "กรอบแผนของประเทศเรียงจากบนลงล่าง: <b>ยุทธศาสตร์ชาติ 20 ปี → แผนแม่บทภายใต้ยุทธศาสตร์ชาติ/แผนปฏิรูปประเทศ → แผนพัฒนาเศรษฐกิจและสังคมแห่งชาติ → แผนระดับกระทรวง/กรม</b>"
+  ]},
+  {h:"แผนงานและโครงการ (Program & Project)",points:[
+   "<b>Logical Framework Analysis (LFA/Logframe)</b> มี 4 ระดับ: Goal (เป้าประสงค์) → Purpose/Outcome (วัตถุประสงค์) → Output (ผลผลิต) → Activity/Input (กิจกรรม/ทรัพยากร) พร้อม 3 องค์ประกอบตรวจสอบ: <b>OVI</b> (Objectively Verifiable Indicators ตัวชี้วัดที่วัดได้), <b>MOV</b> (Means of Verification แหล่งข้อมูลยืนยัน), <b>Assumptions</b> (ข้อสมมติฐาน/ปัจจัยเสี่ยง)",
+   "วงจรโครงการ (Project Cycle): ริเริ่ม/วางแผน → อนุมัติ → ดำเนินการ → ติดตาม → ประเมินผล → ปิดโครงการ/ถอดบทเรียน",
+   "<b>PDCA (Deming Cycle)</b>: Plan (วางแผน) → Do (ปฏิบัติ) → Check (ตรวจสอบ) → Act (ปรับปรุง) ใช้พัฒนางานอย่างต่อเนื่อง"
+  ]},
+  {h:"การติดตามและประเมินผล (Monitoring & Evaluation)",points:[
+   "ตัวชี้วัดที่ดีควรเป็นไปตามหลัก <b>SMART</b>: Specific (ชัดเจน) Measurable (วัดได้) Achievable (ทำได้จริง) Relevant (สอดคล้องเป้าหมาย) Time-bound (มีกรอบเวลา)",
+   "สายโซ่ผลลัพธ์ (Results Chain) เรียงจากต้นน้ำถึงปลายน้ำ: <b>Input (ปัจจัยนำเข้า) → Process (กระบวนการ) → Output (ผลผลิต) → Outcome (ผลลัพธ์) → Impact (ผลกระทบ)</b>",
+   "<b>Balanced Scorecard (BSC)</b> ประเมินผล 4 มุมมอง: การเงิน, ลูกค้า/ผู้รับบริการ, กระบวนการภายใน, การเรียนรู้และการเติบโต",
+   "การประเมินผลแบ่งตามช่วงเวลา: <b>ก่อนดำเนินการ (Ex-ante)</b>, <b>ระหว่างดำเนินการ (Formative/Monitoring)</b> เพื่อปรับปรุงระหว่างทาง, <b>หลังสิ้นสุด (Summative/Ex-post)</b> เพื่อสรุปผลสัมฤทธิ์"
+  ]},
+  {h:"แนวคิดการบริหารมุ่งผลสัมฤทธิ์",points:[
+   "<b>Result-Based Management (RBM)</b> เน้นบริหารและวัดผลจาก “ผลลัพธ์/ผลสัมฤทธิ์” มากกว่าการนับกิจกรรมที่ทำ",
+   "ระบบงบประมาณของไทยใช้แนวทาง <b>งบประมาณแบบมุ่งเน้นผลงานตามยุทธศาสตร์ (Strategic Performance Based Budgeting: SPBB)</b> เชื่อมโยงงบประมาณกับเป้าหมายยุทธศาสตร์และตัวชี้วัดผลสัมฤทธิ์"
+  ],kbox:"<b>จำ:</b> SWOT → TOWS Matrix → กลยุทธ์ | Logframe: Goal-Purpose-Output-Activity + OVI/MOV/Assumption | Results Chain: Input→Process→Output→Outcome→Impact | ตัวชี้วัดต้อง SMART | BSC 4 มุมมอง | RBM เน้นผลลัพธ์"}
+ ],
+ q:[
+  {q:"ในการวิเคราะห์ SWOT ข้อใดจัดเป็น “ปัจจัยภายใน” ขององค์กร",c:["โอกาส (Opportunities) และอุปสรรค (Threats)","จุดแข็ง (Strengths) และจุดอ่อน (Weaknesses)","นโยบายรัฐบาลและกฎหมายที่เกี่ยวข้อง","สภาวะเศรษฐกิจและคู่แข่งภายนอก"],a:1,e:"SWOT แบ่งเป็นปัจจัยภายใน (Strengths จุดแข็ง, Weaknesses จุดอ่อน) และปัจจัยภายนอก (Opportunities โอกาส, Threats อุปสรรค) ซึ่งองค์กรควบคุมปัจจัยภายในได้มากกว่าปัจจัยภายนอก"},
+  {q:"TOWS Matrix มีประโยชน์อย่างไรในการวางแผนเชิงกลยุทธ์",c:["ใช้คำนวณงบประมาณโครงการ","ใช้จับคู่ผลการวิเคราะห์ SWOT เพื่อกำหนดกลยุทธ์ทางเลือก (SO/WO/ST/WT)","ใช้ประเมินผลการปฏิบัติงานประจำปีของบุคลากร","ใช้จัดทำโครงสร้างองค์กรใหม่"],a:1,e:"TOWS Matrix นำปัจจัยจาก SWOT มาจับคู่กันเพื่อกำหนดกลยุทธ์ 4 รูปแบบ ได้แก่ SO (เชิงรุก) WO (เชิงแก้ไข) ST (เชิงป้องกัน) และ WT (เชิงรับ)"},
+  {q:"แผนระดับใดถือเป็นกรอบแผนสูงสุดของประเทศที่แผนทุกระดับต้องสอดคล้อง",c:["แผนพัฒนาเศรษฐกิจและสังคมแห่งชาติ","ยุทธศาสตร์ชาติ 20 ปี","แผนปฏิบัติราชการของกระทรวง","แผนพัฒนาจังหวัด"],a:1,e:"ยุทธศาสตร์ชาติ 20 ปี (พ.ศ. 2561–2580) เป็นกรอบแผนระดับที่ 1 สูงสุดของประเทศ แผนแม่บทฯ แผนปฏิรูปประเทศ และแผนพัฒนาเศรษฐกิจและสังคมแห่งชาติ ล้วนต้องสอดคล้องกับยุทธศาสตร์ชาติ"},
+  {q:"ในกรอบเหตุผลเชิงตรรกะ (Logframe) “Output” หมายถึงข้อใด",c:["ผลกระทบระยะยาวต่อสังคมโดยรวม","ผลผลิตที่เกิดขึ้นโดยตรงจากการดำเนินกิจกรรม","ทรัพยากรและงบประมาณที่ใช้ในโครงการ","เป้าประสงค์สูงสุดของแผนยุทธศาสตร์"],a:1,e:"ใน Logframe มี 4 ระดับ: Goal (เป้าประสงค์สูงสุด) Purpose/Outcome (วัตถุประสงค์/ผลลัพธ์) Output (ผลผลิตโดยตรงจากกิจกรรม) และ Activity/Input (กิจกรรม/ทรัพยากรที่ใช้)"},
+  {q:"OVI ในกรอบ Logframe ย่อมาจากอะไร และมีความหมายว่าอย่างไร",c:["Overall Verified Investment เงินลงทุนที่ตรวจสอบแล้ว","Objectively Verifiable Indicators ตัวชี้วัดที่สามารถตรวจวัดได้อย่างเป็นภาวะวิสัย","Organizational Value Index ดัชนีคุณค่าองค์กร","Output Verification Instrument เครื่องมือตรวจสอบผลผลิต"],a:1,e:"OVI = Objectively Verifiable Indicators คือตัวชี้วัดที่กำหนดไว้ให้สามารถวัดผลได้อย่างชัดเจนและเป็นภาวะวิสัย ใช้คู่กับ MOV (แหล่งข้อมูลยืนยัน) และ Assumptions (ข้อสมมติฐาน)"},
+  {q:"PDCA เรียงลำดับขั้นตอนตามข้อใดถูกต้อง",c:["Plan → Do → Check → Act","Plan → Check → Do → Act","Do → Plan → Act → Check","Check → Plan → Do → Act"],a:0,e:"PDCA หรือ Deming Cycle เรียงลำดับ Plan (วางแผน) → Do (ปฏิบัติ) → Check (ตรวจสอบ) → Act (ปรับปรุงแก้ไข) เป็นวงจรพัฒนางานต่อเนื่อง"},
+  {q:"ข้อใด “ไม่ใช่” องค์ประกอบของหลัก SMART ในการกำหนดตัวชี้วัด",c:["Specific (เจาะจงชัดเจน)","Measurable (วัดผลได้)","Sustainable (ยั่งยืน)","Time-bound (มีกรอบเวลา)"],a:2,e:"หลัก SMART ประกอบด้วย Specific, Measurable, Achievable, Relevant, Time-bound ส่วน “Sustainable” ไม่ได้เป็นหนึ่งในองค์ประกอบมาตรฐานของ SMART"},
+  {q:"สายโซ่ผลลัพธ์ (Results Chain) เรียงลำดับจากต้นน้ำถึงปลายน้ำตามข้อใดถูกต้อง",c:["Output → Input → Process → Outcome → Impact","Input → Process → Output → Outcome → Impact","Process → Input → Outcome → Output → Impact","Input → Output → Process → Impact → Outcome"],a:1,e:"สายโซ่ผลลัพธ์เรียงจาก Input (ปัจจัยนำเข้า) → Process (กระบวนการ) → Output (ผลผลิต) → Outcome (ผลลัพธ์) → Impact (ผลกระทบ) ตามลำดับเหตุ-ผล"},
+  {q:"Balanced Scorecard (BSC) ประเมินผลองค์กรผ่านกี่มุมมอง อะไรบ้าง",c:["3 มุมมอง: การเงิน ลูกค้า กระบวนการ","4 มุมมอง: การเงิน ลูกค้า กระบวนการภายใน การเรียนรู้และเติบโต","5 มุมมอง รวมด้านสิ่งแวดล้อมและสังคม","2 มุมมอง: ผลผลิตและผลลัพธ์"],a:1,e:"BSC ประเมินผล 4 มุมมอง ได้แก่ ด้านการเงิน ด้านลูกค้า/ผู้รับบริการ ด้านกระบวนการภายใน และด้านการเรียนรู้และการเติบโตขององค์กร"},
+  {q:"การประเมินผลที่ทำ “ระหว่างการดำเนินโครงการ” เพื่อติดตามความก้าวหน้าและปรับปรุงแก้ไขทันที เรียกว่าอะไร",c:["Ex-ante Evaluation","Summative Evaluation","Formative Evaluation (Monitoring)","Impact Evaluation"],a:2,e:"การประเมินระหว่างดำเนินโครงการเพื่อติดตาม ปรับปรุงแก้ไขระหว่างทาง เรียกว่า Formative Evaluation หรือการติดตาม (Monitoring) ต่างจาก Summative ที่ประเมินสรุปหลังสิ้นสุดโครงการ"},
+  {q:"แนวคิด Result-Based Management (RBM) ให้ความสำคัญกับสิ่งใดเป็นหลัก",c:["จำนวนกิจกรรมที่จัดขึ้นให้ครบตามแผน","ผลลัพธ์และผลสัมฤทธิ์ที่เกิดขึ้นจริงมากกว่าปริมาณกิจกรรม","การเบิกจ่ายงบประมาณให้หมดภายในปี","จำนวนบุคลากรที่เข้าร่วมโครงการ"],a:1,e:"RBM (Result-Based Management) เน้นบริหารและวัดความสำเร็จจากผลลัพธ์/ผลสัมฤทธิ์ที่เกิดขึ้นจริง มากกว่าการนับจำนวนกิจกรรมหรือการเบิกจ่ายงบประมาณเพียงอย่างเดียว"},
+  {q:"ระบบงบประมาณของไทยที่เชื่อมโยงงบประมาณเข้ากับเป้าหมายยุทธศาสตร์และตัวชี้วัดผลสัมฤทธิ์ เรียกว่าอะไร",c:["งบประมาณฐานศูนย์ (Zero-Based Budgeting)","งบประมาณแบบมุ่งเน้นผลงานตามยุทธศาสตร์ (SPBB)","งบประมาณแบบแสดงรายการ (Line-item Budgeting)","งบประมาณแบบเพิ่มส่วนขยาย (Incremental Budgeting)"],a:1,e:"ประเทศไทยใช้ระบบงบประมาณแบบมุ่งเน้นผลงานตามยุทธศาสตร์ (Strategic Performance Based Budgeting: SPBB) เพื่อเชื่อมโยงงบประมาณกับยุทธศาสตร์ชาติและตัวชี้วัดผลสัมฤทธิ์ของหน่วยงาน"}
+ ]
+},
+{
+ id:3,
+ title:"ความรู้เกี่ยวกับสถานการณ์ด้านเศรษฐกิจ สังคม และการเมือง",
+ tag:"ความรอบรู้ • สถานการณ์ปัจจุบัน 2569",
+ content:[
+  {h:"สถานการณ์การเมืองปัจจุบัน",points:[
+   "การเลือกตั้งทั่วไปครั้งล่าสุดจัดขึ้นเมื่อ <b>8 กุมภาพันธ์ 2569</b> พรรค<b>ภูมิใจไทย</b> ชนะการเลือกตั้งเป็นอันดับ 1 ได้ 192 ที่นั่ง",
+   "รัฐบาลผสมนำโดย <b>นายอนุทิน ชาญวีรกูล</b> เป็นนายกรัฐมนตรีคนที่ 32 (สมัยที่ 2) ควบตำแหน่งรัฐมนตรีว่าการกระทรวงมหาดไทย ตั้งแต่ 30 มีนาคม 2569 (คณะรัฐมนตรีคณะที่ 66 หรือ “ครม.อนุทิน 2”) โดยมีพรรคเพื่อไทยร่วมรัฐบาลหลัก รวมเสียงสนับสนุนประมาณ 293 เสียง"
+  ]},
+  {h:"สถานการณ์เศรษฐกิจ",points:[
+   "สภาพัฒน์ (สศช.) คาดการณ์ GDP ไทยปี 2569 ขยายตัวประมาณ <b>1.5–2.5% (ค่ากลางราว 2%)</b> ขณะที่ธนาคารแห่งประเทศไทยปรับเพิ่มคาดการณ์เป็นประมาณ 2.0–2.3% จากแรงส่งด้านการส่งออกและการลงทุนในกลุ่มเทคโนโลยี/AI",
+   "อัตราเงินเฟ้อทั่วไปเฉลี่ยปี 2569 อยู่ที่ราว <b>2.8%</b>",
+   "รัฐบาลผลักดันมาตรการกระตุ้นเศรษฐกิจ <b>“ไทยช่วยไทย พลัส”</b> เพื่อพยุงกำลังซื้อในประเทศและช่วยเหลือ SMEs ที่ปรับตัวได้จำกัดจากการแข่งขันที่รุนแรง"
+  ]},
+  {h:"แผนพัฒนาประเทศที่เกี่ยวข้อง",points:[
+   "<b>แผนพัฒนาเศรษฐกิจและสังคมแห่งชาติ ฉบับที่ 13 (พ.ศ. 2566–2570)</b> กำหนด <b>13 หมุดหมายการพัฒนา</b> มุ่งสู่ “สังคมก้าวหน้า เศรษฐกิจสร้างมูลค่าอย่างยั่งยืน”",
+   "หลักการพื้นฐานของแผนฯ ฉบับที่ 13 ยึด 4 แนวคิดหลัก: <b>ปรัชญาของเศรษฐกิจพอเพียง, แนวคิด Resilience (ภูมิคุ้มกัน), เป้าหมายการพัฒนาที่ยั่งยืนของสหประชาชาติ (SDGs), และโมเดลเศรษฐกิจ BCG</b>"
+  ]},
+  {h:"สังคมและสิ่งแวดล้อม",points:[
+   "โมเดลเศรษฐกิจ <b>BCG (Bio-Circular-Green Economy)</b> เศรษฐกิจชีวภาพ-หมุนเวียน-สีเขียว เป็นแนวทางพัฒนาที่รัฐบาลผลักดันต่อเนื่อง",
+   "ประเทศไทยประกาศเป้าหมายด้านสิ่งแวดล้อมระดับโลกคือ <b>ความเป็นกลางทางคาร์บอน (Carbon Neutrality)</b> และ <b>Net Zero</b> เพื่อรับมือ “ภาวะโลกเดือด”",
+   "เป้าหมายการพัฒนาที่ยั่งยืนของสหประชาชาติ (<b>SDGs</b>) มีทั้งหมด <b>17 เป้าหมาย</b>"
+  ],kbox:"<b>จำ:</b> เลือกตั้ง 8 ก.พ. 2569 → ภูมิใจไทยชนะ → นายกฯ อนุทิน ชาญวีรกูล (คนที่ 32) ควบมหาดไทย | GDP ปี 2569 ~2% | เงินเฟ้อ ~2.8% | มาตรการ “ไทยช่วยไทย พลัส” | แผนฯ ฉบับที่13 (2566–2570) 13 หมุดหมาย | BCG + SDGs 17 เป้าหมาย"}
+ ],
+ q:[
+  {q:"การเลือกตั้งสมาชิกสภาผู้แทนราษฎรเป็นการทั่วไปครั้งล่าสุดของไทยจัดขึ้นเมื่อใด",c:["8 กุมภาพันธ์ 2569","24 มีนาคม 2566","14 พฤษภาคม 2566","30 มีนาคม 2569"],a:0,e:"การเลือกตั้งทั่วไปครั้งล่าสุดจัดขึ้นเมื่อวันที่ 8 กุมภาพันธ์ 2569 ส่วนวันที่ 30 มีนาคม 2569 เป็นวันที่มีพระบรมราชโองการโปรดเกล้าฯ แต่งตั้งคณะรัฐมนตรีชุดใหม่"},
+  {q:"พรรคการเมืองใดชนะการเลือกตั้งเป็นอันดับ 1 ในการเลือกตั้งทั่วไปปี 2569",c:["พรรคเพื่อไทย","พรรคประชาชน","พรรคภูมิใจไทย","พรรครวมไทยสร้างชาติ"],a:2,e:"พรรคภูมิใจไทยซึ่งนำโดยนายอนุทิน ชาญวีรกูล ชนะการเลือกตั้งเป็นอันดับ 1 ได้ 192 ที่นั่ง"},
+  {q:"นายกรัฐมนตรีคนที่ 32 ของไทยซึ่งดำรงตำแหน่งสมัยที่ 2 ในปี 2569 คือใคร และควบตำแหน่งรัฐมนตรีกระทรวงใด",c:["นายเศรษฐา ทวีสิน ควบกระทรวงการคลัง","นายอนุทิน ชาญวีรกูล ควบกระทรวงมหาดไทย","นายพีระพันธุ์ สาลีรัฐวิภาค ควบกระทรวงพลังงาน","นางสาวแพทองธาร ชินวัตร ควบกระทรวงกลาโหม"],a:1,e:"นายอนุทิน ชาญวีรกูล เป็นนายกรัฐมนตรีคนที่ 32 ดำรงตำแหน่งสมัยที่ 2 ในปี 2569 และควบตำแหน่งรัฐมนตรีว่าการกระทรวงมหาดไทยด้วย"},
+  {q:"สำนักงานสภาพัฒนาการเศรษฐกิจและสังคมแห่งชาติ (สศช.) คาดการณ์อัตราการขยายตัวทางเศรษฐกิจ (GDP) ของไทยในปี 2569 ไว้ในกรอบใด",c:["0.5–1.0%","1.5–2.5%","3.5–4.5%","5.0–6.0%"],a:1,e:"สภาพัฒน์คาดการณ์ GDP ไทยปี 2569 เติบโตในกรอบ 1.5–2.5% (ค่ากลางราว 2%) ขณะที่บางสถาบันปรับประมาณการขึ้นเล็กน้อยจากแรงส่งภาคส่งออกและการลงทุนด้านเทคโนโลยี"},
+  {q:"มาตรการกระตุ้นเศรษฐกิจที่รัฐบาลผลักดันในปี 2569 เพื่อพยุงกำลังซื้อในประเทศและช่วยเหลือ SMEs มีชื่อว่าอะไร",c:["ชิม ช้อป ใช้","คนละครึ่ง","ไทยช่วยไทย พลัส","เราเที่ยวด้วยกัน"],a:2,e:"มาตรการ “ไทยช่วยไทย พลัส” เป็นมาตรการกระตุ้นเศรษฐกิจที่รัฐบาลปี 2569 ผลักดันเพื่อพยุงกำลังซื้อในประเทศและช่วยเหลือ SMEs"},
+  {q:"แผนพัฒนาเศรษฐกิจและสังคมแห่งชาติฉบับที่ใช้บังคับอยู่ในปัจจุบัน (พ.ศ. 2569) คือฉบับที่เท่าใด ครอบคลุมช่วงปีใด",c:["ฉบับที่ 12 (พ.ศ. 2560–2565)","ฉบับที่ 13 (พ.ศ. 2566–2570)","ฉบับที่ 14 (พ.ศ. 2571–2575)","ฉบับที่ 13 (พ.ศ. 2561–2565)"],a:1,e:"แผนพัฒนาเศรษฐกิจและสังคมแห่งชาติฉบับปัจจุบันคือฉบับที่ 13 (พ.ศ. 2566–2570)"},
+  {q:"แผนพัฒนาเศรษฐกิจและสังคมแห่งชาติ ฉบับที่ 13 กำหนด “หมุดหมายการพัฒนา” ไว้ทั้งหมดกี่หมุดหมาย",c:["9 หมุดหมาย","10 หมุดหมาย","13 หมุดหมาย","17 หมุดหมาย"],a:2,e:"แผนพัฒนาฯ ฉบับที่ 13 กำหนดหมุดหมายการพัฒนาไว้ทั้งหมด 13 หมุดหมาย ครอบคลุม 4 มิติการพัฒนา มุ่งสู่ “สังคมก้าวหน้า เศรษฐกิจสร้างมูลค่าอย่างยั่งยืน”"},
+  {q:"โมเดลเศรษฐกิจที่รัฐบาลไทยผลักดันเพื่อความยั่งยืน โดยย่อมาจาก Bio-Circular-Green Economy คือข้อใด",c:["โมเดล BCG","โมเดล ESG","โมเดล SDGs","โมเดล EEC"],a:0,e:"BCG (Bio-Circular-Green Economy) คือโมเดลเศรษฐกิจชีวภาพ-หมุนเวียน-สีเขียว ที่รัฐบาลไทยผลักดันเพื่อการพัฒนาที่ยั่งยืน"},
+  {q:"เป้าหมายด้านสิ่งแวดล้อมที่ประเทศไทยประกาศเข้าร่วมในเวทีโลกเพื่อลดการปล่อยก๊าซเรือนกระจกสุทธิให้เป็นศูนย์ เรียกว่าอะไร",c:["Zero Waste","Net Zero","Carbon Tax","Green GDP"],a:1,e:"Net Zero คือเป้าหมายการลดการปล่อยก๊าซเรือนกระจกสุทธิให้เป็นศูนย์ ซึ่งไทยประกาศเข้าร่วมและผลักดันนโยบายที่เกี่ยวข้องต่อเนื่อง"},
+  {q:"เป้าหมายการพัฒนาที่ยั่งยืนของสหประชาชาติ (SDGs) มีทั้งหมดกี่เป้าหมาย",c:["8 เป้าหมาย","13 เป้าหมาย","17 เป้าหมาย","20 เป้าหมาย"],a:2,e:"SDGs (Sustainable Development Goals) มีทั้งหมด 17 เป้าหมาย ที่ประเทศสมาชิกสหประชาชาติร่วมกันผลักดันให้บรรลุภายในปี ค.ศ. 2030"},
+  {q:"แนวคิดพื้นฐานที่แผนพัฒนาฯ ฉบับที่ 13 ใช้เป็นกรอบร่วมกับ BCG และ SDGs คือข้อใด",c:["ปรัชญาของเศรษฐกิจพอเพียงและแนวคิด Resilience","ทฤษฎีการค้าเสรีระหว่างประเทศ","แนวคิดรัฐสวัสดิการถ้วนหน้า","หลักการกระจายอำนาจสู่ท้องถิ่นเต็มรูปแบบ"],a:0,e:"แผนพัฒนาฯ ฉบับที่ 13 ยึดหลักการ 4 ประการ ได้แก่ ปรัชญาของเศรษฐกิจพอเพียง แนวคิด Resilience (ภูมิคุ้มกัน) เป้าหมาย SDGs และโมเดลเศรษฐกิจ BCG"},
+  {q:"อัตราเงินเฟ้อทั่วไปเฉลี่ยของไทยที่คาดการณ์ไว้สำหรับปี 2569 อยู่ในระดับใกล้เคียงข้อใดมากที่สุด",c:["ติดลบ (ภาวะเงินฝืด)","ประมาณ 2.8%","ประมาณ 8%","ประมาณ 15%"],a:1,e:"อัตราเงินเฟ้อทั่วไปเฉลี่ยของไทยปี 2569 อยู่ที่ราว 2.8% ซึ่งสูงกว่ากรอบเป้าหมายเงินเฟ้อของธนาคารแห่งประเทศไทยเล็กน้อยในบางช่วง"}
+ ]
+},
+{
+ id:4,
+ title:"ความรู้เกี่ยวกับทักษะภาษาอังกฤษและงานวิเทศสัมพันธ์",
+ tag:"ภาษาอังกฤษ • งานต่างประเทศ",
+ content:[
+  {h:"คำศัพท์งานวิเทศสัมพันธ์ที่ออกสอบบ่อย",points:[
+   "<b>MOU (Memorandum of Understanding)</b> = บันทึกความเข้าใจ, <b>MOA (Memorandum of Agreement)</b> = บันทึกข้อตกลง",
+   "<b>Bilateral</b> = ทวิภาคี (สองฝ่าย) ตรงข้ามกับ <b>Multilateral</b> = พหุภาคี (หลายฝ่าย)",
+   "<b>Delegation</b> = คณะผู้แทน, <b>Envoy</b> = ผู้แทนพิเศษ/ทูต, <b>Counterpart</b> = ผู้แทนฝ่ายตรงข้ามที่มีตำแหน่งเทียบเท่า",
+   "<b>Ratify</b> = ให้สัตยาบัน (รับรองสนธิสัญญาอย่างเป็นทางการ), <b>Ratification</b> = การให้สัตยาบัน",
+   "<b>Protocol</b> = พิธีการทูต/พิธีสาร, <b>Note Verbale</b> = หนังสือโต้ตอบทางการทูตที่เป็นทางการแต่ไม่ลงนาม"
+  ]},
+  {h:"ไวยากรณ์ที่ควรทบทวน",points:[
+   "<b>Passive Voice</b>: โครงสร้าง be + V3 ใช้เมื่อเน้นผู้ถูกกระทำ เช่น “The agreement was signed by both countries.”",
+   "<b>Reported Speech</b>: เมื่อเปลี่ยนประโยคบอกเล่าเป็นคำพูดรายงาน กริยาต้อง “ถอยกาล” (backshift) เช่น will → would, is → was",
+   "<b>Subject-Verb Agreement</b>: ประธานที่เชื่อมด้วย “neither...nor” หรือ “either...or” กริยาต้องสอดคล้องกับประธานตัวที่อยู่ใกล้กริยาที่สุด",
+   "<b>Prepositions</b> ที่มักออกสอบ: responsible for, in charge of, agree on/with, participate in, cooperate with"
+  ]},
+  {h:"การเขียนหนังสือ/อีเมลราชการภาษาอังกฤษ",points:[
+   "คำขึ้นต้นที่ไม่ทราบชื่อผู้รับ: <b>“Dear Sir/Madam,”</b> คำลงท้ายคู่กัน: <b>“Yours faithfully,”</b>",
+   "คำขึ้นต้นที่ทราบชื่อผู้รับ: <b>“Dear Mr./Ms. [ชื่อสกุล],”</b> คำลงท้ายคู่กัน: <b>“Yours sincerely,”</b>",
+   "ภาษาที่ใช้ในหนังสือราชการต้องเป็นทางการ (Formal) หลีกเลี่ยงคำย่อ (contractions) เช่น don’t, can’t"
+  ],kbox:"<b>จำ:</b> MOU=บันทึกความเข้าใจ | Bilateral=ทวิภาคี / Multilateral=พหุภาคี | Ratify=ให้สัตยาบัน | Protocol=พิธีการทูต | Dear Sir/Madam คู่กับ Yours faithfully | Dear Mr./Ms.+ชื่อ คู่กับ Yours sincerely"}
+ ],
+ q:[
+  {q:"คำว่า “MOU” ที่ใช้ในเอกสารความร่วมมือระหว่างหน่วยงานย่อมาจากอะไร",c:["Ministry of Understanding","Memorandum of Understanding","Multilateral Organization Union","Method of Unification"],a:1,e:"MOU ย่อมาจาก Memorandum of Understanding แปลว่า บันทึกความเข้าใจ ซึ่งเป็นเอกสารแสดงเจตจำนงความร่วมมือระหว่างสองฝ่ายขึ้นไป"},
+  {q:"คำแปลที่ถูกต้องที่สุดของ “bilateral agreement” คือข้อใด",c:["ข้อตกลงพหุภาคี (หลายฝ่าย)","ข้อตกลงทวิภาคี (สองฝ่าย)","ข้อตกลงฝ่ายเดียว","ข้อตกลงชั่วคราว"],a:1,e:"“Bilateral” หมายถึงทวิภาคี หรือระหว่างสองฝ่าย ส่วน “Multilateral” จึงหมายถึงพหุภาคี หรือหลายฝ่าย"},
+  {q:"คำว่า “Delegation” ในบริบทงานวิเทศสัมพันธ์ หมายถึงอะไร",c:["คณะผู้แทน","เอกสารมอบอำนาจทางกฎหมาย","การมอบหมายงานภายในสำนักงาน","การประชุมทางไกล"],a:0,e:"“Delegation” หมายถึงคณะผู้แทนที่เดินทางไปเจรจาหรือร่วมประชุมในนามหน่วยงาน/ประเทศ"},
+  {q:"คำว่า “Ratify” มีความหมายตรงกับข้อใด",c:["ยกเลิกสนธิสัญญา","ให้สัตยาบันหรือรับรองอย่างเป็นทางการ","แปลเอกสารเป็นภาษาราชการ","เลื่อนการประชุมออกไป"],a:1,e:"“Ratify” หมายถึง การให้สัตยาบัน คือการรับรองสนธิสัญญาหรือข้อตกลงระหว่างประเทศอย่างเป็นทางการตามกระบวนการภายในของแต่ละประเทศ"},
+  {q:"เลือกคำกริยาที่ถูกต้องเติมในประโยค (Passive Voice): “The cooperation agreement ___ by both directors last week.”",c:["sign","signs","was signed","has sign"],a:2,e:"ประโยคนี้เน้นผู้ถูกกระทำ (agreement) และเป็นเหตุการณ์ในอดีต จึงต้องใช้ Passive Voice อดีตกาล คือ was signed"},
+  {q:"แปลงประโยคตรงเป็น Reported Speech: He said, \\'I will attend the conference.\\' ข้อใดถูกต้อง",c:["He said that he will attend the conference.","He said that he would attend the conference.","He says that he attends the conference.","He said I attend the conference."],a:1,e:"เมื่อเปลี่ยนเป็น Reported Speech กริยาต้องถอยกาล (backshift) will จึงเปลี่ยนเป็น would: He said that he would attend the conference."},
+  {q:"เลือกกริยาที่ถูกต้องตามหลัก Subject-Verb Agreement: “Neither the ambassador nor his staff ___ present at the meeting.”",c:["is","was","were","be"],a:2,e:"เมื่อประธานเชื่อมด้วย neither...nor กริยาต้องสอดคล้องกับประธานตัวที่อยู่ใกล้กริยาที่สุด คือ “his staff” (พหูพจน์) จึงใช้ were"},
+  {q:"คำว่า “Protocol” ในบริบททางการทูตหมายถึงอะไร",c:["สนธิสัญญาที่มีผลผูกพันทางกฎหมายสูงสุด","พิธีการทูต/ระเบียบแบบแผนในการต้อนรับและปฏิบัติต่อผู้แทนต่างประเทศ","ภาษาที่ใช้เป็นทางการในการประชุมระหว่างประเทศ","ระบบเครือข่ายคอมพิวเตอร์ของสถานทูต"],a:1,e:"“Protocol” หมายถึงพิธีการทูตหรือระเบียบแบบแผนที่ใช้ในการต้อนรับ จัดลำดับ และปฏิบัติต่อผู้แทนต่างประเทศอย่างเหมาะสม"},
+  {q:"หากไม่ทราบชื่อผู้รับจดหมายราชการภาษาอังกฤษ ควรใช้คำขึ้นต้นและคำลงท้ายคู่ใดจึงจะถูกต้องตามธรรมเนียม",c:["Dear Mr. Smith, / Yours sincerely,","Dear Sir/Madam, / Yours faithfully,","Hi there, / Best,","To whom it concerns, / Cheers,"],a:1,e:"เมื่อไม่ทราบชื่อผู้รับ ให้ใช้ “Dear Sir/Madam,” คู่กับคำลงท้าย “Yours faithfully,” ส่วนเมื่อทราบชื่อผู้รับให้ใช้ “Dear Mr./Ms. [นามสกุล],” คู่กับ “Yours sincerely,”"},
+  {q:"เติมคำบุพบท (preposition) ที่ถูกต้อง: “The department is responsible ___ managing the country’s groundwater resources.”",c:["of","for","with","at"],a:1,e:"สำนวน “responsible for” หมายถึงรับผิดชอบต่อสิ่งใดสิ่งหนึ่ง เป็นสำนวนที่ใช้บ่อยในหนังสือราชการและงานวิเทศสัมพันธ์"},
+  {q:"คำว่า “Note Verbale” ในงานวิเทศสัมพันธ์หมายถึงอะไร",c:["บันทึกส่วนตัวที่ไม่เป็นทางการระหว่างเจ้าหน้าที่","หนังสือโต้ตอบทางการทูตที่เป็นทางการแต่ไม่มีการลงนาม มักใช้สรรพนามบุรุษที่สาม","ใบเสร็จรับเงินค่าธรรมเนียมวีซ่า","รายงานการประชุมภายในหน่วยงาน"],a:1,e:"Note Verbale คือหนังสือโต้ตอบทางการทูตรูปแบบทางการที่ไม่มีการลงนามของบุคคล มักเขียนด้วยสรรพนามบุรุษที่สาม ใช้สื่อสารระหว่างหน่วยงานการทูตอย่างเป็นทางการ"},
+  {q:"ประโยคใดใช้คำศัพท์ “multilateral” ได้ถูกต้องตามความหมาย",c:["Thailand signed a multilateral agreement with only one neighboring country.","The summit brought together delegates from over 20 countries to discuss a multilateral framework on water management.","The two ministers held a multilateral phone call.","She wrote a multilateral report for her supervisor."],a:1,e:"“Multilateral” หมายถึงพหุภาคีหรือเกี่ยวข้องกับหลายฝ่าย/หลายประเทศ จึงเหมาะกับบริบทที่มีผู้แทนจากหลายประเทศเข้าร่วม ต่างจากบริบทที่มีเพียงสองฝ่าย (bilateral)"}
+ ]
+},
+{
+ id:5,
+ title:"ความรู้เกี่ยวกับพระราชบัญญัติวิธีการงบประมาณ พ.ศ. 2561",
+ tag:"กฎหมาย • งบประมาณแผ่นดิน",
+ content:[
+  {h:"หลักการและเหตุผล",points:[
+   "พระราชบัญญัติวิธีการงบประมาณ พ.ศ. 2561 ประกาศในราชกิจจานุเบกษาเมื่อ <b>11 พฤศจิกายน 2561</b> และมีผลยกเลิก <b>พระราชบัญญัติวิธีการงบประมาณ พ.ศ. 2502</b> และที่แก้ไขเพิ่มเติมทั้งหมด",
+   "ตราขึ้นเพื่อปรับปรุงกระบวนการงบประมาณให้ทันสมัย สอดคล้องกับรัฐธรรมนูญแห่งราชอาณาจักรไทย พ.ศ. 2560 และเชื่อมโยงกับ <b>พระราชบัญญัติวินัยการเงินการคลังของรัฐ พ.ศ. 2561</b> ซึ่งประกาศใช้ในปีเดียวกัน"
+  ]},
+  {h:"นิยามสำคัญตามกฎหมาย",points:[
+   "<b>“งบประมาณรายจ่าย”</b> หมายถึง จำนวนเงินอย่างสูงที่อนุญาตให้จ่ายหรือให้ก่อหนี้ผูกพันได้ ตามวัตถุประสงค์และภายในระยะเวลาที่กำหนดไว้ในกฎหมายว่าด้วยงบประมาณรายจ่าย",
+   "<b>“เงินนอกงบประมาณ”</b> หมายถึง เงินทั้งปวงที่หน่วยงานของรัฐจัดเก็บหรือได้รับไว้ตามกฎหมาย ที่ต้องนำส่งคลัง แต่มีกฎหมายอนุญาตให้เก็บไว้ใช้จ่ายได้โดยไม่ต้องนำส่งคลัง",
+   "<b>“งบประมาณรายจ่ายข้ามปี”</b> หมายถึง งบประมาณรายจ่ายที่มีระยะเวลาการใช้จ่ายเกินกว่าหนึ่งปีงบประมาณตามวัตถุประสงค์และระยะเวลาที่กำหนด",
+   "<b>“ปีงบประมาณ”</b> เริ่มตั้งแต่วันที่ <b>1 ตุลาคม</b> ของปีหนึ่ง ถึงวันที่ <b>30 กันยายน</b> ของปีถัดไป",
+   "<b>“หน่วยรับงบประมาณ”</b> หมายถึง ส่วนราชการ รัฐวิสาหกิจ หรือหน่วยงานของรัฐที่มีกฎหมายหรือมติคณะรัฐมนตรีกำหนดให้มีหน้าที่ขอตั้งงบประมาณรายจ่ายโดยตรงต่อผู้อำนวยการสำนักงบประมาณ"
+  ]},
+  {h:"กระบวนการงบประมาณ",points:[
+   "ขั้นตอนหลักเรียงตามลำดับ: <b>การจัดทำงบประมาณ → การอนุมัติงบประมาณ (ตราเป็นกฎหมาย) → การบริหารงบประมาณ → การควบคุมงบประมาณ → การติดตามและประเมินผล/รายงาน</b>",
+   "<b>สำนักงบประมาณ (สงป.)</b> โดยผู้อำนวยการสำนักงบประมาณ มีหน้าที่หลักในการจัดทำร่างพระราชบัญญัติงบประมาณรายจ่ายประจำปีเสนอต่อคณะรัฐมนตรี"
+  ]},
+  {h:"หน่วยงาน/กฎหมายที่เกี่ยวข้อง",points:[
+   "<b>คณะกรรมการนโยบายการเงินการคลังของรัฐ</b> ทำหน้าที่กำหนดกรอบวินัยการเงินการคลังของประเทศ ตามพระราชบัญญัติวินัยการเงินการคลังของรัฐ พ.ศ. 2561 ซึ่งเป็นกฎหมายที่ออกควบคู่กับ พ.ร.บ.วิธีการงบประมาณฯ",
+   "กฎหมายฉบับนี้ใช้บังคับกับหน่วยงานของรัฐทุกประเภทที่มีฐานะเป็น “หน่วยรับงบประมาณ” เช่น ส่วนราชการ รัฐวิสาหกิจ และหน่วยงานของรัฐอื่นตามที่กฎหมายกำหนด"
+  ],kbox:"<b>จำ:</b> ประกาศ 11 พ.ย. 2561 ยกเลิก พ.ร.บ.เดิม พ.ศ.2502 | ปีงบประมาณ = 1 ต.ค. – 30 ก.ย. | งบประมาณรายจ่าย = วงเงินสูงสุดที่อนุญาตให้จ่าย/ก่อหนี้ผูกพัน | เงินนอกงบประมาณ = เก็บไว้ใช้ได้โดยไม่ต้องนำส่งคลัง | คู่กับ พ.ร.บ.วินัยการเงินการคลังของรัฐ 2561"}
+ ],
+ q:[
+  {q:"พระราชบัญญัติวิธีการงบประมาณ พ.ศ. 2561 มีผลยกเลิกกฎหมายฉบับใด",c:["พระราชบัญญัติวิธีการงบประมาณ พ.ศ. 2502 และที่แก้ไขเพิ่มเติม","พระราชบัญญัติเงินคงคลัง พ.ศ. 2491","พระราชบัญญัติวินัยการเงินการคลังของรัฐ พ.ศ. 2561","พระราชบัญญัติการจัดซื้อจัดจ้างภาครัฐ พ.ศ. 2560"],a:0,e:"พ.ร.บ.วิธีการงบประมาณ พ.ศ. 2561 ตราขึ้นใหม่เพื่อยกเลิก พ.ร.บ.วิธีการงบประมาณ พ.ศ. 2502 และที่แก้ไขเพิ่มเติมทั้งหมด"},
+  {q:"ปีงบประมาณของราชการไทยตามกฎหมายว่าด้วยวิธีการงบประมาณ เริ่มต้นและสิ้นสุดเมื่อใด",c:["1 มกราคม – 31 ธันวาคม","1 เมษายน – 31 มีนาคมปีถัดไป","1 ตุลาคม – 30 กันยายนปีถัดไป","1 กรกฎาคม – 30 มิถุนายนปีถัดไป"],a:2,e:"ปีงบประมาณของไทยเริ่มตั้งแต่ 1 ตุลาคมของปีหนึ่ง ถึง 30 กันยายนของปีถัดไป"},
+  {q:"ตามนิยามของกฎหมาย “งบประมาณรายจ่าย” หมายความว่าอย่างไร",c:["เงินรายได้ทั้งหมดที่รัฐจัดเก็บได้ในแต่ละปี","จำนวนเงินอย่างสูงที่อนุญาตให้จ่ายหรือก่อหนี้ผูกพันได้ตามวัตถุประสงค์และระยะเวลาที่กำหนดในกฎหมายว่าด้วยงบประมาณรายจ่าย","เงินสำรองที่ธนาคารแห่งประเทศไทยถือครองไว้","เงินกู้ต่างประเทศที่รัฐบาลกู้มาใช้จ่ายในโครงการเร่งด่วน"],a:1,e:"“งบประมาณรายจ่าย” หมายถึงจำนวนเงินอย่างสูงที่กฎหมายอนุญาตให้จ่ายหรือก่อหนี้ผูกพันได้ ตามวัตถุประสงค์และระยะเวลาที่กำหนดไว้ในกฎหมายว่าด้วยงบประมาณรายจ่ายประจำปี"},
+  {q:"“เงินนอกงบประมาณ” ตามกฎหมายฉบับนี้มีลักษณะอย่างไร",c:["เงินที่หน่วยงานรัฐจัดเก็บหรือได้รับไว้ ซึ่งมีกฎหมายอนุญาตให้เก็บไว้ใช้จ่ายได้โดยไม่ต้องนำส่งคลัง","เงินที่ได้รับจากต่างประเทศในรูปเงินช่วยเหลือแบบให้เปล่าเท่านั้น","เงินที่ส่วนราชการเก็บไว้นอกระบบบัญชีโดยไม่ต้องรายงานผู้ใด","เงินรายได้แผ่นดินที่ต้องนำส่งคลังทั้งจำนวนโดยไม่มีข้อยกเว้น"],a:0,e:"เงินนอกงบประมาณ คือเงินที่หน่วยงานของรัฐจัดเก็บหรือได้รับไว้ตามกฎหมาย ซึ่งโดยหลักต้องนำส่งคลัง แต่มีกฎหมายเฉพาะอนุญาตให้เก็บไว้ใช้จ่ายได้โดยไม่ต้องนำส่งคลัง"},
+  {q:"หน่วยงานใดมีหน้าที่หลักในการจัดทำร่างพระราชบัญญัติงบประมาณรายจ่ายประจำปีเสนอคณะรัฐมนตรี",c:["กรมบัญชีกลาง","สำนักงบประมาณ","สำนักงานคณะกรรมการกฤษฎีกา","สำนักงานสภาพัฒนาการเศรษฐกิจและสังคมแห่งชาติ"],a:1,e:"สำนักงบประมาณ (สงป.) โดยผู้อำนวยการสำนักงบประมาณ มีหน้าที่หลักในการจัดทำร่างงบประมาณรายจ่ายประจำปีเสนอคณะรัฐมนตรี"},
+  {q:"“หน่วยรับงบประมาณ” ตามกฎหมายฉบับนี้ หมายถึงหน่วยงานลักษณะใด",c:["หน่วยงานเอกชนที่รับเงินอุดหนุนจากรัฐ","องค์กรระหว่างประเทศที่ทำงานร่วมกับรัฐบาลไทย","ส่วนราชการ รัฐวิสาหกิจ หรือหน่วยงานของรัฐที่มีอำนาจขอตั้งงบประมาณรายจ่ายโดยตรงต่อผู้อำนวยการสำนักงบประมาณ","ประชาชนที่ได้รับสิทธิสวัสดิการจากภาครัฐ"],a:2,e:"หน่วยรับงบประมาณ หมายถึงส่วนราชการ รัฐวิสาหกิจ หรือหน่วยงานของรัฐที่มีกฎหมายหรือมติคณะรัฐมนตรีกำหนดให้มีหน้าที่ขอตั้งงบประมาณรายจ่ายโดยตรงต่อผู้อำนวยการสำนักงบประมาณ"},
+  {q:"กฎหมายฉบับใดที่ประกาศใช้ในปีเดียวกันและทำหน้าที่กำหนดกรอบวินัยการเงินการคลังของรัฐควบคู่กับ พ.ร.บ.วิธีการงบประมาณ พ.ศ. 2561",c:["พระราชบัญญัติวินัยการเงินการคลังของรัฐ พ.ศ. 2561","พระราชบัญญัติหนี้สาธารณะ พ.ศ. 2548","พระราชบัญญัติเงินคงคลัง พ.ศ. 2491","พระราชบัญญัติการบริหารหนี้สาธารณะ พ.ศ. 2548"],a:0,e:"พระราชบัญญัติวินัยการเงินการคลังของรัฐ พ.ศ. 2561 เป็นกฎหมายที่ประกาศใช้ในปีเดียวกัน เพื่อกำหนดกรอบวินัยการเงินการคลังของประเทศควบคู่กับ พ.ร.บ.วิธีการงบประมาณฯ"},
+  {q:"กระบวนการงบประมาณเรียงลำดับขั้นตอนหลักตามข้อใดถูกต้อง",c:["บริหารงบประมาณ → จัดทำงบประมาณ → อนุมัติงบประมาณ → ควบคุมงบประมาณ","จัดทำงบประมาณ → อนุมัติงบประมาณ → บริหารงบประมาณ → ควบคุมและติดตามประเมินผล","อนุมัติงบประมาณ → จัดทำงบประมาณ → ควบคุมงบประมาณ → บริหารงบประมาณ","ควบคุมงบประมาณ → บริหารงบประมาณ → จัดทำงบประมาณ → อนุมัติงบประมาณ"],a:1,e:"กระบวนการงบประมาณเรียงลำดับคือ การจัดทำงบประมาณ → การอนุมัติงบประมาณ (ตราเป็นกฎหมาย) → การบริหารงบประมาณ → การควบคุมและติดตามประเมินผล"},
+  {q:"พระราชบัญญัติวิธีการงบประมาณ พ.ศ. 2561 ประกาศในราชกิจจานุเบกษาเมื่อใด",c:["11 พฤศจิกายน 2561","1 ตุลาคม 2561","30 กันยายน 2561","5 ธันวาคม 2561"],a:0,e:"พ.ร.บ.วิธีการงบประมาณ พ.ศ. 2561 ประกาศในราชกิจจานุเบกษา เล่ม 135 ตอนที่ 92 ก เมื่อวันที่ 11 พฤศจิกายน 2561"},
+  {q:"เหตุผลสำคัญประการหนึ่งที่ต้องตรา พ.ร.บ.วิธีการงบประมาณ พ.ศ. 2561 ขึ้นใหม่แทนฉบับ พ.ศ. 2502 คือข้อใด",c:["เพื่อยกเลิกระบบงบประมาณแบบมุ่งเน้นผลงานตามยุทธศาสตร์","เพื่อให้กระบวนการงบประมาณสอดคล้องกับรัฐธรรมนูญ พ.ศ. 2560 และเชื่อมโยงกับกฎหมายวินัยการเงินการคลังของรัฐ","เพื่อโอนอำนาจจัดทำงบประมาณจากสำนักงบประมาณไปให้กระทรวงการคลัง","เพื่อยกเลิกระบบปีงบประมาณและใช้ปีปฏิทินแทน"],a:1,e:"เหตุผลสำคัญคือการปรับปรุงกระบวนการงบประมาณให้ทันสมัยและสอดคล้องกับรัฐธรรมนูญ พ.ศ. 2560 รวมถึงเชื่อมโยงกับพระราชบัญญัติวินัยการเงินการคลังของรัฐ พ.ศ. 2561 ซึ่งเป็นกฎหมายที่ตราขึ้นพร้อมกัน"},
+  {q:"“งบประมาณรายจ่ายข้ามปี” ตามกฎหมายฉบับนี้หมายความว่าอย่างไร",c:["งบประมาณที่โอนจากปีก่อนหน้ามาใช้ในปีปัจจุบันโดยอัตโนมัติ","งบประมาณรายจ่ายที่มีระยะเวลาการใช้จ่ายเกินกว่าหนึ่งปีงบประมาณตามวัตถุประสงค์และระยะเวลาที่กำหนด","เงินที่หน่วยงานเบิกจ่ายไม่ทันภายในปีงบประมาณแล้วถูกริบคืนคลัง","งบประมาณที่ได้รับจากองค์กรระหว่างประเทศเพื่อใช้ข้ามพรมแดน"],a:1,e:"งบประมาณรายจ่ายข้ามปี หมายถึงงบประมาณรายจ่ายที่มีระยะเวลาการใช้จ่ายเกินกว่าหนึ่งปีงบประมาณ ตามวัตถุประสงค์และระยะเวลาที่กำหนดไว้ เช่น โครงการก่อสร้างขนาดใหญ่ที่ต้องก่อหนี้ผูกพันหลายปี"}
+ ]
+},
+{
+ id:6,
+ title:"ความรู้เกี่ยวกับระเบียบว่าด้วยการบริหารงบประมาณ พ.ศ. 2562 และที่แก้ไขเพิ่มเติม",
+ tag:"กฎหมาย • ระเบียบงบประมาณ",
+ content:[
+  {h:"ความมุ่งหมายของระเบียบ",points:[
+   "ระเบียบว่าด้วยการบริหารงบประมาณ พ.ศ. 2562 ออกโดยอาศัยอำนาจตาม <b>พระราชบัญญัติวิธีการงบประมาณ พ.ศ. 2561</b> เพื่อกำหนดหลักเกณฑ์และวิธีปฏิบัติในการ<b>บริหารงบประมาณรายจ่าย</b> ภายหลังจากที่กฎหมายว่าด้วยงบประมาณรายจ่ายประจำปีมีผลใช้บังคับแล้ว",
+   "มุ่งให้การใช้จ่ายงบประมาณของหน่วยรับงบประมาณเป็นไปอย่างมีประสิทธิภาพ คุ้มค่า โปร่งใส และบรรลุผลสัมฤทธิ์ตามเป้าหมายที่กำหนดไว้ในเอกสารงบประมาณ"
+  ]},
+  {h:"หลักการบริหารงบประมาณ",points:[
+   "<b>หัวหน้าหน่วยรับงบประมาณ</b> เป็นผู้มีอำนาจและรับผิดชอบในการบริหารงบประมาณรายจ่ายที่หน่วยงานได้รับจัดสรร ให้เป็นไปตามแผนการปฏิบัติงานและแผนการใช้จ่ายงบประมาณที่กำหนด",
+   "การ<b>โอนงบประมาณรายจ่าย</b> หรือ<b>การเปลี่ยนแปลงรายการ</b> ต้องเป็นไปตามหลักเกณฑ์ วิธีการ และเงื่อนไขที่สำนักงบประมาณกำหนด — บางกรณีหัวหน้าหน่วยรับงบประมาณมีอำนาจอนุมัติได้เอง แต่บางกรณีต้องขอทำความตกลงกับสำนักงบประมาณก่อน",
+   "<b>“งบกลาง”</b> คือรายการงบประมาณที่ตั้งไว้ส่วนกลางเพื่อจัดสรรให้หน่วยรับงบประมาณเบิกจ่ายตามรายการและวงเงินที่คณะรัฐมนตรีหรือผู้มีอำนาจตามระเบียบกำหนด เช่น เงินสำรองจ่ายเพื่อกรณีฉุกเฉินหรือจำเป็น"
+  ]},
+  {h:"ระเบียบที่เกี่ยวข้องซึ่งออกในคราวเดียวกัน (พ.ศ. 2562)",points:[
+   "<b>ระเบียบว่าด้วยการโอนงบประมาณรายจ่ายบูรณาการและงบประมาณรายจ่ายบุคลากรระหว่างหน่วยรับงบประมาณ พ.ศ. 2562</b> — กำหนดหลักเกณฑ์การโอนงบเฉพาะแผนงานบูรณาการและงบบุคลากรข้ามหน่วยงาน",
+   "<b>ระเบียบว่าด้วยการก่อหนี้ผูกพันข้ามปีงบประมาณ พ.ศ. 2562</b> — ใช้กำกับกรณีหน่วยงานต้องก่อหนี้ผูกพันในโครงการที่มีระยะเวลาดำเนินการเกินกว่าหนึ่งปีงบประมาณ"
+  ]},
+  {h:"หลักการควบคุมและติดตาม",points:[
+   "หน่วยรับงบประมาณต้องรายงานผลการปฏิบัติงานและผลการใช้จ่ายงบประมาณตามที่สำนักงบประมาณกำหนด เพื่อใช้ติดตามความก้าวหน้าและประเมินผลสัมฤทธิ์",
+   "การใช้จ่ายงบประมาณต้องคำนึงถึงความคุ้มค่า ประหยัด และเกิดประโยชน์สูงสุดแก่ทางราชการ สอดคล้องกับหลักวินัยการเงินการคลังของรัฐ"
+  ],kbox:"<b>จำ:</b> ระเบียบบริหารงบประมาณ 2562 ออกตาม พ.ร.บ.วิธีการงบประมาณ 2561 | หัวหน้าหน่วยรับงบประมาณ = ผู้บริหารงบที่ได้รับจัดสรร | การโอน/เปลี่ยนแปลงรายการต้องตามหลักเกณฑ์สำนักงบประมาณ | งบกลาง = จัดสรรตามรายการ/วงเงินที่กำหนด | ระเบียบคู่ขนาน: โอนงบบูรณาการ-บุคลากร และก่อหนี้ผูกพันข้ามปี"}
+ ],
+ q:[
+  {q:"ระเบียบว่าด้วยการบริหารงบประมาณ พ.ศ. 2562 ออกโดยอาศัยอำนาจตามกฎหมายฉบับใด",c:["พระราชบัญญัติวิธีการงบประมาณ พ.ศ. 2561","พระราชบัญญัติระเบียบบริหารราชการแผ่นดิน พ.ศ. 2534","พระราชบัญญัติการจัดซื้อจัดจ้างภาครัฐ พ.ศ. 2560","พระราชบัญญัติวินัยการเงินการคลังของรัฐ พ.ศ. 2561 เท่านั้น"],a:0,e:"ระเบียบว่าด้วยการบริหารงบประมาณ พ.ศ. 2562 ออกโดยอาศัยอำนาจตามพระราชบัญญัติวิธีการงบประมาณ พ.ศ. 2561 เพื่อกำหนดรายละเอียดวิธีปฏิบัติในการบริหารงบประมาณ"},
+  {q:"ระเบียบว่าด้วยการบริหารงบประมาณ พ.ศ. 2562 มีวัตถุประสงค์หลักเพื่ออะไร",c:["กำหนดหลักเกณฑ์และวิธีปฏิบัติในการบริหารงบประมาณรายจ่ายหลังกฎหมายงบประมาณประจำปีมีผลใช้บังคับ","กำหนดขั้นตอนการจัดเก็บภาษีอากรของกรมสรรพากร","กำหนดหลักเกณฑ์การจัดซื้อจัดจ้างพัสดุของหน่วยงานรัฐ","กำหนดอัตราเงินเดือนข้าราชการพลเรือนสามัญ"],a:0,e:"ระเบียบนี้มุ่งกำหนดหลักเกณฑ์และวิธีปฏิบัติในการบริหารงบประมาณรายจ่ายของหน่วยรับงบประมาณ ภายหลังกฎหมายงบประมาณรายจ่ายประจำปีมีผลใช้บังคับแล้ว"},
+  {q:"ผู้มีอำนาจและหน้าที่รับผิดชอบในการบริหารงบประมาณรายจ่ายที่หน่วยงานได้รับจัดสรร ตามระเบียบนี้คือใคร",c:["ผู้อำนวยการสำนักงบประมาณ","หัวหน้าหน่วยรับงบประมาณ","อธิบดีกรมบัญชีกลาง","ประธานคณะกรรมการนโยบายการเงินการคลังของรัฐ"],a:1,e:"หัวหน้าหน่วยรับงบประมาณ เป็นผู้มีอำนาจและรับผิดชอบบริหารงบประมาณรายจ่ายที่หน่วยงานตนได้รับจัดสรรให้เป็นไปตามแผนงานและเป้าหมายที่กำหนด"},
+  {q:"“งบกลาง” ตามระเบียบว่าด้วยการบริหารงบประมาณมีลักษณะอย่างไร",c:["รายจ่ายที่ตั้งไว้ส่วนกลางเพื่อจัดสรรให้หน่วยรับงบประมาณเบิกจ่ายตามรายการและวงเงินที่ผู้มีอำนาจกำหนด เช่น เงินสำรองจ่ายกรณีฉุกเฉิน","งบประมาณที่หน่วยงานทุกแห่งได้รับเท่ากันโดยอัตโนมัติทุกปี","เงินที่กันไว้เพื่อจ่ายเป็นเงินเดือนข้าราชการเท่านั้น","งบประมาณที่ไม่ต้องผ่านการอนุมัติจากรัฐสภา"],a:0,e:"งบกลางคือรายการงบประมาณที่ตั้งไว้ส่วนกลาง (ไม่ได้จัดสรรตรงให้หน่วยงานใดหน่วยงานหนึ่งไว้ล่วงหน้า) เพื่อจัดสรรให้หน่วยรับงบประมาณเบิกจ่ายตามรายการและวงเงินที่คณะรัฐมนตรีหรือผู้มีอำนาจกำหนด เช่น เงินสำรองจ่ายเพื่อกรณีฉุกเฉินหรือจำเป็น"},
+  {q:"การโอนงบประมาณรายจ่ายหรือการเปลี่ยนแปลงรายการของหน่วยรับงบประมาณ ต้องเป็นไปตามข้อใด",c:["ดุลยพินิจของหัวหน้าหน่วยงานแต่เพียงผู้เดียวโดยไม่มีเงื่อนไข","หลักเกณฑ์ วิธีการ และเงื่อนไขที่สำนักงบประมาณกำหนด","มติที่ประชุมพนักงานของหน่วยงานนั้น","การอนุมัติจากศาลปกครองเป็นรายกรณี"],a:1,e:"การโอนหรือเปลี่ยนแปลงรายการงบประมาณต้องเป็นไปตามหลักเกณฑ์ วิธีการ และเงื่อนไขที่สำนักงบประมาณกำหนดไว้ ซึ่งบางกรณีหัวหน้าหน่วยงานอนุมัติได้เอง บางกรณีต้องขอทำความตกลงกับสำนักงบประมาณก่อน"},
+  {q:"ระเบียบใดที่ออกในคราวเดียวกับระเบียบว่าด้วยการบริหารงบประมาณ พ.ศ. 2562 เพื่อกำกับการโอนงบประมาณรายจ่ายบูรณาการและงบบุคลากรระหว่างหน่วยงาน",c:["ระเบียบว่าด้วยการโอนงบประมาณรายจ่ายบูรณาการและงบประมาณรายจ่ายบุคลากรระหว่างหน่วยรับงบประมาณ พ.ศ. 2562","ระเบียบว่าด้วยการพัสดุ พ.ศ. 2535","ระเบียบสำนักนายกรัฐมนตรีว่าด้วยงานสารบรรณ พ.ศ. 2526","ระเบียบว่าด้วยการรักษาความลับของทางราชการ พ.ศ. 2544"],a:0,e:"ระเบียบว่าด้วยการโอนงบประมาณรายจ่ายบูรณาการและงบประมาณรายจ่ายบุคลากรระหว่างหน่วยรับงบประมาณ พ.ศ. 2562 ออกในคราวเดียวกันเพื่อกำกับการโอนงบเฉพาะแผนงานบูรณาการและงบบุคลากรข้ามหน่วยงาน"},
+  {q:"หากหน่วยงานต้องดำเนินโครงการที่มีระยะเวลาดำเนินการเกินกว่าหนึ่งปีงบประมาณและต้องก่อหนี้ผูกพัน จะต้องปฏิบัติตามระเบียบใด",c:["ระเบียบว่าด้วยการก่อหนี้ผูกพันข้ามปีงบประมาณ พ.ศ. 2562","ระเบียบว่าด้วยการบริหารงบประมาณ พ.ศ. 2548","ระเบียบว่าด้วยการรับ-จ่ายเงินของหน่วยงานเอกชน","ระเบียบว่าด้วยการลาของข้าราชการ"],a:0,e:"กรณีต้องก่อหนี้ผูกพันในโครงการที่มีระยะเวลาดำเนินการเกินกว่าหนึ่งปีงบประมาณ ต้องปฏิบัติตามระเบียบว่าด้วยการก่อหนี้ผูกพันข้ามปีงบประมาณ พ.ศ. 2562 ซึ่งออกในคราวเดียวกับระเบียบบริหารงบประมาณ"},
+  {q:"เป้าหมายสำคัญของการบริหารงบประมาณตามระเบียบว่าด้วยการบริหารงบประมาณ พ.ศ. 2562 คือข้อใด",c:["ให้เบิกจ่ายงบประมาณให้หมดโดยเร็วที่สุดโดยไม่คำนึงผลลัพธ์","ให้การใช้จ่ายงบประมาณเกิดประสิทธิภาพ คุ้มค่า โปร่งใส และบรรลุผลสัมฤทธิ์ตามเป้าหมายที่กำหนด","ให้โอนงบประมาณคืนสำนักงบประมาณทั้งหมดก่อนสิ้นปี","ให้หน่วยงานใช้จ่ายงบประมาณได้อย่างอิสระโดยไม่ต้องรายงานผล"],a:1,e:"ระเบียบนี้มุ่งให้การบริหารและใช้จ่ายงบประมาณของหน่วยรับงบประมาณเป็นไปอย่างมีประสิทธิภาพ คุ้มค่า โปร่งใส และบรรลุผลสัมฤทธิ์ตามเป้าหมายที่กำหนดไว้ในเอกสารงบประมาณ"},
+  {q:"หน่วยรับงบประมาณมีหน้าที่ตามระเบียบนี้อย่างไรเกี่ยวกับการรายงานผล",c:["ไม่ต้องรายงานผลใด ๆ ต่อสำนักงบประมาณ","ต้องรายงานผลการปฏิบัติงานและผลการใช้จ่ายงบประมาณตามที่สำนักงบประมาณกำหนด","รายงานเฉพาะเมื่อถูกร้องขอจากสำนักงานการตรวจเงินแผ่นดินเท่านั้น","รายงานเฉพาะกรณีใช้จ่ายเกินวงเงินที่ได้รับจัดสรร"],a:1,e:"หน่วยรับงบประมาณต้องรายงานผลการปฏิบัติงานและผลการใช้จ่ายงบประมาณตามหลักเกณฑ์และระยะเวลาที่สำนักงบประมาณกำหนด เพื่อใช้ติดตามความก้าวหน้าและประเมินผลสัมฤทธิ์อย่างต่อเนื่อง"},
+  {q:"ข้อใดสะท้อนความสัมพันธ์ระหว่าง พ.ร.บ.วิธีการงบประมาณ พ.ศ. 2561 กับระเบียบว่าด้วยการบริหารงบประมาณ พ.ศ. 2562 ได้ถูกต้องที่สุด",c:["ทั้งสองฉบับเป็นกฎหมายระดับพระราชบัญญัติที่มีศักดิ์เท่ากัน","ระเบียบว่าด้วยการบริหารงบประมาณเป็นกฎหมายลำดับรองที่ออกโดยอาศัยอำนาจตาม พ.ร.บ.วิธีการงบประมาณ เพื่อกำหนดรายละเอียดวิธีปฏิบัติ","พ.ร.บ.วิธีการงบประมาณถูกยกเลิกไปแล้วโดยระเบียบฉบับนี้","ระเบียบฉบับนี้ใช้บังคับแทน พ.ร.บ.วิธีการงบประมาณในทุกกรณี"],a:1,e:"ระเบียบว่าด้วยการบริหารงบประมาณ พ.ศ. 2562 เป็นกฎหมายลำดับรอง (subordinate legislation) ที่ออกโดยอาศัยอำนาจตาม พ.ร.บ.วิธีการงบประมาณ พ.ศ. 2561 เพื่อกำหนดรายละเอียดหลักเกณฑ์และวิธีปฏิบัติในการบริหารงบประมาณ"},
+  {q:"หลักการใดที่หน่วยรับงบประมาณต้องคำนึงถึงในการใช้จ่ายงบประมาณตามระเบียบนี้ ควบคู่กับหลักวินัยการเงินการคลังของรัฐ",c:["ความรวดเร็วสูงสุดโดยไม่คำนึงถึงความคุ้มค่า","ความคุ้มค่า ประหยัด และเกิดประโยชน์สูงสุดแก่ทางราชการ","การใช้จ่ายให้ครบทุกรายการที่ตั้งไว้แม้ไม่จำเป็น","การมอบอำนาจให้ภาคเอกชนบริหารงบประมาณแทน"],a:1,e:"หน่วยรับงบประมาณต้องคำนึงถึงความคุ้มค่า ประหยัด และเกิดประโยชน์สูงสุดแก่ทางราชการในการใช้จ่ายงบประมาณ สอดคล้องกับหลักวินัยการเงินการคลังของรัฐ"}
+ ]
+}
+];
+
+let S={list:[],idx:0,score:0,wrong:[],answered:false,title:"",topicId:null};
+
+function $(id){return document.getElementById(id)}
+function show(v){document.querySelectorAll('.view').forEach(x=>x.classList.remove('show'));$(v).classList.add('show');window.scrollTo(0,0)}
+function setTab(i){const t=document.querySelectorAll('.tab');t.forEach(x=>x.classList.remove('active'));if(i>=0)t[i].classList.add('active')}
+
+function startHome(){setTab(0);renderGrid();show('home')}
+
+function renderGrid(){
+  let h="";
+  TOPICS.forEach(t=>{
+    h+=`<div class="topic ${t.full?'full':''}">
+      <span class="badge">${t.q.length} ข้อ</span>
+      <div class="top"><span class="num">${t.id}</span>
+        <div><h3>${t.title}</h3><div class="tag">${t.tag}</div></div></div>
+      <div class="btns">
+        <button class="btn read" onclick="openRead(${t.id})">อ่านเนื้อหา</button>
+        <button class="btn quiz" onclick="startTopic(${t.id})">ทำข้อสอบ</button>
+      </div></div>`;
+  });
+  $('topicGrid').innerHTML=h;
+}
+
+let curRead=null;
+function openRead(id){
+  const t=TOPICS.find(x=>x.id===id);curRead=id;
+  $('readTitle').innerHTML=`วิชาที่ ${t.id} • ${t.title}`;
+  let h="";
+  t.content.forEach(sec=>{
+    h+=`<section><h4>${sec.h}</h4>`;
+    if(sec.points&&sec.points.length){h+="<ul>";sec.points.forEach(p=>h+=`<li>${p}</li>`);h+="</ul>"}
+    if(sec.kbox)h+=`<div class="kbox">${sec.kbox}</div>`;
+    h+="</section>";
+  });
+  $('readBody').innerHTML=h;
+  setTab(-1);show('read');
+}
+function startTopicFromRead(){if(curRead)startTopic(curRead)}
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+function buildQ(topic){
+  return topic.q.map(item=>{
+    const opts=item.c.map((text,i)=>({text,correct:i===item.a}));
+    shuffle(opts);
+    return{cat:topic.title,q:item.q,opts,e:item.e,ans:opts.findIndex(o=>o.correct)};
+  });
+}
+
+function startTopic(id){
+  const t=TOPICS.find(x=>x.id===id);
+  S={list:shuffle(buildQ(t)),idx:0,score:0,wrong:[],answered:false,title:`วิชาที่ ${t.id} • ${t.title}`,topicId:id};
+  setTab(-1);show('quiz');renderQ();
+}
+
+function startMock(){
+  setTab(1);
+  let all=[];
+  TOPICS.forEach(t=>{all=all.concat(buildQ(t))});
+  shuffle(all);
+  const N=Math.min(80,all.length);
+  all=all.slice(0,N);
+  S={list:all,idx:0,score:0,wrong:[],answered:false,title:"ข้อสอบรวมเสมือนจริง • "+N+" ข้อสุ่มทุกวิชา",topicId:null};
+  show('quiz');renderQ();
+}
+
+function renderQ(){
+  const item=S.list[S.idx];S.answered=false;
+  $('quizTitle').textContent=S.title;
+  $('qbar').style.width=((S.idx)/S.list.length*100)+'%';
+  $('qcount').textContent=`ข้อ ${S.idx+1} / ${S.list.length}`;
+  $('qscore').textContent=`คะแนน ${S.score}`;
+  const labels=['ก','ข','ค','ง'];
+  let h=`<div class="q-card"><span class="q-cat">${item.cat.length>40?item.cat.slice(0,40)+'…':item.cat}</span>
+    <div class="q-text">${item.q}</div><div id="opts">`;
+  item.opts.forEach((o,i)=>{
+    h+=`<button class="opt" id="opt${i}" onclick="pick(${i})"><span class="lab">${labels[i]}.</span>${o.text}</button>`;
+  });
+  h+=`</div><div class="explain" id="exp"><div class="e-tag"></div><div id="expText"></div></div></div>`;
+  $('qCard').innerHTML=h;
+  const nb=$('nextBtn');nb.disabled=true;nb.textContent='เลือกคำตอบ';
+}
+
+function pick(i){
+  if(S.answered)return;
+  S.answered=true;
+  const item=S.list[S.idx];
+  const correct=item.ans;
+  document.querySelectorAll('.opt').forEach((b,idx)=>{
+    b.disabled=true;
+    if(idx===correct)b.classList.add('correct');
+    else if(idx===i)b.classList.add('wrong');
+    else b.classList.add('dim');
+  });
+  const exp=$('exp');exp.classList.add('show');
+  if(i===correct){
+    S.score++;
+    exp.classList.add('ok');exp.classList.remove('no');
+    exp.querySelector('.e-tag').textContent='✓ ถูกต้อง';
+  }else{
+    exp.classList.add('no');exp.classList.remove('ok');
+    exp.querySelector('.e-tag').textContent='✗ ยังไม่ถูก';
+    S.wrong.push({q:item.q,correct:item.opts[correct].text,chosen:item.opts[i].text,e:item.e});
+  }
+  $('expText').innerHTML=item.e;
+  $('qscore').textContent=`คะแนน ${S.score}`;
+  const nb=$('nextBtn');nb.disabled=false;
+  nb.textContent=(S.idx===S.list.length-1)?'ดูผลคะแนน':'ข้อถัดไป ›';
+}
+
+function nextQ(){
+  if(!S.answered)return;
+  if(S.idx<S.list.length-1){S.idx++;renderQ();}
+  else showResult();
+}
+
+function showResult(){
+  const total=S.list.length,pct=Math.round(S.score/total*100);
+  const C=2*Math.PI*54,off=C*(1-pct/100);
+  let verdict,color;
+  if(pct>=80){verdict='ยอดเยี่ยม! พร้อมสอบมาก 💪';color='var(--good)';}
+  else if(pct>=60){verdict='ดี ผ่านเกณฑ์ — ทบทวนข้อที่พลาดอีกนิด';color='var(--gold)';}
+  else{verdict='ต้องทบทวนเนื้อหาเพิ่ม สู้ ๆ!';color='var(--bad)';}
+  let h=`<div class="result">
+    <div class="score-ring"><svg width="140" height="140">
+      <circle cx="70" cy="70" r="54" fill="none" stroke="#DCE7EC" stroke-width="12"/>
+      <circle cx="70" cy="70" r="54" fill="none" stroke="${color}" stroke-width="12"
+        stroke-dasharray="${C}" stroke-dashoffset="${off}" stroke-linecap="round"/>
+    </svg><div class="pct"><b>${pct}%</b><span>${S.score}/${total} ข้อ</span></div></div>
+    <h2>ผลการทำข้อสอบ</h2>
+    <div class="verdict">${verdict}</div>
+    <div class="actions">
+      <button class="btn quiz" onclick="retry()">ทำชุดนี้ใหม่</button>
+      <button class="btn read" onclick="startHome()">กลับหน้าหลัก</button>
+    </div>`;
+  if(S.wrong.length){
+    h+=`<div class="review"><h3>ทบทวนข้อที่ตอบผิด (${S.wrong.length} ข้อ)</h3>`;
+    S.wrong.forEach((w,i)=>{
+      h+=`<div class="rev-item"><div class="rq">${i+1}. ${w.q}</div>
+        <div class="ra">✓ คำตอบที่ถูก: ${w.correct}</div>
+        <div class="rw">✗ ที่คุณเลือก: ${w.chosen}</div>
+        <div class="re">💡 ${w.e}</div></div>`;
+    });
+    h+=`</div>`;
+  }else{
+    h+=`<div class="review"><h3 style="color:var(--good)">เก่งมาก! ตอบถูกทุกข้อ 🎉</h3></div>`;
+  }
+  h+=`</div>`;
+  $('result').innerHTML=h;
+  setTab(-1);show('result');
+}
+
+function retry(){
+  if(S.topicId)startTopic(S.topicId);
+  else startMock();
+}
+
+/* init */
+startHome();
+</script>
+</body>
+</html>
