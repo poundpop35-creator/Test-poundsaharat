@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>คอร์สอังกฤษครบวงจร — เบสิก → ฟัง พูด อ่าน เขียน</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --plum:#5B3FA8;--plum-700:#472F87;--plum-500:#7458C6;
+  --gold:#D9A327;--gold-soft:#F6E9C6;--paper:#F7F5FC;--card:#FFFFFF;
+  --ink:#1F1A2E;--ink-soft:#5C5573;--line:#E4DDF2;
+  --good:#1E8E6A;--good-bg:#E4F5EE;--bad:#C7384B;--bad-bg:#FBE9EC;
+  --shadow:0 6px 22px rgba(91,63,168,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Sarabun',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;font-size:17px;padding-bottom:70px}
+.wrap{max-width:800px;margin:0 auto;padding:0 16px}
+h1,h2,h3,.kanit{font-family:'Kanit',sans-serif;font-weight:600;line-height:1.35}
+header{background:linear-gradient(135deg,var(--plum) 0%,var(--plum-500) 100%);color:#fff;padding:24px 0 20px;position:relative;overflow:hidden}
+header::after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(217,163,39,.35),transparent 70%)}
+header a.back{display:inline-flex;align-items:center;gap:6px;color:#E6DEF8;text-decoration:none;font-family:'Kanit';font-size:14px;font-weight:500;margin-bottom:10px}
+.eyebrow{font-family:'Kanit';font-weight:500;letter-spacing:.06em;font-size:13px;color:var(--gold-soft);text-transform:uppercase}
+header h1{font-size:23px;margin:5px 0 4px;font-weight:700}
+header .sub{font-size:14.5px;color:#EAE3F8}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px}
+.chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);padding:5px 11px;border-radius:999px;font-size:13px;font-family:'Kanit';font-weight:500}
+.chip b{color:var(--gold-soft)}
+.view{display:none;animation:fade .25s ease}
+.view.show{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.intro-card{background:linear-gradient(180deg,#fff,#FCFBFE);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin:16px 0;box-shadow:var(--shadow)}
+.intro-card h2{font-size:18px;color:var(--plum);margin-bottom:6px}
+.intro-card p{font-size:15px;color:var(--ink-soft)}
+.path{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.path span{font-family:'Kanit';font-size:12.5px;font-weight:500;background:var(--paper);border:1px solid var(--line);color:var(--ink-soft);padding:4px 10px;border-radius:999px}
+.path span.on{background:var(--plum);color:#fff;border-color:var(--plum)}
+.grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:6px}
+@media(min-width:640px){.grid{grid-template-columns:1fr 1fr}}
+.mod{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px 16px;box-shadow:var(--shadow);cursor:pointer;font-family:inherit;font-size:inherit;color:inherit;transition:.15s}
+.mod:active{transform:scale(.99)}
+.mod .top{display:flex;gap:12px;align-items:center}
+.mod .ico{width:46px;height:46px;border-radius:13px;background:#EFE9FB;display:flex;align-items:center;justify-content:center;font-size:24px;flex:none}
+.mod h3{font-size:17px;font-weight:600}
+.mod .d{font-size:13.5px;color:var(--ink-soft);margin-top:2px;font-family:'Kanit';font-weight:400}
+.mod .cnt{font-family:'Kanit';font-size:12px;font-weight:600;color:#7a5c12;background:var(--gold-soft);padding:2px 9px;border-radius:999px;flex:none}
+.section-title{font-family:'Kanit';font-weight:600;font-size:15px;color:var(--ink-soft);margin:22px 4px 8px;display:flex;align-items:center;gap:8px}
+.section-title::before{content:"";width:7px;height:18px;background:var(--gold);border-radius:3px}
+.head{display:flex;align-items:center;gap:10px;margin:16px 0 6px}
+.back-btn{font-family:'Kanit';font-weight:500;font-size:14px;color:var(--plum);background:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 13px;cursor:pointer}
+.ttl{font-family:'Kanit';font-weight:700;font-size:20px;color:var(--plum);margin:6px 0 12px;line-height:1.3}
+.unit{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 15px;margin-bottom:10px;box-shadow:var(--shadow);display:flex;gap:12px;align-items:center;cursor:pointer;transition:.15s}
+.unit:active{transform:scale(.995)}
+.unit .n{font-family:'Kanit';font-weight:700;font-size:13px;color:#fff;background:var(--plum);width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex:none}
+.unit .b{flex:1;min-width:0}
+.unit .b h4{font-family:'Kanit';font-weight:600;font-size:16px}
+.unit .b p{font-size:13.5px;color:var(--ink-soft);margin-top:2px}
+.unit .arw{color:var(--gold);font-size:20px;flex:none}
+sect,section{display:block;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:12px;box-shadow:var(--shadow)}
+section h4{font-family:'Kanit';font-weight:600;font-size:16px;color:var(--plum-700);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+section h4::before{content:"";width:7px;height:18px;background:var(--gold);border-radius:3px;flex:none}
+section ul{list-style:none;padding:0}
+section li{position:relative;padding:4px 0 4px 20px;font-size:15.5px}
+section li::before{content:"▪";color:var(--plum-500);position:absolute;left:3px;top:4px}
+section li b{color:var(--plum-700)}
+.kbox{background:var(--gold-soft);border-left:4px solid var(--gold);border-radius:8px;padding:9px 13px;margin-top:9px;font-size:14.5px}
+.kbox b{color:#8a6a12}
+table.tb{width:100%;border-collapse:collapse;margin-top:8px;font-size:15px}
+table.tb th,table.tb td{border:1px solid var(--line);padding:7px 9px;text-align:left}
+table.tb th{background:#F3EFFB;font-family:'Kanit';font-weight:600;color:var(--plum-700);font-size:14px}
+table.tb td.en{font-weight:600;color:var(--plum-700)}
+.exwrap{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.ex{display:flex;gap:10px;align-items:flex-start;background:#FBFAFE;border:1px solid var(--line);border-radius:11px;padding:10px 12px}
+.ex .say{background:var(--plum);color:#fff;border:none;border-radius:9px;width:36px;height:36px;font-size:16px;cursor:pointer;flex:none}
+.ex .say:active{background:var(--plum-700)}
+.ex .t{flex:1;min-width:0}
+.ex .t .e{font-weight:600;font-size:16px;color:var(--plum-700)}
+.ex .t .r{font-size:13.5px;color:var(--ink-soft);font-family:'Kanit'}
+.ex .t .h{font-size:14.5px;margin-top:2px}
+.ex .t .x{font-size:13.5px;color:var(--bad);margin-top:2px}
+.cta{margin:8px 0 28px;text-align:center}
+.btn{font-family:'Kanit';font-weight:600;font-size:15px;border-radius:12px;padding:12px 20px;border:1px solid var(--plum);background:var(--plum);color:#fff;cursor:pointer;transition:.15s}
+.btn:active{background:var(--plum-700)}
+.btn.ghost{background:#fff;color:var(--plum)}
+.btn.wide{width:100%;max-width:320px}
+.q-head{margin:14px 0 10px}
+.q-bar{height:8px;background:var(--line);border-radius:999px;overflow:hidden;margin:9px 0 4px}
+.q-bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--plum),var(--gold));width:0;transition:width .3s}
+.q-meta{display:flex;justify-content:space-between;font-family:'Kanit';font-size:13.5px;color:var(--ink-soft)}
+.q-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 17px;box-shadow:var(--shadow);margin-bottom:14px}
+.q-tag{font-family:'Kanit';font-size:12.5px;font-weight:500;color:#7a5c12;background:var(--gold-soft);display:inline-block;padding:2px 10px;border-radius:999px;margin-bottom:9px}
+.q-text{font-size:18px;font-weight:500;margin-bottom:14px;line-height:1.55}
+.q-text .big{font-family:'Kanit';font-size:24px;font-weight:700;color:var(--plum-700);display:block;margin:4px 0}
+.playbig{background:var(--plum);color:#fff;border:none;border-radius:14px;padding:16px 22px;font-family:'Kanit';font-size:17px;font-weight:600;cursor:pointer;display:block;margin:6px auto 14px}
+.playbig:active{background:var(--plum-700)}
+.playrow{display:flex;gap:8px;justify-content:center;margin-bottom:12px;flex-wrap:wrap}
+.playrow button{font-family:'Kanit';font-size:14px;font-weight:500;border-radius:10px;padding:8px 14px;border:1px solid var(--plum);background:#fff;color:var(--plum);cursor:pointer}
+.opt{display:block;width:100%;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:9px;font-size:16px;cursor:pointer;font-family:'Sarabun';transition:.12s;line-height:1.45}
+.opt:hover{border-color:var(--plum-500)}
+.opt .lab{font-family:'Kanit';font-weight:600;color:var(--plum);margin-right:8px}
+.opt.correct{background:var(--good-bg);border-color:var(--good)}
+.opt.correct .lab{color:var(--good)}
+.opt.wrong{background:var(--bad-bg);border-color:var(--bad)}
+.opt.wrong .lab{color:var(--bad)}
+.opt.dim{opacity:.55}
+.opt:disabled{cursor:default}
+.typebox{width:100%;font-family:'Sarabun';font-size:17px;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--ink)}
+.typebox:focus{outline:none;border-color:var(--plum-500)}
+textarea.typebox{min-height:120px;line-height:1.6;resize:vertical}
+.exp{display:none;margin-top:10px;border-radius:12px;padding:12px 14px;font-size:15px;background:#F4F1FB;border:1px solid var(--line)}
+.exp.show{display:block;animation:fade .2s}
+.exp .tag{font-family:'Kanit';font-weight:600;font-size:13.5px;margin-bottom:3px}
+.exp.ok .tag{color:var(--good)}
+.exp.no .tag{color:var(--bad)}
+.exp .ans{font-family:'Kanit';font-weight:600;color:var(--plum-700);font-size:16px}
+.next{font-family:'Kanit';font-weight:600;font-size:16px;background:var(--plum);color:#fff;border:none;border-radius:12px;padding:13px;width:100%;cursor:pointer}
+.next:disabled{background:#C2B8DC;cursor:not-allowed}
+.result{text-align:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 18px;box-shadow:var(--shadow);margin:18px 0}
+.ring{width:140px;height:140px;margin:6px auto 10px;position:relative}
+.ring svg{transform:rotate(-90deg)}
+.ring .pct{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring .pct b{font-family:'Kanit';font-size:34px;font-weight:700;color:var(--plum);line-height:1}
+.ring .pct span{font-family:'Kanit';font-size:13px;color:var(--ink-soft)}
+.result h2{font-family:'Kanit';color:var(--plum);font-size:21px;margin-bottom:4px}
+.result .vd{font-size:16px;color:var(--ink-soft);margin-bottom:16px}
+.acts{display:flex;gap:9px;flex-wrap:wrap;justify-content:center}
+.rev{text-align:left;margin-top:20px}
+.rev h3{font-family:'Kanit';color:var(--plum);font-size:17px;margin-bottom:10px}
+.rev-i{background:#fff;border:1px solid var(--line);border-left:4px solid var(--bad);border-radius:10px;padding:11px 13px;margin-bottom:9px;font-size:15px}
+.rev-i .q{font-weight:600;margin-bottom:5px}
+.rev-i .a{color:var(--good)}
+.rev-i .w{color:var(--bad)}
+.rev-i .e{color:var(--ink-soft);margin-top:4px;font-size:14px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:8px}
+.pair button{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:12px 8px;cursor:pointer;font-family:'Kanit';font-weight:600;font-size:17px;color:var(--plum-700)}
+.pair button:active{background:#F0EAFA}
+.pair .ph{display:block;font-family:'Sarabun';font-weight:400;font-size:13px;color:var(--ink-soft);margin-top:2px}
+.note{background:#fff;border:1px dashed var(--line);border-radius:12px;padding:11px 14px;font-size:13.5px;color:var(--ink-soft);margin:14px 0}
+.model{background:#F1F8F5;border:1px solid #CDE8DC;border-radius:12px;padding:12px 14px;margin-top:10px;font-size:15.5px;display:none}
+.model.show{display:block;animation:fade .2s}
+.model b{color:var(--good)}
+.model .mline{font-weight:600;color:#186B50;margin:4px 0}
+.chk{list-style:none;padding:0;margin-top:8px}
+.chk li{padding:3px 0 3px 22px;position:relative;font-size:14.5px}
+.chk li::before{content:"☑";position:absolute;left:0;color:var(--good)}
+footer{text-align:center;color:var(--ink-soft);font-size:13px;margin:28px 0 8px;padding:0 16px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="index.html">← กลับหน้าแรก</a>
+    <div class="eyebrow">คอร์สเรียนเป็นขั้นเป็นตอน</div>
+    <h1>คอร์สอังกฤษครบวงจร</h1>
+    <div class="sub">เริ่มจากศูนย์ → ไวยากรณ์ → ฟัง พูด อ่าน เขียน ได้จริง</div>
+    <div class="meta-row">
+      <span class="chip">มี <b>เสียงอ่านทุกประโยค</b></span>
+      <span class="chip"><b id="cUnit">0</b> บทเรียน</span>
+      <span class="chip">แบบฝึก <b id="cQ">0</b> ข้อ</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <!-- ========== HOME ========== -->
+  <div id="home" class="view show">
+    <div class="intro-card">
+      <h2>เรียนตามลำดับนี้ได้เลย</h2>
+      <p>ถ้าเริ่มจากศูนย์ ให้ไล่จากซ้ายไปขวา — ปูพื้นฐานและไวยากรณ์ก่อน แล้วค่อยฝึก 4 ทักษะ ฟัง–พูด–อ่าน–เขียน แต่ละบทมีสอน + แบบฝึกพร้อมเฉลย</p>
+      <div class="path">
+        <span class="on">1. ปูพื้นฐาน</span><span class="on">2. ไวยากรณ์</span><span>3. ฟัง</span><span>4. พูด</span><span>5. อ่าน</span><span>6. เขียน</span>
+      </div>
+    </div>
+    <div id="modGrid" class="grid"></div>
+    <div class="note">💡 <b>วิธีใช้ให้ได้ผล:</b> อ่านส่วนสอนก่อน → กดฟังเสียงแล้ว<b>พูดตามออกเสียงดัง ๆ</b> → ทำแบบฝึก → ข้อไหนผิดให้ย้อนกลับไปอ่านใหม่ วันละ 1–2 บท ต่อเนื่องดีกว่าหักโหมวันเดียว</div>
+    <div id="audioWarn" class="note" style="display:none"></div>
+  </div>
+
+  <!-- ========== UNIT LIST ========== -->
+  <div id="list" class="view">
+    <div class="head"><button class="back-btn" onclick="goHome()">‹ กลับ</button></div>
+    <div id="listTitle" class="ttl"></div>
+    <div id="listBody"></div>
+  </div>
+
+  <!-- ========== LESSON ========== -->
+  <div id="lesson" class="view">
+    <div class="head"><button class="back-btn" onclick="backToList()">‹ กลับ</button></div>
+    <div id="lessonTitle" class="ttl"></div>
+    <div id="lessonBody"></div>
+    <div class="cta"><button class="btn wide" onclick="startQuizFromLesson()">ทำแบบฝึกบทนี้ ›</button></div>
+  </div>
+
+  <!-- ========== QUIZ ========== -->
+  <div id="quiz" class="view">
+    <div class="head"><button class="back-btn" onclick="backToList()">‹ ออก</button></div>
+    <div class="q-head">
+      <div id="quizTitle" class="kanit" style="font-size:17px;color:var(--plum)"></div>
+      <div class="q-bar"><i id="qbar"></i></div>
+      <div class="q-meta"><span id="qcount"></span><span id="qscore"></span></div>
+    </div>
+    <div id="qCard"></div>
+    <button id="nextBtn" class="next" disabled onclick="nextQ()">ตอบ</button>
+  </div>
+
+  <!-- ========== RESULT ========== -->
+  <div id="result" class="view"></div>
+
+  <footer>คอร์สภาษาอังกฤษส่วนตัว • ฝึกทุกวันวันละนิด ดีกว่าหักโหมทีเดียว 🌱</footer>
+</div>
+
+<script>
+/* ============ TEXT-TO-SPEECH ============ */
+let voices=[];
+function loadVoices(){ voices = window.speechSynthesis ? speechSynthesis.getVoices() : []; }
+if('speechSynthesis' in window){ loadVoices(); speechSynthesis.onvoiceschanged=loadVoices; }
+else { document.addEventListener('DOMContentLoaded',()=>{const w=document.getElementById('audioWarn'); if(w){w.style.display='block'; w.textContent='⚠️ เบราว์เซอร์นี้อาจไม่รองรับเสียงอ่าน ลองเปิดด้วย Chrome หรือ Safari';}}); }
+function speak(text, rate){
+  if(!('speechSynthesis' in window)) return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US'; u.rate=rate||0.85; u.pitch=1;
+  if(!voices.length) loadVoices();
+  const v = voices.find(x=>/en[-_]?US/i.test(x.lang)) || voices.find(x=>/^en/i.test(x.lang));
+  if(v) u.voice=v;
+  speechSynthesis.speak(u);
+}
+
+/* ============ CONTENT ============ */
+const MODULES = [
+{
+ key:"found", emoji:"🔤", name:"1. ปูพื้นฐาน", desc:"ตัวอักษร เสียง และโครงสร้างประโยค",
+ units:[
+  {id:1,title:"ตัวอักษร A–Z และเสียงของมัน",sub:"อ่านออกเสียงตัวอักษรให้ถูกก่อนเป็นอันดับแรก",type:"lesson",
+   content:[
+    {h:"พยัญชนะ (Consonants) 21 ตัว",points:[
+     "อังกฤษมี <b>26 ตัวอักษร</b> = สระ (vowel) 5 ตัว <b>A E I O U</b> + พยัญชนะอีก 21 ตัว",
+     "ทุกคำในภาษาอังกฤษต้องมีสระอย่างน้อย 1 ตัวเสมอ",
+     "ตัวอักษรบางตัวออกเสียงได้หลายแบบ เช่น <b>C</b> = /k/ ใน <b>cat</b> แต่ = /s/ ใน <b>city</b>"
+    ]},
+    {h:"ตัวที่คนไทยมักออกเสียงผิด",points:[
+     "<b>G</b> อ่านว่า “จี” ไม่ใช่ “จี๊” — <b>J</b> อ่านว่า “เจ”",
+     "<b>R</b> อ่านว่า “อาร์” ต้องม้วนลิ้น ไม่ใช่เสียง “ล”",
+     "<b>V</b> อ่านว่า “วี” ต้องกัดริมฝีปากล่าง ต่างจาก <b>W</b> “ดั๊บเบิ้ลยู”",
+     "<b>Z</b> อเมริกันอ่าน “ซี” (zee) อังกฤษอ่าน “เซด” (zed)"
+    ],kbox:"<b>เคล็ดลับ:</b> ฝึกสะกดชื่อตัวเองเป็นภาษาอังกฤษทีละตัวอักษร เช่น N-O-K เป็นการฝึกที่ใช้ได้จริงเวลาบอกชื่อทางโทรศัพท์"}
+   ],
+   ex:[
+    {en:"A B C D E F G",th:"เอ บี ซี ดี อี เอฟ จี"},
+    {en:"H I J K L M N",th:"เอช ไอ เจ เค แอล เอ็ม เอ็น"},
+    {en:"O P Q R S T U",th:"โอ พี คิว อาร์ เอส ที ยู"},
+    {en:"V W X Y Z",th:"วี ดั๊บเบิ้ลยู เอ็กซ์ วาย ซี"},
+    {en:"How do you spell your name?",rd:"ฮาว ดู ยู สเปล ยัวร์ เนม",th:"ชื่อคุณสะกดยังไง"}
+   ],
+   quiz:[
+    {t:"mc",q:"ภาษาอังกฤษมีตัวอักษรทั้งหมดกี่ตัว",c:["24 ตัว","26 ตัว","28 ตัว","30 ตัว"],a:1,e:"ภาษาอังกฤษมี 26 ตัวอักษร = สระ 5 (A E I O U) + พยัญชนะ 21 ตัว"},
+    {t:"mc",q:"ข้อใดคือสระ (vowels) ทั้ง 5 ตัวในภาษาอังกฤษ",c:["A E I O U","A B C D E","A E I O Y","E I O U Y"],a:0,e:"สระหลักคือ A E I O U (บางครั้ง Y ทำหน้าที่คล้ายสระ เช่น my, happy แต่ไม่นับเป็นสระหลัก)"},
+    {t:"listen",au:"City",q:"ฟังแล้วตอบ: ตัว C ในคำนี้ออกเสียงอะไร",c:["เสียง /k/ เหมือน cat","เสียง /s/ เหมือน see","เสียง /ch/ เหมือน chair","ไม่ออกเสียง"],a:1,e:"City ออกเสียง “ซิ-ตี้” ตัว C ตามด้วย i/e/y มักออกเสียง /s/ (city, cent, cycle)"},
+    {t:"mc",q:"ตัวอักษร W อ่านออกเสียงว่าอะไร",c:["วี","ดั๊บเบิ้ลยู","ยู","วาย"],a:1,e:"W = “ดั๊บเบิ้ลยู” ส่วน V = “วี” (คนไทยมักสับสนสองตัวนี้)"},
+    {t:"listen",au:"R",q:"ได้ยินตัวอักษรใด",c:["L (แอล)","R (อาร์)","A (เอ)","I (ไอ)"],a:1,e:"R อ่านว่า “อาร์” ต้องม้วนลิ้น ไม่ใช่เสียง ล"}
+   ]},
+
+  {id:2,title:"เสียงสระสั้น–ยาว (ฟังแล้วแยกออก)",sub:"ตัวปราบเซียน: ship/sheep, full/fool",type:"lesson",
+   content:[
+    {h:"สระสั้น vs สระยาว",points:[
+     "<b>/ɪ/ สั้น</b> เช่น <b>ship</b> (เรือ) “ชิพ” — <b>/iː/ ยาว</b> เช่น <b>sheep</b> (แกะ) “ชีี๊พ”",
+     "<b>/ʊ/ สั้น</b> เช่น <b>full</b> (เต็ม) — <b>/uː/ ยาว</b> เช่น <b>fool</b> (คนโง่)",
+     "<b>/æ/</b> เช่น <b>cat</b> อ้าปากกว้างกว่าเสียง “แ-” ไทยเล็กน้อย",
+     "ความยาวเสียงเปลี่ยนความหมายได้เลย พูดผิดคนละคำทันที"
+    ]},
+    {h:"เสียงท้ายคำที่คนไทยมักลืม",points:[
+     "ภาษาไทยไม่มีเสียงท้าย <b>s / z / th / sh</b> ชัดเจน แต่อังกฤษต้องออก",
+     "<b>book<u>s</u></b>, <b>ha<u>ve</u></b>, <b>wi<u>sh</u></b> — ต้องได้ยินเสียงท้าย ไม่งั้นความหมายเพี้ยน",
+     "ฝึกโดยพูดช้า ๆ แล้วลากเสียงท้ายให้ชัดก่อน ค่อยเร่งความเร็ว"
+    ],kbox:"<b>จำ:</b> คำสั้น = ปล่อยเสียงเร็ว | คำยาว = ลากเสียงค้างไว้นิดนึง ลองกดฟังสลับ ship ↔ sheep หลาย ๆ รอบจนแยกออก"}
+   ],
+   ex:[
+    {en:"ship / sheep",rd:"ชิพ / ชี๊พ",th:"เรือ / แกะ"},
+    {en:"full / fool",rd:"ฟุล / ฟูล",th:"เต็ม / คนโง่"},
+    {en:"cat / cut",rd:"แคท / คัท",th:"แมว / ตัด"},
+    {en:"I have three books.",rd:"ไอ แฮฟ ธรี บุ๊คส์",th:"ฉันมีหนังสือสามเล่ม (อย่าลืมเสียง s)"}
+   ],
+   quiz:[
+    {t:"listen",au:"sheep",q:"ได้ยินคำว่าอะไร",c:["ship (เรือ)","sheep (แกะ)","shop (ร้าน)","sharp (คม)"],a:1,e:"sheep = แกะ ออกเสียงสระยาว “ชี๊พ” ส่วน ship “ชิพ” เสียงสั้นกว่า"},
+    {t:"listen",au:"full",q:"ได้ยินคำว่าอะไร",c:["fool (คนโง่)","full (เต็ม)","fall (ตก)","feel (รู้สึก)"],a:1,e:"full = เต็ม เสียงสั้น ส่วน fool = คนโง่ เสียงยาวกว่า"},
+    {t:"mc",q:"ทำไมต้องออกเสียงท้ายคำ s ให้ชัด เช่น books",c:["เพื่อความสุภาพ","เพราะเป็นตัวบอกพหูพจน์ ถ้าไม่ออกเสียงความหมายจะเพี้ยน","เพราะเป็นกฎการเขียน","ไม่จำเป็นต้องออกเสียง"],a:1,e:"เสียง s ท้ายคำบอกว่าเป็นพหูพจน์ (หลายเล่ม) ถ้าไม่ออกเสียงจะกลายเป็น book เล่มเดียว"},
+    {t:"listen",au:"cut",q:"ได้ยินคำว่าอะไร",c:["cat (แมว)","cut (ตัด)","cot (เปลเด็ก)","coat (เสื้อโค้ท)"],a:1,e:"cut = ตัด เสียง /ʌ/ คล้าย “คัท” ส่วน cat = แมว เสียง /æ/ คล้าย “แคท”"}
+   ]},
+
+  {id:3,title:"โครงสร้างประโยคพื้นฐาน (ประธาน + กริยา + กรรม)",sub:"หัวใจของทุกประโยคภาษาอังกฤษ",type:"lesson",
+   content:[
+    {h:"สูตรที่ต้องจำ: S + V + O",points:[
+     "<b>S (Subject)</b> = ประธาน ผู้ทำ • <b>V (Verb)</b> = กริยา การกระทำ • <b>O (Object)</b> = กรรม ผู้ถูกกระทำ",
+     "<b>I eat rice.</b> = ฉัน(S) กิน(V) ข้าว(O)",
+     "อังกฤษเรียงต่างจากไทยตรงที่ <b>ต้องมีประธานเสมอ</b> — ไทยพูดว่า “กินข้าวหรือยัง” ได้ แต่อังกฤษต้องมี You: <b>Have you eaten?</b>"
+    ]},
+    {h:"ประโยคบอกเล่า / ปฏิเสธ / คำถาม",points:[
+     "<b>บอกเล่า:</b> I like coffee. (ฉันชอบกาแฟ)",
+     "<b>ปฏิเสธ:</b> I <b>don't</b> like coffee. (เติม don't/doesn't หน้ากริยา)",
+     "<b>คำถาม:</b> <b>Do</b> you like coffee? (ดึง Do ขึ้นหน้า)"
+    ],kbox:"<b>จำสั้น ๆ:</b> ประโยคอังกฤษ = ใคร + ทำอะไร + กับอะไร • ห้ามลืมประธาน แม้จะรู้กันอยู่แล้วก็ต้องพูด"}
+   ],
+   ex:[
+    {en:"I eat rice.",rd:"ไอ อีท ไรซ์",th:"ฉันกินข้าว"},
+    {en:"She reads a book.",rd:"ชี รีดส์ อะ บุ๊ค",th:"เธออ่านหนังสือ"},
+    {en:"I don't like coffee.",rd:"ไอ โดนท์ ไลค์ คอฟ-ฟี่",th:"ฉันไม่ชอบกาแฟ"},
+    {en:"Do you like coffee?",rd:"ดู ยู ไลค์ คอฟ-ฟี่",th:"คุณชอบกาแฟไหม"}
+   ],
+   quiz:[
+    {t:"mc",q:"โครงสร้างประโยคพื้นฐานของภาษาอังกฤษคือข้อใด",c:["กรรม + กริยา + ประธาน","ประธาน + กริยา + กรรม (S+V+O)","กริยา + ประธาน + กรรม","ประธาน + กรรม + กริยา"],a:1,e:"ภาษาอังกฤษเรียง ประธาน(S) + กริยา(V) + กรรม(O) เช่น I(S) eat(V) rice(O)"},
+    {t:"order",q:"เรียงประโยคให้ถูกต้อง",c:["rice / I / eat","I eat rice.","Eat I rice.","Rice eat I.","I rice eat."],a:0,e:"I eat rice. = ประธาน(I) + กริยา(eat) + กรรม(rice)",ans:"I eat rice."},
+    {t:"mc",q:"ประโยคปฏิเสธของ “I like coffee.” คือข้อใด",c:["I no like coffee.","I not like coffee.","I don't like coffee.","I am not like coffee."],a:2,e:"กริยาทั่วไปทำปฏิเสธด้วย don't/doesn't → I don't like coffee."},
+    {t:"mc",q:"ข้อใดคือประโยคคำถามที่ถูกต้อง",c:["You like coffee?","Do you like coffee?","Are you like coffee?","You do like coffee?"],a:1,e:"คำถามกริยาทั่วไปต้องดึง Do/Does ขึ้นหน้าประโยค → Do you like coffee?"},
+    {t:"mc",q:"ทำไมประโยคอังกฤษต้องมีประธานเสมอ แม้ภาษาไทยจะละได้",c:["เพราะเป็นกฎไวยากรณ์ของอังกฤษ ถ้าไม่มีประธานประโยคจะไม่สมบูรณ์","เพราะจะฟังดูสุภาพกว่า","เพราะประธานคือคำที่ยาวที่สุด","ไม่จริง อังกฤษละประธานได้เหมือนไทย"],a:0,e:"ไวยากรณ์อังกฤษบังคับให้ทุกประโยคมีประธาน เช่น ไทยพูด “หิว” แต่อังกฤษต้องพูด I'm hungry."}
+   ]}
+ ]
+},
+{
+ key:"gram", emoji:"📐", name:"2. ไวยากรณ์", desc:"12 หัวใจไวยากรณ์ ใช้ได้จริงทุกวัน",
+ units:[
+  {id:1,title:"Verb to be (am / is / are)",sub:"กริยาตัวแรกที่ต้องแม่นที่สุด",type:"lesson",
+   content:[
+    {h:"ใช้ตัวไหนกับใคร",points:[
+     "<b>I → am</b> • <b>He / She / It → is</b> • <b>You / We / They → are</b>",
+     "แปลว่า “เป็น / อยู่ / คือ” ใช้บอกสถานะ อาชีพ ที่อยู่ ความรู้สึก",
+     "รูปย่อที่ใช้ในชีวิตจริง: I'm, He's, She's, It's, You're, We're, They're"
+    ]},
+    {h:"ปฏิเสธและคำถาม",points:[
+     "<b>ปฏิเสธ:</b> เติม <b>not</b> ต่อท้าย → I am not / He is not (isn't) / They are not (aren't)",
+     "<b>คำถาม:</b> ดึง be ขึ้นหน้า → <b>Are</b> you a teacher? / <b>Is</b> she at home?",
+     "ตอบสั้น: Yes, I am. / No, I'm not."
+    ],table:{head:["ประธาน","be","ตัวอย่าง"],rows:[["I","am","I am a student."],["He / She / It","is","She is my friend."],["You / We / They","are","They are happy."]]},
+    kbox:"<b>ห้ามผิด:</b> อย่าใช้ verb to be คู่กับกริยาแท้ เช่น ❌ I am go. ✅ I go. หรือ ✅ I am going."}
+   ],
+   ex:[
+    {en:"I am a student.",rd:"ไอ แอม อะ สติว-เดินท์",th:"ฉันเป็นนักเรียน"},
+    {en:"She is my friend.",rd:"ชี อีส มาย เฟรนด์",th:"เธอเป็นเพื่อนฉัน"},
+    {en:"They are at home.",rd:"เดย์ อาร์ แอท โฮม",th:"พวกเขาอยู่บ้าน"},
+    {en:"I'm not hungry.",rd:"ไอม์ นอท ฮัง-กรี้",th:"ฉันไม่หิว"},
+    {en:"Are you okay?",rd:"อาร์ ยู โอ-เค",th:"คุณโอเคไหม"}
+   ],
+   quiz:[
+    {t:"fill",q:"เติมคำให้ถูก: She ___ my sister.",c:["am","is","are","be"],a:1,e:"She เป็นเอกพจน์บุรุษที่ 3 ใช้ is → She is my sister."},
+    {t:"fill",q:"เติมคำให้ถูก: They ___ very kind.",c:["am","is","are","be"],a:2,e:"They ใช้ are → They are very kind."},
+    {t:"fill",q:"เติมคำให้ถูก: I ___ from Thailand.",c:["am","is","are","be"],a:0,e:"I ใช้ am เสมอ → I am from Thailand."},
+    {t:"mc",q:"ข้อใดเป็นประโยคปฏิเสธที่ถูกต้อง",c:["She not is happy.","She isn't happy.","She don't happy.","She no happy."],a:1,e:"verb to be ทำปฏิเสธโดยเติม not ต่อท้าย → She is not happy = She isn't happy."},
+    {t:"mc",q:"ข้อใด “ผิด” หลักไวยากรณ์",c:["I am a teacher.","I am going to school.","I am go to school.","I go to school."],a:2,e:"❌ I am go. ผิดเพราะใช้ be คู่กับกริยาแท้รูป V1 ต้องเลือกอย่างใดอย่างหนึ่ง: I go. หรือ I am going."},
+    {t:"listen",au:"Are you a teacher?",q:"ได้ยินประโยคว่าอะไร",c:["Are you a teacher?","Is he a teacher?","You are a teacher.","Were you a teacher?"],a:0,e:"Are you a teacher? = คุณเป็นครูใช่ไหม (คำถามดึง Are ขึ้นหน้า)"}
+   ]},
+
+  {id:2,title:"คำสรรพนาม & คำแสดงความเป็นเจ้าของ",sub:"I/me/my, he/him/his ใช้ต่างกันยังไง",type:"lesson",
+   content:[
+    {h:"3 กลุ่มที่ต้องแยกให้ออก",points:[
+     "<b>ประธาน (Subject)</b> — อยู่หน้าประโยค: I, you, he, she, it, we, they",
+     "<b>กรรม (Object)</b> — อยู่หลังกริยา/บุพบท: me, you, him, her, it, us, them",
+     "<b>เจ้าของ (Possessive)</b> — วางหน้าคำนาม: my, your, his, her, its, our, their"
+    ],table:{head:["ประธาน","กรรม","เจ้าของ"],rows:[["I","me","my"],["You","you","your"],["He","him","his"],["She","her","her"],["We","us","our"],["They","them","their"]]}},
+    {h:"ดูตำแหน่งแล้วเลือกได้เลย",points:[
+     "<b>She</b> loves <b>him</b>. — She อยู่หน้า (ประธาน), him อยู่หลังกริยา (กรรม)",
+     "This is <b>my</b> book. — my ตามด้วยคำนาม book",
+     "ระวัง <b>its</b> (ของมัน) ≠ <b>it's</b> (it is) — ออกสอบและใช้ผิดบ่อยมาก"
+    ],kbox:"<b>เทคนิค:</b> ถ้าตามด้วยคำนาม → ใช้กลุ่มเจ้าของ (my/your/his) | ถ้าอยู่หลังกริยา → ใช้กลุ่มกรรม (me/him/her)"}
+   ],
+   ex:[
+    {en:"She loves him.",rd:"ชี เลิฟส์ ฮิม",th:"เธอรักเขา"},
+    {en:"This is my book.",rd:"ดิส อีส มาย บุ๊ค",th:"นี่คือหนังสือของฉัน"},
+    {en:"Can you help me?",rd:"แคน ยู เฮลพ์ มี",th:"ช่วยฉันหน่อยได้ไหม"},
+    {en:"Their house is big.",rd:"แดร์ เฮาส์ อีส บิก",th:"บ้านของพวกเขาใหญ่"}
+   ],
+   quiz:[
+    {t:"fill",q:"เติมคำให้ถูก: Can you help ___ ? (ช่วยฉันหน่อย)",c:["I","me","my","mine"],a:1,e:"อยู่หลังกริยา help จึงเป็นกรรม ใช้ me → Can you help me?"},
+    {t:"fill",q:"เติมคำให้ถูก: This is ___ car. (รถของเขา-ผู้ชาย)",c:["he","him","his","he's"],a:2,e:"ตามด้วยคำนาม car จึงใช้คำแสดงความเป็นเจ้าของ his → This is his car."},
+    {t:"fill",q:"เติมคำให้ถูก: ___ are my friends.",c:["Them","Their","They","Theirs"],a:2,e:"อยู่หน้าประโยคเป็นประธาน ใช้ They → They are my friends."},
+    {t:"mc",q:"ข้อใดใช้ its / it's ถูกต้อง",c:["Its raining today.","It's tail is long.","It's raining today.","Its is raining."],a:2,e:"It's = it is → It's raining today. ส่วน its = ของมัน เช่น The dog wags its tail."},
+    {t:"mc",q:"ประโยคใดถูกต้อง",c:["Me like coffee.","I like coffee.","My like coffee.","Mine like coffee."],a:1,e:"ประธานของประโยคต้องใช้ I ไม่ใช่ me → I like coffee."}
+   ]},
+
+  {id:3,title:"a / an / the (Articles)",sub:"คำเล็ก ๆ ที่คนไทยพลาดบ่อยที่สุด",type:"lesson",
+   content:[
+    {h:"a กับ an ต่างกันที่ 'เสียง' ไม่ใช่ตัวอักษร",points:[
+     "<b>a</b> ใช้หน้าคำที่ขึ้นต้นด้วย <b>เสียงพยัญชนะ</b> — a book, a car, a university (ออกเสียง “ยู”)",
+     "<b>an</b> ใช้หน้าคำที่ขึ้นต้นด้วย <b>เสียงสระ</b> — an apple, an egg, an hour (h ไม่ออกเสียง)",
+     "ใช้กับคำนามนับได้ <b>เอกพจน์</b> เท่านั้น และหมายถึง “หนึ่ง...ที่ยังไม่เจาะจง”"
+    ]},
+    {h:"the ใช้เมื่อ 'รู้กันแล้วว่าอันไหน'",points:[
+     "พูดถึงครั้งแรกใช้ <b>a/an</b> → พูดถึงซ้ำใช้ <b>the</b>: I saw <b>a</b> dog. <b>The</b> dog was black.",
+     "ของที่มีอยู่หนึ่งเดียว: <b>the</b> sun, <b>the</b> moon, <b>the</b> world",
+     "ไม่ต้องใส่ article กับชื่อเฉพาะและอาหาร/กีฬาทั่วไป: Thailand, football, rice"
+    ],kbox:"<b>ตัดสินใจเร็ว:</b> เจาะจง/รู้กันอยู่ → the | ไม่เจาะจง เอกพจน์ → a/an | พหูพจน์ทั่วไป → ไม่ต้องใส่"}
+   ],
+   ex:[
+    {en:"I have a car.",rd:"ไอ แฮฟ อะ คาร์",th:"ฉันมีรถ(คันหนึ่ง)"},
+    {en:"She ate an apple.",rd:"ชี เอท แอน แอ๊พ-เพิ่ล",th:"เธอกินแอปเปิ้ลลูกหนึ่ง"},
+    {en:"The sun is hot today.",rd:"เดอะ ซัน อีส ฮอท ทู-เดย์",th:"วันนี้แดดร้อน"},
+    {en:"I saw a dog. The dog was black.",rd:"ไอ ซอว์ อะ ด็อก. เดอะ ด็อก วอส แบล็ค",th:"ฉันเห็นหมาตัวหนึ่ง หมาตัวนั้นสีดำ"}
+   ],
+   quiz:[
+    {t:"fill",q:"เติมคำให้ถูก: I want ___ apple.",c:["a","an","the","ไม่ต้องเติม"],a:1,e:"apple ขึ้นต้นด้วยเสียงสระ /æ/ จึงใช้ an → an apple"},
+    {t:"fill",q:"เติมคำให้ถูก: She is ___ university student.",c:["a","an","the","ไม่ต้องเติม"],a:0,e:"university ออกเสียงขึ้นต้นว่า “ยู” ซึ่งเป็นเสียงพยัญชนะ จึงใช้ a (ดูที่เสียง ไม่ใช่ตัวอักษร)"},
+    {t:"fill",q:"เติมคำให้ถูก: ___ sun rises in the east.",c:["A","An","The","ไม่ต้องเติม"],a:2,e:"ดวงอาทิตย์มีดวงเดียวในโลก ใช้ the เสมอ → The sun"},
+    {t:"fill",q:"เติมคำให้ถูก: I waited for ___ hour.",c:["a","an","the","ไม่ต้องเติม"],a:1,e:"hour ตัว h ไม่ออกเสียง ขึ้นต้นด้วยเสียงสระ “อาว” จึงใช้ an → an hour"},
+    {t:"mc",q:"ประโยคใดถูกต้อง",c:["I live in the Thailand.","I live in a Thailand.","I live in Thailand.","I live in an Thailand."],a:2,e:"ชื่อประเทศทั่วไปไม่ใส่ article → I live in Thailand. (ยกเว้นบางชื่อ เช่น the Philippines, the USA)"},
+    {t:"mc",q:"ประโยคใดใช้ article ถูกต้องที่สุด",c:["I saw a dog. A dog was black.","I saw the dog. The dog was black.","I saw a dog. The dog was black.","I saw dog. Dog was black."],a:2,e:"พูดถึงครั้งแรกใช้ a (ยังไม่เจาะจง) พูดถึงซ้ำใช้ the (รู้แล้วว่าตัวไหน)"}
+   ]},
+
+  {id:4,title:"Present Simple (ทำเป็นประจำ)",sub:"เล่าเรื่องตัวเอง นิสัย กิจวัตร",type:"lesson",
+   content:[
+    {h:"ใช้เมื่อไหร่",points:[
+     "เรื่องที่ทำ <b>เป็นประจำ/ทุกวัน</b> — I go to work every day.",
+     "<b>ความจริงทั่วไป</b> — Water boils at 100 degrees.",
+     "คำบอกเวลาที่มักเจอ: always, usually, often, sometimes, never, every day"
+    ]},
+    {h:"กฎเหล็ก: He / She / It ต้องเติม s",points:[
+     "I / You / We / They + <b>กริยาช่อง 1</b> — They work here.",
+     "He / She / It + <b>กริยาเติม s/es</b> — He work<b>s</b> here. She watch<b>es</b> TV.",
+     "<b>ปฏิเสธ:</b> I/You/We/They + <b>don't</b> + V1 | He/She/It + <b>doesn't</b> + V1 (กริยาไม่เติม s แล้ว)",
+     "<b>คำถาม:</b> <b>Do</b> you work here? / <b>Does</b> he work here?"
+    ],table:{head:["ประธาน","บอกเล่า","ปฏิเสธ"],rows:[["I / You / We / They","work","don't work"],["He / She / It","works","doesn't work"]]},
+    kbox:"<b>ผิดบ่อย:</b> ❌ He doesn't works. ✅ He doesn't work. — พอมี doesn't แล้ว กริยาไม่ต้องเติม s อีก"}
+   ],
+   ex:[
+    {en:"I go to work every day.",rd:"ไอ โก ทู เวิร์ค เอฟ-รี่ เดย์",th:"ฉันไปทำงานทุกวัน"},
+    {en:"She works at a hospital.",rd:"ชี เวิร์คส์ แอท อะ ฮอส-พิ-เทิ่ล",th:"เธอทำงานที่โรงพยาบาล"},
+    {en:"He doesn't eat meat.",rd:"ฮี ดัส-เซินท์ อีท มีท",th:"เขาไม่กินเนื้อสัตว์"},
+    {en:"Do you speak English?",rd:"ดู ยู สปีค อิง-ลิช",th:"คุณพูดภาษาอังกฤษได้ไหม"}
+   ],
+   quiz:[
+    {t:"fill",q:"เติมคำให้ถูก: She ___ to school every day.",c:["go","goes","going","went"],a:1,e:"She เป็นเอกพจน์บุรุษที่ 3 ใน Present Simple ต้องเติม s → She goes to school."},
+    {t:"fill",q:"เติมคำให้ถูก: They ___ in Bangkok.",c:["lives","live","living","lived"],a:1,e:"They ใช้กริยาช่อง 1 ไม่เติม s → They live in Bangkok."},
+    {t:"mc",q:"ข้อใดเป็นประโยคปฏิเสธที่ถูกต้อง",c:["He doesn't works here.","He don't work here.","He doesn't work here.","He not work here."],a:2,e:"He ใช้ doesn't และกริยาต้องเป็นรูปเดิมไม่เติม s → He doesn't work here."},
+    {t:"mc",q:"ข้อใดเป็นคำถามที่ถูกต้อง",c:["Does she likes coffee?","Do she like coffee?","Does she like coffee?","Is she like coffee?"],a:2,e:"She ใช้ Does ขึ้นหน้า และกริยาไม่เติม s → Does she like coffee?"},
+    {t:"mc",q:"ประโยคใดใช้ Present Simple ได้เหมาะสมที่สุด",c:["I am eating breakfast every day.","I eat breakfast every day.","I ate breakfast every day.","I will eat breakfast every day."],a:1,e:"“every day” = ทำเป็นประจำ ต้องใช้ Present Simple → I eat breakfast every day."},
+    {t:"listen",au:"She works at a hospital.",q:"ได้ยินประโยคว่าอะไร",c:["She work at a hospital.","She works at a hospital.","She worked at a hospital.","She is working at a hospital."],a:1,e:"She works at a hospital. = เธอทำงานที่โรงพยาบาล (ฟังเสียง s ท้าย works ให้ดี)"}
+   ]},
+
+  {id:5,title:"Present Continuous (กำลังทำอยู่)",sub:"am/is/are + V-ing",type:"lesson",
+   content:[
+    {h:"สูตรและการใช้",points:[
+     "<b>สูตร: am / is / are + V-ing</b>",
+     "ใช้กับสิ่งที่ <b>กำลังเกิดขึ้นตอนนี้</b> — I <b>am eating</b> now.",
+     "ใช้กับแผนที่นัดไว้แน่นอนในอนาคตอันใกล้ — I<b>'m meeting</b> her tomorrow.",
+     "คำบอกเวลา: now, right now, at the moment, today"
+    ]},
+    {h:"เทียบกับ Present Simple",points:[
+     "<b>I work</b> at a bank. = ทำงานที่ธนาคาร (อาชีพ ทำประจำ)",
+     "<b>I'm working</b> now. = กำลังทำงานอยู่ตอนนี้",
+     "กริยาบางตัว <b>ห้ามใช้ ing</b> เพราะไม่ใช่การกระทำ เช่น like, know, want, need → ❌ I am knowing ✅ I know"
+    ],kbox:"<b>จำ:</b> เห็นคำว่า now / at the moment → ใช้ V-ing | เห็น every day / always → ใช้ Present Simple"}
+   ],
+   ex:[
+    {en:"I am eating lunch now.",rd:"ไอ แอม อี๊ท-ทิ่ง ลันช์ นาว",th:"ฉันกำลังกินข้าวเที่ยงอยู่"},
+    {en:"She is watching TV.",rd:"ชี อีส วอท-ชิ่ง ที-วี",th:"เธอกำลังดูทีวี"},
+    {en:"They are playing football.",rd:"เดย์ อาร์ เพลย์-อิ่ง ฟุต-บอล",th:"พวกเขากำลังเล่นฟุตบอล"},
+    {en:"What are you doing?",rd:"วอท อาร์ ยู ดู-อิ่ง",th:"คุณกำลังทำอะไรอยู่"}
+   ],
+   quiz:[
+    {t:"fill",q:"เติมคำให้ถูก: She ___ TV right now.",c:["watch","watches","is watching","watched"],a:2,e:"“right now” = กำลังทำอยู่ ใช้ Present Continuous → She is watching TV."},
+    {t:"fill",q:"เติมคำให้ถูก: They ___ football at the moment.",c:["play","plays","are playing","played"],a:2,e:"“at the moment” = ตอนนี้ ใช้ are + V-ing → They are playing football."},
+    {t:"mc",q:"ข้อใด “ผิด” หลักไวยากรณ์",c:["I am reading a book.","I am knowing the answer.","I know the answer.","I am learning English."],a:1,e:"know เป็นกริยาแสดงสภาวะ (stative verb) ห้ามใช้รูป ing → ✅ I know the answer."},
+    {t:"mc",q:"ประโยคใดเหมาะกับสถานการณ์ “อาชีพประจำ”",c:["I am working at a bank.","I work at a bank.","I worked at a bank now.","I will work at a bank now."],a:1,e:"อาชีพที่ทำเป็นประจำใช้ Present Simple → I work at a bank. ส่วน I'm working = กำลังทำอยู่ตอนนี้"},
+    {t:"listen",au:"What are you doing?",q:"ได้ยินประโยคว่าอะไร",c:["What do you do?","What are you doing?","What did you do?","Where are you going?"],a:1,e:"What are you doing? = คุณกำลังทำอะไรอยู่ (ถามสิ่งที่ทำ ณ ตอนนี้)"}
+   ]},
+
+  {id:6,title:"Past Simple (อดีตที่จบไปแล้ว)",sub:"V2 + คำกริยาผิดรูปที่ต้องท่อง",type:"lesson",
+   content:[
+    {h:"กริยาปกติ (Regular) เติม -ed",points:[
+     "work → work<b>ed</b> • play → play<b>ed</b> • watch → watch<b>ed</b>",
+     "ลงท้ายด้วย e อยู่แล้ว เติมแค่ d: like → lik<b>ed</b>",
+     "ลงท้าย พยัญชนะ+y เปลี่ยน y เป็น i: study → stud<b>ied</b>"
+    ]},
+    {h:"กริยาผิดรูป (Irregular) ต้องท่อง",points:[
+     "go → <b>went</b> • eat → <b>ate</b> • see → <b>saw</b> • buy → <b>bought</b>",
+     "have → <b>had</b> • do → <b>did</b> • come → <b>came</b> • take → <b>took</b>",
+     "get → <b>got</b> • make → <b>made</b> • say → <b>said</b> • give → <b>gave</b>"
+    ],table:{head:["ปัจจุบัน (V1)","อดีต (V2)","แปล"],rows:[["go","went","ไป"],["eat","ate","กิน"],["see","saw","เห็น"],["buy","bought","ซื้อ"],["have","had","มี"]]}},
+    {h:"ปฏิเสธและคำถามใช้ did",points:[
+     "<b>ปฏิเสธ:</b> didn't + <b>กริยาช่อง 1</b> → I <b>didn't go</b>. (ไม่ใช่ didn't went)",
+     "<b>คำถาม:</b> <b>Did</b> you go? (กริยากลับเป็นช่อง 1)",
+     "คำบอกเวลา: yesterday, last night, last week, ago, in 2020"
+    ],kbox:"<b>ผิดบ่อยที่สุด:</b> ❌ I didn't went. ✅ I didn't go. — พอมี did แล้ว กริยากลับเป็นช่อง 1 เสมอ"}
+   ],
+   ex:[
+    {en:"I went to Chiang Mai last year.",rd:"ไอ เวนท์ ทู เชียง-ใหม่ ลาสท์ เยียร์",th:"ปีที่แล้วฉันไปเชียงใหม่"},
+    {en:"She watched a movie yesterday.",rd:"ชี วอทช์ท์ อะ มู-วี่ เยส-เตอร์-เดย์",th:"เมื่อวานเธอดูหนัง"},
+    {en:"I didn't go to work.",rd:"ไอ ดิด-เดินท์ โก ทู เวิร์ค",th:"ฉันไม่ได้ไปทำงาน"},
+    {en:"Did you eat breakfast?",rd:"ดิด ยู อีท เบรค-ฟาสท์",th:"คุณกินข้าวเช้าหรือยัง"}
+   ],
+   quiz:[
+    {t:"fill",q:"เติมคำให้ถูก: I ___ to Chiang Mai last year.",c:["go","goes","went","going"],a:2,e:"“last year” = อดีต ต้องใช้ V2 ของ go คือ went → I went to Chiang Mai."},
+    {t:"fill",q:"เติมคำให้ถูก: She ___ a movie yesterday.",c:["watch","watched","watches","watching"],a:1,e:"watch เป็นกริยาปกติ เติม -ed → She watched a movie yesterday."},
+    {t:"mc",q:"ข้อใดเป็นประโยคปฏิเสธที่ถูกต้อง",c:["I didn't went to work.","I didn't go to work.","I not went to work.","I don't went to work."],a:1,e:"เมื่อมี didn't แล้ว กริยาต้องกลับเป็นช่อง 1 → I didn't go to work."},
+    {t:"mc",q:"V2 (ช่อง 2) ของ buy คือข้อใด",c:["buyed","buys","bought","buying"],a:2,e:"buy เป็นกริยาผิดรูป ช่อง 2 คือ bought (อ่านว่า “บอท”)"},
+    {t:"mc",q:"ข้อใดเป็นคำถามอดีตที่ถูกต้อง",c:["Did you ate breakfast?","Did you eat breakfast?","Do you ate breakfast?","Were you eat breakfast?"],a:1,e:"คำถามอดีตใช้ Did + ประธาน + กริยาช่อง 1 → Did you eat breakfast?"},
+    {t:"listen",au:"I went to the market yesterday.",q:"ได้ยินประโยคว่าอะไร",c:["I go to the market yesterday.","I went to the market yesterday.","I will go to the market.","I am going to the market."],a:1,e:"I went to the market yesterday. = เมื่อวานฉันไปตลาด"}
+   ]},
+
+  {id:7,title:"อนาคต: will / be going to",sub:"บอกแผนและสิ่งที่จะเกิดขึ้น",type:"lesson",
+   content:[
+    {h:"will = ตัดสินใจตอนนี้ / คาดการณ์",points:[
+     "<b>สูตร: will + กริยาช่อง 1</b> (ทุกประธานใช้ will เหมือนกันหมด)",
+     "ตัดสินใจเดี๋ยวนั้น — The phone is ringing. I<b>'ll</b> get it.",
+     "คาดการณ์อนาคต — It <b>will</b> rain tomorrow.",
+     "ปฏิเสธ: won't (= will not)"
+    ]},
+    {h:"be going to = วางแผนไว้แล้ว",points:[
+     "<b>สูตร: am/is/are + going to + V1</b>",
+     "แผนที่ตั้งใจไว้ก่อนแล้ว — I<b>'m going to</b> study abroad next year.",
+     "สิ่งที่เห็นสัญญาณชัดว่าจะเกิด — Look at those clouds! It<b>'s going to</b> rain."
+    ],kbox:"<b>แยกง่าย ๆ:</b> คิดได้เดี๋ยวนั้น → will | วางแผนไว้ก่อนแล้ว → be going to"}
+   ],
+   ex:[
+    {en:"I will call you later.",rd:"ไอ วิล คอล ยู เล-เท่อร์",th:"เดี๋ยวฉันจะโทรหาคุณ"},
+    {en:"It will rain tomorrow.",rd:"อิท วิล เรน ทู-มอร์-โร่",th:"พรุ่งนี้ฝนจะตก"},
+    {en:"I'm going to study abroad.",rd:"ไอม์ โก-อิ่ง ทู สตัด-ดี้ อะ-บรอด",th:"ฉันวางแผนจะไปเรียนต่อต่างประเทศ"},
+    {en:"We won't be late.",rd:"วี โวนท์ บี เลท",th:"เราจะไม่สาย"}
+   ],
+   quiz:[
+    {t:"fill",q:"เติมคำให้ถูก: I ___ call you later.",c:["will","am","do","did"],a:0,e:"will + V1 ใช้บอกอนาคต/ตัดสินใจตอนนี้ → I will call you later."},
+    {t:"mc",q:"สถานการณ์: คุณวางแผนไว้นานแล้วว่าจะไปเรียนต่อ ควรพูดว่าอะไร",c:["I will study abroad.","I'm going to study abroad.","I study abroad.","I studied abroad."],a:1,e:"แผนที่ตั้งใจไว้ล่วงหน้าใช้ be going to → I'm going to study abroad."},
+    {t:"mc",q:"ข้อใดเป็นรูปปฏิเสธของ will",c:["willn't","won't","don't will","not will"],a:1,e:"will + not ย่อเป็น won't → We won't be late."},
+    {t:"mc",q:"ข้อใด “ผิด” หลักไวยากรณ์",c:["She will come tomorrow.","She will comes tomorrow.","She is going to come tomorrow.","She won't come tomorrow."],a:1,e:"หลัง will ต้องเป็นกริยาช่อง 1 เสมอ ไม่เติม s → ✅ She will come tomorrow."},
+    {t:"listen",au:"I'm going to travel next month.",q:"ได้ยินประโยคว่าอะไร",c:["I go to travel next month.","I'm going to travel next month.","I went traveling next month.","I will traveling next month."],a:1,e:"I'm going to travel next month. = เดือนหน้าฉันจะไปเที่ยว (แผนที่วางไว้แล้ว)"}
+   ]},
+
+  {id:8,title:"ประโยคคำถาม (Yes/No + Wh-)",sub:"ถามให้เป็น คุยกับใครก็รอด",type:"lesson",
+   content:[
+    {h:"คำถาม Yes/No — ดึงกริยาช่วยขึ้นหน้า",points:[
+     "verb to be: <b>Are</b> you ready? / <b>Is</b> she home?",
+     "กริยาทั่วไป: <b>Do</b> you like it? / <b>Does</b> he work here?",
+     "อดีต: <b>Did</b> you go? • ความสามารถ: <b>Can</b> you swim?"
+    ]},
+    {h:"คำถาม Wh- — ใส่คำถามไว้หน้าสุด",points:[
+     "<b>What</b> = อะไร • <b>Where</b> = ที่ไหน • <b>When</b> = เมื่อไหร่",
+     "<b>Who</b> = ใคร • <b>Why</b> = ทำไม • <b>How</b> = อย่างไร",
+     "<b>สูตร: Wh- + กริยาช่วย + ประธาน + กริยาแท้</b> → <b>Where do you live?</b>",
+     "ขยาย How: How much (ราคา/ปริมาณ), How many (จำนวนนับได้), How long (นานแค่ไหน), How often (บ่อยแค่ไหน)"
+    ],table:{head:["คำถาม","แปล","ตัวอย่าง"],rows:[["What","อะไร","What is this?"],["Where","ที่ไหน","Where do you live?"],["When","เมื่อไหร่","When does it start?"],["Why","ทำไม","Why are you late?"],["How much","เท่าไหร่","How much is it?"]]},
+    kbox:"<b>ผิดบ่อย:</b> ❌ Where you live? ✅ Where <b>do</b> you live? — คำถาม Wh- กับกริยาทั่วไปต้องมี do/does/did เสมอ"}
+   ],
+   ex:[
+    {en:"Where do you live?",rd:"แวร์ ดู ยู ลิฟ",th:"คุณอยู่ที่ไหน"},
+    {en:"What time is it?",rd:"วอท ไทม์ อีส อิท",th:"กี่โมงแล้ว"},
+    {en:"How much is this?",rd:"ฮาว มัช อีส ดิส",th:"อันนี้ราคาเท่าไหร่"},
+    {en:"Why are you late?",rd:"วาย อาร์ ยู เลท",th:"ทำไมคุณมาสาย"},
+    {en:"How long does it take?",rd:"ฮาว ลอง ดัส อิท เทค",th:"ใช้เวลานานแค่ไหน"}
+   ],
+   quiz:[
+    {t:"mc",q:"ข้อใดเป็นคำถามที่ถูกต้อง",c:["Where you live?","Where do you live?","Where you do live?","Do where you live?"],a:1,e:"คำถาม Wh- กับกริยาทั่วไปต้องมี do/does → Where do you live?"},
+    {t:"fill",q:"เติมคำถามให้เหมาะสม: ___ is this shirt? — It's 300 baht.",c:["How many","How much","How long","How often"],a:1,e:"ถามราคาใช้ How much → How much is this shirt?"},
+    {t:"fill",q:"เติมคำถามให้เหมาะสม: ___ books do you have? — Three.",c:["How much","How many","How long","How old"],a:1,e:"books เป็นคำนามนับได้พหูพจน์ ใช้ How many → How many books do you have?"},
+    {t:"mc",q:"คำถาม “ทำไมคุณมาสาย” ตรงกับข้อใด",c:["What are you late?","When are you late?","Why are you late?","How are you late?"],a:2,e:"Why = ทำไม → Why are you late?"},
+    {t:"listen",au:"How long does it take?",q:"ได้ยินประโยคว่าอะไร",c:["How much does it take?","How long does it take?","How often does it take?","How far does it take?"],a:1,e:"How long does it take? = ใช้เวลานานแค่ไหน"},
+    {t:"mc",q:"ต้องการถามว่า “คุณทำงานอะไร” ควรใช้ประโยคใด",c:["What do you do?","Who do you do?","How do you do it?","Where do you do?"],a:0,e:"What do you do? เป็นสำนวนถามอาชีพ = คุณทำงานอะไร"}
+   ]},
+
+  {id:9,title:"Modal verbs: can / should / must / would",sub:"ขออนุญาต ขอร้อง แนะนำ",type:"lesson",
+   content:[
+    {h:"ตัวหลักที่ใช้บ่อย",points:[
+     "<b>can</b> = สามารถ / ขออนุญาตแบบเป็นกันเอง — I <b>can</b> swim. / <b>Can</b> I sit here?",
+     "<b>could</b> = สุภาพกว่า can — <b>Could</b> you help me, please?",
+     "<b>should</b> = ควรจะ (แนะนำ) — You <b>should</b> see a doctor.",
+     "<b>must</b> = ต้อง (จำเป็น/กฎ) — You <b>must</b> wear a seatbelt.",
+     "<b>would like</b> = อยากได้ (สุภาพกว่า want) — I <b>would like</b> a coffee."
+    ]},
+    {h:"กฎเหล็กของ modal",points:[
+     "หลัง modal ต้องเป็น <b>กริยาช่อง 1 เสมอ</b> ไม่เติม s ไม่เติม to",
+     "❌ She can swims. ❌ She can to swim. ✅ She <b>can swim</b>.",
+     "ปฏิเสธเติม not: can't, shouldn't, mustn't, wouldn't"
+    ],kbox:"<b>ระดับความสุภาพ:</b> Can you...? < Could you...? < Would you mind...? — ยิ่งขวายิ่งสุภาพ ใช้กับคนไม่สนิทหรือสถานการณ์ทางการ"}
+   ],
+   ex:[
+    {en:"Can you help me, please?",rd:"แคน ยู เฮลพ์ มี พลีส",th:"ช่วยฉันหน่อยได้ไหม"},
+    {en:"Could you say that again?",rd:"คูด ยู เซย์ แดท อะ-เกน",th:"ช่วยพูดอีกครั้งได้ไหม"},
+    {en:"You should see a doctor.",rd:"ยู ชูด ซี อะ ด็อค-เท่อร์",th:"คุณควรไปหาหมอนะ"},
+    {en:"I would like a coffee, please.",rd:"ไอ วูด ไลค์ อะ คอฟ-ฟี่ พลีส",th:"ขอกาแฟหนึ่งแก้วครับ/ค่ะ"}
+   ],
+   quiz:[
+    {t:"mc",q:"ข้อใดถูกต้องตามหลักไวยากรณ์",c:["She can swims.","She can to swim.","She can swim.","She cans swim."],a:2,e:"หลัง modal ใช้กริยาช่อง 1 เสมอ ไม่เติม s และไม่มี to → She can swim."},
+    {t:"fill",q:"เติมคำให้เหมาะสม: You ___ see a doctor. (แนะนำ)",c:["should","must","can","would"],a:0,e:"should = ควรจะ ใช้แนะนำอย่างสุภาพ → You should see a doctor."},
+    {t:"fill",q:"เติมคำให้เหมาะสม: You ___ wear a seatbelt. (เป็นกฎหมาย บังคับ)",c:["should","must","could","would"],a:1,e:"must = ต้อง ใช้กับกฎหรือความจำเป็นที่หลีกเลี่ยงไม่ได้ → You must wear a seatbelt."},
+    {t:"mc",q:"สั่งอาหารอย่างสุภาพ ควรพูดว่าอะไร",c:["I want a coffee.","Give me a coffee.","I would like a coffee, please.","Coffee!"],a:2,e:"I would like... เป็นรูปสุภาพกว่า I want... เหมาะกับการสั่งอาหารหรือขอสิ่งของ"},
+    {t:"listen",au:"Could you say that again?",q:"ได้ยินประโยคว่าอะไร",c:["Can you see that again?","Could you say that again?","Would you stay again?","Should you say that again?"],a:1,e:"Could you say that again? = ช่วยพูดอีกครั้งได้ไหม (ประโยคที่ควรจำไว้ใช้ตอนฟังไม่ทัน)"}
+   ]},
+
+  {id:10,title:"คำนามและปริมาณ (some/any/much/many)",sub:"นับได้ vs นับไม่ได้",type:"lesson",
+   content:[
+    {h:"นับได้ vs นับไม่ได้",points:[
+     "<b>นับได้ (Countable)</b> — book/books, apple/apples, car/cars (เติม s ได้)",
+     "<b>นับไม่ได้ (Uncountable)</b> — water, rice, money, time, information (เติม s ไม่ได้)",
+     "นับไม่ได้ต้องใช้หน่วยช่วย: <b>a glass of</b> water, <b>a bowl of</b> rice"
+    ]},
+    {h:"much / many / a lot of",points:[
+     "<b>many</b> + นามนับได้พหูพจน์ — many books",
+     "<b>much</b> + นามนับไม่ได้ — much water",
+     "<b>a lot of</b> ใช้ได้ทั้งสองแบบ (นิยมใช้ในประโยคบอกเล่า)"
+    ]},
+    {h:"some / any",points:[
+     "<b>some</b> ใช้ในประโยคบอกเล่า — I have <b>some</b> money.",
+     "<b>any</b> ใช้ในประโยคปฏิเสธและคำถาม — I don't have <b>any</b> money. / Do you have <b>any</b> questions?",
+     "ยกเว้น: ใช้ some ในคำถามได้ถ้าเป็นการเสนอ/ขอ — Would you like <b>some</b> tea?"
+    ],table:{head:["","นับได้","นับไม่ได้"],rows:[["จำนวนมาก","many books","much water"],["จำนวนน้อย","a few books","a little water"],["ทั้งคู่ใช้ได้","a lot of books","a lot of water"]]},
+    kbox:"<b>จำ:</b> บอกเล่า → some | ปฏิเสธ/คำถาม → any | นับได้ → many/a few | นับไม่ได้ → much/a little"}
+   ],
+   ex:[
+    {en:"I have some money.",rd:"ไอ แฮฟ ซัม มัน-นี่",th:"ฉันมีเงินอยู่บ้าง"},
+    {en:"I don't have any money.",rd:"ไอ โดนท์ แฮฟ เอ็น-นี่ มัน-นี่",th:"ฉันไม่มีเงินเลย"},
+    {en:"How many books do you have?",rd:"ฮาว เม-นี่ บุ๊คส์ ดู ยู แฮฟ",th:"คุณมีหนังสือกี่เล่ม"},
+    {en:"Would you like some tea?",rd:"วูด ยู ไลค์ ซัม ที",th:"รับชาสักหน่อยไหม"}
+   ],
+   quiz:[
+    {t:"fill",q:"เติมคำให้ถูก: How ___ water do you drink?",c:["many","much","few","a lot"],a:1,e:"water เป็นคำนามนับไม่ได้ ใช้ much → How much water do you drink?"},
+    {t:"fill",q:"เติมคำให้ถูก: I don't have ___ money.",c:["some","any","many","much of"],a:1,e:"ประโยคปฏิเสธใช้ any → I don't have any money."},
+    {t:"mc",q:"ข้อใดเป็นคำนามนับไม่ได้",c:["book","apple","water","car"],a:2,e:"water (น้ำ) นับไม่ได้ เติม s ไม่ได้ ต้องใช้หน่วยช่วย เช่น a glass of water"},
+    {t:"fill",q:"เติมคำให้ถูก: There are ___ students in the class.",c:["much","many","a little","any"],a:1,e:"students เป็นนามนับได้พหูพจน์ ใช้ many → many students"},
+    {t:"mc",q:"ประโยคใดถูกต้อง",c:["Would you like any tea?","Would you like some tea?","Would you like much tea?","Would you like a tea?"],a:1,e:"แม้เป็นคำถาม แต่เป็นการ ‘เสนอให้’ จึงใช้ some → Would you like some tea?"}
+   ]},
+
+  {id:11,title:"คำคุณศัพท์และการเปรียบเทียบ",sub:"big → bigger → the biggest",type:"lesson",
+   content:[
+    {h:"ตำแหน่งของคำคุณศัพท์",points:[
+     "วาง <b>หน้าคำนาม</b> — a <b>beautiful</b> house",
+     "หรือวาง <b>หลัง verb to be</b> — The house <b>is</b> beautiful.",
+     "อังกฤษวางคุณศัพท์ไว้หน้านาม ต่างจากไทยที่วางหลัง (บ้านสวย → beautiful house)"
+    ]},
+    {h:"ขั้นกว่า (-er) และขั้นสูงสุด (-est)",points:[
+     "คำสั้น (1 พยางค์): big → <b>bigger</b> → <b>the biggest</b>",
+     "คำยาว (2 พยางค์ขึ้นไป): beautiful → <b>more</b> beautiful → <b>the most</b> beautiful",
+     "ขั้นกว่าใช้คู่กับ <b>than</b> — She is taller <b>than</b> me.",
+     "ขั้นสูงสุดต้องมี <b>the</b> — He is <b>the</b> tallest in the class."
+    ]},
+    {h:"รูปพิเศษที่ต้องจำ",points:[
+     "good → <b>better</b> → the <b>best</b>",
+     "bad → <b>worse</b> → the <b>worst</b>",
+     "far → <b>farther/further</b> → the <b>farthest/furthest</b>"
+    ],table:{head:["ปกติ","ขั้นกว่า","ขั้นสูงสุด"],rows:[["big","bigger","the biggest"],["expensive","more expensive","the most expensive"],["good","better","the best"],["bad","worse","the worst"]]},
+    kbox:"<b>ผิดบ่อย:</b> ❌ more better ✅ better — ห้ามใช้ more คู่กับคำที่เติม -er แล้ว"}
+   ],
+   ex:[
+    {en:"This is a beautiful house.",rd:"ดิส อีส อะ บิว-ทิ-ฟูล เฮาส์",th:"นี่คือบ้านที่สวย"},
+    {en:"She is taller than me.",rd:"ชี อีส ทอล-เล่อร์ แดน มี",th:"เธอสูงกว่าฉัน"},
+    {en:"This phone is more expensive.",rd:"ดิส โฟน อีส มอร์ เอ็กซ์-เพน-ซิฟ",th:"โทรศัพท์เครื่องนี้แพงกว่า"},
+    {en:"He is the best student.",rd:"ฮี อีส เดอะ เบสท์ สติว-เดินท์",th:"เขาเป็นนักเรียนที่เก่งที่สุด"}
+   ],
+   quiz:[
+    {t:"fill",q:"เติมคำให้ถูก: She is ___ than me.",c:["tall","taller","tallest","more tall"],a:1,e:"เปรียบเทียบสองสิ่งใช้ขั้นกว่า + than → She is taller than me."},
+    {t:"fill",q:"เติมคำให้ถูก: This is ___ expensive phone in the shop.",c:["more","most","the most","the more"],a:2,e:"ขั้นสูงสุดของคำยาวใช้ the most → the most expensive phone"},
+    {t:"mc",q:"ขั้นกว่าและขั้นสูงสุดของ good คือข้อใด",c:["gooder / the goodest","better / the best","more good / the most good","best / the better"],a:1,e:"good เป็นรูปพิเศษ → better → the best"},
+    {t:"mc",q:"ข้อใด “ผิด” หลักไวยากรณ์",c:["This is better than that.","This is more better than that.","This is the best one.","This is worse than that."],a:1,e:"❌ more better ผิด เพราะ better เป็นขั้นกว่าอยู่แล้ว ห้ามใส่ more ซ้ำ"},
+    {t:"mc",q:"ข้อใดวางคำคุณศัพท์ถูกต้อง",c:["a house beautiful","a beautiful house","house a beautiful","beautiful a house"],a:1,e:"ภาษาอังกฤษวางคุณศัพท์ไว้หน้าคำนาม → a beautiful house"}
+   ]},
+
+  {id:12,title:"บุพบท in / on / at (เวลาและสถานที่)",sub:"จำเป็นชุด ใช้ได้ทันที",type:"lesson",
+   content:[
+    {h:"บอกเวลา",points:[
+     "<b>at</b> + เวลาเจาะจง — at 7 o'clock, at noon, at night",
+     "<b>on</b> + วัน/วันที่ — on Monday, on May 5th, on my birthday",
+     "<b>in</b> + เดือน/ปี/ฤดู/ช่วงเวลากว้าง — in May, in 2026, in the morning"
+    ]},
+    {h:"บอกสถานที่",points:[
+     "<b>at</b> + จุดเฉพาะ — at the bus stop, at home, at school",
+     "<b>on</b> + พื้นผิว — on the table, on the wall, on the second floor",
+     "<b>in</b> + พื้นที่ปิดล้อม/ใหญ่ — in the room, in Bangkok, in Thailand"
+    ],table:{head:["","เวลา","สถานที่"],rows:[["at","at 7 o'clock","at home"],["on","on Monday","on the table"],["in","in May / in 2026","in Bangkok"]]},
+    kbox:"<b>จำเป็นภาพ:</b> at = จุดเล็ก 📍 | on = อยู่บนพื้นผิว 📄 | in = อยู่ข้างใน 📦 — ใช้ได้ทั้งเวลาและสถานที่"}
+   ],
+   ex:[
+    {en:"I wake up at 6 o'clock.",rd:"ไอ เวค อัพ แอท ซิกซ์ โอ-คล็อค",th:"ฉันตื่นตอนหกโมง"},
+    {en:"See you on Monday.",rd:"ซี ยู ออน มัน-เดย์",th:"เจอกันวันจันทร์"},
+    {en:"I live in Bangkok.",rd:"ไอ ลิฟ อิน แบง-ค็อก",th:"ฉันอาศัยอยู่ที่กรุงเทพ"},
+    {en:"The book is on the table.",rd:"เดอะ บุ๊ค อีส ออน เดอะ เท-เบิ่ล",th:"หนังสืออยู่บนโต๊ะ"}
+   ],
+   quiz:[
+    {t:"fill",q:"เติมคำให้ถูก: I wake up ___ 6 o'clock.",c:["in","on","at","to"],a:2,e:"เวลาเจาะจงเป็นนาฬิกาใช้ at → at 6 o'clock"},
+    {t:"fill",q:"เติมคำให้ถูก: See you ___ Monday.",c:["in","on","at","of"],a:1,e:"วันในสัปดาห์ใช้ on → on Monday"},
+    {t:"fill",q:"เติมคำให้ถูก: I live ___ Bangkok.",c:["in","on","at","to"],a:0,e:"เมือง/ประเทศ (พื้นที่กว้าง) ใช้ in → in Bangkok"},
+    {t:"fill",q:"เติมคำให้ถูก: The keys are ___ the table.",c:["in","on","at","under of"],a:1,e:"อยู่บนพื้นผิวใช้ on → on the table"},
+    {t:"fill",q:"เติมคำให้ถูก: My birthday is ___ May.",c:["at","on","in","of"],a:2,e:"เดือนใช้ in → in May (ถ้าระบุวันที่ด้วยจะใช้ on เช่น on May 5th)"},
+    {t:"listen",au:"I live in Bangkok.",q:"ได้ยินประโยคว่าอะไร",c:["I live in Bangkok.","I leave in Bangkok.","I live on Bangkok.","I lived in Bangkok."],a:0,e:"I live in Bangkok. = ฉันอาศัยอยู่ที่กรุงเทพ (ระวังสับสน live /lɪv/ กับ leave /liːv/)"}
+   ]}
+ ]
+},
+{
+ key:"listen", emoji:"🎧", name:"3. ฟัง", desc:"ฟังแล้วพิมพ์ตาม + จับใจความ",
+ units:[
+  {id:1,title:"ฟังแล้วพิมพ์ตาม — ระดับเริ่มต้น",sub:"ประโยคสั้น ๆ ในชีวิตประจำวัน",type:"dictation",
+   intro:"กดปุ่มฟัง แล้วพิมพ์สิ่งที่ได้ยินลงช่อง ฟังซ้ำได้ไม่จำกัด • ไม่ต้องกังวลตัวพิมพ์เล็ก-ใหญ่หรือเครื่องหมาย ระบบตรวจให้เฉพาะคำ",
+   items:[
+    {au:"My name is Nok.",th:"ฉันชื่อนก"},
+    {au:"I am a student.",th:"ฉันเป็นนักเรียน"},
+    {au:"She is my friend.",th:"เธอเป็นเพื่อนฉัน"},
+    {au:"I live in Bangkok.",th:"ฉันอาศัยอยู่ที่กรุงเทพ"},
+    {au:"Thank you very much.",th:"ขอบคุณมาก"},
+    {au:"See you tomorrow.",th:"เจอกันพรุ่งนี้"},
+    {au:"How are you today?",th:"วันนี้คุณเป็นยังไงบ้าง"},
+    {au:"I don't understand.",th:"ฉันไม่เข้าใจ"}
+   ]},
+
+  {id:2,title:"ฟังแล้วพิมพ์ตาม — ระดับกลาง",sub:"ประโยคยาวขึ้น มีรายละเอียด",type:"dictation",
+   intro:"ประโยคยาวขึ้นแล้ว ลองฟังทั้งประโยคก่อนหนึ่งรอบ แล้วค่อยฟังซ้ำเพื่อเก็บรายละเอียด",
+   items:[
+    {au:"I usually wake up at six in the morning.",th:"ปกติฉันตื่นตอนหกโมงเช้า"},
+    {au:"She works at a hospital near my house.",th:"เธอทำงานที่โรงพยาบาลใกล้บ้านฉัน"},
+    {au:"Could you please say that again?",th:"ช่วยพูดอีกครั้งได้ไหม"},
+    {au:"I went to the market yesterday morning.",th:"เมื่อวานเช้าฉันไปตลาด"},
+    {au:"How much does this shirt cost?",th:"เสื้อตัวนี้ราคาเท่าไหร่"},
+    {au:"We are going to travel next month.",th:"เดือนหน้าเราจะไปเที่ยว"},
+    {au:"I would like a cup of coffee, please.",th:"ขอกาแฟหนึ่งแก้วครับ/ค่ะ"},
+    {au:"The meeting starts at nine o'clock.",th:"การประชุมเริ่มเก้าโมง"}
+   ]},
+
+  {id:3,title:"ฟังจับใจความ — บทสนทนา",sub:"ฟังแล้วตอบคำถาม ไม่ต้องพิมพ์",type:"lesson",
+   content:[
+    {h:"เทคนิคฟังจับใจความ",points:[
+     "<b>อย่าพยายามฟังทุกคำ</b> — จับ “คำสำคัญ” (คำนาม กริยา ตัวเลข) ก็พอเข้าใจแล้ว",
+     "ฟังรอบแรกเอาภาพรวมว่าเรื่องอะไร รอบสองค่อยเก็บรายละเอียด",
+     "ถ้าฟังไม่ทัน พูดว่า <b>“Could you say that again?”</b> หรือ <b>“Could you speak more slowly?”</b>",
+     "ฝึกทุกวันวันละ 10 นาที ดีกว่าฟังยาว ๆ สัปดาห์ละครั้ง"
+    ],kbox:"<b>สำคัญ:</b> เจ้าของภาษาพูดเร็วและกลืนเสียง เช่น “What do you” → “Whaddaya” อย่าตกใจ ฟังบ่อย ๆ แล้วหูจะชิน"}
+   ],
+   ex:[
+    {en:"Could you speak more slowly, please?",rd:"คูด ยู สปีค มอร์ สโล-ลี่ พลีส",th:"ช่วยพูดช้าลงหน่อยได้ไหม"},
+    {en:"Sorry, I didn't catch that.",rd:"ซอ-รี่ ไอ ดิด-เดินท์ แคทช์ แดท",th:"ขอโทษ ฉันฟังไม่ทัน"},
+    {en:"What does that mean?",rd:"วอท ดัส แดท มีน",th:"นั่นแปลว่าอะไร"}
+   ],
+   quiz:[
+    {t:"listen",au:"The train leaves at seven thirty.",q:"รถไฟออกกี่โมง",c:["7:13","7:30","6:30","7:00"],a:1,e:"seven thirty = 7:30 น. (ระวังสับสน thirteen /13/ กับ thirty /30/ — เสียงเน้นต่างกัน)"},
+    {t:"listen",au:"I have three sisters and one brother.",q:"เขามีพี่น้องทั้งหมดกี่คน",c:["3 คน","4 คน","2 คน","5 คน"],a:1,e:"three sisters + one brother = 4 คน"},
+    {t:"listen",au:"The meeting is on Wednesday, not Tuesday.",q:"ประชุมวันไหน",c:["วันอังคาร","วันพุธ","วันพฤหัส","วันจันทร์"],a:1,e:"“on Wednesday, not Tuesday” = วันพุธ ไม่ใช่วันอังคาร"},
+    {t:"listen",au:"It costs fifteen dollars.",q:"ราคาเท่าไหร่",c:["50 ดอลลาร์","15 ดอลลาร์","5 ดอลลาร์","55 ดอลลาร์"],a:1,e:"fifteen = 15 (เน้นเสียงท้าย “-teen”) ส่วน fifty = 50 (เน้นเสียงหน้า)"},
+    {t:"listen",au:"She isn't coming to the party.",q:"เธอจะมางานปาร์ตี้ไหม",c:["มา","ไม่มา","ยังไม่แน่ใจ","มาสาย"],a:1,e:"isn't = is not → เธอไม่มา (ฟังเสียง n't ให้ดี เพราะเปลี่ยนความหมายทั้งประโยค)"},
+    {t:"listen",au:"Turn left at the traffic light.",q:"ต้องเลี้ยวไปทางไหน",c:["เลี้ยวขวา","เลี้ยวซ้าย","ตรงไป","กลับรถ"],a:1,e:"Turn left = เลี้ยวซ้าย ที่สัญญาณไฟจราจร"}
+   ]},
+
+  {id:4,title:"ฟังตัวเลข วันเวลา และราคา",sub:"จุดที่พลาดแล้วเสียเงิน/พลาดนัด",type:"lesson",
+   content:[
+    {h:"13 กับ 30 แยกยังไง",points:[
+     "<b>-teen</b> (13–19) <b>เน้นเสียงพยางค์หลัง</b> — thir<b>TEEN</b>, four<b>TEEN</b>",
+     "<b>-ty</b> (20–90) <b>เน้นเสียงพยางค์หน้า</b> — <b>THIR</b>ty, <b>FOR</b>ty",
+     "ถ้าไม่แน่ใจให้ถามซ้ำ: “One three or three zero?”"
+    ]},
+    {h:"บอกเวลาแบบที่เจ้าของภาษาใช้",points:[
+     "7:00 = seven o'clock • 7:15 = seven fifteen / a quarter past seven",
+     "7:30 = seven thirty / half past seven • 7:45 = seven forty-five / a quarter to eight",
+     "<b>a.m.</b> = ก่อนเที่ยง • <b>p.m.</b> = หลังเที่ยง"
+    ],kbox:"<b>ทริค:</b> เวลาซื้อของ ให้ทวนราคาเสมอ — “Fifteen? One five?” ป้องกันจ่ายผิดสิบเท่า"}
+   ],
+   ex:[
+    {en:"It's a quarter past seven.",rd:"อิทส์ อะ ควอ-เท่อร์ พาสท์ เซ-เวิ่น",th:"ตอนนี้เจ็ดโมงสิบห้า"},
+    {en:"The shop opens at nine a.m.",rd:"เดอะ ชอพ โอ-เพิ่นส์ แอท ไนน์ เอ-เอ็ม",th:"ร้านเปิดเก้าโมงเช้า"},
+    {en:"That will be fifty baht.",rd:"แดท วิล บี ฟิฟ-ตี้ บาท",th:"ทั้งหมดห้าสิบบาท"}
+   ],
+   quiz:[
+    {t:"listen",au:"thirteen",q:"ได้ยินตัวเลขอะไร",c:["30","13","3","33"],a:1,e:"thirteen = 13 เน้นเสียงท้าย “-TEEN” ส่วน thirty = 30 เน้นเสียงหน้า"},
+    {t:"listen",au:"forty",q:"ได้ยินตัวเลขอะไร",c:["14","40","4","44"],a:1,e:"forty = 40 เน้นเสียงหน้า ส่วน fourteen = 14 เน้นเสียงท้าย"},
+    {t:"listen",au:"It's half past eight.",q:"ตอนนี้กี่โมง",c:["8:15","8:30","8:45","7:30"],a:1,e:"half past eight = แปดโมงครึ่ง = 8:30"},
+    {t:"listen",au:"A quarter to nine.",q:"ตรงกับเวลาใด",c:["9:15","8:45","9:45","8:15"],a:1,e:"a quarter to nine = อีก 15 นาทีจะเก้าโมง = 8:45"},
+    {t:"listen",au:"The total is ninety baht.",q:"ราคารวมเท่าไหร่",c:["19 บาท","90 บาท","99 บาท","9 บาท"],a:1,e:"ninety = 90 (เน้นเสียงหน้า) ส่วน nineteen = 19 (เน้นเสียงท้าย)"}
+   ]}
+ ]
+},
+{
+ key:"speak", emoji:"🗣️", name:"4. พูด", desc:"ออกเสียงให้ฝรั่งเข้าใจ + บทฝึกพูด",
+ units:[
+  {id:1,title:"เสียง TH — ตัวปราบคนไทยอันดับ 1",sub:"think ไม่ใช่ ‘ซิ้ง’, this ไม่ใช่ ‘ดิส’",type:"lesson",
+   content:[
+    {h:"วิธีออกเสียงที่ถูกต้อง",points:[
+     "เอา <b>ปลายลิ้นแตะขอบฟันบน</b> เบา ๆ แล้วเป่าลมออก — ห้ามใช้เสียง ซ หรือ ด แทน",
+     "<b>เสียงไม่ก้อง /θ/</b> (ลมอย่างเดียว): <b>th</b>ink, <b>th</b>ank, <b>th</b>ree, mou<b>th</b>",
+     "<b>เสียงก้อง /ð/</b> (สั่นลำคอ): <b>th</b>is, <b>th</b>at, <b>th</b>ey, mo<b>th</b>er",
+     "ฝึกหน้ากระจก ถ้าเห็นปลายลิ้นโผล่นิดหนึ่ง = ถูกแล้ว"
+    ],kbox:"<b>ฝึกวันละ 1 นาที:</b> พูดช้า ๆ ว่า “think – thank – three – this – that – they” โดยเอาลิ้นแตะฟันทุกครั้ง 1 สัปดาห์จะติดเป็นนิสัย"}
+   ],
+   ex:[
+    {en:"I think so.",rd:"ไอ ธิ๊งค์ โซ (ลิ้นแตะฟัน)",th:"ฉันคิดว่างั้นนะ"},
+    {en:"Thank you very much.",rd:"แ-ธง-คิว เว-รี่ มัช",th:"ขอบคุณมาก"},
+    {en:"This is my mother.",rd:"ดิส อีส มาย มา-เธ่อร์",th:"นี่คือแม่ของฉัน"},
+    {en:"Three things.",rd:"ธรี ธิงส์",th:"สามสิ่ง"}
+   ],
+   quiz:[
+    {t:"listen",au:"think",q:"ได้ยินคำว่าอะไร",c:["sink (อ่างล้างจาน)","think (คิด)","thing (สิ่งของ)","zinc"],a:1,e:"think = คิด ออกเสียง /θɪŋk/ ปลายลิ้นแตะฟัน ไม่ใช่ sink ที่เป็นเสียง /s/"},
+    {t:"mc",q:"เสียง TH ใน “this” ออกเสียงอย่างไร",c:["เสียง /s/ เหมือน see","เสียง /d/ เหมือน do","เสียงก้อง /ð/ ลิ้นแตะฟันแล้วสั่นลำคอ","ไม่ออกเสียง"],a:2,e:"this ใช้เสียงก้อง /ð/ ปลายลิ้นแตะฟันบนพร้อมสั่นเสียงในลำคอ (ไม่ใช่ “ดิส”)"},
+    {t:"mc",q:"ข้อใดเป็นวิธีออกเสียง TH ที่ถูกต้อง",c:["ห่อริมฝีปากแล้วเป่าลม","เอาปลายลิ้นแตะขอบฟันบนแล้วเป่าลมออก","กัดริมฝีปากล่าง","ม้วนลิ้นขึ้นเพดาน"],a:1,e:"เสียง TH เกิดจากปลายลิ้นแตะขอบฟันบนแล้วปล่อยลมผ่าน ส่วนการกัดริมฝีปากล่างคือเสียง /f/ หรือ /v/"},
+    {t:"listen",au:"three",q:"ได้ยินคำว่าอะไร",c:["free (อิสระ)","three (สาม)","tree (ต้นไม้)","they"],a:1,e:"three = สาม ขึ้นต้นด้วยเสียง /θ/ ต่างจาก free (/f/) และ tree (/t/)"}
+   ]},
+
+  {id:2,title:"เสียง R / L และ V / W",sub:"rice ไม่ใช่ lice, very ไม่ใช่ wery",type:"lesson",
+   content:[
+    {h:"R กับ L",points:[
+     "<b>R</b> — ม้วนลิ้นเข้าด้านใน <b>ห้ามให้ลิ้นแตะเพดาน</b>: <b>r</b>ice, <b>r</b>ed, <b>r</b>ight",
+     "<b>L</b> — ปลายลิ้น<b>แตะ</b>เหงือกหลังฟันบน: <b>l</b>ice, <b>l</b>ed, <b>l</b>ight",
+     "คนไทยมักออก R เป็น L → rice (ข้าว) กลายเป็น lice (เหา) ความหมายเปลี่ยนทันที"
+    ]},
+    {h:"V กับ W",points:[
+     "<b>V</b> — <b>ฟันบนกัดริมฝีปากล่าง</b> แล้วออกเสียงสั่น: <b>v</b>ery, <b>v</b>ideo, se<b>v</b>en",
+     "<b>W</b> — <b>ห่อปากกลม</b> ไม่ใช้ฟัน: <b>w</b>e, <b>w</b>ater, <b>w</b>ork",
+     "ผิดบ่อย: very → “เวรี่” ต้องกัดริมฝีปากถึงจะถูก"
+    ],kbox:"<b>ฝึกเป็นคู่:</b> rice/lice • right/light • very/wary • vest/west — พูดสลับไปมาช้า ๆ จนรู้สึกถึงตำแหน่งลิ้นและปากที่ต่างกัน"}
+   ],
+   ex:[
+    {en:"I eat rice every day.",rd:"ไอ อีท ไรซ์ (ม้วนลิ้น) เอฟ-รี่ เดย์",th:"ฉันกินข้าวทุกวัน"},
+    {en:"Turn right at the light.",rd:"เทิร์น ไรท์ แอท เดอะ ไลท์",th:"เลี้ยวขวาตรงไฟแดง"},
+    {en:"Very good!",rd:"เว-รี่ กู๊ด (กัดริมฝีปาก)",th:"ดีมาก!"},
+    {en:"We want water.",rd:"วี วอนท์ วอ-เท่อร์ (ห่อปาก)",th:"เราต้องการน้ำ"}
+   ],
+   quiz:[
+    {t:"listen",au:"rice",q:"ได้ยินคำว่าอะไร",c:["lice (เหา)","rice (ข้าว)","nice (ดี)","mice (หนู)"],a:1,e:"rice = ข้าว ขึ้นต้นด้วยเสียง /r/ ม้วนลิ้นไม่แตะเพดาน ต่างจาก lice ที่ลิ้นแตะเหงือก"},
+    {t:"mc",q:"การออกเสียง V ที่ถูกต้องทำอย่างไร",c:["ห่อปากกลม ไม่ใช้ฟัน","ฟันบนกัดริมฝีปากล่างแล้วออกเสียงสั่น","เอาลิ้นแตะฟันบน","ม้วนลิ้นเข้าด้านใน"],a:1,e:"เสียง /v/ เกิดจากฟันบนแตะริมฝีปากล่างแล้วออกเสียงก้อง ส่วนการห่อปากกลมคือเสียง /w/"},
+    {t:"listen",au:"very",q:"ได้ยินคำว่าอะไร",c:["wary","very","berry","ferry"],a:1,e:"very = มาก ขึ้นต้นด้วยเสียง /v/ ต้องกัดริมฝีปากล่าง"},
+    {t:"mc",q:"ความต่างของการออกเสียง R และ L คือข้อใด",c:["R ลิ้นแตะเพดาน / L ม้วนลิ้น","R ม้วนลิ้นไม่แตะ / L ปลายลิ้นแตะเหงือกหลังฟันบน","ทั้งสองเสียงเหมือนกัน","R ใช้ริมฝีปาก / L ใช้ลิ้น"],a:1,e:"R ม้วนลิ้นเข้าโดยไม่ให้แตะเพดาน ส่วน L ปลายลิ้นแตะเหงือกหลังฟันบน — นี่คือจุดต่างสำคัญ"}
+   ]},
+
+  {id:3,title:"เสียงท้ายคำ และ -ed 3 แบบ",sub:"จุดที่ทำให้ฝรั่งงงว่าพูดอดีตหรือปัจจุบัน",type:"lesson",
+   content:[
+    {h:"เสียงท้ายคำต้องออกให้ครบ",points:[
+     "ภาษาไทยไม่มีเสียงท้าย s/z/sh/f แต่อังกฤษมีและ<b>สำคัญมาก</b>",
+     "book<b>s</b> (หลายเล่ม) ≠ book (เล่มเดียว) • he work<b>s</b> ≠ they work",
+     "ฝึกโดยลากเสียงท้ายให้ยาวก่อน: “bookssss” แล้วค่อยลดให้เป็นธรรมชาติ"
+    ]},
+    {h:"-ed ออกเสียง 3 แบบ",points:[
+     "<b>/t/</b> — เมื่อคำลงท้ายเสียงไม่ก้อง (p, k, f, s, sh, ch): walk<b>ed</b> = “วอล์คท์”, wash<b>ed</b> = “วอชท์”",
+     "<b>/d/</b> — เมื่อคำลงท้ายเสียงก้อง (b, g, v, n, m, l, r, สระ): play<b>ed</b> = “เพลด์”, love<b>d</b> = “ลัฟด์”",
+     "<b>/ɪd/</b> — เมื่อคำลงท้ายด้วย <b>t</b> หรือ <b>d</b> เท่านั้น: want<b>ed</b> = “วอน-ทิด”, need<b>ed</b> = “นี-ดิด”"
+    ],table:{head:["เสียงท้ายเดิม","-ed ออกเสียง","ตัวอย่าง"],rows:[["p, k, f, s, sh, ch","/t/","walked, washed"],["b, g, v, n, m, l, สระ","/d/","played, loved"],["t, d","/ɪd/","wanted, needed"]]},
+    kbox:"<b>จำง่าย:</b> ลงท้าย t/d เท่านั้นที่ออกเสียง “-อิด” เพิ่มมาอีกพยางค์ นอกนั้นออกแค่ /t/ หรือ /d/ ไม่เพิ่มพยางค์"}
+   ],
+   ex:[
+    {en:"I walked to school.",rd:"ไอ วอล์คท์ ทู สคูล",th:"ฉันเดินไปโรงเรียน (-ed = /t/)"},
+    {en:"She played football.",rd:"ชี เพลด์ ฟุต-บอล",th:"เธอเล่นฟุตบอล (-ed = /d/)"},
+    {en:"I wanted to go.",rd:"ไอ วอน-ทิด ทู โก",th:"ฉันอยากไป (-ed = /ɪd/ เพิ่มพยางค์)"},
+    {en:"He works here.",rd:"ฮี เวิร์คส์ เฮียร์",th:"เขาทำงานที่นี่ (ออกเสียง s ท้ายให้ชัด)"}
+   ],
+   quiz:[
+    {t:"mc",q:"คำว่า “wanted” ลงท้าย -ed ออกเสียงแบบใด",c:["/t/ ไม่เพิ่มพยางค์","/d/ ไม่เพิ่มพยางค์","/ɪd/ เพิ่มอีกหนึ่งพยางค์","ไม่ออกเสียง"],a:2,e:"want ลงท้ายด้วยเสียง t จึงออกเสียง -ed เป็น /ɪd/ = “วอน-ทิด” เพิ่มมาอีกพยางค์"},
+    {t:"mc",q:"คำว่า “walked” ลงท้าย -ed ออกเสียงแบบใด",c:["/t/","/d/","/ɪd/","/ed/"],a:0,e:"walk ลงท้ายด้วยเสียง /k/ ซึ่งไม่ก้อง จึงออกเสียง -ed เป็น /t/ = “วอล์คท์”"},
+    {t:"mc",q:"คำว่า “played” ลงท้าย -ed ออกเสียงแบบใด",c:["/t/","/d/","/ɪd/","ไม่ออกเสียง"],a:1,e:"play ลงท้ายด้วยเสียงสระซึ่งก้อง จึงออกเสียง -ed เป็น /d/ = “เพลด์”"},
+    {t:"listen",au:"He works here.",q:"ได้ยินประโยคว่าอะไร",c:["He work here.","He works here.","He worked here.","They work here."],a:1,e:"He works here. — ฟังเสียง s ท้าย works ให้ดี เพราะเป็นตัวบอกว่าประธานเป็นเอกพจน์บุรุษที่ 3"},
+    {t:"mc",q:"ทำไมต้องออกเสียงท้ายคำให้ชัด",c:["เพื่อความสุภาพเท่านั้น","เพราะเสียงท้ายเป็นตัวบอกพหูพจน์/กาล ถ้าไม่ออกความหมายจะเปลี่ยน","เพราะเป็นกฎการเขียน","ไม่จำเป็น ฝรั่งเข้าใจอยู่แล้ว"],a:1,e:"เสียงท้ายบอกความหมายสำคัญ เช่น s = พหูพจน์/เอกพจน์บุรุษที่ 3, -ed = อดีต ถ้าไม่ออกเสียงผู้ฟังจะเข้าใจผิด"}
+   ]},
+
+  {id:4,title:"บทฝึกพูดตาม (Shadowing) — สถานการณ์จริง",sub:"ฟัง → พูดตาม → พูดเอง",type:"lesson",
+   content:[
+    {h:"วิธีฝึก Shadowing ให้ได้ผล",points:[
+     "<b>ขั้นที่ 1</b> กดฟัง 1 รอบ ตั้งใจฟังจังหวะและเสียงสูงต่ำ",
+     "<b>ขั้นที่ 2</b> กดฟังอีกรอบ แล้ว<b>พูดตามพร้อมกัน</b>ให้ทันเสียง",
+     "<b>ขั้นที่ 3</b> ปิดเสียง พูดเองจากความจำ",
+     "<b>ขั้นที่ 4</b> อัดเสียงตัวเองด้วยมือถือ แล้วเปรียบเทียบกับต้นฉบับ"
+    ],kbox:"<b>สำคัญกว่าความถูกต้อง:</b> ความลื่นไหล — พูดผิดแต่กล้าพูด ดีกว่าถูกทุกคำแต่ไม่กล้าเปิดปาก ฝรั่งเดาความหมายจากบริบทได้"}
+   ],
+   ex:[
+    {en:"Excuse me, could you help me?",rd:"เอ็กซ์-คิวส์ มี คูด ยู เฮลพ์ มี",th:"ขอโทษนะครับ/คะ ช่วยหน่อยได้ไหม"},
+    {en:"How much is this, please?",rd:"ฮาว มัช อีส ดิส พลีส",th:"อันนี้ราคาเท่าไหร่ครับ/คะ"},
+    {en:"I'm looking for the train station.",rd:"ไอม์ ลุค-กิ่ง ฟอร์ เดอะ เทรน สเต-ชั่น",th:"ฉันกำลังหาสถานีรถไฟ"},
+    {en:"Could you speak more slowly, please?",rd:"คูด ยู สปีค มอร์ สโล-ลี่ พลีส",th:"ช่วยพูดช้าลงหน่อยได้ไหม"},
+    {en:"I'd like this one, please.",rd:"ไอด์ ไลค์ ดิส วัน พลีส",th:"ขออันนี้ครับ/ค่ะ"},
+    {en:"Sorry, I don't speak English very well.",rd:"ซอ-รี่ ไอ โดนท์ สปีค อิง-ลิช เว-รี่ เวล",th:"ขอโทษ ฉันพูดอังกฤษไม่ค่อยเก่ง"},
+    {en:"Can I pay by card?",rd:"แคน ไอ เพย์ บาย คาร์ด",th:"จ่ายด้วยบัตรได้ไหม"},
+    {en:"Thank you for your help.",rd:"แ-ธง-คิว ฟอร์ ยัวร์ เฮลพ์",th:"ขอบคุณที่ช่วยนะ"}
+   ],
+   quiz:[
+    {t:"mc",q:"ต้องการเรียกความสนใจคนแปลกหน้าอย่างสุภาพ ควรพูดว่าอะไร",c:["Hey you!","Excuse me.","Hello, what?","Come here."],a:1,e:"Excuse me. เป็นวิธีเรียกความสนใจที่สุภาพและปลอดภัยที่สุดในทุกสถานการณ์"},
+    {t:"mc",q:"ฟังเขาพูดไม่ทัน ควรพูดว่าอะไร",c:["What? Speak again!","Could you speak more slowly, please?","I no understand.","Say again fast."],a:1,e:"Could you speak more slowly, please? สุภาพและชัดเจน ใช้ได้ทุกสถานการณ์"},
+    {t:"listen",au:"Can I pay by card?",q:"ได้ยินประโยคว่าอะไร",c:["Can I pay by cash?","Can I pay by card?","Can I pay for card?","Where can I pay?"],a:1,e:"Can I pay by card? = จ่ายด้วยบัตรได้ไหม (cash = เงินสด, card = บัตร)"},
+    {t:"mc",q:"ขั้นตอนการฝึก Shadowing ที่ถูกต้องคือข้อใด",c:["ฟัง → พูดตามพร้อมเสียง → พูดเอง → อัดเสียงเทียบ","พูดเองก่อน → ค่อยฟัง","อ่านอย่างเดียวไม่ต้องออกเสียง","ท่องคำแปลไทยให้ได้ก่อน"],a:0,e:"Shadowing ที่ได้ผลคือ ฟังจับจังหวะ → พูดตามพร้อมเสียงต้นฉบับ → พูดเองจากความจำ → อัดเสียงเปรียบเทียบเพื่อหาจุดแก้"},
+    {t:"mc",q:"สิ่งใดสำคัญที่สุดสำหรับผู้เริ่มฝึกพูด",c:["ต้องพูดถูกไวยากรณ์ 100% ก่อนค่อยพูด","กล้าพูดและสื่อสารให้เข้าใจ แม้ยังผิดบ้าง","ต้องมีสำเนียงเหมือนเจ้าของภาษา","ต้องรู้ศัพท์ครบหมื่นคำก่อน"],a:1,e:"การสื่อสารได้สำคัญกว่าความสมบูรณ์แบบ ผู้ฟังเดาจากบริบทได้ ยิ่งพูดบ่อยยิ่งพัฒนาเร็ว"}
+   ]}
+ ]
+},
+{
+ key:"read", emoji:"📖", name:"5. อ่าน", desc:"บทอ่านไล่ระดับ + จับใจความ",
+ units:[
+  {id:1,title:"บทอ่านระดับ 1 — แนะนำตัว",sub:"ประโยคสั้น คำศัพท์พื้นฐาน",type:"read",
+   level:"ระดับเริ่มต้น (A1)",
+   passage:[
+    {en:"Hello! My name is Nok.",th:"สวัสดี! ฉันชื่อนก"},
+    {en:"I am twenty-five years old.",th:"ฉันอายุยี่สิบห้าปี"},
+    {en:"I live in Bangkok with my family.",th:"ฉันอาศัยอยู่ที่กรุงเทพกับครอบครัว"},
+    {en:"I work at a small office near my house.",th:"ฉันทำงานที่ออฟฟิศเล็ก ๆ ใกล้บ้าน"},
+    {en:"I like reading books and listening to music.",th:"ฉันชอบอ่านหนังสือและฟังเพลง"},
+    {en:"On weekends, I usually visit my grandmother.",th:"ช่วงสุดสัปดาห์ ปกติฉันไปหาคุณยาย"},
+    {en:"She lives in Ayutthaya, about one hour from Bangkok.",th:"ท่านอยู่ที่อยุธยา ห่างจากกรุงเทพประมาณหนึ่งชั่วโมง"}
+   ],
+   vocab:[
+    {en:"live",th:"อาศัยอยู่"},{en:"near",th:"ใกล้"},{en:"usually",th:"โดยปกติ"},
+    {en:"visit",th:"ไปเยี่ยม"},{en:"about",th:"ประมาณ"},{en:"weekend",th:"สุดสัปดาห์"}
+   ],
+   quiz:[
+    {t:"mc",q:"นกอายุเท่าไหร่",c:["15 ปี","25 ปี","35 ปี","20 ปี"],a:1,e:"I am twenty-five years old. = ฉันอายุยี่สิบห้าปี"},
+    {t:"mc",q:"นกทำงานที่ไหน",c:["โรงพยาบาล","ออฟฟิศเล็ก ๆ ใกล้บ้าน","โรงเรียน","ร้านอาหาร"],a:1,e:"I work at a small office near my house. = ทำงานที่ออฟฟิศเล็ก ๆ ใกล้บ้าน"},
+    {t:"mc",q:"ช่วงสุดสัปดาห์นกมักทำอะไร",c:["ไปเที่ยวทะเล","ไปหาคุณยาย","อยู่บ้านเฉย ๆ","ไปทำงานพิเศษ"],a:1,e:"On weekends, I usually visit my grandmother. = ปกติไปหาคุณยาย"},
+    {t:"mc",q:"คุณยายอยู่ที่ไหน",c:["กรุงเทพ","อยุธยา","เชียงใหม่","ภูเก็ต"],a:1,e:"She lives in Ayutthaya = ท่านอยู่ที่อยุธยา"},
+    {t:"mc",q:"คำว่า “usually” แปลว่าอะไร",c:["ไม่เคย","โดยปกติ","บางครั้ง","เสมอ"],a:1,e:"usually = โดยปกติ, ส่วนใหญ่ (never = ไม่เคย, sometimes = บางครั้ง, always = เสมอ)"}
+   ]},
+
+  {id:2,title:"บทอ่านระดับ 2 — เล่าเรื่องในอดีต",sub:"ฝึกอ่าน Past Simple",type:"read",
+   level:"ระดับต้น-กลาง (A2)",
+   passage:[
+    {en:"Last Saturday was a very busy day for me.",th:"วันเสาร์ที่แล้วเป็นวันที่ยุ่งมากสำหรับฉัน"},
+    {en:"I woke up at six in the morning and made breakfast.",th:"ฉันตื่นตอนหกโมงเช้าแล้วทำอาหารเช้า"},
+    {en:"After that, I went to the market to buy some fruit and vegetables.",th:"หลังจากนั้นฉันไปตลาดเพื่อซื้อผลไม้และผัก"},
+    {en:"The market was crowded because it was the weekend.",th:"ตลาดคนแน่นมากเพราะเป็นวันหยุด"},
+    {en:"I met my old friend there, and we talked for almost an hour.",th:"ฉันเจอเพื่อนเก่าที่นั่น และเราคุยกันเกือบชั่วโมง"},
+    {en:"In the afternoon, I cleaned my room and washed my clothes.",th:"ตอนบ่ายฉันทำความสะอาดห้องและซักผ้า"},
+    {en:"I was very tired, but I felt happy because I finished everything.",th:"ฉันเหนื่อยมาก แต่รู้สึกมีความสุขเพราะทำทุกอย่างเสร็จ"}
+   ],
+   vocab:[
+    {en:"busy",th:"ยุ่ง"},{en:"crowded",th:"แออัด คนเยอะ"},{en:"because",th:"เพราะว่า"},
+    {en:"almost",th:"เกือบ"},{en:"tired",th:"เหนื่อย"},{en:"finish",th:"ทำเสร็จ"}
+   ],
+   quiz:[
+    {t:"mc",q:"เขาตื่นนอนกี่โมง",c:["ห้าโมงเช้า","หกโมงเช้า","เจ็ดโมงเช้า","แปดโมงเช้า"],a:1,e:"I woke up at six in the morning = ตื่นตอนหกโมงเช้า"},
+    {t:"mc",q:"ทำไมตลาดถึงคนแน่น",c:["มีเทศกาล","เพราะเป็นวันหยุดสุดสัปดาห์","ของถูก","ฝนตก"],a:1,e:"The market was crowded because it was the weekend. = คนแน่นเพราะเป็นวันหยุด"},
+    {t:"mc",q:"เขาเจอใครที่ตลาด",c:["เพื่อนร่วมงาน","เพื่อนเก่า","ญาติ","ครูเก่า"],a:1,e:"I met my old friend there = เจอเพื่อนเก่าที่นั่น"},
+    {t:"mc",q:"ตอนบ่ายเขาทำอะไร",c:["ไปดูหนัง","ทำความสะอาดห้องและซักผ้า","นอนพักผ่อน","ไปทำงาน"],a:1,e:"In the afternoon, I cleaned my room and washed my clothes."},
+    {t:"mc",q:"สุดท้ายเขารู้สึกอย่างไร",c:["เหนื่อยและหงุดหงิด","เหนื่อยแต่มีความสุข","เบื่อ","เสียใจ"],a:1,e:"I was very tired, but I felt happy because I finished everything."},
+    {t:"mc",q:"คำว่า “crowded” แปลว่าอะไร",c:["เงียบ","แออัด คนเยอะ","สกปรก","กว้าง"],a:1,e:"crowded = แออัด มีคนเยอะ"}
+   ]},
+
+  {id:3,title:"บทอ่านระดับ 3 — ป้ายและประกาศ",sub:"อ่านป้ายที่เจอจริงเวลาเดินทาง",type:"read",
+   level:"ใช้จริงเวลาเดินทาง",
+   passage:[
+    {en:"NO ENTRY — Staff only beyond this point.",th:"ห้ามเข้า — เฉพาะเจ้าหน้าที่เท่านั้น"},
+    {en:"PUSH / PULL",th:"ผลัก / ดึง (ป้ายที่ประตู)"},
+    {en:"OUT OF ORDER — Please use the other lift.",th:"เครื่องเสีย — กรุณาใช้ลิฟต์อีกตัว"},
+    {en:"SALE: Buy one, get one free.",th:"ลดราคา: ซื้อหนึ่งแถมหนึ่ง"},
+    {en:"Departures are on the second floor.",th:"ผู้โดยสารขาออกอยู่ชั้นสอง"},
+    {en:"Please keep your belongings with you at all times.",th:"กรุณาเก็บสัมภาระติดตัวตลอดเวลา"},
+    {en:"The next train to the airport leaves in 10 minutes.",th:"รถไฟขบวนถัดไปไปสนามบินออกในอีก 10 นาที"}
+   ],
+   vocab:[
+    {en:"entry",th:"การเข้า"},{en:"staff",th:"เจ้าหน้าที่ พนักงาน"},{en:"out of order",th:"เสีย ใช้งานไม่ได้"},
+    {en:"departure",th:"ขาออก การออกเดินทาง"},{en:"belongings",th:"ข้าวของ สัมภาระ"},{en:"lift",th:"ลิฟต์ (อังกฤษ) = elevator (อเมริกัน)"}
+   ],
+   quiz:[
+    {t:"mc",q:"เห็นป้าย “OUT OF ORDER” ที่ลิฟต์ หมายความว่าอะไร",c:["ลิฟต์กำลังซ่อม ใช้ไม่ได้","ลิฟต์ว่าง","ลิฟต์เต็ม","ลิฟต์ขึ้นชั้นบนเท่านั้น"],a:0,e:"out of order = เสีย ใช้งานไม่ได้ ต้องไปใช้ลิฟต์ตัวอื่น"},
+    {t:"mc",q:"ป้าย “Staff only” หมายความว่าอะไร",c:["ทุกคนเข้าได้","เฉพาะเจ้าหน้าที่เท่านั้น","เปิดเฉพาะกลางวัน","ต้องเสียค่าเข้า"],a:1,e:"Staff only = เฉพาะเจ้าหน้าที่/พนักงานเท่านั้น บุคคลทั่วไปห้ามเข้า"},
+    {t:"mc",q:"“Buy one, get one free” หมายความว่าอะไร",c:["ซื้อสองชิ้นลดราคา","ซื้อหนึ่งแถมหนึ่ง","ซื้อฟรีทั้งหมด","ลด 50% ทุกชิ้น"],a:1,e:"Buy one, get one free = ซื้อ 1 แถม 1 (มักย่อว่า BOGO)"},
+    {t:"mc",q:"“Departures are on the second floor.” หมายความว่าอะไร",c:["ผู้โดยสารขาเข้าอยู่ชั้นสอง","ผู้โดยสารขาออกอยู่ชั้นสอง","ร้านค้าอยู่ชั้นสอง","ห้องน้ำอยู่ชั้นสอง"],a:1,e:"Departures = ขาออก (ส่วน Arrivals = ขาเข้า) อยู่ชั้นสอง"},
+    {t:"mc",q:"รถไฟไปสนามบินขบวนถัดไปออกเมื่อไหร่",c:["อีก 10 นาที","อีก 10 ชั่วโมง","ออกไปแล้ว","อีก 2 นาที"],a:0,e:"leaves in 10 minutes = ออกในอีก 10 นาที"}
+   ]},
+
+  {id:4,title:"บทอ่านระดับ 4 — อีเมลและข้อความงาน",sub:"อ่านอีเมลภาษาอังกฤษให้เข้าใจ",type:"read",
+   level:"ระดับกลาง (B1)",
+   passage:[
+    {en:"Dear Khun Nok,",th:"เรียน คุณนก"},
+    {en:"Thank you for your email regarding the training program.",th:"ขอบคุณสำหรับอีเมลเรื่องโครงการอบรม"},
+    {en:"I am pleased to inform you that your application has been accepted.",th:"ยินดีแจ้งให้ทราบว่าใบสมัครของคุณได้รับการตอบรับแล้ว"},
+    {en:"The program will start on Monday, 15 June, at 9:00 a.m.",th:"โครงการจะเริ่มวันจันทร์ที่ 15 มิถุนายน เวลา 9:00 น."},
+    {en:"Please bring a copy of your ID card and arrive 15 minutes early.",th:"กรุณานำสำเนาบัตรประชาชนมาด้วย และมาถึงก่อนเวลา 15 นาที"},
+    {en:"If you have any questions, please do not hesitate to contact me.",th:"หากมีคำถามใด ๆ กรุณาติดต่อมาได้ไม่ต้องเกรงใจ"},
+    {en:"Best regards, Somchai P.",th:"ด้วยความนับถือ สมชาย พ."}
+   ],
+   vocab:[
+    {en:"regarding",th:"เกี่ยวกับ"},{en:"application",th:"ใบสมัคร"},{en:"accepted",th:"ได้รับการตอบรับ"},
+    {en:"hesitate",th:"ลังเล เกรงใจ"},{en:"contact",th:"ติดต่อ"},{en:"Best regards",th:"ด้วยความนับถือ (ลงท้ายอีเมล)"}
+   ],
+   quiz:[
+    {t:"mc",q:"อีเมลนี้แจ้งเรื่องอะไร",c:["ใบสมัครถูกปฏิเสธ","ใบสมัครได้รับการตอบรับ","ขอเลื่อนการอบรม","ยกเลิกโครงการ"],a:1,e:"your application has been accepted = ใบสมัครได้รับการตอบรับแล้ว"},
+    {t:"mc",q:"โครงการเริ่มเมื่อไหร่",c:["วันจันทร์ที่ 15 มิถุนายน เวลา 9:00","วันอังคารที่ 15 มิถุนายน","วันจันทร์ที่ 5 มิถุนายน","วันศุกร์ที่ 15 กรกฎาคม"],a:0,e:"The program will start on Monday, 15 June, at 9:00 a.m."},
+    {t:"mc",q:"ผู้รับต้องเตรียมอะไรไปบ้าง",c:["สำเนาบัตรประชาชน และมาก่อนเวลา 15 นาที","หนังสือเดินทาง","เงินค่าลงทะเบียน","คอมพิวเตอร์ส่วนตัว"],a:0,e:"Please bring a copy of your ID card and arrive 15 minutes early."},
+    {t:"mc",q:"“do not hesitate to contact me” หมายความว่าอะไร",c:["ห้ามติดต่อมา","ติดต่อมาได้เลยไม่ต้องเกรงใจ","ติดต่อได้เฉพาะวันจันทร์","ต้องติดต่อผ่านเลขาเท่านั้น"],a:1,e:"do not hesitate to contact me = อย่าลังเลที่จะติดต่อมา (สำนวนสุภาพในอีเมลธุรกิจ)"},
+    {t:"mc",q:"“Best regards” ใช้ในส่วนใดของอีเมล",c:["คำขึ้นต้น","คำลงท้ายก่อนลงชื่อ","หัวเรื่อง","เนื้อหาหลัก"],a:1,e:"Best regards เป็นคำลงท้ายอีเมลก่อนลงชื่อ (เทียบเท่า “ด้วยความนับถือ”)"},
+    {t:"mc",q:"คำว่า “regarding” แปลว่าอะไร",c:["ขอบคุณ","เกี่ยวกับ","ขอโทษ","ยกเลิก"],a:1,e:"regarding = เกี่ยวกับ (ใช้แทน about ในภาษาทางการ)"}
+   ]}
+ ]
+},
+{
+ key:"write", emoji:"✍️", name:"6. เขียน", desc:"เขียนประโยค ข้อความ และอีเมล",
+ units:[
+  {id:1,title:"เขียนแนะนำตัว",sub:"เขียนได้ 5–7 ประโยคจบ",type:"write",
+   guide:[
+    {h:"สูตรเขียนแนะนำตัว",points:[
+     "<b>ประโยคที่ 1</b> ชื่อ — My name is ___. / I'm ___.",
+     "<b>ประโยคที่ 2</b> อายุ/ที่อยู่ — I'm ___ years old. I live in ___.",
+     "<b>ประโยคที่ 3</b> งาน/เรียน — I work as a ___. / I'm a student at ___.",
+     "<b>ประโยคที่ 4</b> ครอบครัว — I live with my family. I have ___ brothers/sisters.",
+     "<b>ประโยคที่ 5</b> งานอดิเรก — In my free time, I like ___ing.",
+     "<b>ประโยคปิด</b> — Nice to meet you."
+    ],kbox:"<b>ระวัง:</b> ใช้ Present Simple ทั้งหมด (เรื่องจริงในปัจจุบัน) และอย่าลืมประธาน I ทุกประโยค"}
+   ],
+   task:"เขียนแนะนำตัวเองเป็นภาษาอังกฤษ 5–7 ประโยค ให้ครอบคลุม: ชื่อ อายุ ที่อยู่ งาน/เรียน ครอบครัว และงานอดิเรก",
+   hints:["My name is...","I'm ... years old.","I live in...","I work as a... / I'm a student.","In my free time, I like..."],
+   model:[
+    "My name is Nok.",
+    "I'm twenty-five years old and I live in Bangkok.",
+    "I work as an officer at a small company.",
+    "I live with my family. I have one brother and one sister.",
+    "In my free time, I like reading books and cooking.",
+    "Nice to meet you."
+   ],
+   check:["ทุกประโยคมีประธาน (I / My name)","ใช้ Present Simple ถูกต้อง (I live ไม่ใช่ I living)","หลัง like ใช้ V-ing เช่น like reading","ขึ้นต้นประโยคด้วยตัวพิมพ์ใหญ่ และจบด้วยจุด"],
+   quiz:[
+    {t:"mc",q:"ข้อใดเขียนถูกต้อง",c:["I am 25 years old.","I have 25 years old.","I am 25 year old.","My age 25 years."],a:0,e:"บอกอายุใช้ I am + ตัวเลข + years old (ไม่ใช่ I have... แบบภาษาฝรั่งเศส/ไทยแปลตรงตัว)"},
+    {t:"mc",q:"ข้อใดเขียนถูกต้อง",c:["I like read books.","I like reading books.","I like to reading books.","I liking read books."],a:1,e:"หลัง like ใช้ V-ing หรือ to + V1 → I like reading books. หรือ I like to read books."},
+    {t:"mc",q:"ข้อใดเขียนถูกต้อง",c:["I living in Bangkok.","I am live in Bangkok.","I live in Bangkok.","I lives in Bangkok."],a:2,e:"ประธาน I ใช้กริยาช่อง 1 ไม่เติม s และไม่ใช้ am คู่กับกริยาแท้ → I live in Bangkok."},
+    {t:"mc",q:"ข้อใดเป็นการเขียนที่ถูกหลักที่สุด",c:["my name is nok","My name is Nok.","MY NAME IS NOK","my name is Nok"],a:1,e:"ประโยคภาษาอังกฤษต้องขึ้นต้นด้วยตัวพิมพ์ใหญ่ ชื่อเฉพาะขึ้นต้นด้วยตัวพิมพ์ใหญ่ และจบด้วยเครื่องหมายจุด"}
+   ]},
+
+  {id:2,title:"เขียนเล่าเรื่องเมื่อวาน",sub:"ฝึกใช้ Past Simple ในการเขียน",type:"write",
+   guide:[
+    {h:"โครงเรื่องง่าย ๆ",points:[
+     "<b>เปิด</b> — Yesterday was a ___ day. (busy / good / quiet)",
+     "<b>เช้า</b> — In the morning, I ___.",
+     "<b>บ่าย</b> — In the afternoon, I ___.",
+     "<b>เย็น</b> — In the evening, I ___.",
+     "<b>ปิด</b> — I felt ___ because ___."
+    ]},
+    {h:"กริยาอดีตที่ใช้บ่อย",points:[
+     "wake up → <b>woke up</b> • go → <b>went</b> • eat → <b>ate</b> • buy → <b>bought</b>",
+     "watch → <b>watched</b> • work → <b>worked</b> • cook → <b>cooked</b> • meet → <b>met</b>",
+     "ตัวเชื่อม: first, then, after that, finally"
+    ],kbox:"<b>ระวัง:</b> ทั้งเรื่องเป็นอดีต ต้องใช้กริยาช่อง 2 ตลอด อย่าสลับไปช่อง 1 กลางเรื่อง"}
+   ],
+   task:"เขียนเล่าเรื่องที่คุณทำเมื่อวานนี้ 5–7 ประโยค โดยใช้ Past Simple ให้มีช่วงเช้า บ่าย และเย็น",
+   hints:["Yesterday was...","In the morning, I woke up at...","Then I went to...","After that, I...","In the evening, I...","I felt... because..."],
+   model:[
+    "Yesterday was a busy day.",
+    "In the morning, I woke up at six and cooked breakfast.",
+    "Then I went to work by bus.",
+    "In the afternoon, I had a meeting with my team.",
+    "After work, I bought some food at the market.",
+    "In the evening, I watched a movie with my family.",
+    "I felt tired but happy."
+   ],
+   check:["ใช้กริยาช่อง 2 ตลอดทั้งเรื่อง (went, bought, watched)","มีคำบอกเวลา (yesterday, in the morning)","มีตัวเชื่อม (then, after that)","ไม่ใช้ did คู่กับกริยาช่อง 2"],
+   quiz:[
+    {t:"mc",q:"ข้อใดเขียนถูกต้อง",c:["Yesterday I go to work.","Yesterday I went to work.","Yesterday I goes to work.","Yesterday I gone to work."],a:1,e:"yesterday = อดีต ต้องใช้ V2 ของ go คือ went"},
+    {t:"mc",q:"ข้อใดเขียนถูกต้อง",c:["I didn't went to the market.","I didn't go to the market.","I not went to the market.","I don't went to the market."],a:1,e:"เมื่อมี didn't กริยาต้องกลับเป็นช่อง 1 → I didn't go."},
+    {t:"mc",q:"V2 ของ buy คือข้อใด",c:["buyed","bought","buys","buying"],a:1,e:"buy เป็นกริยาผิดรูป ช่อง 2 คือ bought"},
+    {t:"mc",q:"ข้อใดใช้ตัวเชื่อมได้เหมาะสมในการเล่าเรื่องตามลำดับ",c:["First, then, after that, finally","Because, so, but, and","However, although, despite","Which, that, who"],a:0,e:"การเล่าเรื่องตามลำดับเวลาใช้ First, Then, After that, Finally"}
+   ]},
+
+  {id:3,title:"เขียนข้อความ/แชทสั้น ๆ",sub:"นัดหมาย ขอโทษ ขอบคุณ",type:"write",
+   guide:[
+    {h:"วลีที่ใช้ได้ทันที",points:[
+     "<b>นัดหมาย:</b> Are you free on ___? / Can we meet at ___?",
+     "<b>ตอบรับ:</b> Sure, that works for me. / Sounds good!",
+     "<b>ปฏิเสธสุภาพ:</b> Sorry, I can't make it. Maybe next time?",
+     "<b>ขอโทษ:</b> I'm sorry for the late reply. / Sorry, I'm running late.",
+     "<b>ขอบคุณ:</b> Thanks a lot! / Thank you for your help."
+    ]},
+    {h:"ข้อความแชทไม่ต้องทางการมาก",points:[
+     "ใช้รูปย่อได้: I'm, don't, can't, it's",
+     "ขึ้นต้นทักสั้น ๆ: Hi / Hey / Hello",
+     "แต่ถ้าเป็นเรื่องงานกับผู้ใหญ่ ควรเขียนเต็มและสุภาพขึ้น"
+    ],kbox:"<b>เคล็ดลับ:</b> เขียนสั้นแต่ครบ 3 ส่วน — ทัก + เรื่องที่จะบอก + ปิดท้าย"}
+   ],
+   task:"เขียนข้อความชวนเพื่อนไปกินข้าวสุดสัปดาห์นี้ 3–4 ประโยค (ทักทาย + ชวน + บอกเวลา/สถานที่ + ปิดท้าย)",
+   hints:["Hi ...!","Are you free on...?","How about...?","Let me know!"],
+   model:[
+    "Hi Ploy!",
+    "Are you free this Saturday?",
+    "I'd like to have dinner together. How about the new restaurant near the mall at 6 p.m.?",
+    "Let me know if that works for you!"
+   ],
+   check:["มีคำทักทายขึ้นต้น","บอกวัน เวลา และสถานที่ชัดเจน","ใช้ประโยคคำถามชวนอย่างสุภาพ","มีประโยคปิดท้ายให้อีกฝ่ายตอบกลับ"],
+   quiz:[
+    {t:"mc",q:"ชวนเพื่อนอย่างสุภาพและเป็นธรรมชาติที่สุด ควรเขียนว่าอะไร",c:["You come eat with me.","Are you free this Saturday?","You must come.","Eat dinner!"],a:1,e:"Are you free...? เป็นการชวนที่สุภาพ เปิดโอกาสให้อีกฝ่ายตอบรับหรือปฏิเสธได้"},
+    {t:"mc",q:"ปฏิเสธคำชวนอย่างสุภาพ ควรเขียนว่าอะไร",c:["No.","Sorry, I can't make it. Maybe next time?","I don't want.","No, I busy."],a:1,e:"Sorry, I can't make it. Maybe next time? = ปฏิเสธพร้อมเปิดโอกาสครั้งหน้า สุภาพและรักษาความสัมพันธ์"},
+    {t:"mc",q:"ข้อใดเขียนถูกต้อง",c:["How about the restaurant at 6 p.m.?","How about restaurant 6 p.m.?","How about go restaurant 6 p.m.?","What about to go restaurant?"],a:0,e:"How about + คำนาม/V-ing → How about the restaurant at 6 p.m.? (ต้องมี article the และบุพบท at)"},
+    {t:"mc",q:"“Let me know” แปลว่าอะไร",c:["ฉันรู้แล้ว","บอกฉันด้วยนะ","ฉันไม่รู้","ให้ฉันไป"],a:1,e:"Let me know = บอกให้ฉันรู้ด้วยนะ ใช้ปิดท้ายข้อความเพื่อขอคำตอบ"}
+   ]},
+
+  {id:4,title:"เขียนอีเมลทางการ",sub:"ลางาน สอบถาม สมัครงาน",type:"write",
+   guide:[
+    {h:"โครงสร้างอีเมลทางการ 5 ส่วน",points:[
+     "<b>1. Subject</b> (หัวเรื่อง) — สั้น ชัด เช่น “Leave Request: 10–11 June”",
+     "<b>2. คำขึ้นต้น</b> — Dear Mr./Ms. [นามสกุล], (ทราบชื่อ) หรือ Dear Sir/Madam, (ไม่ทราบชื่อ)",
+     "<b>3. เปิดเรื่อง</b> — I am writing to ___ (request / inform / ask about)",
+     "<b>4. รายละเอียด</b> — บอกเหตุผลและข้อมูลที่จำเป็น",
+     "<b>5. ปิดท้าย</b> — Thank you for your consideration. + Best regards, / Yours faithfully, + ชื่อ"
+    ]},
+    {h:"ภาษาทางการ vs ไม่ทางการ",points:[
+     "ทางการใช้คำเต็ม ไม่ใช้รูปย่อ: <b>I am</b> (ไม่ใช่ I'm), <b>cannot</b> (ไม่ใช่ can't)",
+     "ใช้ <b>regarding</b> แทน about • <b>request</b> แทน want • <b>assist</b> แทน help",
+     "คู่คำลงท้าย: Dear Sir/Madam → <b>Yours faithfully</b> | Dear Mr. Smith → <b>Yours sincerely</b>"
+    ],kbox:"<b>จำ:</b> ไม่ทราบชื่อ = Dear Sir/Madam + Yours faithfully | ทราบชื่อ = Dear Mr./Ms. ___ + Yours sincerely"}
+   ],
+   task:"เขียนอีเมลถึงหัวหน้าเพื่อขอลาหยุด 2 วัน (วันที่ 10–11 มิถุนายน) เพราะมีธุระครอบครัว ให้มีครบทั้ง หัวเรื่อง คำขึ้นต้น เนื้อหา และคำลงท้าย",
+   hints:["Subject: Leave Request...","Dear Mr./Ms. ...,","I am writing to request...","I will be away from... to...","Thank you for your consideration.","Best regards,"],
+   model:[
+    "Subject: Leave Request: 10–11 June",
+    "Dear Mr. Somchai,",
+    "I am writing to request two days of leave on 10 and 11 June due to a family matter.",
+    "I have completed my current tasks, and my colleague will handle urgent issues while I am away.",
+    "Thank you for your consideration.",
+    "Best regards,",
+    "Nok"
+   ],
+   check:["มีหัวเรื่อง (Subject) ที่ชัดเจน","คำขึ้นต้นและคำลงท้ายเข้าคู่กันถูกต้อง","ใช้คำเต็ม ไม่ใช้รูปย่อ (I am ไม่ใช่ I'm)","ระบุวันที่และเหตุผลชัดเจน","มีประโยคขอบคุณก่อนปิดท้าย"],
+   quiz:[
+    {t:"mc",q:"ไม่ทราบชื่อผู้รับ ควรใช้คำขึ้นต้นและคำลงท้ายคู่ใด",c:["Dear Sir/Madam, ... Yours faithfully,","Dear Sir/Madam, ... Yours sincerely,","Hi there, ... Cheers,","Dear Mr. Smith, ... Yours faithfully,"],a:0,e:"ไม่ทราบชื่อ → Dear Sir/Madam, คู่กับ Yours faithfully, (ถ้าทราบชื่อใช้ Dear Mr./Ms. + Yours sincerely,)"},
+    {t:"mc",q:"ข้อใดเหมาะกับอีเมลทางการที่สุด",c:["I wanna take 2 days off.","I'm gonna be away.","I am writing to request two days of leave.","Give me 2 days holiday."],a:2,e:"ภาษาทางการใช้ I am writing to request... หลีกเลี่ยงคำพูดปาก เช่น wanna, gonna"},
+    {t:"mc",q:"หัวเรื่อง (Subject) ที่ดีควรเป็นอย่างไร",c:["Hello","Leave Request: 10–11 June","Important!!!","(เว้นว่างไว้)"],a:1,e:"Subject ที่ดีต้องสั้น ชัดเจน บอกได้ทันทีว่าอีเมลเรื่องอะไร เช่น Leave Request: 10–11 June"},
+    {t:"mc",q:"คำใดเหมาะกับภาษาทางการมากกว่า",c:["about → regarding","regarding → about","help → helping","want → wanna"],a:0,e:"ภาษาทางการใช้ regarding แทน about, request แทน want, assist แทน help"},
+    {t:"mc",q:"ข้อใดควรหลีกเลี่ยงในอีเมลทางการ",c:["I am writing to inform you...","Thank you for your consideration.","I can't make it, it's too hard.","I would appreciate your assistance."],a:2,e:"อีเมลทางการไม่ควรใช้รูปย่อ (can't, it's) และควรใช้ภาษาสุภาพ เช่น I am unable to..."}
+   ]}
+ ]
+}
+];
+
+/* ============ APP ============ */
+function $(id){return document.getElementById(id)}
+function show(v){document.querySelectorAll('.view').forEach(x=>x.classList.remove('show'));$(v).classList.add('show');window.scrollTo(0,0)}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function stopAudio(){ if('speechSynthesis' in window) speechSynthesis.cancel(); }
+
+let curMod=null, curUnit=null;
+
+function totalUnits(){ return MODULES.reduce((s,m)=>s+m.units.length,0); }
+function totalQ(){
+  let n=0;
+  MODULES.forEach(m=>m.units.forEach(u=>{
+    n += (u.quiz||[]).length + (u.items||[]).length;
+  }));
+  return n;
+}
+
+function renderHome(){
+  let h="";
+  MODULES.forEach(m=>{
+    const nq = m.units.reduce((s,u)=>s+((u.quiz||[]).length+(u.items||[]).length),0);
+    h+=`<button class="mod" onclick="openMod('${m.key}')">
+      <div class="top">
+        <div class="ico">${m.emoji}</div>
+        <div style="flex:1;min-width:0">
+          <h3>${esc(m.name)}</h3>
+          <div class="d">${esc(m.desc)}</div>
+        </div>
+        <span class="cnt">${m.units.length} บท • ${nq} ข้อ</span>
+      </div>
+    </button>`;
+  });
+  $('modGrid').innerHTML=h;
+  $('cUnit').textContent=totalUnits();
+  $('cQ').textContent=totalQ();
+}
+function goHome(){ stopAudio(); show('home'); }
+
+function openMod(key){
+  stopAudio();
+  const m=MODULES.find(x=>x.key===key); curMod=key;
+  $('listTitle').innerHTML=`${m.emoji} ${esc(m.name)}`;
+  let h="";
+  m.units.forEach(u=>{
+    const nq=(u.quiz||[]).length+(u.items||[]).length;
+    h+=`<div class="unit" onclick="openUnit('${key}',${u.id})">
+      <span class="n">${u.id}</span>
+      <div class="b"><h4>${esc(u.title)}</h4><p>${esc(u.sub)} • ${nq} ข้อ</p></div>
+      <span class="arw">›</span>
+    </div>`;
+  });
+  $('listBody').innerHTML=h;
+  show('list');
+}
+function backToList(){ stopAudio(); if(curMod) openMod(curMod); else goHome(); }
+
+function findUnit(key,id){
+  const m=MODULES.find(x=>x.key===key);
+  return m ? m.units.find(u=>u.id===id) : null;
+}
+
+function openUnit(key,id){
+  stopAudio();
+  curMod=key; curUnit=id;
+  const u=findUnit(key,id);
+  if(u.type==='dictation'){ startDictation(key,id); return; }
+  $('lessonTitle').innerHTML=esc(u.title);
+  let h="";
+
+  /* teaching content */
+  const secs = u.content || u.guide || [];
+  secs.forEach(sec=>{
+    h+=`<section><h4>${esc(sec.h)}</h4>`;
+    if(sec.points&&sec.points.length){h+="<ul>";sec.points.forEach(p=>h+=`<li>${p}</li>`);h+="</ul>"}
+    if(sec.table){
+      h+=`<table class="tb"><tr>`;
+      sec.table.head.forEach(x=>h+=`<th>${esc(x)}</th>`);
+      h+=`</tr>`;
+      sec.table.rows.forEach(r=>{
+        h+=`<tr>`; r.forEach((c,i)=>h+=`<td${i>0?' class="en"':''}>${esc(c)}</td>`); h+=`</tr>`;
+      });
+      h+=`</table>`;
+    }
+    if(sec.kbox)h+=`<div class="kbox">${sec.kbox}</div>`;
+    h+=`</section>`;
+  });
+
+  /* reading passage */
+  if(u.type==='read'){
+    h+=`<section><h4>บทอ่าน — ${esc(u.level||'')}</h4>
+      <div style="margin-bottom:8px"><button class="btn ghost" onclick="playPassage('${key}',${id})">▶︎ ฟังทั้งบท</button></div>
+      <div class="exwrap">`;
+    u.passage.forEach(p=>{
+      h+=`<div class="ex">
+        <button class="say" onclick="speak(${JSON.stringify(p.en)})">🔊</button>
+        <div class="t"><div class="e">${esc(p.en)}</div><div class="h">${esc(p.th)}</div></div>
+      </div>`;
+    });
+    h+=`</div></section>`;
+    if(u.vocab&&u.vocab.length){
+      h+=`<section><h4>คำศัพท์ในบท</h4><table class="tb"><tr><th>คำศัพท์</th><th>ความหมาย</th></tr>`;
+      u.vocab.forEach(v=>h+=`<tr><td class="en">${esc(v.en)}</td><td>${esc(v.th)}</td></tr>`);
+      h+=`</table></section>`;
+    }
+  }
+
+  /* example sentences with audio */
+  if(u.ex&&u.ex.length){
+    h+=`<section><h4>ประโยคตัวอย่าง (กดฟังแล้วพูดตาม)</h4><div class="exwrap">`;
+    u.ex.forEach(e=>{
+      h+=`<div class="ex">
+        <button class="say" onclick="speak(${JSON.stringify(e.en)})">🔊</button>
+        <div class="t"><div class="e">${esc(e.en)}</div>
+        ${e.rd?`<div class="r">${esc(e.rd)}</div>`:''}
+        <div class="h">${esc(e.th)}</div></div>
+      </div>`;
+    });
+    h+=`</div></section>`;
+  }
+
+  /* writing task */
+  if(u.type==='write'){
+    h+=`<section><h4>โจทย์ของคุณ</h4>
+      <p style="font-size:15.5px;margin-bottom:8px">${esc(u.task)}</p>`;
+    if(u.hints&&u.hints.length){
+      h+=`<div class="kbox"><b>ประโยคช่วยเริ่ม:</b><br>`;
+      h+=u.hints.map(x=>esc(x)).join(' · ');
+      h+=`</div>`;
+    }
+    h+=`<textarea id="wbox" class="typebox" style="margin-top:10px" placeholder="พิมพ์คำตอบของคุณที่นี่..."></textarea>
+      <div style="margin-top:9px;display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn" onclick="showModel()">ดูตัวอย่างคำตอบ</button>
+        <button class="btn ghost" onclick="speakMyText()">🔊 ฟังสิ่งที่เขียน</button>
+      </div>
+      <div id="modelBox" class="model">
+        <b>ตัวอย่างคำตอบ (เขียนต่างจากนี้ได้ ไม่ผิด):</b>`;
+    u.model.forEach(m=>h+=`<div class="mline">${esc(m)}</div>`);
+    h+=`<b style="display:block;margin-top:8px">ตรวจงานตัวเองตามนี้:</b><ul class="chk">`;
+    u.check.forEach(c=>h+=`<li>${esc(c)}</li>`);
+    h+=`</ul></div></section>`;
+  }
+
+  $('lessonBody').innerHTML=h;
+  show('lesson');
+}
+
+function playPassage(key,id){
+  const u=findUnit(key,id);
+  speak(u.passage.map(p=>p.en).join(' '), 0.82);
+}
+function showModel(){ const b=$('modelBox'); if(b) b.classList.add('show'); }
+function speakMyText(){
+  const t=$('wbox'); if(!t) return;
+  const v=t.value.trim();
+  if(!v){ alert('พิมพ์คำตอบก่อนนะครับ แล้วค่อยกดฟัง'); return; }
+  speak(v, 0.85);
+}
+
+/* ============ QUIZ ENGINE ============ */
+let S={list:[],idx:0,score:0,wrong:[],answered:false,title:"",mode:"quiz"};
+const LAB=['ก','ข','ค','ง','จ'];
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+function buildQuiz(u){
+  return (u.quiz||[]).map(item=>{
+    const opts=item.c.map((text,i)=>({text,correct:i===item.a}));
+    shuffle(opts);
+    return {kind:'mc', t:item.t, au:item.au, q:item.q, opts, e:item.e, ans:opts.findIndex(o=>o.correct)};
+  });
+}
+
+function startQuizFromLesson(){ if(curMod&&curUnit) startQuiz(curMod,curUnit); }
+
+function startQuiz(key,id){
+  stopAudio();
+  const u=findUnit(key,id);
+  const list=shuffle(buildQuiz(u));
+  if(!list.length){ alert('บทนี้ยังไม่มีแบบฝึก'); return; }
+  S={list,idx:0,score:0,wrong:[],answered:false,title:u.title,mode:'quiz',key,id};
+  show('quiz'); renderQ();
+}
+
+function startDictation(key,id){
+  stopAudio();
+  const u=findUnit(key,id);
+  const list=u.items.map(it=>({kind:'type', au:it.au, th:it.th}));
+  S={list,idx:0,score:0,wrong:[],answered:false,title:u.title,mode:'dictation',key,id,intro:u.intro};
+  show('quiz'); renderQ();
+}
+
+function norm(s){
+  return String(s).toLowerCase()
+    .replace(/[.,!?;:'"“”‘’-]/g,'')
+    .replace(/\s+/g,' ')
+    .trim();
+}
+
+function renderQ(){
+  const item=S.list[S.idx]; S.answered=false;
+  $('quizTitle').textContent=S.title;
+  $('qbar').style.width=(S.idx/S.list.length*100)+'%';
+  $('qcount').textContent=`ข้อ ${S.idx+1} / ${S.list.length}`;
+  $('qscore').textContent=`คะแนน ${S.score}`;
+  let h='<div class="q-card">';
+
+  if(item.kind==='type'){
+    h+=`<span class="q-tag">🎧 ฟังแล้วพิมพ์ตาม</span>`;
+    if(S.idx===0&&S.intro) h+=`<div class="kbox" style="margin-bottom:10px">${esc(S.intro)}</div>`;
+    h+=`<button class="playbig" onclick="speak(${JSON.stringify(item.au)},0.8)">🔊 กดฟัง</button>
+      <div class="playrow">
+        <button onclick="speak(${JSON.stringify(item.au)},0.55)">🐢 ฟังช้า ๆ</button>
+        <button onclick="speak(${JSON.stringify(item.au)},0.9)">🐇 ความเร็วปกติ</button>
+      </div>
+      <input id="tbox" class="typebox" placeholder="พิมพ์ประโยคที่ได้ยิน..." autocomplete="off" autocapitalize="off" spellcheck="false">
+      <div class="exp" id="exp"><div class="tag"></div><div id="expText"></div></div>`;
+  } else {
+    const tagTxt = item.t==='listen' ? '🎧 ฟังแล้วตอบ' : (item.t==='fill' ? '✏️ เติมคำ' : (item.t==='order'?'🔀 เรียงประโยค':'📘 เลือกคำตอบ'));
+    h+=`<span class="q-tag">${tagTxt}</span>`;
+    if(item.t==='listen'&&item.au){
+      h+=`<button class="playbig" onclick="speak(${JSON.stringify(item.au)},0.8)">🔊 กดฟัง</button>
+        <div class="playrow"><button onclick="speak(${JSON.stringify(item.au)},0.55)">🐢 ฟังช้า ๆ</button></div>`;
+    }
+    h+=`<div class="q-text">${esc(item.q)}</div><div id="opts">`;
+    item.opts.forEach((o,i)=>{
+      h+=`<button class="opt" onclick="pick(${i})"><span class="lab">${LAB[i]}.</span>${esc(o.text)}</button>`;
+    });
+    h+=`</div><div class="exp" id="exp"><div class="tag"></div><div id="expText"></div></div>`;
+  }
+  h+='</div>';
+  $('qCard').innerHTML=h;
+
+  const nb=$('nextBtn');
+  if(item.kind==='type'){
+    nb.disabled=false; nb.textContent='ตรวจคำตอบ';
+    const tb=$('tbox');
+    if(tb){
+      tb.focus();
+      tb.addEventListener('keydown',ev=>{ if(ev.key==='Enter'){ ev.preventDefault(); nextQ(); }});
+    }
+    setTimeout(()=>speak(item.au,0.8),350);
+  } else {
+    nb.disabled=true; nb.textContent='เลือกคำตอบ';
+    if(item.t==='listen'&&item.au) setTimeout(()=>speak(item.au,0.8),350);
+  }
+}
+
+function pick(i){
+  if(S.answered)return;
+  S.answered=true;
+  const item=S.list[S.idx];
+  const correct=item.ans;
+  document.querySelectorAll('.opt').forEach((b,idx)=>{
+    b.disabled=true;
+    if(idx===correct)b.classList.add('correct');
+    else if(idx===i)b.classList.add('wrong');
+    else b.classList.add('dim');
+  });
+  const exp=$('exp'); exp.classList.add('show');
+  if(i===correct){
+    S.score++;
+    exp.classList.add('ok'); exp.classList.remove('no');
+    exp.querySelector('.tag').textContent='✓ ถูกต้อง';
+  }else{
+    exp.classList.add('no'); exp.classList.remove('ok');
+    exp.querySelector('.tag').textContent='✗ ยังไม่ถูก';
+    S.wrong.push({q:item.q||('เสียง: '+item.au),correct:item.opts[correct].text,chosen:item.opts[i].text,e:item.e});
+  }
+  $('expText').innerHTML=item.e;
+  $('qscore').textContent=`คะแนน ${S.score}`;
+  const nb=$('nextBtn'); nb.disabled=false;
+  nb.textContent=(S.idx===S.list.length-1)?'ดูผลคะแนน':'ข้อถัดไป ›';
+}
+
+function checkTyped(){
+  const item=S.list[S.idx];
+  const tb=$('tbox');
+  const val=tb?tb.value:'';
+  S.answered=true;
+  if(tb) tb.disabled=true;
+  const ok = norm(val)===norm(item.au);
+  const exp=$('exp'); exp.classList.add('show');
+  if(ok){
+    S.score++;
+    exp.classList.add('ok'); exp.classList.remove('no');
+    exp.querySelector('.tag').textContent='✓ ถูกต้อง เยี่ยมมาก!';
+    $('expText').innerHTML=`<div class="ans">${esc(item.au)}</div><div style="margin-top:4px">${esc(item.th)}</div>`;
+  }else{
+    exp.classList.add('no'); exp.classList.remove('ok');
+    exp.querySelector('.tag').textContent='✗ ยังไม่ตรง';
+    $('expText').innerHTML=`<div>คำตอบที่ถูกคือ:</div><div class="ans">${esc(item.au)}</div>
+      <div style="margin-top:4px">${esc(item.th)}</div>
+      <div style="margin-top:6px;color:var(--ink-soft);font-size:14px">คุณพิมพ์: ${esc(val)||'(ไม่ได้พิมพ์)'}</div>`;
+    S.wrong.push({q:'ฟังแล้วพิมพ์ตาม',correct:item.au,chosen:val||'(ไม่ได้พิมพ์)',e:item.th});
+  }
+  $('qscore').textContent=`คะแนน ${S.score}`;
+  const nb=$('nextBtn');
+  nb.textContent=(S.idx===S.list.length-1)?'ดูผลคะแนน':'ข้อถัดไป ›';
+}
+
+function nextQ(){
+  const item=S.list[S.idx];
+  if(item.kind==='type' && !S.answered){ checkTyped(); return; }
+  if(!S.answered)return;
+  stopAudio();
+  if(S.idx<S.list.length-1){ S.idx++; renderQ(); }
+  else showResult();
+}
+
+function showResult(){
+  stopAudio();
+  const total=S.list.length, pct=Math.round(S.score/total*100);
+  const C=2*Math.PI*54, off=C*(1-pct/100);
+  let verdict,color;
+  if(pct>=80){verdict='เยี่ยมมาก! บทนี้แม่นแล้ว 🎉';color='var(--good)';}
+  else if(pct>=60){verdict='ดีแล้ว — ทบทวนข้อที่พลาดอีกนิดนะ';color='var(--gold)';}
+  else{verdict='ยังไม่เป๊ะ ลองกลับไปอ่านบทเรียนแล้วทำใหม่ สู้ ๆ!';color='var(--bad)';}
+  let h=`<div class="result">
+    <div class="ring"><svg width="140" height="140">
+      <circle cx="70" cy="70" r="54" fill="none" stroke="#E4DDF2" stroke-width="12"/>
+      <circle cx="70" cy="70" r="54" fill="none" stroke="${color}" stroke-width="12"
+        stroke-dasharray="${C}" stroke-dashoffset="${off}" stroke-linecap="round"/>
+    </svg><div class="pct"><b>${pct}%</b><span>${S.score}/${total} ข้อ</span></div></div>
+    <h2>${esc(S.title)}</h2>
+    <div class="vd">${verdict}</div>
+    <div class="acts">
+      <button class="btn" onclick="retry()">ทำใหม่อีกครั้ง</button>
+      <button class="btn ghost" onclick="backToList()">เลือกบทอื่น</button>
+    </div>`;
+  if(S.wrong.length){
+    h+=`<div class="rev"><h3>ทบทวนข้อที่ยังไม่ถูก (${S.wrong.length} ข้อ)</h3>`;
+    S.wrong.forEach((w,i)=>{
+      h+=`<div class="rev-i"><div class="q">${i+1}. ${esc(w.q)}</div>
+        <div class="a">✓ คำตอบที่ถูก: ${esc(w.correct)}</div>
+        <div class="w">✗ ที่คุณตอบ: ${esc(w.chosen)}</div>
+        <div class="e">💡 ${w.e}</div></div>`;
+    });
+    h+=`</div>`;
+  }else{
+    h+=`<div class="rev"><h3 style="color:var(--good)">เก่งมาก! ถูกหมดทุกข้อ 🌟</h3></div>`;
+  }
+  h+=`</div>`;
+  $('result').innerHTML=h;
+  show('result');
+}
+
+function retry(){
+  if(S.mode==='dictation') startDictation(S.key,S.id);
+  else startQuiz(S.key,S.id);
+}
+
+/* init */
+renderHome();
+</script>
+</body>
+</html>
