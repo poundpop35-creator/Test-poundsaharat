@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>วิเคราะห์เหมือน–ต่าง: หัวข้อสอบข้ามหน่วยงาน</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink0:#26323C;--ink0-700:#1B242C;--ink0-500:#41525F;
+  --gold:#C68A1E;--gold-soft:#F3E7CA;--paper:#F5F7F9;--card:#FFFFFF;
+  --ink:#1E262E;--ink-soft:#5B6874;--line:#DFE5EA;
+  --core:#1E8E6A;--core-bg:#E6F5EF;
+  --uniq:#B0473F;--uniq-bg:#FBECEB;
+  --half:#C68A1E;--half-bg:#FAF1DC;
+  --shadow:0 6px 24px rgba(38,50,60,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Sarabun',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;font-size:17px;padding-bottom:60px}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+h1,h2,h3,.kanit{font-family:'Kanit',sans-serif;font-weight:600;line-height:1.35}
+header{background:linear-gradient(135deg,var(--ink0) 0%,var(--ink0-500) 100%);color:#fff;padding:26px 0 22px;position:relative;overflow:hidden}
+header::after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(198,138,30,.40),transparent 70%)}
+header a.back{display:inline-flex;align-items:center;gap:6px;color:#D6DEE5;text-decoration:none;font-family:'Kanit';font-size:14px;font-weight:500;margin-bottom:10px}
+.eyebrow{font-family:'Kanit';font-weight:500;letter-spacing:.06em;font-size:13px;color:var(--gold-soft);text-transform:uppercase}
+header h1{font-size:24px;margin:6px 0 4px;font-weight:700}
+header .sub{font-size:15px;color:#DCE4EA}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);padding:5px 11px;border-radius:999px;font-size:13px;font-family:'Kanit';font-weight:500}
+.chip b{color:var(--gold-soft)}
+.tabs{display:flex;gap:6px;margin:18px 0 6px;position:sticky;top:0;z-index:20;background:var(--paper);padding:10px 0;border-bottom:1px solid var(--line);overflow-x:auto}
+.tab{flex:1;min-width:110px;text-align:center;font-family:'Kanit';font-weight:500;font-size:14.5px;padding:9px 8px;border-radius:11px;border:1px solid var(--line);background:var(--card);color:var(--ink-soft);cursor:pointer;transition:.15s;white-space:nowrap}
+.tab.active{background:var(--ink0);color:#fff;border-color:var(--ink0)}
+.view{display:none;animation:fade .25s ease}
+.view.show{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.intro-card{background:linear-gradient(180deg,#fff,#FBFCFD);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin:14px 0;box-shadow:var(--shadow)}
+.intro-card h2{font-size:18px;color:var(--ink0);margin-bottom:6px}
+.intro-card p{font-size:15px;color:var(--ink-soft);margin-bottom:6px}
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;font-family:'Kanit';font-size:13px}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.dot{width:14px;height:14px;border-radius:4px;display:inline-block}
+.d-core{background:var(--core)}.d-half{background:var(--half)}.d-no{background:#DFE5EA}
+.scroller{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:14px;background:var(--card);box-shadow:var(--shadow);margin-bottom:14px}
+table.mx{border-collapse:collapse;width:100%;min-width:660px;font-size:14.5px}
+table.mx th,table.mx td{border:1px solid var(--line);padding:8px 9px;text-align:center;vertical-align:middle}
+table.mx thead th{background:#EDF1F4;font-family:'Kanit';font-weight:600;color:var(--ink0-700);font-size:13.5px;position:sticky;top:0}
+table.mx td.subj{text-align:left;font-weight:600;color:var(--ink0-700);min-width:230px;background:#FAFBFC}
+table.mx td.cnt{font-family:'Kanit';font-weight:700}
+.yes{color:var(--core);font-weight:700;font-size:17px}
+.part{color:var(--half);font-weight:700;font-size:17px}
+.no{color:#C3CCD3}
+.badge-core{background:var(--core-bg);color:#12664B;font-family:'Kanit';font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px;white-space:nowrap}
+.badge-uniq{background:var(--uniq-bg);color:#8C332C;font-family:'Kanit';font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px;white-space:nowrap}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 17px;margin-bottom:12px;box-shadow:var(--shadow)}
+section h3{font-family:'Kanit';font-weight:600;font-size:17px;color:var(--ink0-700);margin-bottom:9px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+section h3::before{content:"";width:7px;height:19px;background:var(--gold);border-radius:3px;flex:none}
+section.core h3::before{background:var(--core)}
+section.uniq h3::before{background:var(--uniq)}
+ul.pl{list-style:none;padding:0}
+ul.pl li{position:relative;padding:5px 0 5px 21px;font-size:15.5px}
+ul.pl li::before{content:"▪";color:var(--ink0-500);position:absolute;left:3px;top:5px}
+ul.pl li b{color:var(--ink0-700)}
+.kbox{background:var(--gold-soft);border-left:4px solid var(--gold);border-radius:8px;padding:10px 13px;margin-top:10px;font-size:14.5px}
+.kbox b{color:#8a6414}
+.okbox{background:var(--core-bg);border-left:4px solid var(--core);border-radius:8px;padding:10px 13px;margin-top:10px;font-size:14.5px}
+.okbox b{color:#12664B}
+.agency{display:flex;gap:11px;align-items:flex-start;margin-bottom:8px}
+.agency .ico{width:42px;height:42px;border-radius:12px;background:#EDF1F4;display:flex;align-items:center;justify-content:center;font-size:22px;flex:none}
+.agency .nm{font-family:'Kanit';font-weight:600;font-size:16.5px;color:var(--ink0-700)}
+.agency .ps{font-size:13.5px;color:var(--ink-soft);font-family:'Kanit'}
+.golink{display:inline-block;margin-top:9px;font-family:'Kanit';font-weight:500;font-size:14px;color:#fff;background:var(--ink0);border-radius:10px;padding:7px 14px;text-decoration:none}
+.golink:active{background:var(--ink0-700)}
+.bar{height:9px;background:var(--line);border-radius:999px;overflow:hidden;margin:6px 0 3px}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--core),var(--half))}
+.barlab{font-family:'Kanit';font-size:13px;color:var(--ink-soft);display:flex;justify-content:space-between}
+.step{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px dashed var(--line)}
+.step:last-child{border-bottom:none}
+.step .n{width:30px;height:30px;border-radius:9px;background:var(--ink0);color:#fff;font-family:'Kanit';font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;flex:none}
+.step .c h4{font-family:'Kanit';font-weight:600;font-size:15.5px;color:var(--ink0-700)}
+.step .c p{font-size:14.5px;color:var(--ink-soft);margin-top:2px}
+footer{text-align:center;color:var(--ink-soft);font-size:13px;margin:28px 0 8px;padding:0 16px}
+.note{background:#fff;border:1px dashed var(--line);border-radius:12px;padding:11px 14px;font-size:13.5px;color:var(--ink-soft);margin:14px 0}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="index.html">← กลับหน้าแรก</a>
+    <div class="eyebrow">วิเคราะห์เปรียบเทียบขอบเขตการสอบ</div>
+    <h1>เหมือน–ต่าง: อ่านครั้งเดียว สอบได้หลายที่</h1>
+    <div class="sub">เทียบหัวข้อสอบ 5 หน่วยงานในคลังนี้ ว่าอะไรใช้ร่วมกันได้ และอะไรต้องเจาะเฉพาะที่</div>
+    <div class="meta-row">
+      <span class="chip">เทียบ <b>5 หน่วยงาน</b></span>
+      <span class="chip">แกนร่วม <b>12 หัวข้อ</b></span>
+      <span class="chip">ประหยัดเวลาอ่าน <b>~55%</b></span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="tabs">
+    <div class="tab active" onclick="go(0)">สรุปภาพรวม</div>
+    <div class="tab" onclick="go(1)">ตารางเทียบ</div>
+    <div class="tab" onclick="go(2)">แกนร่วม</div>
+    <div class="tab" onclick="go(3)">ส่วนต่าง</div>
+    <div class="tab" onclick="go(4)">แผนการอ่าน</div>
+  </div>
+
+  <!-- ============ 0. OVERVIEW ============ -->
+  <div id="v0" class="view show">
+    <div class="intro-card">
+      <h2>ข้อสรุปสั้นที่สุด</h2>
+      <p>ขอบเขตสอบของทั้ง 5 หน่วยงาน <b>ซ้อนทับกันราว 50–60%</b> — ส่วนที่ซ้อนทับคือ “กฎหมายกลาง + แผนระดับชาติ + เครื่องมือบริหาร” ซึ่ง<b>อ่านรอบเดียวใช้ได้ทุกสนาม</b> ส่วนที่เหลืออีก 40–50% คือความรู้เฉพาะหน่วยงาน ซึ่ง<b>เป็นตัวตัดสินแพ้ชนะ</b> เพราะคู่แข่งส่วนใหญ่อ่านแกนร่วมมาเหมือนกันหมด</p>
+    </div>
+
+    <section class="core">
+      <h3>สัดส่วนโดยประมาณของแต่ละสนาม</h3>
+      <div id="ratios"></div>
+      <div class="okbox"><b>อ่านตัวเลขนี้อย่างไร:</b> ยิ่งแถบเขียวยาว = ยิ่งใช้ความรู้ร่วมกับสนามอื่นได้มาก • <b>สป.กษ. กับ สตง.</b> ซ้อนทับกันสูงสุดเพราะเป็นตำแหน่งสายเดียวกัน (นักวิเคราะห์นโยบายและแผน) • <b>กรมสรรพากร (พัสดุ)</b> ซ้อนทับน้อยที่สุดเพราะเป็นสายพัสดุ-การเงิน</div>
+    </section>
+
+    <section>
+      <h3>3 ข้อค้นพบสำคัญ</h3>
+      <ul class="pl">
+        <li><b>① พ.ร.บ.วิธีการงบประมาณ 2561 + ระเบียบบริหารงบประมาณ 2562 คือหัวข้อที่ออกสอบมากที่สุด</b> — พบใน 4 จาก 5 หน่วยงาน ถ้าจะอ่านอะไรก่อนสักอย่าง ให้อ่านตัวนี้ (ปีงบประมาณ 1 ต.ค.–30 ก.ย. / งบรายจ่าย 5 ประเภท / 4 หน่วยงานกำหนดวงเงิน)</li>
+        <li><b>② ตำแหน่งเดียวกันข้ามกรม = อ่านร่วมกันได้เกือบหมด</b> — “นักวิเคราะห์นโยบายและแผน” ที่ สตง. กับ สป.กษ. ใช้แกนเดียวกันคือ แผนระดับชาติ + การวางแผนเชิงกลยุทธ์ + ติดตามประเมินผล ต่างกันแค่กฎหมายเฉพาะและแผนของหน่วยงานตัวเอง</li>
+        <li><b>③ สิ่งที่ทำให้สอบตกคือ “ของเฉพาะที่” ไม่ใช่ของกลาง</b> — เช่น วิสัยทัศน์ สป.กษ. (ภายในปี 2570) ที่มักสับสนกับวิสัยทัศน์กระทรวง หรือวงเงิน 500,000/100,000 ของงานพัสดุ ซึ่งไม่มีในสนามอื่น</li>
+      </ul>
+      <div class="kbox"><b>กฎ 80/20 ของคลังนี้:</b> อ่าน “กฎหมายกลาง” 1 รอบ → ได้คะแนนพื้นฐานทุกสนาม แล้วค่อยทุ่มเวลาที่เหลือทั้งหมดไปที่ <b>หัวข้อเฉพาะหน่วยงานที่คุณจะสอบจริง</b></div>
+    </section>
+
+    <section>
+      <h3>หน่วยงานที่เทียบในหน้านี้</h3>
+      <div id="agencies"></div>
+    </section>
+  </div>
+
+  <!-- ============ 1. MATRIX ============ -->
+  <div id="v1" class="view">
+    <div class="intro-card">
+      <h2>ตารางเทียบหัวข้อสอบ</h2>
+      <p>แถวคือหัวข้อ คอลัมน์คือหน่วยงาน — เลื่อนตารางไปทางขวาเพื่อดูให้ครบ</p>
+      <div class="legend">
+        <span><i class="dot d-core"></i> ออกสอบชัดเจน</span>
+        <span><i class="dot d-half"></i> ออกบางส่วน/แฝงในหัวข้ออื่น</span>
+        <span><i class="dot d-no"></i> ไม่อยู่ในขอบเขต</span>
+      </div>
+    </div>
+    <div class="scroller"><table class="mx" id="matrix"></table></div>
+    <div class="note">📌 อ้างอิงจากประกาศรับสมัครของแต่ละหน่วยงานที่ใช้สร้างแอปในคลังนี้ — หากประกาศรอบใหม่เปลี่ยนหัวข้อ ให้ยึดประกาศฉบับล่าสุดเป็นหลัก</div>
+  </div>
+
+  <!-- ============ 2. CORE ============ -->
+  <div id="v2" class="view">
+    <div class="intro-card">
+      <h2>แกนร่วม — อ่านครั้งเดียวใช้ได้หลายสนาม</h2>
+      <p>เรียงจาก<b>ออกสอบบ่อยที่สุด</b>ลงมา พร้อมจุดที่ต้องท่องจริง ๆ ไม่ใช่แค่รู้ว่ามีหัวข้อนี้</p>
+    </div>
+    <div id="coreList"></div>
+  </div>
+
+  <!-- ============ 3. UNIQUE ============ -->
+  <div id="v3" class="view">
+    <div class="intro-card">
+      <h2>ส่วนต่าง — ตัวตัดสินแพ้ชนะ</h2>
+      <p>หัวข้อที่<b>มีเฉพาะหน่วยงานนั้น</b> คู่แข่งที่อ่านแต่ของกลางจะตอบไม่ได้ ตรงนี้คือที่ที่ควรทุ่มเวลามากที่สุด</p>
+    </div>
+    <div id="uniqList"></div>
+  </div>
+
+  <!-- ============ 4. PLAN ============ -->
+  <div id="v4" class="view">
+    <div class="intro-card">
+      <h2>ลำดับการอ่านที่คุ้มเวลาที่สุด</h2>
+      <p>ถ้าจะสอบหลายที่ในช่วงเวลาใกล้กัน ให้ไล่ตามลำดับนี้</p>
+    </div>
+    <section>
+      <h3>แผน 4 สัปดาห์ (สอบหลายสนาม)</h3>
+      <div id="plan"></div>
+    </section>
+    <section>
+      <h3>ถ้าเหลือเวลาน้อย — อ่านอะไรก่อน</h3>
+      <ul class="pl">
+        <li><b>เหลือ 1 สัปดาห์:</b> ท่องเฉพาะ “ตัวเลข” ของหน่วยงานที่จะสอบ + กฎหมายกลาง 3 ตัว (วิธีการงบประมาณ / บ้านเมืองที่ดี / ข้าราชการพลเรือน)</li>
+        <li><b>เหลือ 3 วัน:</b> เปิดแท็บ <b>“จุดต้องท่อง / ตัวเลขต้องท่อง / สรุป พ.ร.บ.”</b> ในแอปของหน่วยงานนั้น อ่านซ้ำ ๆ อย่างเดียว แล้วทำข้อสอบรวมวันละ 1 รอบ</li>
+        <li><b>คืนก่อนสอบ:</b> ทำ “ข้อสอบรวม” 1 รอบ แล้วอ่านเฉพาะข้อที่ผิด — อย่าเริ่มอ่านเนื้อหาใหม่</li>
+      </ul>
+      <div class="okbox"><b>เทคนิคใช้คลังนี้:</b> ทำข้อสอบรวมของสนามที่จะสอบก่อน → ดูว่าพลาดหมวดไหนเยอะ → ย้อนกลับไปอ่านเฉพาะหมวดนั้น ประหยัดเวลากว่าอ่านไล่ตั้งแต่ต้นมาก</div>
+    </section>
+    <section>
+      <h3>ข้อควรระวังร่วมของทุกสนาม</h3>
+      <ul class="pl">
+        <li><b>ตัวเลขที่คล้ายกันแต่คนละเรื่อง</b> — แผนปฏิบัติราชการ <b>5 ปี</b> / แผนแม่บทฯ <b>23 ประเด็น</b> / หมุดหมาย <b>13</b> / ยุทธศาสตร์ชาติ <b>6 ด้าน</b> / งบรายจ่าย <b>5 ประเภท</b> / หนังสือราชการ <b>6 ชนิด</b></li>
+        <li><b>วิสัยทัศน์กระทรวง ≠ วิสัยทัศน์กรม/สำนักงานปลัด</b> — ข้อสอบชอบเอามาสลับกันเป็นตัวเลือก</li>
+        <li><b>ค่านิยม ≠ วัฒนธรรมองค์การ ≠ พันธกิจ</b> — ต้องแยกให้ออกว่าอันไหนคืออะไร</li>
+        <li><b>ปีที่ประกาศ ≠ ปีที่มีผลบังคับ</b> — เช่น จัดซื้อจัดจ้าง ประกาศ 24 ก.พ. 60 แต่มีผล 23 ส.ค. 60 / PDPA ประกาศ 2562 แต่บังคับเต็มรูป 1 มิ.ย. 2565</li>
+      </ul>
+    </section>
+  </div>
+
+  <footer>วิเคราะห์จากประกาศรับสมัครของแต่ละหน่วยงาน • ใช้ประกอบการวางแผนอ่านหนังสือ</footer>
+</div>
+
+<script>
+/* ---------- DATA ---------- */
+const AGENCIES = [
+  {key:"sao",  ico:"🔎", nm:"สตง.", full:"สำนักงานการตรวจเงินแผ่นดิน", pos:"นักวิเคราะห์นโยบายและแผน", link:"sao.html",     core:60},
+  {key:"kaset",ico:"🌾", nm:"สป.กษ.", full:"สำนักงานปลัดกระทรวงเกษตรและสหกรณ์", pos:"นักวิเคราะห์นโยบายและแผน", link:"opsmoac.html", core:62},
+  {key:"rd",   ico:"🧾", nm:"สรรพากร", full:"กรมสรรพากร", pos:"นักวิชาการพัสดุ", link:"rd.html",      core:38},
+  {key:"water",ico:"💧", nm:"น้ำบาดาล", full:"กรมทรัพยากรน้ำบาดาล", pos:"ภาค ข. เฉพาะตำแหน่ง", link:"namban.html",  core:50},
+  {key:"dip",  ico:"🏭", nm:"ดีพร้อม", full:"กรมส่งเสริมอุตสาหกรรม", pos:"นักวิชาการอุตสาหกรรม", link:"diprom.html",  core:45}
+];
+
+/* 2 = ออกสอบชัดเจน, 1 = ออกบางส่วน, 0 = ไม่มี */
+const SUBJECTS = [
+  {n:"พ.ร.บ.วิธีการงบประมาณ 2561 + ระเบียบบริหารงบประมาณ 2562", v:{sao:2,kaset:2,rd:2,water:2,dip:0}},
+  {n:"วิสัยทัศน์ / พันธกิจ / โครงสร้างหน่วยงาน", v:{sao:2,kaset:2,rd:2,water:2,dip:2}, note:"รูปแบบเหมือน แต่เนื้อหาคนละชุด"},
+  {n:"ยุทธศาสตร์ชาติ 20 ปี + แผนแม่บทฯ 23 ประเด็น", v:{sao:2,kaset:2,rd:0,water:1,dip:1}},
+  {n:"แผนพัฒนาฯ ฉบับที่ 13 (13 หมุดหมาย)", v:{sao:2,kaset:2,rd:0,water:1,dip:1}},
+  {n:"การวางแผนเชิงกลยุทธ์ (SWOT/TOWS/BSC/Logframe)", v:{sao:2,kaset:2,rd:0,water:2,dip:1}},
+  {n:"การติดตามและประเมินผล (Output/Outcome, CIPP, 3E)", v:{sao:2,kaset:2,rd:0,water:2,dip:1}},
+  {n:"สถานการณ์เศรษฐกิจ สังคม การเมือง", v:{sao:0,kaset:2,rd:2,water:2,dip:2}},
+  {n:"พ.ร.ฎ.บริหารกิจการบ้านเมืองที่ดี 2546/2562", v:{sao:2,kaset:2,rd:0,water:0,dip:1}},
+  {n:"พ.ร.บ.วินัยการเงินการคลังของรัฐ 2561", v:{sao:2,kaset:2,rd:1,water:0,dip:0}},
+  {n:"พ.ร.บ.จัดซื้อจัดจ้างและการบริหารพัสดุภาครัฐ 2560", v:{sao:0,kaset:1,rd:2,water:0,dip:2}},
+  {n:"พ.ร.บ.ข้อมูลข่าวสารฯ 2540 + PDPA 2562", v:{sao:0,kaset:1,rd:2,water:0,dip:2}},
+  {n:"พ.ร.บ.ระเบียบข้าราชการพลเรือน 2551", v:{sao:0,kaset:2,rd:0,water:0,dip:2}},
+  {n:"ระเบียบงานสารบรรณ 2526 (+ e-Document 2564)", v:{sao:0,kaset:2,rd:0,water:0,dip:1}},
+  {n:"มาตรฐานทางจริยธรรม 2562", v:{sao:2,kaset:1,rd:0,water:0,dip:1}},
+  {n:"ควบคุมภายใน COSO / บริหารความเสี่ยง", v:{sao:2,kaset:1,rd:0,water:0,dip:0}},
+  {n:"นโยบายสาธารณะ (ตัวแบบการตัดสินใจ)", v:{sao:2,kaset:1,rd:0,water:0,dip:0}},
+  {n:"— กฎหมายเฉพาะหน่วยงาน —", v:{sao:2,kaset:2,rd:2,water:2,dip:2}, sep:true, note:"คนละฉบับกันทั้งหมด (ดูแท็บ ‘ส่วนต่าง’)"},
+  {n:"— ทักษะเฉพาะตำแหน่ง —", v:{sao:2,kaset:2,rd:2,water:2,dip:1}, sep:true, note:"เช่น พัสดุ/เบิกจ่าย, ภาษาอังกฤษ, วิเคราะห์โครงการ"}
+];
+
+const CORE = [
+ {t:"พ.ร.บ.วิธีการงบประมาณ 2561 + ระเบียบบริหารงบประมาณ 2562", hit:"4 / 5 หน่วยงาน",
+  pts:["<b>ปีงบประมาณ 1 ต.ค. – 30 ก.ย.</b> ของปีถัดไป",
+   "<b>งบรายจ่าย 5 ประเภท</b>: บุคลากร / ดำเนินงาน / ลงทุน / เงินอุดหนุน / รายจ่ายอื่น (ครุภัณฑ์ = งบลงทุน)",
+   "<b>4 หน่วยงานกำหนดวงเงิน</b>: สำนักงบประมาณ + คลัง + สภาพัฒน์ + ธปท. (ไม่มี ก.พ.ร. / กรมบัญชีกลาง)",
+   "งบออกไม่ทัน → <b>ใช้ปีก่อนไปพลางก่อน</b> • วงจรงบประมาณ 4 ขั้น: จัดทำ → อนุมัติ → บริหาร → ติดตามประเมินผล"]},
+ {t:"วิสัยทัศน์ พันธกิจ โครงสร้างของหน่วยงาน", hit:"5 / 5 หน่วยงาน",
+  pts:["<b>รูปแบบคำถามเหมือนกันทุกที่ แต่คำตอบคนละชุด</b> — ต้องท่องของหน่วยงานที่จะสอบเท่านั้น",
+   "กับดักที่เจอทุกสนาม: <b>วิสัยทัศน์กระทรวง ≠ วิสัยทัศน์กรม/สำนักงานปลัด</b>",
+   "<b>ค่านิยม ≠ วัฒนธรรมองค์การ ≠ พันธกิจ</b> — ข้อสอบชอบเอามาสลับเป็นตัวเลือก",
+   "ตัวเลขโครงสร้าง (จำนวนกอง/สำนัก/เขต/จังหวัด) เป็นข้อสอบที่ได้คะแนนง่ายถ้าท่องมา"]},
+ {t:"ยุทธศาสตร์ชาติ 20 ปี + แผนแม่บทฯ + แผนพัฒนาฯ 13", hit:"3–4 / 5 หน่วยงาน",
+  pts:["<b>ยุทธศาสตร์ชาติ (2561–2580)</b> ประกาศ <b>13 ต.ค. 2561</b> • <b>6 ด้าน</b> • “มั่นคง มั่งคั่ง ยั่งยืน”",
+   "<b>แผนแม่บทฯ 23 ประเด็น</b> = แผนระดับ 2 • <b>ระบบแผน 3 ระดับ</b> ตามมติ ครม. <b>4 ธ.ค. 2560</b>",
+   "<b>แผนพัฒนาฯ 13 (2566–2570)</b>: “สังคมก้าวหน้า เศรษฐกิจสร้างมูลค่าอย่างยั่งยืน” • <b>เป้าหมายหลัก 5 / หมุดหมาย 13 / มิติ 4</b>",
+   "<b>eMENSCR</b> = ระบบติดตามยุทธศาสตร์ชาติ (อย่าสับสนกับ GFMIS / e-GP / BB EvMIS)"],
+  warn:"เลข 5–13–4–23–6 อยู่ใกล้กันมาก ข้อสอบชอบสลับ ให้ท่องเป็นชุด"},
+ {t:"การวางแผนเชิงกลยุทธ์ + การติดตามประเมินผล", hit:"3–4 / 5 หน่วยงาน (สายวิเคราะห์นโยบายฯ)",
+  pts:["<b>SWOT</b>: S/W ภายใน, O/T ภายนอก • <b>TOWS</b>: SO เชิงรุก / ST เชิงป้องกัน / WO เชิงแก้ไข / <b>WT เชิงรับ-ถอย</b>",
+   "<b>PESTEL</b> = ภายนอก • <b>7S ของ McKinsey</b> = ภายใน • <b>BSC</b> 4 มุมมอง",
+   "<b>ห่วงโซ่ผลลัพธ์</b>: Input → Process → <b>Output</b> (จำนวนผู้เข้าร่วม) → <b>Outcome</b> (รายได้/พฤติกรรมที่เปลี่ยน) → Impact",
+   "<b>CIPP</b> = Context-Input-Process-<b>Product</b> • <b>3E</b>: Economy / Efficiency (In→Out) / Effectiveness (Out→Outcome) • ตัวชี้วัด <b>SMART</b>"]},
+ {t:"พ.ร.ฎ.บริหารกิจการบ้านเมืองที่ดี 2546 และ (ฉ.2) 2562", hit:"2–3 / 5 หน่วยงาน",
+  pts:["<b>9 หมวด</b> + <b>เป้าหมาย 7 ประการ (มาตรา 6)</b>",
+   "<b>มาตรา 16 (ฉบับแก้ไข 2562) = แผนปฏิบัติราชการ 5 ปี</b> + แผนรายปี (ของเดิม 4 ปี — จุดหลอก)",
+   "เน้นบริหารมุ่งผลสัมฤทธิ์ ลดขั้นตอน One Stop Service"]},
+ {t:"พ.ร.บ.วินัยการเงินการคลังของรัฐ 2561", hit:"2–3 / 5 หน่วยงาน",
+  pts:["ประกาศ 19 เม.ย. 2561 มีผล <b>20 เม.ย. 2561</b> ตาม <b>รธน. 2560 ม.62</b>",
+   "<b>คณะกรรมการนโยบายการเงินการคลังของรัฐ</b>: ประธาน = <b>นายกรัฐมนตรี</b> / รองประธาน = รมว.คลัง / เลขาฯ = ผอ.สศค.",
+   "<b>มาตรา 79</b> = ต้องมีตรวจสอบภายใน ควบคุมภายใน และบริหารความเสี่ยง ← เชื่อมกับ COSO"]},
+ {t:"พ.ร.บ.จัดซื้อจัดจ้างฯ 2560", hit:"2–3 / 5 หน่วยงาน (แต่ลึกไม่เท่ากัน)",
+  pts:["ระดับ<b>ทั่วไป</b> (สนามอื่น): หลัก 4 ข้อ (คุ้มค่า โปร่งใส มีประสิทธิภาพ/ประสิทธิผล ตรวจสอบได้) + <b>3 วิธี</b>",
+   "ระดับ<b>ลึก</b> (สายพัสดุ เช่น กรมสรรพากร): ต้องรู้วงเงิน คณะกรรมการ หลักประกัน ค่าปรับ อุทธรณ์ การจำหน่ายพัสดุ",
+   "ประกาศ <b>24 ก.พ. 2560</b> → มีผล <b>23 ส.ค. 2560</b> (พ้น 180 วัน)"],
+  warn:"หัวข้อเดียวกันแต่ ‘ความลึก’ ต่างกันมาก — สายพัสดุต้องท่องตัวเลข สายวิเคราะห์รู้แค่หลักการพอ"},
+ {t:"พ.ร.บ.ข้อมูลข่าวสารฯ 2540 + PDPA 2562", hit:"2–3 / 5 หน่วยงาน",
+  pts:["<b>เปิดเผยเป็นหลัก ปกปิดเป็นข้อยกเว้น</b> • <b>ม.7</b> ลงราชกิจจาฯ • <b>ม.9</b> จัดให้ตรวจดู • <b>ม.14</b> ห้ามเด็ดขาด • <b>ม.15</b> ใช้ดุลพินิจ",
+   "<b>PDPA</b> ประกาศ 2562 <b>บังคับเต็มรูป 1 มิ.ย. 2565</b> • แจ้งเหตุละเมิดใน <b>72 ชม.</b> • ปรับทางปกครองไม่เกิน <b>5 ล้านบาท</b>",
+   "3 ฝ่าย: เจ้าของข้อมูล / ผู้ควบคุม (Controller) / ผู้ประมวลผล (Processor)"]},
+ {t:"พ.ร.บ.ระเบียบข้าราชการพลเรือน 2551 + งานสารบรรณ + จริยธรรม", hit:"2–3 / 5 หน่วยงาน",
+  pts:["<b>ตำแหน่ง 4 ประเภท</b>: บริหาร / อำนวยการ / วิชาการ / ทั่วไป — นักวิเคราะห์ฯ และนักวิชาการ = <b>ประเภทวิชาการ</b>",
+   "<b>โทษวินัย 5 สถาน</b>: ภาคทัณฑ์ → ตัดเงินเดือน → ลดเงินเดือน → ปลดออก → ไล่ออก (ปลดออกได้บำนาญ / ไล่ออกไม่ได้)",
+   "<b>หนังสือราชการ 6 ชนิด</b> • ชั้นความลับ <b>3 ชั้น</b> • <b>มาตรฐานจริยธรรม 7 ประการ</b>"]}
+];
+
+const UNIQ = [
+ {key:"sao", t:"เฉพาะ สตง. เท่านั้น",
+  pts:["<b>พ.ร.ป.ว่าด้วยการตรวจเงินแผ่นดิน พ.ศ. 2561</b> — คตง. 7 คน วาระ 7 ปี (อายุ 45–70) / ผู้ว่าการ วาระ 6 ปี / ตรวจสอบ 3 แบบ (Financial–Compliance–Performance) / โทษปรับทางปกครอง → ฟ้องศาลปกครองสูงสุด / กลไก 3 องค์กร (คตง.+กกต.+ป.ป.ช.)",
+   "<b>ประกาศ คตง. เรื่องข้อกำหนดทางจริยธรรมฯ</b> + <b>INTOSAI / ISSAI 130</b>",
+   "<b>นโยบายการตรวจเงินแผ่นดิน (2566–2570)</b> — ตรวจเชิงป้องกัน สร้างมูลค่าเพิ่ม ใช้ Data Analytics",
+   "<b>นโยบายสาธารณะเชิงลึก</b> — Dye / Lindblom / Etzioni / Easton / Lipsky / OECD-DAC 6 ข้อ",
+   "<b>ควบคุมภายใน–บริหารความเสี่ยงเชิงลึก</b> — COSO 2013 (5 องค์ประกอบ 17 หลักการ), COSO ERM 2017, ปค.1/4/5/6, ส่งภายใน 90 วัน, Three Lines Model"]},
+ {key:"kaset", t:"เฉพาะ สป.กษ. เท่านั้น",
+  pts:["<b>แผนปฏิบัติราชการ 5 ปี ของ สป.กษ.</b> — วิสัยทัศน์ “ศูนย์กลางการขับเคลื่อนนโยบายฯ <b>ภายในปี 2570</b>” / พันธกิจ <b>2 ข้อ</b> / แผน <b>6 ด้าน</b> / วงเงิน 17,135.2804 ล้านบาท",
+   "<b>โครงสร้าง</b> — ส่วนกลาง <b>15 หน่วย</b> / ต่างประเทศ <b>11 แห่ง</b> / เกษตรและสหกรณ์จังหวัด <b>76 จังหวัด</b>",
+   "<b>แผนแม่บทฯ ประเด็นที่ 3 การเกษตร (6 แผนย่อย)</b> + หมุดหมาย <b>1, 11, 13</b> (GDP เกษตร 4.5% / รายได้ 537,000 บาท)",
+   "<b>นโยบายเกษตร</b> — BCG วาระแห่งชาติ <b>19 ม.ค. 2564</b> / AIC จังหวัดละ 1 แห่ง / Agri-Map / เกษตรกรรมยั่งยืน <b>5 รูปแบบ</b>",
+   "<b>การวิเคราะห์โครงการเชิงการเงิน</b> — NPV / IRR / B-C Ratio / Payback / <b>CPM Critical Path</b>",
+   "<b>กองทุนสงเคราะห์เกษตรกร</b> + กองทุนหมุนเวียนเพื่อการกู้ยืมแก่เกษตรกรและผู้ยากจน"]},
+ {key:"rd", t:"เฉพาะ กรมสรรพากร (สายพัสดุ) เท่านั้น",
+  pts:["<b>จัดซื้อจัดจ้างระดับลึก</b> — วงเงิน <b>500,000</b> (เฉพาะเจาะจง) / <b>100,000</b> (ใบสั่งซื้อ + ผู้ตรวจรับคนเดียว) / <b>5,000,000</b> (เพดานสอบราคา) / วิธีคัดเลือก <b>3 ราย</b>",
+   "<b>หลักประกัน 5%</b> / ค่าปรับก่อสร้าง <b>0.01–0.10%</b> ขั้นต่ำ 100 บาท/วัน / อุทธรณ์ <b>7 วันทำการ</b> / <b>ตรวจรับพัสดุใช้มติเอกฉันท์</b>",
+   "<b>ตรวจสอบพัสดุประจำปี</b> — แต่งตั้งก่อนสิ้น ก.ย. เริ่มตรวจ <b>วันแรกของ ต.ค.</b> เสร็จใน <b>30 วันทำการ</b> / จำหน่าย <b>4 วิธี</b> แจ้ง สตง. ใน 30 วัน",
+   "<b>ระเบียบเบิกจ่ายเงินจากคลัง 2562</b> — เงินยืมเดินทาง <b>15 วัน/วันกลับมาถึง</b> vs ราชการอื่น <b>30 วัน/วันรับเงิน</b> / เงินสดเกิน <b>10,000</b> ส่งวันทำการถัดไป",
+   "<b>ประมวลรัษฎากร</b> — เงินได้ <b>8 ประเภท</b> / VAT ตัวบท <b>10%</b> ใช้จริง 7% / จด VAT ที่ <b>1.8 ล้าน</b> / ราชการหัก ณ ที่จ่าย <b>1% ตั้งแต่ 500 บาท</b> / ภ.ง.ด.3 vs 53"]},
+ {key:"water", t:"เฉพาะ กรมทรัพยากรน้ำบาดาล เท่านั้น",
+  pts:["<b>พ.ร.บ.น้ำบาดาล พ.ศ. 2520</b> — น้ำบาดาล = ลึกเกิน <b>15 เมตร</b> (กำหนดต่ำกว่า 10 ม. ไม่ได้) / ใบอนุญาต <b>3 ประเภท</b> (เจาะ/ใช้/ระบาย) / เขตวิกฤตการณ์น้ำบาดาล / แก้ไข ฉ.2 (2535 โทษ) ฉ.3 (2546 กองทุน)",
+   "<b>ข้อมูลกรมฯ</b> — ก่อตั้ง <b>3 ต.ค. 2545</b> จากกองน้ำบาดาล กรมทรัพยากรธรณี / สำนักทรัพยากรน้ำบาดาลเขต <b>1–12</b> / วิสัยทัศน์เป้าปี <b>2575</b>",
+   "<b>ภาษาอังกฤษและงานวิเทศสัมพันธ์</b> — เป็นหัวข้อสอบเต็มวิชา ซึ่งไม่มีในสนามอื่นในคลังนี้"]},
+ {key:"dip", t:"เฉพาะ กรมส่งเสริมอุตสาหกรรม (ดีพร้อม) เท่านั้น",
+  pts:["<b>ข้อมูลกรมฯ</b> — กสอ./DIP/แบรนด์ “ดีพร้อม” / กลยุทธ์ <b>4 ให้ 1 ปฏิรูป</b> / ศูนย์ส่งเสริมอุตสาหกรรมภาค <b>11 ศูนย์</b> / กลุ่มเป้าหมาย SMEs และวิสาหกิจชุมชน",
+   "<b>ความรู้ด้านอุตสาหกรรม</b> — การเพิ่มขีดความสามารถธุรกิจอุตสาหกรรม / อุตสาหกรรมเป็นมิตรกับสิ่งแวดล้อม / สถานการณ์เศรษฐกิจอุตสาหกรรม",
+   "ครอบคลุม <b>13 หมวด</b> ซึ่งกว้างที่สุดในคลังนี้ (629 ข้อ)"]}
+];
+
+const PLAN = [
+ {n:1, h:"สัปดาห์ที่ 1 — วางฐานกลางให้แน่น", p:"อ่านแอป <b>“กฎหมายกลาง (ออกสอบทุกกรม)”</b> ให้จบ 13 ฉบับ โดยเฉพาะ วิธีการงบประมาณ 2561 / บ้านเมืองที่ดี 2546 / ข้าราชการพลเรือน 2551 / งานสารบรรณ — จบสัปดาห์นี้คุณจะตอบข้อสอบพื้นฐานของทุกสนามได้"},
+ {n:2, h:"สัปดาห์ที่ 2 — แผนระดับชาติ + เครื่องมือบริหาร", p:"ยุทธศาสตร์ชาติ 6 ด้าน / แผนแม่บทฯ 23 ประเด็น / แผนพัฒนาฯ 13 (5-13-4) / SWOT-TOWS-BSC-Logframe / Output vs Outcome — ใช้ได้ทั้ง สตง. สป.กษ. และน้ำบาดาล"},
+ {n:3, h:"สัปดาห์ที่ 3 — เจาะหน่วยงานที่จะสอบจริง", p:"เปิดแอปของหน่วยงานนั้นแล้วอ่าน <b>“ส่วนต่าง”</b> ทั้งหมด + แท็บจุดต้องท่อง นี่คือส่วนที่ทำให้คุณชนะคู่แข่ง ทุ่มเวลาที่นี่มากที่สุด"},
+ {n:4, h:"สัปดาห์ที่ 4 — ตะลุยข้อสอบ + ซ่อมจุดอ่อน", p:"ทำ “ข้อสอบรวม” ของสนามที่จะสอบวันละ 1 รอบ → จดหมวดที่พลาดบ่อย → ย้อนอ่านเฉพาะหมวดนั้น + ทวนตัวเลขทั้งหมดในแท็บจุดต้องท่อง"}
+];
+
+/* ---------- RENDER ---------- */
+function el(id){return document.getElementById(id)}
+function go(i){
+  document.querySelectorAll('.tab').forEach((t,k)=>t.classList.toggle('active',k===i));
+  document.querySelectorAll('.view').forEach((v,k)=>v.classList.toggle('show',k===i));
+  window.scrollTo(0,0);
+}
+
+/* ratios */
+el('ratios').innerHTML = AGENCIES.map(a=>`
+  <div style="margin-bottom:11px">
+    <div class="barlab"><span>${a.ico} ${a.nm} <span style="color:#93A1AC">— ${a.pos}</span></span><span><b>${a.core}%</b> ใช้ร่วมได้</span></div>
+    <div class="bar"><i style="width:${a.core}%"></i></div>
+  </div>`).join('');
+
+/* agencies */
+el('agencies').innerHTML = AGENCIES.map(a=>`
+  <div class="agency">
+    <div class="ico">${a.ico}</div>
+    <div style="flex:1;min-width:0">
+      <div class="nm">${a.full}</div>
+      <div class="ps">ตำแหน่ง: ${a.pos}</div>
+      <a class="golink" href="${a.link}">เปิดแอปติว ›</a>
+    </div>
+  </div>`).join('');
+
+/* matrix */
+(function(){
+  let h='<thead><tr><th style="text-align:left">หัวข้อสอบ</th>';
+  AGENCIES.forEach(a=>h+=`<th>${a.ico}<br>${a.nm}</th>`);
+  h+='<th>ความถี่</th></tr></thead><tbody>';
+  SUBJECTS.forEach(s=>{
+    const cnt = AGENCIES.filter(a=>s.v[a.key]===2).length;
+    h+=`<tr${s.sep?' style="background:#F7F9FA"':''}><td class="subj">${s.n}${s.note?`<div style="font-weight:400;font-size:12.5px;color:#7C8A95;margin-top:2px">${s.note}</div>`:''}</td>`;
+    AGENCIES.forEach(a=>{
+      const v=s.v[a.key];
+      h+=`<td>${v===2?'<span class="yes">●</span>':v===1?'<span class="part">◐</span>':'<span class="no">–</span>'}</td>`;
+    });
+    h+=`<td class="cnt" style="color:${cnt>=4?'var(--core)':cnt>=2?'var(--half)':'#93A1AC'}">${cnt}/5</td></tr>`;
+  });
+  h+='</tbody>';
+  el('matrix').innerHTML=h;
+})();
+
+/* core list */
+el('coreList').innerHTML = CORE.map(c=>`
+  <section class="core">
+    <h3>${c.t} <span class="badge-core">พบ ${c.hit}</span></h3>
+    <ul class="pl">${c.pts.map(p=>`<li>${p}</li>`).join('')}</ul>
+    ${c.warn?`<div class="kbox"><b>ระวัง:</b> ${c.warn}</div>`:''}
+  </section>`).join('');
+
+/* unique list */
+el('uniqList').innerHTML = UNIQ.map(u=>{
+  const a=AGENCIES.find(x=>x.key===u.key);
+  return `<section class="uniq">
+    <h3>${a.ico} ${u.t} <span class="badge-uniq">ตัวตัดสิน</span></h3>
+    <ul class="pl">${u.pts.map(p=>`<li>${p}</li>`).join('')}</ul>
+    <a class="golink" href="${a.link}">ไปติว ${a.nm} ›</a>
+  </section>`;
+}).join('');
+
+/* plan */
+el('plan').innerHTML = PLAN.map(s=>`
+  <div class="step"><div class="n">${s.n}</div>
+  <div class="c"><h4>${s.h}</h4><p>${s.p}</p></div></div>`).join('');
+</script>
+</body>
+</html>
