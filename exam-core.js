@@ -21,7 +21,7 @@
     return shuffle(result, random);
   }
   function question(item, random = Math.random) {
-    const options = shuffle(item.c.map((text, i) => ({text, correct: i === item.a})), random);
+    const options = shuffle(item.c.map((text, i) => ({text, correct: i === item.a, why: item.choiceReasons?.[i]})), random);
     return {...item, options, answer: options.findIndex(o => o.correct)};
   }
   function normalize(input, topics) {
@@ -47,5 +47,6 @@
     return {total: topic.q.length, answered: values.length, correct: values.filter(v => v.correct).length, wrong: values.filter(v => !v.correct).length};
   }
   function wrong(topics, progress) { return topics.filter(t => !t.supplemental).flatMap(t => t.q).filter(q => progress.answers[q.id]?.correct === false); }
-  return {shuffle, balanced, question, normalize, record, stats, wrong};
+  function focused(topics) { return topics.filter(t => !t.supplemental).flatMap(t => t.q).filter(q => q.focus === true); }
+  return {shuffle, balanced, question, normalize, record, stats, wrong, focused};
 });

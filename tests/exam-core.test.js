@@ -35,7 +35,38 @@ test('question banks have unique stable IDs, valid answers, explanations and res
       if (q.added) added++;
     }
   }
-  assert.equal(added,88); assert.equal(ids.size,363);
+  assert.equal(added,88); assert.equal(ids.size,429);
+});
+test('the 66 focused questions cover every visible syllabus topic and explain all four choices', () => {
+  const counts={sao:27,opsmoac:15,rd:24};
+  for(const [name,data] of Object.entries(bank)) {
+    const list=core.focused(data.topics);
+    assert.equal(list.length,counts[name]); assert.equal(data.config.focus.count,list.length);
+    for(const t of data.topics.filter(t=>!t.supplemental)) assert.equal(list.filter(q=>q.topicId===t.id).length,3);
+    for(const q of list) {
+      assert.equal(q.choiceReasons.length,4,q.id);
+      assert.ok(q.choiceReasons.every(why=>typeof why==='string'&&why.length>10),q.id);
+      assert.ok(q.reference.length>15 && q.skill && q.verifiedAt==='2026-09-10',q.id);
+      assert.ok(q.sources.every(id=>data.sources[id]?.url),q.id);
+    }
+  }
+});
+test('focused selection excludes legacy questions and supplements without changing the bank', () => {
+  const topics=[{id:1,q:[{id:'old'},{id:'focus',focus:true}]},{id:2,supplemental:true,q:[{id:'extra',focus:true}]}];
+  const before=JSON.stringify(topics);
+  assert.deepEqual(core.focused(topics).map(q=>q.id),['focus']);
+  assert.equal(JSON.stringify(topics),before);
+});
+test('choice explanations stay with their answer through shuffling and replay for every focused question', () => {
+  for(const data of Object.values(bank)) for(const q of core.focused(data.topics)) {
+    for(const random of [()=>0,()=>0.999,Math.random]) {
+      const first=core.question(q,random),retry=core.question(first,random);
+      for(const item of [first,retry]) {
+        assert.equal(item.options[item.answer].text,q.c[q.a],q.id);
+        for(const o of item.options) assert.equal(o.why,q.choiceReasons[q.c.indexOf(o.text)],q.id);
+      }
+    }
+  }
 });
 test('all statutory main lessons expose full-text links in addition to source metadata', () => {
   const required={sao:[1,2,3,4,5],opsmoac:[4],rd:[1,2,3,5,6,7]};
@@ -91,6 +122,8 @@ test('published entrypoints and scripts are syntactically valid and local assets
       assert.ok(fs.existsSync(path.join(root,target.split(/[?#]/)[0])),name+':'+target);
     }
     assert.ok(html.includes('id="fullTextLinks"'));
+    assert.ok(html.includes('id="focusPanel"'));
+    assert.ok(html.includes('data-action="focus"'));
   }
   for(const file of ['exam-core.js','exam-tutor.js']) new vm.Script(fs.readFileSync(path.join(root,file),'utf8'),{filename:file});
 });
