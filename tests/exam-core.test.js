@@ -88,7 +88,7 @@ test('published entrypoints and scripts are syntactically valid and local assets
     const html=fs.readFileSync(path.join(root,name+'.html'),'utf8');
     for(const match of html.matchAll(/(?:src|href)="([^"]+)"/g)) {
       const target=match[1]; if(target.startsWith('http'))continue;
-      assert.ok(fs.existsSync(path.join(root,target)),name+':'+target);
+      assert.ok(fs.existsSync(path.join(root,target.split(/[?#]/)[0])),name+':'+target);
     }
     assert.ok(html.includes('id="fullTextLinks"'));
   }

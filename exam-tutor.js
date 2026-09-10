@@ -9,7 +9,13 @@
   const find = id => topics.find(t => t.id === Number(id));
   const button = (action, label, id = '', primary = false) => `<button type="button" class="btn ${primary ? 'primary' : ''}" data-action="${action}" data-id="${id}">${esc(label)}</button>`;
   const links = ids => (ids || []).map(id => `<a href="${esc(sources[id].url)}" target="_blank" rel="noopener noreferrer">${esc(sources[id].title)} ↗</a>`).join(' · ');
-  const fullLinks = ids => (ids || []).filter(id => sources[id].fullUrl).map(id => `<p><a class="full-link" href="${esc(sources[id].fullUrl)}" target="_blank" rel="noopener noreferrer">อ่านฉบับเต็ม: ${esc(sources[id].title)} ↗</a><br><span class="small">${esc(sources[id].fullType)}</span></p>`).join('');
+  const fullLinks = ids => (ids || []).map(id => {
+    const source = sources[id];
+    const direct = source.fullUrl || source.url;
+    const title = source.title.split(' • ').pop();
+    const label = source.fullUrl && !source.fullType?.includes('หน้าเอกสาร') ? 'เปิดฉบับเต็ม' : 'เปิดต้นฉบับที่ใช้สรุป';
+    return `<div class="document-link"><span>${esc(title)}</span><a class="btn document-button" href="${esc(direct)}" target="_blank" rel="noopener noreferrer">${label} ↗</a>${direct !== source.url ? `<a class="publisher-link" href="${esc(source.url)}" target="_blank" rel="noopener noreferrer">แหล่งเผยแพร่</a>` : ''}</div>`;
+  }).join('');
   let progress = core.normalize(null, topics), session = null, readTopic = null;
   try { progress = core.normalize(JSON.parse(localStorage.getItem(key)), topics); }
   catch { $('storageNotice').hidden = false; }
@@ -36,7 +42,7 @@
       return `<article class="topic"><div class="topic-title"><span class="number">${t.supplemental ? '+' : t.number}</span><h3>${esc(t.title)}</h3></div>
         <p>${t.q.length} ข้อ · ${progress.read[t.id] ? '✓ อ่านแล้ว' : 'ยังไม่ทำเครื่องหมายว่าอ่านแล้ว'}</p>
         <p class="small">ฝึกแล้ว ${stat.answered}/${stat.total} ข้อ${stat.wrong ? ' · ต้องทวน ' + stat.wrong + ' ข้อ' : ''}</p>
-        <div class="actions">${button('read', 'อ่านและทบทวน', t.id)}${button('topic', 'ฝึกทำข้อสอบ', t.id, true)}</div></article>`;
+        <div class="actions">${button('read', 'อ่านและทบทวน', t.id)}${button('topic', 'ฝึกทำข้อสอบ', t.id, true)}</div><div class="topic-documents"><h4>ต้นฉบับที่ใช้สรุป</h4>${fullLinks(t.sources)}</div></article>`;
     };
     const found = official.filter(matches);
     $('topicGrid').innerHTML = found.map(card).join('') || '<p>ไม่พบหัวข้อ ลองใช้คำค้นสั้นลง</p>';
@@ -62,7 +68,7 @@
     $('readTitle').textContent = `${t.supplemental ? 'บทเสริม' : 'หัวข้อ ' + t.number} • ${t.title}`;
     const full = fullLinks(t.sources);
     $('fullTextLinks').hidden = !full;
-    $('fullTextLinks').innerHTML = full ? '<h3>กฎหมายและเอกสารฉบับเต็ม</h3>' + full + '<p class="small">เปิดในแท็บใหม่เพื่ออ่านควบคู่บทเรียน หากไฟล์ตรงเปิดไม่ได้ ใช้ลิงก์หน่วยงานในส่วนแหล่งอ่านท้ายบท</p>' : '';
+    $('fullTextLinks').innerHTML = full ? '<h3>เปิดกฎหมายและต้นฉบับที่ใช้สรุป</h3>' + full + '<p class="small">กดปุ่มเพื่อเปิดต้นฉบับบนเว็บไซต์หน่วยงานในแท็บใหม่</p>' : '';
     $('readBody').innerHTML = t.content.map(s => `<section><h3>${s.h}</h3>${s.points?.length ? '<ul>' + s.points.map(p => `<li>${p}</li>`).join('') + '</ul>' : ''}${s.kbox ? '<div class="kbox">' + s.kbox + '</div>' : ''}</section>`).join('') +
       `<section class="sources"><h3>อ่านต้นฉบับประกอบ</h3><p>${links(t.sources)}</p><p class="small">${esc(t.sourceNote || '')} ตรวจแหล่งประกอบชุดเพิ่มเติม 9 ก.ย. 2569</p></section>` +
       (t.recall ? `<section><h3>ปิดเนื้อหา แล้วลองอธิบายเอง</h3><p>${esc(t.recall.prompt)}</p><label for="recallDraft">คำตอบของฉัน</label><textarea id="recallDraft" rows="5" maxlength="10000">${esc(progress.drafts[t.id] || '')}</textarea><details><summary>ดูแนวคำตอบ</summary><ul>${t.recall.points.map(p => `<li>${esc(p)}</li>`).join('')}</ul><p class="small">ใช้ตรวจประเด็นด้วยตัวเอง ไม่มีการให้คะแนนอัตโนมัติ</p></details></section>` : '');
