@@ -1,4 +1,4 @@
-/* Shared tutor for the three upcoming exams. All question IDs are persistent. */
+/* Shared tutor for the upcoming exams. All question IDs are persistent. */
 (() => {
   'use strict';
   const {config, topics, sources} = window.EXAM_DATA;
@@ -62,9 +62,9 @@
     const answered = official.reduce((n, t) => n + core.stats(t, progress).answered, 0);
     const total = official.reduce((n, t) => n + t.q.length, 0);
     $('studySummary').innerHTML = `<h2>เริ่มติว${esc(config.shortName)}</h2><p>อ่านแล้ว ${readCount}/${official.length} หัวข้อ · ฝึกแล้ว ${answered}/${total} ข้อ</p>
-      <div class="actions">${button('read', 'อ่านต่อ: ' + next.shortTitle, next.id, true)}${button('wrong', 'ทวนข้อที่ยังผิด (' + core.wrong(topics, progress).length + ')')}${button('mock', 'ฝึกรวม 30 ข้อ')}</div>
+      <div class="actions">${button('read', 'อ่านต่อ: ' + next.shortTitle, next.id, true)}${button('wrong', 'ทวนข้อที่ยังผิด (' + core.wrong(topics, progress).length + ')')}${button('mock', config.mock?.label || 'ฝึกรวม 30 ข้อ')}</div>
       <p class="small">บันทึกการอ่าน คำตอบ และข้อที่ต้องทวนไว้ในอุปกรณ์นี้</p>`;
-    $('focusPanel').innerHTML = `<p class="focus-label">ชุดใหม่ • เฉลยพร้อมเหตุผลทุกตัวเลือก</p><h2>${esc(config.focus.title)} ${focused.length} ข้อ</h2><p>ฝึกแยกเงื่อนไข ข้อยกเว้น และแก้สถานการณ์ตามงานของตำแหน่ง ครบ ${official.length} หัวข้อหลัก</p><div class="actions">${button('focus', 'เริ่มชุดเน้นสอบ ' + focused.length + ' ข้อ', '', true)}${button('focus-mock', 'ลองสอบชุดเน้น • เฉลยท้ายชุด')}</div><p class="small">${esc(config.focus.note)}</p><details><summary>เลือกประเด็นฝึกจากอะไร</summary><p>${esc(config.focus.method)}</p><ul>${official.map(t => `<li>${esc(t.shortTitle)}: ${t.q.filter(q => q.focus).length} ข้อ ${button('focus-topic', 'ฝึกเฉพาะหัวข้อนี้', t.id)}</li>`).join('')}</ul><p class="small">ตรวจเทียบเอกสารอ้างอิงของข้อใหม่วันที่ 10 ก.ย. 2569 ดูฉบับและมาตราในเฉลยแต่ละข้อ ข่าวและกฎหมายไม่ได้อัปเดตอัตโนมัติ</p></details>`;
+    $('focusPanel').innerHTML = `<p class="focus-label">ชุดใหม่ • เฉลยพร้อมเหตุผลทุกตัวเลือก</p><h2>${esc(config.focus.title)} ${focused.length} ข้อ</h2><p>ฝึกแยกเงื่อนไข ข้อยกเว้น และแก้สถานการณ์ตามงานของตำแหน่ง ครบ ${official.length} หัวข้อหลัก</p><div class="actions">${button('focus', 'เริ่มชุดเน้นสอบ ' + focused.length + ' ข้อ', '', true)}${button('focus-mock', 'ลองสอบชุดเน้น • เฉลยท้ายชุด')}</div><p class="small">${esc(config.focus.note)}</p><details><summary>เลือกประเด็นฝึกจากอะไร</summary><p>${esc(config.focus.method)}</p><ul>${official.map(t => `<li>${esc(t.shortTitle)}: ${t.q.filter(q => q.focus).length} ข้อ ${button('focus-topic', 'ฝึกเฉพาะหัวข้อนี้', t.id)}</li>`).join('')}</ul><p class="small">ตรวจเทียบเอกสารอ้างอิงของข้อใหม่วันที่ ${esc(config.checkedLabel || '10 ก.ย. 2569')} ดูฉบับและมาตราในเฉลยแต่ละข้อ ข่าวและกฎหมายไม่ได้อัปเดตอัตโนมัติ</p></details>`;
     $('studyPlan').innerHTML = `<summary>แผนอ่านตามลำดับความสำคัญ</summary><p>${esc(config.plan)}</p><ol>${config.studyOrder.map(id => `<li><button class="text-button" type="button" data-action="read" data-id="${id}">${esc(find(id).shortTitle)}</button></li>`).join('')}</ol><p class="small">หนึ่งรอบแนะนำ: อ่าน 25 นาที → อธิบายด้วยคำตัวเอง 5 นาที → ฝึก 15 นาที → ทวนข้อผิด 5 นาที ปรับเวลาได้ตามสะดวก</p>`;
     $('homeMessage').textContent = message; grid(); show('home');
   }
@@ -76,7 +76,7 @@
     $('fullTextLinks').hidden = !full;
     $('fullTextLinks').innerHTML = full ? '<h3>เปิดกฎหมายและต้นฉบับที่ใช้สรุป</h3>' + full + '<p class="small">กดปุ่มเพื่อเปิดต้นฉบับบนเว็บไซต์หน่วยงานในแท็บใหม่</p>' : '';
     $('readBody').innerHTML = t.content.map(s => `<section><h3>${s.h}</h3>${s.points?.length ? '<ul>' + s.points.map(p => `<li>${p}</li>`).join('') + '</ul>' : ''}${s.kbox ? '<div class="kbox">' + s.kbox + '</div>' : ''}</section>`).join('') +
-      `<section class="sources"><h3>อ่านต้นฉบับประกอบ</h3><p>${links(t.sources)}</p><p class="small">${esc(t.sourceNote || '')} ตรวจแหล่งประกอบชุดเพิ่มเติม 9 ก.ย. 2569</p></section>` +
+      `<section class="sources"><h3>อ่านต้นฉบับประกอบ</h3><p>${links(t.sources)}</p><p class="small">${esc(t.sourceNote || '')} ตรวจแหล่งประกอบ ${esc(config.checkedLabel || '9 ก.ย. 2569')}</p></section>` +
       (t.recall ? `<section><h3>ปิดเนื้อหา แล้วลองอธิบายเอง</h3><p>${esc(t.recall.prompt)}</p><label for="recallDraft">คำตอบของฉัน</label><textarea id="recallDraft" rows="5" maxlength="10000">${esc(progress.drafts[t.id] || '')}</textarea><details><summary>ดูแนวคำตอบ</summary><ul>${t.recall.points.map(p => `<li>${esc(p)}</li>`).join('')}</ul><p class="small">ใช้ตรวจประเด็นด้วยตัวเอง ไม่มีการให้คะแนนอัตโนมัติ</p></details></section>` : '');
     $('readActions').innerHTML = `<label><input id="readCheck" type="checkbox" ${progress.read[t.id] ? 'checked' : ''}> อ่านและทบทวนแล้ว</label>${button('topic', 'ฝึกหัวข้อนี้', t.id, true)}`;
     show('read');
@@ -89,7 +89,7 @@
   function renderQuestion() {
     const item = session.items[session.index]; session.answered = false;
     $('quizTitle').textContent = session.title;
-    $('quizMode').textContent = session.mode === 'mock' ? 'เฉลยเมื่อจบชุด • กระจายให้ครบหัวข้อ ไม่ใช่สัดส่วนข้อสอบจริง' : 'ตอบแล้วดูคำอธิบายได้ทันที';
+    $('quizMode').textContent = session.mode === 'mock' ? (config.mock?.note || 'เฉลยเมื่อจบชุด • กระจายให้ครบหัวข้อ ไม่ใช่สัดส่วนข้อสอบจริง') : 'ตอบแล้วดูคำอธิบายได้ทันที';
     $('qcount').textContent = `ข้อ ${session.index + 1}/${session.items.length}`;
     $('qscore').textContent = session.mode === 'mock' ? 'บันทึกเมื่อเลือกคำตอบ' : `ถูก ${session.score} ข้อ`;
     $('qbar').value = session.index; $('qbar').max = session.items.length;
@@ -122,7 +122,7 @@
   function sourcePage() {
     session = null;
     const ids = [...new Set(topics.flatMap(t => t.sources))];
-    $('sourcesBody').innerHTML = `<h2>ขอบเขตสอบและแหล่งอ่าน</h2><p>${esc(config.scopeNote)}</p><p>ภาพระบุคะแนนเต็ม 200 คะแนน ไม่ได้ระบุจำนวนข้อ สัดส่วนคะแนนรายหัวข้อ หรือยืนยันว่าทุกข้อเป็นปรนัย ข้อฝึกในแอปแต่งขึ้นเพื่อเรียนรู้ ไม่ใช่ข้อสอบจริงของหน่วยงาน</p><ol>${official.map(t => `<li>${esc(t.title)}</li>`).join('')}</ol><h3>อ่านกฎหมายและเอกสารฉบับเต็ม</h3>${fullLinks(ids)}<h3>แหล่งเผยแพร่และคำอธิบาย • ข้อเน้นสอบตรวจเทียบเอกสาร 10 ก.ย. 2569</h3>${ids.map(id => `<section><h4>${links([id])}</h4><p>${esc(sources[id].note || '')}</p></section>`).join('')}<p class="small">ข่าวระบุวันที่ของเหตุการณ์และมีลิงก์ติดตามฉบับใหม่ เนื้อหาไม่ได้อัปเดตอัตโนมัติ</p>`; show('sources');
+    $('sourcesBody').innerHTML = `<h2>ขอบเขตสอบและแหล่งอ่าน</h2><p>${esc(config.scopeNote)}</p><p>${esc(config.mock?.note || 'ภาพระบุคะแนนเต็ม 200 คะแนน ไม่ได้ระบุจำนวนข้อ สัดส่วนคะแนนรายหัวข้อ หรือยืนยันว่าทุกข้อเป็นปรนัย')} ข้อฝึกในแอปแต่งขึ้นเพื่อเรียนรู้ ไม่ใช่ข้อสอบจริงของหน่วยงาน</p><ol>${official.map(t => `<li>${esc(t.title)}</li>`).join('')}</ol><h3>อ่านกฎหมายและเอกสารฉบับเต็ม</h3>${fullLinks(ids)}<h3>แหล่งเผยแพร่และคำอธิบาย • ข้อเน้นสอบตรวจเทียบเอกสาร ${esc(config.checkedLabel || '10 ก.ย. 2569')}</h3>${ids.map(id => `<section><h4>${links([id])}</h4><p>${esc(sources[id].note || '')}</p></section>`).join('')}<p class="small">ข่าวระบุวันที่ของเหตุการณ์และมีลิงก์ติดตามฉบับใหม่ เนื้อหาไม่ได้อัปเดตอัตโนมัติ</p>`; show('sources');
   }
   document.addEventListener('click', event => {
     const target = event.target.closest('[data-action]'); if (!target) return;
@@ -134,7 +134,7 @@
       case 'focus': start(core.shuffle(focused), 'ชุดเน้นสอบ • ' + config.shortName); break;
       case 'focus-mock': start(core.shuffle(focused), 'ลองสอบชุดเน้น • ' + config.shortName, 'mock'); break;
       case 'focus-topic': {const t = find(id); if (t && !t.supplemental) start(core.shuffle(t.q.filter(q => q.focus)), 'เน้นสอบ • ' + t.shortTitle); break;}
-      case 'mock': start(core.balanced(topics), 'ฝึกรวม 30 ข้อ • ครบทุกหัวข้อหลัก', 'mock'); break;
+      case 'mock': start(config.mock?.all ? core.shuffle(official.flatMap(t => t.q)) : core.balanced(topics), config.mock?.title || 'ฝึกรวม 30 ข้อ • ครบทุกหัวข้อหลัก', 'mock'); break;
       case 'wrong': start(core.shuffle(core.wrong(topics, progress)), 'ทวนข้อที่ยังตอบผิด'); break;
       case 'pick': pick(id); break;
       case 'next': if (session?.answered) { if (++session.index < session.items.length) {renderQuestion(); window.scrollTo(0, 0);} else result(); } break;

@@ -49,3 +49,16 @@
 การตรวจงานรอบนี้: Node ตรวจความสมบูรณ์คลัง 429 ข้อ การคัดชุดเน้น 66 ข้อ ความครอบคลุม สลับคำตอบพร้อมเหตุผล ทำซ้ำ ทวนข้อผิด ความคืบหน้า และความถูกต้องของไฟล์ที่หน้าเว็บเรียกใช้ ไม่ได้ทดสอบหน้าจอด้วยเบราว์เซอร์ และไม่ใช้คะแนนชุดฝึกเป็นหลักฐานทำนายผลสอบ
 
 การทวนข้อเดิมที่เกี่ยวข้อง: ปรับคำถามและข้อความการเบิกเหลื่อมปีให้ระบุเงื่อนไขมาตรา 43 ชัดเจน โดยคงรหัสคำถาม และตัดคำอ้าง “ยอดฮิต” ที่ไม่มีหลักฐานความถี่ในคำอธิบายเดิมสองจุด การตรวจอัตโนมัติรอบนี้ผ่าน 11 รายการ
+
+
+## Energy specialist addition — 2026-09-14
+
+Added `energy.html` and `data/energy.js` for นักวิชาการพลังงานปฏิบัติการ, สำนักงานปลัดกระทรวงพลังงาน. Scope is transcribed from the user's IMG_0870.png: general knowledge 50 points (organization, energy fundamentals, civil-service ethics), and role-specific knowledge 150 points (energy planning, fuels/gas/electricity and testing, renewable energy/efficiency, and five named Acts). Eleven lessons split the five Acts into individual study topics.
+
+The 48 original four-choice practice questions comprise 12 general and 36 role-specific questions. Every question has explanations for all four choices, a stable agency-specific ID, document references and clickable sources. The complete practice exam uses all 48 questions to retain the 1:3 section ratio. This is a practice design based on the score split, not a claim about actual question counts, topic frequency, pass marks, or a guaranteed prediction. Other agencies retain their existing 30-question selection and progress IDs.
+
+Primary legal PDFs were retrieved and checked from `law.energy.go.th/laws/detail/32730` (fuel control), `32729` (fuel trade), `32732` (conservation, incorporating the 2550 amendment), `32728` (energy industry), and `32740` (oil fuel fund). Links open the actual PDF, with a separate publisher/amendments link. The Office's organization sources include the 2562 regulation and amendments in 2566 and 2567; the latter was visually checked because its extracted text is garbled. Office/ministry strategy material is explicitly labeled by its 2566–2570 plan edition. No current price, officeholder, draft energy-plan target or examination date is presented as settled fact.
+
+Content review corrected the Oil Fuel Fund Office's legal-status reference to section 18 (section 17 concerns meeting allowances). Fuel inspection scenarios explain general evidence quality; they do not invent sampling quantities or claim to replace official laboratory procedures. Numerical questions state hypothetical inputs and explain the calculation.
+
+Validation: `node --test tests/*.test.js` — 15 passing tests, including all 11 pre-existing checks and four energy coverage/integrity/calculation/link/progress checks. JavaScript syntax checked. No browser interaction test was performed. The existing agency data files and completed-agency pages are unchanged.
