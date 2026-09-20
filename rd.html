@@ -42,7 +42,7 @@ header .sub{font-size:15px;color:#F2E2E4;font-weight:400}
 .topic.hot{border-color:var(--indigo);border-width:2px}
 .topic .num{font-family:'Kanit';font-weight:700;font-size:13px;color:#fff;background:var(--indigo);width:30px;height:30px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;flex:none}
 .topic .top{display:flex;gap:11px;align-items:flex-start}
-.topic h3{font-size:16.5px;font-weight:600;color:var(--ink)}
+.topic h3{font-size:16.5px;font-weight:600;color:var(--ink);padding-right:58px}
 .topic .tag{font-size:12.5px;color:var(--ink-soft);margin-top:3px;font-family:'Kanit'}
 .topic .btns{display:flex;gap:8px;margin-top:12px}
 .btn{font-family:'Kanit';font-weight:500;font-size:14px;border-radius:10px;padding:8px 14px;border:1px solid var(--indigo);cursor:pointer;transition:.15s;flex:1;text-align:center}
@@ -109,6 +109,14 @@ table.tb th{background:#F7EDEE;font-family:'Kanit';font-weight:600;color:var(--i
 footer{text-align:center;color:var(--ink-soft);font-size:13px;margin:28px 0 8px;padding:0 16px}
 .disclaimer{background:#fff;border:1px dashed var(--line);border-radius:12px;padding:11px 14px;font-size:13.5px;color:var(--ink-soft);margin:14px 0}
 @media(min-width:620px){.grid{grid-template-columns:1fr 1fr}.topic.full{grid-column:1/-1}}
+.tabs{flex-wrap:wrap}
+.tab{min-width:86px}
+.doc-link{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:12px;padding:13px 15px;margin-bottom:11px;box-shadow:var(--shadow)}
+.doc-t{font-family:'Kanit';font-weight:600;font-size:15.5px;color:var(--indigo);line-height:1.4}
+.doc-n{font-size:14px;color:var(--ink-soft);margin-top:4px}
+.doc-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.doc-b{font-family:'Kanit';font-weight:500;font-size:13.5px;text-decoration:none;padding:7px 13px;border-radius:9px;border:1px solid var(--indigo);color:var(--indigo);background:#fff}
+.doc-b.main{background:var(--indigo);color:#fff}
 </style>
 </head>
 <body>
@@ -127,10 +135,11 @@ footer{text-align:center;color:var(--ink-soft);font-size:13px;margin:28px 0 8px;
 </header>
 <div class="wrap">
   <div class="tabs">
-    <div class="tab active" onclick="startHome()">หน้าหลัก</div>
-    <div class="tab" onclick="startLaws()">ตัวเลขต้องท่อง</div>
-    <div class="tab" onclick="startMock()">ข้อสอบรวม</div>
-    <div class="tab" onclick="startBook()">ตะลุยโจทย์</div>
+    <div class="tab active" data-tab="home" onclick="startHome()">หน้าหลัก</div>
+    <div class="tab" data-tab="laws" onclick="startLaws()">สรุป พ.ร.บ.</div>
+    <div class="tab" data-tab="mock" onclick="startMock()">ข้อสอบรวม</div>
+    <div class="tab" data-tab="book" onclick="startBook()">ตะลุยโจทย์</div>
+    <div class="tab" data-tab="src" onclick="startSources()">ฉบับเต็ม</div>
   </div>
   <div id="home" class="view show">
     <div class="intro-card">
@@ -154,6 +163,15 @@ footer{text-align:center;color:var(--ink-soft);font-size:13px;margin:28px 0 8px;
       <button class="btn quiz" style="max-width:280px;margin:10px auto 2px;display:block" onclick="startBookMock()">สุ่มรวมทุกหมวด (40 ข้อ) ›</button>
     </div>
     <div id="bookGrid" class="grid"></div>
+  </div>
+  <div id="sources" class="view">
+    <div class="intro-card">
+      <h2>ตัวบทฉบับเต็ม / แหล่งอ่าน</h2>
+      <p>กดเปิดตัวบทหรือหน้าเผยแพร่ของหน่วยงานเจ้าของเรื่อง — ใช้ตรวจสอบตัวเลขและถ้อยคำจริงก่อนเข้าห้องสอบ เพราะสรุปในแอปเป็นการย่อความ</p>
+    </div>
+    <div id="srcBody"></div>
+    <div class="read-quiz-cta" style="margin:4px 0 14px"><a class="btn read" style="max-width:320px;margin:auto;display:block;text-decoration:none" href="law-sources.html">ดูตัวบทของทุกหน่วยงานรวมกัน (93 แหล่ง) ›</a></div>
+    <div class="disclaimer">🔗 ลิงก์ทั้งหมดชี้ไปเว็บไซต์ราชการหรือผู้เผยแพร่ต้นทาง หากลิงก์ใดเสียหรือย้ายที่ ให้ค้นชื่อกฎหมายจากราชกิจจานุเบกษา (ratchakitcha.soc.go.th) โดยตรง</div>
   </div>
   <div id="read" class="view">
     <div class="read-head"><button class="back" onclick="startHome()">‹ กลับ</button></div>
@@ -641,12 +659,34 @@ var BOOK_TOPICS=[
  ]}
 ];
 
+const SOURCES=[
+ {t:"สำนักงบประมาณ • พ.ร.บ.วิธีการงบประมาณ 2561",url:"https://www.bb.go.th/topic-detail.php?catID=0&id=5649&mid=791",full:"https://bbstore.bb.go.th/cms/1691046748_1449.pdf",ft:"PDF"},
+ {t:"สำนักงบประมาณ • ระเบียบการบริหารงบประมาณ 2562",url:"https://www.bb.go.th/topic-detail.php?catID=0&id=10069&mid=267",full:"https://bbstore.bb.go.th/cms/1566976795_3328.pdf",ft:"PDF",n:"ระเบียบ 2562 ฉบับเต็มจากสำนักงบประมาณ; เทียบข้อ 3–13 กับสำเนาที่ สป.สาธารณสุขเผยแพร่"},
+ {t:"กรมประชาสัมพันธ์ • พ.ร.บ.จัดซื้อจัดจ้างฯ 2560",url:"https://law.prd.go.th/th/content/category/detail/id/2475/iid/234612",full:"https://law.prd.go.th/th/file/get/file/202311227d9833f346fde83f75d81fcd030e1766122000.PDF",ft:"PDF"},
+ {t:"ระเบียบจัดซื้อจัดจ้างฯ 2560 • สำเนา มทร.อีสาน",url:"https://finance.rmuti.ac.th/pr/cgd-2560.PDF",full:"https://finance.rmuti.ac.th/pr/cgd-2560.PDF",ft:"PDF",n:"ข้อ 20 ห้ามแบ่งซื้อแบ่งจ้างเพื่อเปลี่ยนวิธี/อำนาจ; ข้อ 26–27 กรรมการ; ข้อ 213–218 การตรวจพัสดุและจำหน่าย"},
+ {t:"กรมบัญชีกลาง • กฎหมายและระเบียบจัดหาพัสดุ",url:"https://www.cgd.go.th/cs/npa/npa/แผนงาน.html",n:"ใช้ตรวจฉบับแก้ไข กฎกระทรวงวงเงิน และหนังสือเวียนตามวันสอบ"},
+ {t:"กระทรวงพาณิชย์ • ระเบียบการเบิกเงินจากคลังฯ 2562",url:"https://finance.ops.moc.go.th/th/content/category/detail/id/433/iid/3916",full:"https://infocenter.oic.go.th/upload/cms/1776260512_3835.pdf",ft:"PDF"},
+ {t:"ศอ.บต. • คู่มือเงินยืมราชการ",url:"https://www.sbpac.go.th/home/wp-content/uploads/2024/02/คู่มือการปฏิบัติงานการยืมเงินราชการ-2565.pdf",n:"แยกกรณีเดินทางชั่วคราว 15 วันหลังกลับ กับกรณีอื่น 30 วันหลังรับเงิน"},
+ {t:"กรมสรรพากร • บทบัญญัติแห่งประมวลรัษฎากร",url:"https://www.rd.go.th/674.html",full:"https://www.rd.go.th/674.html",ft:"ตัวบทแยกหมวด"},
+ {t:"กรมสรรพากร • ประกาศอธิบดีฯ ภาษีเงินได้ ฉบับที่ 16",url:"https://www.rd.go.th/3222.html",n:"ภ.ง.ด.53; มาตรา 69 ทวิสำหรับบริษัทและห้างหุ้นส่วนนิติบุคคล"},
+ {t:"กรมสรรพากร • ข้อหารือ 0702/3841",url:"https://www.rd.go.th/65193.html",n:"ตัวอย่างมาตรา 50(4) เมื่อส่วนราชการจ่ายค่าถ่ายเอกสารให้บุคคลธรรมดา"},
+ {t:"กรมสรรพากร • วิสัยทัศน์ พันธกิจ และกลยุทธ์",url:"https://www.rd.go.th/19954.html"},
+ {t:"กรมสรรพากร • วิสัยทัศน์และค่านิยมที่เผยแพร่โดย สภ.7",url:"https://www.rd.go.th/region/07/26.html",n:"หน้าเผยแพร่ระบุหัวข้อวิสัยทัศน์กรมสรรพากร แยกจากภารกิจของ สภ.7"},
+ {t:"กรมสรรพากร • อำนาจหน้าที่",url:"https://www.rd.go.th/8501.html"},
+ {t:"กรมสรรพากร • แผนปฏิบัติราชการ",url:"https://www.rd.go.th/62802.html"},
+ {t:"กรมสรรพากร • D-MyTax และ Fast Filing 14 ม.ค. 2569",url:"https://www.rd.go.th/region/08/chiangrai/265/4306.html",n:"กรณีศึกษาบริการดิจิทัลตามวันที่ข่าว ไม่ใช่การยืนยันสิทธิใช้บริการของทุกคน"},
+ {t:"พ.ร.บ.ข้อมูลข่าวสารฯ 2540 • สำเนากรมทรัพย์สินทางปัญญา",url:"https://www.ipthailand.go.th/images/633/law_info2540.pdf",full:"https://www.ipthailand.go.th/images/633/law_info2540.pdf",ft:"PDF"},
+ {t:"ราชกิจจานุเบกษา • พ.ร.บ.คุ้มครองข้อมูลส่วนบุคคล 2562",url:"https://ratchakitcha.soc.go.th/documents/17082307.pdf",full:"https://ratchakitcha.soc.go.th/documents/17082307.pdf",ft:"PDF",n:"มาตรา 37(4): แจ้งเหตุ 72 ชั่วโมงมีเงื่อนไขความเสี่ยงและเริ่มนับเมื่อทราบเหตุ"},
+ {t:"ระเบียบการเบิกเงินจากคลังฯ ฉบับที่ 2 พ.ศ. 2563",url:"https://infocenter.oic.go.th/upload/cms/1776500224_4375.pdf",full:"https://infocenter.oic.go.th/upload/cms/1776500224_4375.pdf",ft:"PDF ฉบับแก้ไข",n:"ฉบับแก้ไขต้องอ่านคู่ฉบับหลัก พ.ศ. 2562"},
+ {t:"กรมสรรพากร • ประมวลรัษฎากร มาตรา 38–64",url:"https://www.rd.go.th/5937.html",full:"https://www.rd.go.th/5937.html",ft:"ตัวบทออนไลน์",n:"อ่านมาตรา 50(4) รวมการแบ่งจ่าย และมาตรา 54 เรื่องความรับผิดเมื่อต้องหักภาษี"}
+];
+
 let S={list:[],idx:0,score:0,wrong:[],answered:false,title:"",topicId:null};
 function $(id){return document.getElementById(id)}
 function show(v){document.querySelectorAll('.view').forEach(x=>x.classList.remove('show'));$(v).classList.add('show');window.scrollTo(0,0)}
-function setTab(i){const t=document.querySelectorAll('.tab');t.forEach(x=>x.classList.remove('active'));if(i>=0)t[i].classList.add('active')}
-function startHome(){setTab(0);renderGrid();show('home')}
-function startLaws(){setTab(1);renderLaws();show('laws')}
+function setTab(name){document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',!!name&&x.dataset.tab===name))}
+function startHome(){setTab('home');renderGrid();show('home')}
+function startLaws(){setTab('laws');renderLaws();show('laws')}
 function renderLaws(){
   let h="";
   LAWS.forEach(sec=>{
@@ -684,7 +724,7 @@ function openRead(id){
     h+="</section>";
   });
   $('readBody').innerHTML=h;
-  setTab(-1);show('read');
+  setTab(null);show('read');
 }
 function startTopicFromRead(){if(curRead)startTopic(curRead)}
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
@@ -698,10 +738,10 @@ function buildQ(topic){
 function startTopic(id){
   const t=TOPICS.find(x=>x.id===id);
   S={list:shuffle(buildQ(t)),idx:0,score:0,wrong:[],answered:false,title:`หัวข้อ ${t.id} • ${t.title}`,topicId:id};
-  setTab(-1);show('quiz');renderQ();
+  setTab(null);show('quiz');renderQ();
 }
 function startMock(){
-  setTab(2);
+  setTab('mock');
   let all=[];
   TOPICS.forEach(t=>{all=all.concat(buildQ(t))});
   shuffle(all);
@@ -711,7 +751,7 @@ function startMock(){
   show('quiz');renderQ();
 }
 
-function startBook(){setTab(3);renderBookGrid();show('book');}
+function startBook(){setTab('book');renderBookGrid();show('book');}
 function renderBookGrid(){
   let h="";
   BOOK_TOPICS.forEach(t=>{
@@ -728,10 +768,10 @@ function renderBookGrid(){
 function startBookTopic(id){
   const t=BOOK_TOPICS.find(x=>x.id===id);
   S={list:shuffle(buildQ(t)),idx:0,score:0,wrong:[],answered:false,title:`ตะลุยโจทย์ • ${t.title}`,topicId:id,book:true};
-  setTab(-1);show('quiz');renderQ();
+  setTab(null);show('quiz');renderQ();
 }
 function startBookMock(){
-  setTab(3);
+  setTab('book');
   let all=[];
   BOOK_TOPICS.forEach(t=>{all=all.concat(buildQ(t))});
   shuffle(all);
@@ -820,7 +860,7 @@ function showResult(){
   }
   h+=`</div>`;
   $('result').innerHTML=h;
-  setTab(-1);show('result');
+  setTab(null);show('result');
 }
 function retry(){
   if(S.bookMock)startBookMock();
@@ -828,6 +868,20 @@ function retry(){
   else if(S.topicId)startTopic(S.topicId);
   else startMock();
 }
+function startSources(){setTab('src');renderSources();show('sources')}
+function renderSources(){
+  let h="";
+  SOURCES.forEach(s=>{
+    h+=`<div class="doc-link"><div class="doc-t">${s.t}</div>`;
+    if(s.n)h+=`<div class="doc-n">${s.n}</div>`;
+    h+='<div class="doc-btns">';
+    if(s.full)h+=`<a class="doc-b main" href="${s.full}" target="_blank" rel="noopener noreferrer">เปิดฉบับเต็ม${s.ft?' ('+s.ft.replace(/\s*ฉบับเต็ม\s*/,' ').trim()+')':''} ↗</a>`;
+    if(s.url)h+=`<a class="doc-b" href="${s.url}" target="_blank" rel="noopener noreferrer">${s.full?'หน้าเผยแพร่':'เปิดตัวบท'} ↗</a>`;
+    h+='</div></div>';
+  });
+  $('srcBody').innerHTML=h;
+}
+
 startHome();
 </script>
 </body>

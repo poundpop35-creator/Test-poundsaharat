@@ -41,7 +41,7 @@ header .sub{font-size:15px;color:#E4F1F7;font-weight:400}
 .topic{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:15px 16px;box-shadow:var(--shadow);position:relative}
 .topic .num{font-family:'Kanit';font-weight:700;font-size:13px;color:#fff;background:var(--indigo);width:30px;height:30px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;flex:none}
 .topic .top{display:flex;gap:11px;align-items:flex-start}
-.topic h3{font-size:16.5px;font-weight:600;color:var(--ink)}
+.topic h3{font-size:16.5px;font-weight:600;color:var(--ink);padding-right:58px}
 .topic .tag{font-size:12.5px;color:var(--ink-soft);margin-top:3px;font-family:'Kanit'}
 .topic .btns{display:flex;gap:8px;margin-top:12px}
 .btn{font-family:'Kanit';font-weight:500;font-size:14px;border-radius:10px;padding:8px 14px;border:1px solid var(--indigo);cursor:pointer;transition:.15s;flex:1;text-align:center}
@@ -105,6 +105,14 @@ header .sub{font-size:15px;color:#E4F1F7;font-weight:400}
 footer{text-align:center;color:var(--ink-soft);font-size:13px;margin:28px 0 8px;padding:0 16px}
 .disclaimer{background:#fff;border:1px dashed var(--line);border-radius:12px;padding:11px 14px;font-size:13.5px;color:var(--ink-soft);margin:14px 0}
 @media(min-width:620px){.grid{grid-template-columns:1fr 1fr}.topic.full{grid-column:1/-1}}
+.tabs{flex-wrap:wrap}
+.tab{min-width:86px}
+.doc-link{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:12px;padding:13px 15px;margin-bottom:11px;box-shadow:var(--shadow)}
+.doc-t{font-family:'Kanit';font-weight:600;font-size:15.5px;color:var(--indigo);line-height:1.4}
+.doc-n{font-size:14px;color:var(--ink-soft);margin-top:4px}
+.doc-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.doc-b{font-family:'Kanit';font-weight:500;font-size:13.5px;text-decoration:none;padding:7px 13px;border-radius:9px;border:1px solid var(--indigo);color:var(--indigo);background:#fff}
+.doc-b.main{background:var(--indigo);color:#fff}
 </style>
 </head>
 <body>
@@ -123,9 +131,10 @@ footer{text-align:center;color:var(--ink-soft);font-size:13px;margin:28px 0 8px;
 </header>
 <div class="wrap">
   <div class="tabs">
-    <div class="tab active" onclick="startHome()">หน้าหลัก</div>
-    <div class="tab" onclick="startLaws()">สรุป พ.ร.บ.</div>
-    <div class="tab" onclick="startMock()">ข้อสอบรวม</div>
+    <div class="tab active" data-tab="home" onclick="startHome()">หน้าหลัก</div>
+    <div class="tab" data-tab="laws" onclick="startLaws()">สรุป พ.ร.บ.</div>
+    <div class="tab" data-tab="mock" onclick="startMock()">ข้อสอบรวม</div>
+    <div class="tab" data-tab="src" onclick="startSources()">ฉบับเต็ม</div>
   </div>
   <div id="home" class="view show">
     <div class="intro-card">
@@ -141,6 +150,15 @@ footer{text-align:center;color:var(--ink-soft);font-size:13px;margin:28px 0 8px;
       <p>รวมกฎหมาย/ระเบียบหลักที่ออกสอบของกรมทรัพยากรน้ำบาดาล — อ่านทบทวนเร็ว ๆ ก่อนเข้าห้องสอบ จำเฉพาะจุดที่มักออกข้อสอบ</p>
     </div>
     <div id="lawsBody" class="content"></div>
+  </div>
+  <div id="sources" class="view">
+    <div class="intro-card">
+      <h2>ตัวบทฉบับเต็ม / แหล่งอ่าน</h2>
+      <p>กดเปิดตัวบทหรือหน้าเผยแพร่ของหน่วยงานเจ้าของเรื่อง — ใช้ตรวจสอบตัวเลขและถ้อยคำจริงก่อนเข้าห้องสอบ เพราะสรุปในแอปเป็นการย่อความ</p>
+    </div>
+    <div id="srcBody"></div>
+    <div class="read-quiz-cta" style="margin:4px 0 14px"><a class="btn read" style="max-width:320px;margin:auto;display:block;text-decoration:none" href="law-sources.html">ดูตัวบทของทุกหน่วยงานรวมกัน (93 แหล่ง) ›</a></div>
+    <div class="disclaimer">🔗 ลิงก์ทั้งหมดชี้ไปเว็บไซต์ราชการหรือผู้เผยแพร่ต้นทาง หากลิงก์ใดเสียหรือย้ายที่ ให้ค้นชื่อกฎหมายจากราชกิจจานุเบกษา (ratchakitcha.soc.go.th) โดยตรง</div>
   </div>
   <div id="read" class="view">
     <div class="read-head"><button class="back" onclick="startHome()">‹ กลับ</button></div>
@@ -457,15 +475,24 @@ const LAWS = [
  ],kbox:"<b>ออกสอบชัวร์:</b> ระเบียบ 2562 = ลูกของ พ.ร.บ.วิธีการงบประมาณ 2561 | หัวหน้าหน่วยรับงบฯ บริหารงบ | โอน/เปลี่ยนแปลงต้องตามหลักเกณฑ์ สงป. | คุ้มค่า-ประหยัด-โปร่งใส-ผลสัมฤทธิ์"}
 ];
 
+const SOURCES=[
+ {t:"กรมทรัพยากรน้ำบาดาล • พ.ร.บ.น้ำบาดาล พ.ศ. 2520 (ฉบับล่าสุด)",url:"https://www.dgr.go.th/law/th/newsAll/311/4724",n:"นิยาม เขตน้ำบาดาล ใบอนุญาต และบทกำหนดโทษ"},
+ {t:"กรมทรัพยากรน้ำบาดาล • กฎกระทรวงและระเบียบที่ออกตาม พ.ร.บ.น้ำบาดาล",url:"https://www.dgr.go.th/law/th/newsAll/313/4738",n:"กฎกระทรวงเกี่ยวกับการเจาะและการใช้น้ำบาดาล"},
+ {t:"ระบบข้อมูลกฎหมายด้านบริหารจัดการทรัพยากรน้ำ • พ.ร.บ.น้ำบาดาล ฉบับแก้ไขเพิ่มเติม",url:"https://hydrolaw.thaiwater.net/",n:"รวมฉบับแก้ไข (ฉบับที่ 2) 2535 และ (ฉบับที่ 3) 2546"},
+ {t:"ราชกิจจานุเบกษา • รัฐธรรมนูญแห่งราชอาณาจักรไทย พุทธศักราช 2560",url:"https://www.ratchakitcha.soc.go.th/DATA/PDF/2560/A/040/1.PDF",ft:"PDF",n:"หน้าที่ของรัฐด้านทรัพยากรธรรมชาติและสิ่งแวดล้อม"},
+ {t:"สำนักงาน ก.พ. • พ.ร.บ.ระเบียบข้าราชการพลเรือน พ.ศ. 2551",url:"https://www.ocsc.go.th/?p=47391&post_type=laws",n:"ใช้ร่วมกับหมวดความรู้ทั่วไปของทุกกรม"},
+ {t:"กรมทรัพยากรน้ำบาดาล • เว็บไซต์ทางการ",url:"https://www.dgr.go.th/",n:"โครงสร้าง ภารกิจ ยุทธศาสตร์ และข่าวปัจจุบัน"}
+];
+
 let S={list:[],idx:0,score:0,wrong:[],answered:false,title:"",topicId:null};
 
 function $(id){return document.getElementById(id)}
 function show(v){document.querySelectorAll('.view').forEach(x=>x.classList.remove('show'));$(v).classList.add('show');window.scrollTo(0,0)}
-function setTab(i){const t=document.querySelectorAll('.tab');t.forEach(x=>x.classList.remove('active'));if(i>=0)t[i].classList.add('active')}
+function setTab(name){document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',!!name&&x.dataset.tab===name))}
 
-function startHome(){setTab(0);renderGrid();show('home')}
+function startHome(){setTab('home');renderGrid();show('home')}
 
-function startLaws(){setTab(1);renderLaws();show('laws')}
+function startLaws(){setTab('laws');renderLaws();show('laws')}
 function renderLaws(){
   let h="";
   LAWS.forEach(sec=>{
@@ -504,7 +531,7 @@ function openRead(id){
     h+="</section>";
   });
   $('readBody').innerHTML=h;
-  setTab(-1);show('read');
+  setTab(null);show('read');
 }
 function startTopicFromRead(){if(curRead)startTopic(curRead)}
 
@@ -521,11 +548,11 @@ function buildQ(topic){
 function startTopic(id){
   const t=TOPICS.find(x=>x.id===id);
   S={list:shuffle(buildQ(t)),idx:0,score:0,wrong:[],answered:false,title:`วิชาที่ ${t.id} • ${t.title}`,topicId:id};
-  setTab(-1);show('quiz');renderQ();
+  setTab(null);show('quiz');renderQ();
 }
 
 function startMock(){
-  setTab(2);
+  setTab('mock');
   let all=[];
   TOPICS.forEach(t=>{all=all.concat(buildQ(t))});
   shuffle(all);
@@ -618,12 +645,26 @@ function showResult(){
   }
   h+=`</div>`;
   $('result').innerHTML=h;
-  setTab(-1);show('result');
+  setTab(null);show('result');
 }
 
 function retry(){
   if(S.topicId)startTopic(S.topicId);
   else startMock();
+}
+
+function startSources(){setTab('src');renderSources();show('sources')}
+function renderSources(){
+  let h="";
+  SOURCES.forEach(s=>{
+    h+=`<div class="doc-link"><div class="doc-t">${s.t}</div>`;
+    if(s.n)h+=`<div class="doc-n">${s.n}</div>`;
+    h+='<div class="doc-btns">';
+    if(s.full)h+=`<a class="doc-b main" href="${s.full}" target="_blank" rel="noopener noreferrer">เปิดฉบับเต็ม${s.ft?' ('+s.ft.replace(/\s*ฉบับเต็ม\s*/,' ').trim()+')':''} ↗</a>`;
+    if(s.url)h+=`<a class="doc-b" href="${s.url}" target="_blank" rel="noopener noreferrer">${s.full?'หน้าเผยแพร่':'เปิดตัวบท'} ↗</a>`;
+    h+='</div></div>';
+  });
+  $('srcBody').innerHTML=h;
 }
 
 /* init */
