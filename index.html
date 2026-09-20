@@ -49,6 +49,8 @@ header .sub{font-size:15px;color:#E8E2F5;font-weight:400}
 .card.hero .c-ico{background:rgba(255,255,255,.18)}
 .card.hero .c-arrow{color:#fff}
 .card.key{border:1px solid var(--gold);background:linear-gradient(180deg,#FFFDF7,#fff)}
+.card.focus{border:1.5px solid var(--indigo-500);box-shadow:0 6px 24px rgba(61,42,110,.16)}
+.card.focus .badge{background:var(--indigo-500)}
 .card.soon{opacity:.6;pointer-events:none}
 .c-top{display:flex;gap:13px;align-items:center}
 .c-ico{width:50px;height:50px;border-radius:14px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;font-size:25px;flex:none}
@@ -75,8 +77,8 @@ footer{text-align:center;color:var(--ink-soft);font-size:13px;margin-top:34px;pa
     <h1>คลังติวสอบ & ภาษาอังกฤษ</h1>
     <div class="sub">เลือกหัวข้อที่อยากฝึก — แตะการ์ดเพื่อเริ่มเลย</div>
     <div class="meta-row">
-      <span class="chip">เตรียมสอบ <b>6 หน่วยงาน</b></span>
-      <span class="chip">คลังข้อสอบรวม <b>2,034 ข้อ</b></span>
+      <span class="chip">เน้นตอนนี้ <b>4 หน่วยงาน</b></span>
+      <span class="chip">คลังข้อสอบรวม <b>2,144 ข้อ</b></span>
       <span class="chip">ตัวบทฉบับเต็ม <b>93 แหล่ง</b></span>
     </div>
   </div>
@@ -94,12 +96,12 @@ footer{text-align:center;color:var(--ink-soft);font-size:13px;margin-top:34px;pa
     </div>
   </div>
 
-  <div class="section-title">1 • เตรียมสอบรายหน่วยงาน</div>
-  <div class="section-note">ทุกแอปหน้าตาเหมือนกันหมด — หน้าหลัก / สรุป พ.ร.บ. / ข้อสอบรวม / ตะลุยโจทย์ / ฉบับเต็ม</div>
+  <div class="section-title">1 • 🎯 ที่ต้องเน้นตอนนี้</div>
+  <div class="section-note">4 หน่วยงานเป้าหมาย — ทุกแอปหน้าตาเหมือนกันหมด: หน้าหลัก / สรุป พ.ร.บ. / ข้อสอบรวม / ตะลุยโจทย์ / ฉบับเต็ม</div>
   <div class="grid">
 
-    <a class="card exam" href="sao.html">
-      <span class="badge">คลังใหญ่สุด</span>
+    <a class="card exam focus" href="sao.html">
+      <span class="badge">เน้น • คลังใหญ่สุด</span>
       <div class="c-top">
         <div class="c-ico">🔎</div>
         <div class="c-body">
@@ -118,7 +120,8 @@ footer{text-align:center;color:var(--ink-soft);font-size:13px;margin-top:34px;pa
       </div>
     </a>
 
-    <a class="card exam" href="opsmoac.html">
+    <a class="card exam focus" href="opsmoac.html">
+      <span class="badge">เน้น</span>
       <div class="c-top">
         <div class="c-ico">🌾</div>
         <div class="c-body">
@@ -137,7 +140,8 @@ footer{text-align:center;color:var(--ink-soft);font-size:13px;margin-top:34px;pa
       </div>
     </a>
 
-    <a class="card exam" href="rd.html">
+    <a class="card exam focus" href="rd.html">
+      <span class="badge">เน้น</span>
       <div class="c-top">
         <div class="c-ico">🧾</div>
         <div class="c-body">
@@ -156,8 +160,8 @@ footer{text-align:center;color:var(--ink-soft);font-size:13px;margin-top:34px;pa
       </div>
     </a>
 
-    <a class="card exam" href="energy.html">
-      <span class="badge">ใหม่</span>
+    <a class="card exam focus" href="energy.html">
+      <span class="badge">เน้น • ใหม่</span>
       <div class="c-top">
         <div class="c-ico">⚡</div>
         <div class="c-body">
@@ -167,13 +171,20 @@ footer{text-align:center;color:var(--ink-soft);font-size:13px;margin-top:34px;pa
         </div>
         <div class="c-arrow">›</div>
       </div>
-      <div class="count">คลังข้อสอบ <b>48</b> ข้อ</div>
+      <div class="count">คลังข้อสอบ <b>158</b> ข้อ</div>
       <div class="c-tags">
         <span class="tag">สรุปเนื้อหา</span>
         <span class="tag">กฎหมายพลังงาน 5 ฉบับ</span>
+        <span class="tag">ตะลุยโจทย์ 110 ข้อ</span>
         <span class="tag">ตัวบท 20 แหล่ง</span>
       </div>
     </a>
+
+  </div>
+
+  <div class="section-title">2 • คลังหน่วยงานอื่น</div>
+  <div class="section-note">ทำไว้ก่อนหน้านี้ — เก็บไว้ทบทวน หรือใช้ฝึกข้ามหน่วยงาน (ดีพร้อมมีคลังข้อสอบใหญ่สุดของทั้งเว็บ)</div>
+  <div class="grid">
 
     <a class="card exam" href="diprom.html">
       <div class="c-top">
@@ -212,7 +223,7 @@ footer{text-align:center;color:var(--ink-soft);font-size:13px;margin-top:34px;pa
     </a>
   </div>
 
-  <div class="section-title">2 • อ่านครั้งเดียว ใช้ได้ทุกกรม</div>
+  <div class="section-title">3 • อ่านครั้งเดียว ใช้ได้ทุกกรม</div>
   <div class="section-note">กฎหมายกลางและตัวบทที่ออกสอบซ้ำกันแทบทุกหน่วยงาน อ่านส่วนนี้ก่อนจะคุ้มที่สุด</div>
   <div class="grid">
 
@@ -271,7 +282,7 @@ footer{text-align:center;color:var(--ink-soft);font-size:13px;margin-top:34px;pa
     </a>
   </div>
 
-  <div class="section-title">3 • ภาษาอังกฤษ</div>
+  <div class="section-title">4 • ภาษาอังกฤษ</div>
   <div class="section-note">ฝึกแยกจากสายสอบราชการ — มีเสียงอ่านทุกประโยค</div>
   <div class="grid">
 
@@ -311,7 +322,7 @@ footer{text-align:center;color:var(--ink-soft);font-size:13px;margin-top:34px;pa
     </a>
   </div>
 
-  <div class="section-title">4 • กำลังจะเพิ่ม</div>
+  <div class="section-title">5 • กำลังจะเพิ่ม</div>
   <div class="grid">
     <div class="card exam soon">
       <span class="badge soon-b">เร็ว ๆ นี้</span>
