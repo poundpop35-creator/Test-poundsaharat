@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#132b40">
+  <title>สตง. โค้งสุดท้าย 2 วัน • 60 โจทย์พร้อมตัวบท</title>
+  <link rel="stylesheet" href="sao-sprint.css?v=20260930">
+  <script defer src="sao-sprint-data.js?v=20260930"></script>
+  <script defer src="sao-sprint-core.js?v=20260930"></script>
+  <script defer src="sao-sprint.js?v=20260930"></script>
+</head>
+<body>
+  <header><div class="wrap"><nav aria-label="ทางกลับ"><a href="index.html">← ทุกหน่วยงาน</a><a href="sao.html">คลัง สตง. เดิม</a></nav><p class="eyebrow">สตง. · นักวิเคราะห์นโยบายและแผน</p><h1>โค้งสุดท้าย <em>2 วัน</em></h1><p>ตะลุย 60 โจทย์ใหม่ • ครบ 9 หัวข้อในภาพขอบเขตสอบ</p><div class="chips"><span>3 ชุด × 20 ข้อ</span><span>เฉลยทุกตัวเลือก</span><span>เปิดตัวบทจากแต่ละข้อ</span></div></div></header>
+  <main class="wrap">
+    <p id="storageNotice" class="notice" hidden>เบราว์เซอร์นี้ไม่อนุญาตให้บันทึกความคืบหน้า ขณะนี้ฝึกได้ตามปกติ แต่ปิดหน้านี้แล้วข้อมูลอาจหาย</p>
+    <section id="dashboard">
+      <div class="lead card"><span class="kicker">เริ่มตรงนี้</span><h2>ทำโจทย์ → อ่านเหตุผล → กลับมาซ้ำข้อที่พลาด</h2><p>คัดประเด็นจากตัวบทและขอบเขตสอบ เน้นอำนาจ เงื่อนไข ข้อยกเว้น และการประยุกต์ ชุดเก็งนี้เป็นโจทย์แต่งเพื่อฝึก ไม่ใช่ข้อสอบจริงหรือการรับรองว่าจะออกข้อใด</p><div class="actions"><button class="primary" data-start="1">เริ่มชุด 1 เลย</button><button id="resume" hidden>ทำชุดค้างต่อ</button></div></div>
+      <div class="stats" id="stats" aria-live="polite"></div>
+      <fieldset class="card modes"><legend>รูปแบบการฝึก</legend><label><input type="radio" name="mode" value="practice" checked> ฝึกเรียนรู้ <small>เฉลยทันทีหลังตอบ</small></label><label><input type="radio" name="mode" value="exam"> จำลองสอบ <small>เฉลยเมื่อจบชุด</small></label><p>แนะนำประมาณ 25 นาทีต่อ 20 ข้อ เป็นเวลาฝึกที่จัดให้ ไม่ใช่เวลาหรือสัดส่วนข้อสอบจริง</p></fieldset>
+      <div class="set-grid" id="sets"></div>
+      <div class="actions review-actions"><button id="wrongBtn">ซ้ำข้อที่ยังตอบผิด</button><button id="markedBtn">ทวนข้อที่ปักไว้</button><button id="allBtn">จำลองสอบรวม 60 ข้อ</button></div>
+      <section class="card"><h2>แผนทวน 2 วัน</h2><div class="days"><div><h3>วันแรก · รู้จุดพลาด</h3><ol><li>ทำชุด 1 แบบจำลองสอบโดยไม่เปิดเฉลย</li><li>ทวนข้อผิด เปิดมาตราจริง แล้วเขียนเหตุผลสั้น ๆ ว่าพลาดตรงไหน</li><li>ทำชุด 2 แบบฝึกเรียนรู้ เน้นกฎหมาย 3 ฉบับแรก</li><li>ทวนแผน 13 จริยธรรม และนโยบาย สตง. จากบัตรสรุปด้านล่าง</li></ol></div><div><h3>วันที่สอง · ฝึกตัดตัวเลือก</h3><ol><li>ทำชุด 3 แบบจำลองสอบ</li><li>ซ้ำข้อผิดและข้อปักไว้ จนอธิบายได้ว่าทำไมอีก 3 ตัวเลือกผิด</li><li>ทำรวม 60 ข้อถ้ายังมีเวลา แยกผลรอบซ้ำจากการทำครั้งแรก</li><li>ก่อนพัก ทวนเฉพาะตัวเลข เงื่อนไข และคู่คำที่สับสน</li></ol></div></div><p class="muted">สัดส่วนฝึกให้กฎหมาย 3 ฉบับแรก 26 ข้อ และอีก 6 หัวข้อ 34 ข้อ เพราะใช้เชื่อมอำนาจและวิเคราะห์สถานการณ์ได้มาก เป็นการจัดลำดับอ่านของชุดนี้ ไม่ใช่สถิติออกสอบ</p></section>
+      <section class="card"><h2>บัตรทวน 9 หัวข้อ · อ่านก่อนซ้ำข้อผิด</h2><p>กดเปิดแต่ละหัวข้อเพื่อทวนจุดสับสน พร้อมกดตัวบทฉบับเต็ม</p><div id="notes"></div></section>
+      <section class="card"><h2>เลือกฝึกเฉพาะจุดอ่อน</h2><div id="topicButtons" class="topic-buttons"></div></section>
+      <section class="card"><h2>ผลการฝึกที่ผ่านมา</h2><div id="history"></div><p class="muted">บันทึกเฉพาะเบราว์เซอร์นี้ ข้อมูลของหน่วยงานอื่นแยกกัน คะแนนซ้ำอาจสูงจากความจำ จึงไม่ใช่การทำนายผลสอบ</p></section>
+      <section class="card"><h2>เอกสารที่ใช้ตรวจคำตอบ</h2><p class="muted">ตรวจชุดนี้ 30 กันยายน 2569 ตามฉบับที่ระบุในขอบเขตและฉบับแก้ไขที่อ้างในแต่ละข้อ ไม่ได้อ้างว่าตรวจคลังเดิมครบทุกข้อ</p><div id="sources"></div></section>
+    </section>
+    <section id="quiz" hidden aria-label="โจทย์"><div class="quiz-nav"><button id="pause">พัก / กลับหน้าเลือกชุด</button><span id="counter"></span></div><progress id="progress" max="20" value="0"></progress><div id="question"></div><div class="actions"><button id="next" class="primary" disabled>เลือกคำตอบก่อน</button><button id="mark">ปักไว้ทวน</button></div></section>
+    <section id="result" hidden tabindex="-1"></section>
+    <noscript><div class="card">กรุณาเปิด JavaScript เพื่อทำโจทย์ <a href="sao.html">กลับคลัง สตง.</a></div></noscript>
+  </main>
+  <footer class="wrap">สรุปเพื่อเตรียมสอบส่วนตัว • สถานการณ์และตัวเลขคำนวณเป็นโจทย์แต่ง • ตัวบทมีปุ่มเปิดต้นฉบับ</footer>
+</body></html>
