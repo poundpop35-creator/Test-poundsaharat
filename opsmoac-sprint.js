@@ -43,7 +43,7 @@
     $('question').innerHTML=`<div class="card"><p class="kicker">${E(s.title)} · ${E(D.topics[q.topic-1])}</p><h2 id="questionTitle" class="question-title" tabindex="-1">${E(q.q)}</h2><div class="options">${order.map((original,i)=>`<button class="option${answered&&chosen===original?' chosen':''}${answered&&s.mode==='practice'?(original===q.a?' correct':original===chosen?' wrong':''):''}" data-option="${original}" ${answered?'disabled':''}><span class="letter">${['ก','ข','ค','ง'][i]}.</span><span>${E(q.c[original])}</span></button>`).join('')}</div><div id="answerFeedback" aria-live="polite">${answered?(s.mode==='practice'?feedback(q,order,chosen):'<p class="notice">บันทึกคำตอบแล้ว เฉลยและคะแนนจะแสดงเมื่อจบชุด</p>'):''}</div></div>`;
     $('next').disabled=!answered;$('next').textContent=!answered?'เลือกคำตอบก่อน':s.idx===s.ids.length-1?'จบชุดและดูผล':'ข้อถัดไป →';
     $('mark').textContent=state.marked.includes(id)?'✓ ปักไว้แล้ว (กดเอาออก)':'ปักไว้ทวน';$('mark').setAttribute('aria-pressed',String(state.marked.includes(id)));
-    if(focus){window.scrollTo(0,0);$('questionTitle').focus({preventScroll:true});}
+    if(focus){$('quiz').scrollIntoView({block:'start'});$('questionTitle').focus({preventScroll:true});}
   }
   function result(){
     const s=state.session,r=C.score(s),percent=Math.round(r.correct/r.total*100);
