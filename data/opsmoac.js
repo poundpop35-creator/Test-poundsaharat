@@ -2470,7 +2470,8 @@ window.EXAM_DATA = {
     "evaluation": {
       "title": "OECD • เกณฑ์ประเมินนโยบายและโครงการ",
       "url": "https://www.oecd.org/en/topics/sub-issues/development-co-operation-evaluation-and-effectiveness/evaluation-criteria.html",
-      "note": "ใช้กรอบ effectiveness, efficiency, equity และ sustainability; สถานการณ์และการคำนวณเป็นโจทย์แต่งขึ้น"
+      "note": "กรอบ OECD มี 6 เกณฑ์: relevance, coherence, effectiveness, efficiency, impact และ sustainability; ความเป็นธรรมเป็นมิติประกอบการประเมิน ไม่ใช่เกณฑ์ที่เจ็ด; สถานการณ์และการคำนวณเป็นโจทย์แต่งขึ้น"
     }
   }
 };
+
