@@ -26,13 +26,23 @@
 </header>
 <div class="wrap">
   <div class="tabs">
-    <div class="tab active" data-tab="home" onclick="startHome()">หน้าหลัก</div>
-    <div class="tab" data-tab="laws" onclick="startLaws()">สรุป พ.ร.บ.</div>
-    <div class="tab" data-tab="mock" onclick="startMock()">ข้อสอบรวม</div>
-    <div class="tab" data-tab="book" onclick="startBook()">ตะลุยโจทย์</div>
-    <div class="tab" data-tab="src" onclick="startSources()">ฉบับเต็ม</div>
+    <div class="tab active" data-tab="home" onclick="startHome()"><span class="s">1</span>อ่านเนื้อหา</div>
+    <div class="tab" data-tab="laws" onclick="startLaws()"><span class="s">2</span>จุดต้องท่อง</div>
+    <div class="tab" data-tab="book" onclick="startBook()"><span class="s">3</span>ฝึกรายหมวด</div>
+    <div class="tab" data-tab="mock" onclick="startMock()"><span class="s">4</span>ข้อสอบรวม</div>
+    <div class="tab" data-tab="src" onclick="startSources()"><span class="s">5</span>ตัวบทฉบับเต็ม</div>
   </div>
   <div id="home" class="view show">
+    <div class="flow">
+      <h2>ใช้ตามลำดับนี้</h2>
+      <ol>
+        <li><span><b>อ่านเนื้อหา</b> — ไล่อ่านทีละหัวข้อ จบหัวข้อไหนกดทำข้อสอบหัวข้อนั้นเลย</span></li>
+        <li><span><b>จุดต้องท่อง</b> — ตัวเลข มาตรา และคำนิยามที่ออกสอบบ่อย ทวนก่อนเข้าห้องสอบ</span></li>
+        <li><span><b>ฝึกรายหมวด</b> — คลังข้อสอบเสริม แยกหมวดให้ฝึกซ้ำเฉพาะจุดที่ยังไม่แม่น</span></li>
+        <li><span><b>ข้อสอบรวม</b> — สุ่มทุกหัวข้อเสมือนสอบจริง ใช้วัดว่าพร้อมหรือยัง</span></li>
+        <li><span><b>ตัวบทฉบับเต็ม</b> — ลิงก์กฎหมายจริงบนเว็บราชการ ใช้ยืนยันตัวเลขก่อนสอบ</span></li>
+      </ol>
+    </div>
     <div class="intro-card">
       <h2>ครบทั้ง 8 หัวข้อตามประกาศ</h2>
       <p><b>น้ำหนักที่ควรลง:</b> หัวข้อ 3 (จัดซื้อจัดจ้าง) คือหัวใจ ราว <b>35–45%</b> ของข้อสอบ รองมาคือหัวข้อ 4 (เบิกจ่าย) แล้วค่อยงบประมาณ ประมวลรัษฎากร และข้อมูลข่าวสาร</p>
@@ -665,7 +675,7 @@ function renderGrid(){
 let curRead=null;
 function openRead(id){
   const t=TOPICS.find(x=>x.id===id);curRead=id;
-  $('readTitle').innerHTML=`หัวข้อ ${t.id} • ${t.title}`;
+  $('readTitle').innerHTML=`หัวข้อที่ ${t.id} • ${t.title}`;
   let h="";
   t.content.forEach(sec=>{
     h+=`<section><h4>${sec.h}</h4>`;
@@ -687,7 +697,7 @@ function buildQ(topic){
 }
 function startTopic(id){
   const t=TOPICS.find(x=>x.id===id);
-  S={list:shuffle(buildQ(t)),idx:0,score:0,wrong:[],answered:false,title:`หัวข้อ ${t.id} • ${t.title}`,topicId:id};
+  S={list:shuffle(buildQ(t)),idx:0,score:0,wrong:[],answered:false,title:`หัวข้อที่ ${t.id} • ${t.title}`,topicId:id};
   setTab(null);show('quiz');renderQ();
 }
 function startMock(){
@@ -710,7 +720,7 @@ function renderBookGrid(){
       <div class="top"><span class="num alt">${t.id}</span>
         <div><h3>${t.title}</h3><div class="tag">คลังข้อสอบเสริม • ตะลุยโจทย์</div></div></div>
       <div class="btns">
-        <button class="btn quiz alt" onclick="startBookTopic(${t.id})">ทำข้อสอบหมวดนี้</button>
+        <button class="btn quiz alt" onclick="startBookTopic(${t.id})">ทำข้อสอบหัวข้อนี้</button>
       </div></div>`;
   });
   $('bookGrid').innerHTML=h;
