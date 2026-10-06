@@ -18,7 +18,7 @@
   const page = catalog.find(p=>p.file===file);
   const groups = {agencies:'กำลังเตรียมสอบ',resources:'กฎหมายและตัวบท',english:'ภาษาอังกฤษ',archive:'หน่วยงานที่สอบแล้ว'};
   const bar = document.createElement('div');bar.className='app-bar';
-  bar.innerHTML=`<div class="app-bar-inner"><a class="app-brand" href="index.html" aria-label="คลังติว กลับหน้าเลือกหน่วยงาน"><span class="app-brand-mark">${icon('book')}</span><span>คลังติว</span></a><span class="app-breadcrumb">${esc(sprint?sprintPage.short+' / ตะลุย 60 ข้อ':page?page.short:'เลือกหน่วยงาน')}</span><details class="app-menu"><summary>${icon('menu')}<span>หน่วยงาน / หมวด</span></summary><nav aria-label="เลือกหน่วยงานและหมวด" class="app-menu-panel"><a class="app-menu-home" href="index.html">หน้าแรก · ทุกหมวด →</a><div class="app-menu-groups">${Object.entries(groups).map(([key,label])=>`<section><h2>${label}</h2>${catalog.filter(p=>p.group===key).map(p=>`<a href="${href(p.file)}"${p.file===file?' aria-current="page"':''}><span>${esc(p.short)}</span>${p.priority?'<small>อ่านก่อน</small>':''}</a>${p.sprint?`<a class="app-menu-child" href="${p.sprint}"${p.sprint===file?' aria-current="page"':''}>↳ ตะลุย ${esc(p.short)} 60 ข้อ</a>`:''}`).join('')}</section>`).join('')}</div></nav></details></div>`;
+  bar.innerHTML=`<div class="app-bar-inner"><a class="app-brand" href="index.html" aria-label="คลังติว กลับหน้าเลือกหน่วยงาน"><span class="app-brand-mark">${icon('book')}</span><span>คลังติว</span></a><span class="app-breadcrumb">${esc(sprint?sprintPage.short+' / '+(sprintPage.sprintCount||60)+' ข้อ':page?page.short:'เลือกหน่วยงาน')}</span><details class="app-menu"><summary>${icon('menu')}<span>หน่วยงาน / หมวด</span></summary><nav aria-label="เลือกหน่วยงานและหมวด" class="app-menu-panel"><a class="app-menu-home" href="index.html">หน้าแรก · ทุกหมวด →</a><div class="app-menu-groups">${Object.entries(groups).map(([key,label])=>`<section><h2>${label}</h2>${catalog.filter(p=>p.group===key).map(p=>`<a href="${href(p.file)}"${p.file===file?' aria-current="page"':''}><span>${esc(p.short)}</span>${p.priority?'<small>อ่านก่อน</small>':''}</a>${p.sprint?`<a class="app-menu-child" href="${p.sprint}"${p.sprint===file?' aria-current="page"':''}>↳ ${p.sprintCount===100?'สอบเต็มชุด':'ตะลุย'} ${esc(p.short)} ${p.sprintCount||60} ข้อ</a>`:''}`).join('')}</section>`).join('')}</div></nav></details></div>`;
   document.body.prepend(bar);
   const content = document.querySelector('main') || document.querySelector('body > .wrap');
   if(content){if(!content.id)content.id='app-content';content.tabIndex=-1;const skip=document.createElement('a');skip.className='app-skip';skip.href='#'+content.id;skip.textContent='ข้ามไปเนื้อหา';document.body.prepend(skip);}
@@ -38,6 +38,7 @@
       const eyebrow=header.querySelector('.eyebrow');if(eyebrow)eyebrow.textContent=page.group==='archive'?'คลังเดิม · หน่วยงานที่สอบแล้ว':'เตรียมสอบ · '+page.short;
     }
   }
+  if(page?.id==='opsmoac')document.querySelectorAll('body > .wrap > .intro-card, #home > .intro-card').forEach(card=>{if(!card.querySelector('a[href="opsmoac-sprint.html"]'))return;const walker=document.createTreeWalker(card,NodeFilter.SHOW_TEXT);while(walker.nextNode())walker.currentNode.nodeValue=walker.currentNode.nodeValue.replace(/60(?=\s*(ข้อ|โจทย์))/g,'100').replace(/3 ชุด/g,'5 ชุดฝึกย่อย');});
   const tabInfo={home:['อ่านเนื้อหา','read'],book:['ฝึกแยกหมวด','practice'],mock:['ข้อสอบรวม','exam'],laws:['สรุปกฎหมาย','summary'],src:['ตัวบทฉบับเต็ม','sources']};
   const tabs=document.querySelector('.tabs');
   if(tabs){
@@ -55,7 +56,7 @@
         const [label,hash]=tabInfo[el.dataset.tab];el.textContent=label;el.style.order=Object.keys(tabInfo).indexOf(el.dataset.tab);
         el.addEventListener('click',()=>rememberHash(hash));
       }else if(el.tagName==='A'&&catalog.some(p=>p.sprint===el.getAttribute('href'))){
-        el.textContent='ตะลุย 60 ข้อ ↗';el.removeAttribute('style');el.classList.add('app-sprint-tab');el.style.order=5;
+        const bank=catalog.find(p=>p.sprint===el.getAttribute('href'));el.textContent=(bank.sprintCount===100?'สอบเต็มชุด ':'ตะลุย ')+(bank.sprintCount||60)+' ข้อ ↗';el.removeAttribute('style');el.classList.add('app-sprint-tab');el.style.order=5;
       }
     });
     if(tabs.querySelector('[data-tab]'))[...tabs.children].sort((a,b)=>Number(a.style.order)-Number(b.style.order)).forEach(el=>tabs.append(el));
