@@ -1,0 +1,6 @@
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#f6f8f5;color:#183d34;font-family:system-ui,sans-serif}
+#study-frame{display:block;width:100%;height:100%;height:100dvh;border:0}
+#study-frame:not([data-ready]){visibility:hidden}
+#study-loading,#study-error{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;padding:24px;text-align:center}
+[hidden]{display:none!important}
+a{color:#185c48;padding:12px;font-weight:600}h1{font-size:24px}p{line-height:1.7;margin:0}
