@@ -9,13 +9,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink0:#26323C;--ink0-700:#1B242C;--ink0-500:#41525F;
-  --gold:#C68A1E;--gold-soft:#F3E7CA;--paper:#F5F7F9;--card:#FFFFFF;
-  --ink:#1E262E;--ink-soft:#5B6874;--line:#DFE5EA;
-  --core:#1E8E6A;--core-bg:#E6F5EF;
-  --uniq:#B0473F;--uniq-bg:#FBECEB;
-  --half:#C68A1E;--half-bg:#FAF1DC;
-  --shadow:0 6px 24px rgba(38,50,60,.10);
+  --ink0:#475569;--ink0-700:#1E293B;--ink0-500:#64748B;
+  --gold:#475569;--gold-soft:#F3F5F8;--paper:#F6F7F9;--card:#FFFFFF;
+  --ink:#141A21;--ink-soft:#54616E;--line:#E3E7EC;
+  --core:#0E7A54;--core-bg:#E7F6EF;
+  --uniq:#C0304A;--uniq-bg:#FDECEF;
+  --half:#9A6400;--half-bg:#FFF6E3;
+  --shadow:0 1px 2px rgba(16,24,40,.04), 0 6px 20px rgba(16,24,40,.06);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
@@ -84,6 +84,8 @@ ul.pl li b{color:var(--ink0-700)}
 .step .c p{font-size:14.5px;color:var(--ink-soft);margin-top:2px}
 footer{text-align:center;color:var(--ink-soft);font-size:13px;margin:28px 0 8px;padding:0 16px}
 .note{background:#fff;border:1px dashed var(--line);border-radius:12px;padding:11px 14px;font-size:13.5px;color:var(--ink-soft);margin:14px 0}
+body::before{content:"";position:fixed;top:0;left:0;right:0;height:4px;z-index:200;background:linear-gradient(90deg,#475569,#1E293B)}
+body{padding-top:4px}
 </style>
 </head>
 <body>

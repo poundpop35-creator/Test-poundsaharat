@@ -9,11 +9,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --teal:#1E8E6A;--teal-700:#177255;--teal-500:#25A67E;
-  --gold:#D9A327;--gold-soft:#FBEFCE;--paper:#F4FAF8;--card:#FFFFFF;
-  --ink:#17251F;--ink-soft:#54685F;--line:#DCEBE5;
-  --good:#1E8E6A;--good-bg:#E4F5EE;--bad:#C7384B;--bad-bg:#FBE9EC;
-  --shadow:0 6px 22px rgba(30,142,106,.12);
+  --teal:#DB2777;--teal-700:#9D174D;--teal-500:#EC4899;
+  --gold:#DB2777;--gold-soft:#FFF0F6;--paper:#F6F7F9;--card:#FFFFFF;
+  --ink:#141A21;--ink-soft:#54616E;--line:#E3E7EC;
+  --good:#0E7A54;--good-bg:#E7F6EF;--bad:#C0304A;--bad-bg:#FDECEF;
+  --shadow:0 1px 2px rgba(16,24,40,.04), 0 6px 20px rgba(16,24,40,.06);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
@@ -96,6 +96,8 @@ header .sub{font-size:14.5px;color:#E7F5F0}
 .result .msg{color:var(--ink-soft);margin-bottom:18px}
 .result .btn{display:inline-block;margin:5px;max-width:220px}
 .audio-warn{display:none;background:#FFF6E5;border:1px solid #F0D89A;color:#8a6a15;font-size:13.5px;border-radius:10px;padding:9px 12px;margin:10px 0}
+body::before{content:"";position:fixed;top:0;left:0;right:0;height:4px;z-index:200;background:linear-gradient(90deg,#DB2777,#9D174D)}
+body{padding-top:4px}
 </style>
 </head>
 <body>

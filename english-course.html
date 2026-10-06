@@ -9,11 +9,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --plum:#5B3FA8;--plum-700:#472F87;--plum-500:#7458C6;
-  --gold:#D9A327;--gold-soft:#F6E9C6;--paper:#F7F5FC;--card:#FFFFFF;
-  --ink:#1F1A2E;--ink-soft:#5C5573;--line:#E4DDF2;
-  --good:#1E8E6A;--good-bg:#E4F5EE;--bad:#C7384B;--bad-bg:#FBE9EC;
-  --shadow:0 6px 22px rgba(91,63,168,.12);
+  --plum:#A21CAF;--plum-700:#701A75;--plum-500:#C026D3;
+  --gold:#A21CAF;--gold-soft:#FDF0FD;--paper:#F6F7F9;--card:#FFFFFF;
+  --ink:#141A21;--ink-soft:#54616E;--line:#E3E7EC;
+  --good:#0E7A54;--good-bg:#E7F6EF;--bad:#C0304A;--bad-bg:#FDECEF;
+  --shadow:0 1px 2px rgba(16,24,40,.04), 0 6px 20px rgba(16,24,40,.06);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
@@ -147,6 +147,8 @@ textarea.typebox{min-height:120px;line-height:1.6;resize:vertical}
 .chk li{padding:3px 0 3px 22px;position:relative;font-size:14.5px}
 .chk li::before{content:"☑";position:absolute;left:0;color:var(--good)}
 footer{text-align:center;color:var(--ink-soft);font-size:13px;margin:28px 0 8px;padding:0 16px}
+body::before{content:"";position:fixed;top:0;left:0;right:0;height:4px;z-index:200;background:linear-gradient(90deg,#A21CAF,#701A75)}
+body{padding-top:4px}
 </style>
 </head>
 <body>

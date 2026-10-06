@@ -1,0 +1,401 @@
+/* ============================================================
+   theme.css — ระบบออกแบบกลางของคลังติวสอบ
+   ใช้ร่วมกันทุกแอป เปลี่ยนสีประจำแอปด้วย <body data-app="...">
+   ============================================================ */
+
+/* ---------- 1. โทเคนพื้นฐาน (เป็นกลาง ใช้ร่วมทุกแอป) ---------- */
+:root{
+  /* สีประจำแอป (ค่าเริ่มต้น = หมึกกลาง ใช้กับหน้ารวม) */
+  --a:#334155;        /* สีหลัก — ปุ่ม แท็บที่เลือก ตัวเลข */
+  --a-dk:#1E293B;     /* เข้มขึ้น — ปลายไล่สี สถานะกด */
+  --a-lt:#94A3B8;     /* อ่อน — ใช้บนพื้นเข้ม */
+  --a-sf:#F1F5F9;     /* พื้นอ่อนมาก — แท็ก ป้าย กล่องเน้น */
+  --a-bd:#CBD5E1;     /* เส้นขอบโทนสี */
+
+  /* พื้นผิวและตัวอักษร */
+  --paper:#F6F7F9;
+  --card:#FFFFFF;
+  --card-2:#FBFCFD;
+  --ink:#141A21;
+  --ink-soft:#54616E;
+  --ink-faint:#7C8896;
+  --line:#E3E7EC;
+  --line-soft:#EDF0F3;
+
+  /* สีความหมาย (ไม่ขึ้นกับสีประจำแอป) */
+  --good:#0E7A54; --good-bg:#E7F6EF; --good-bd:#A8DCC6;
+  --bad:#C0304A;  --bad-bg:#FDECEF;  --bad-bd:#F2B8C2;
+  --warn:#9A6400; --warn-bg:#FFF6E3;
+
+  /* รูปทรง */
+  --r-sm:9px; --r-md:12px; --r-lg:16px; --r-xl:20px;
+  --shadow:0 1px 2px rgba(16,24,40,.04), 0 6px 20px rgba(16,24,40,.06);
+  --shadow-lg:0 2px 4px rgba(16,24,40,.05), 0 14px 38px rgba(16,24,40,.10);
+  --focus:0 0 0 3px color-mix(in srgb, var(--a) 35%, transparent);
+}
+
+/* ---------- 2. สีประจำแต่ละแอป ---------- */
+/* เลือกเฉดที่ห่างกันบนวงล้อสี และผ่านคอนทราสต์ AA เมื่อวางตัวอักษรสีขาว */
+body[data-app="sao"]        { --a:#1D4ED8; --a-dk:#1E3A8A; --a-lt:#93B4FD; --a-sf:#EFF4FF; --a-bd:#C3D4FE; }
+body[data-app="opsmoac"]    { --a:#15803D; --a-dk:#14532D; --a-lt:#86E0A6; --a-sf:#EDFAF0; --a-bd:#B3E6C4; }
+body[data-app="rd"]         { --a:#BE123C; --a-dk:#881337; --a-lt:#FDA4B8; --a-sf:#FFF0F3; --a-bd:#FBC5D1; }
+body[data-app="energy"]     { --a:#C2410C; --a-dk:#7C2D12; --a-lt:#FDB183; --a-sf:#FFF3EC; --a-bd:#FBCDAE; }
+body[data-app="diprom"]     { --a:#6D28D9; --a-dk:#4C1D95; --a-lt:#C4B0FC; --a-sf:#F5F0FF; --a-bd:#DCCDFB; }
+body[data-app="namban"]     { --a:#0E7490; --a-dk:#164E63; --a-lt:#85D9EF; --a-sf:#ECFAFE; --a-bd:#B2E4F3; }
+body[data-app="laws"]       { --a:#0F766E; --a-dk:#134E4A; --a-lt:#7FDBCD; --a-sf:#EAFBF7; --a-bd:#AEE5DB; }
+body[data-app="law-sources"]{ --a:#57534E; --a-dk:#292524; --a-lt:#C5BFB8; --a-sf:#F7F6F4; --a-bd:#DCD8D2; }
+body[data-app="compare"]    { --a:#475569; --a-dk:#1E293B; --a-lt:#AFBBCA; --a-sf:#F3F5F8; --a-bd:#D2DAE3; }
+body[data-app="english"]    { --a:#DB2777; --a-dk:#9D174D; --a-lt:#FBA5C8; --a-sf:#FFF0F6; --a-bd:#FAC4DA; }
+body[data-app="english-course"]{ --a:#A21CAF; --a-dk:#701A75; --a-lt:#EDA5F2; --a-sf:#FDF0FD; --a-bd:#F3C2F6; }
+
+/* ---------- 3. พื้นฐานเอกสาร ---------- */
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  font-family:'Sarabun',system-ui,-apple-system,sans-serif;
+  background:var(--paper);color:var(--ink);
+  line-height:1.65;font-size:17px;
+  padding-bottom:60px;
+  -webkit-font-smoothing:antialiased;
+}
+/* แถบสีประจำแอปด้านบนสุด — ใช้บอกว่ากำลังอยู่แอปไหนตั้งแต่แวบแรก */
+body::before{
+  content:"";position:fixed;top:0;left:0;right:0;height:4px;z-index:200;
+  background:linear-gradient(90deg,var(--a),var(--a-dk));
+}
+.wrap{max-width:860px;margin:0 auto;padding:0 18px}
+h1,h2,h3,.kanit{font-family:'Kanit','Sarabun',sans-serif;font-weight:600;line-height:1.35}
+a{color:var(--a)}
+:focus-visible{outline:none;box-shadow:var(--focus);border-radius:6px}
+
+/* ---------- 4. ส่วนหัว ---------- */
+header{
+  background:linear-gradient(140deg,var(--a) 0%,var(--a-dk) 100%);
+  color:#fff;padding:30px 0 26px;position:relative;overflow:hidden;
+  margin-top:4px;
+}
+header::after{
+  content:"";position:absolute;right:-60px;top:-80px;width:280px;height:280px;
+  background:radial-gradient(circle,rgba(255,255,255,.14),transparent 68%);
+  pointer-events:none;
+}
+header > .wrap{position:relative;z-index:1}
+header a[href]{color:rgba(255,255,255,.88);text-decoration:none}
+.eyebrow{
+  font-family:'Kanit','Sarabun',sans-serif;font-weight:500;letter-spacing:.07em;
+  font-size:12.5px;color:rgba(255,255,255,.80);text-transform:uppercase;
+}
+header h1{font-size:26px;margin:7px 0 5px;font-weight:700;letter-spacing:-.2px}
+header .sub{font-size:15px;color:rgba(255,255,255,.86);font-weight:400}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{
+  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.26);
+  padding:5px 12px;border-radius:999px;font-size:13px;
+  font-family:'Kanit','Sarabun',sans-serif;font-weight:500;
+}
+.chip b{color:#fff;font-weight:700}
+
+/* ---------- 5. แท็บ ---------- */
+.tabs{
+  display:flex;flex-wrap:wrap;gap:7px;margin:16px 0 8px;
+  position:sticky;top:0;z-index:20;
+  background:var(--paper);padding:11px 0;border-bottom:1px solid var(--line);
+}
+.tab{
+  flex:1 1 auto;min-width:88px;text-align:center;
+  font-family:'Kanit','Sarabun',sans-serif;font-weight:500;font-size:14.5px;
+  padding:10px 10px;border-radius:10px;
+  border:1px solid var(--line);background:var(--card);color:var(--ink-soft);
+  cursor:pointer;transition:background .15s,color .15s,border-color .15s;
+  user-select:none;
+}
+.tab:hover{border-color:var(--a-bd);color:var(--a)}
+.tab.active{background:var(--a);color:#fff;border-color:var(--a);font-weight:600}
+
+/* ---------- 6. มุมมอง ---------- */
+.view{display:none;animation:fade .22s ease}
+.view.show{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+
+/* ---------- 7. การ์ดแนะนำ ---------- */
+.intro-card{
+  background:var(--card);border:1px solid var(--line);border-left:4px solid var(--a);
+  border-radius:var(--r-lg);padding:17px 19px;margin:16px 0;box-shadow:var(--shadow);
+}
+.intro-card h2{font-size:18.5px;color:var(--ink);margin-bottom:6px}
+.intro-card p{font-size:15px;color:var(--ink-soft);margin-bottom:6px}
+.intro-card p:last-child{margin-bottom:0}
+.intro-card b{color:var(--a)}
+
+/* ---------- 8. ตารางหัวข้อ ---------- */
+.grid{display:grid;grid-template-columns:1fr;gap:13px;margin-top:8px}
+.topic{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:16px 17px;box-shadow:var(--shadow);position:relative;
+  display:flex;flex-direction:column;transition:border-color .15s,box-shadow .15s;
+}
+.topic:hover{border-color:var(--a-bd);box-shadow:var(--shadow-lg)}
+.topic .num{
+  font-family:'Kanit','Sarabun',sans-serif;font-weight:700;font-size:13.5px;
+  color:#fff;background:var(--a);width:31px;height:31px;border-radius:9px;
+  display:inline-flex;align-items:center;justify-content:center;flex:none;
+}
+.topic .top{display:flex;gap:12px;align-items:flex-start}
+.topic h3{font-size:16.5px;font-weight:600;color:var(--ink);padding-right:58px;line-height:1.45}
+.topic .tag{font-size:12.5px;color:var(--ink-faint);margin-top:4px;font-family:'Kanit','Sarabun',sans-serif}
+.topic .btns{display:flex;gap:8px;margin-top:auto;padding-top:14px}
+.topic.hot{border-color:var(--a-bd);background:linear-gradient(180deg,var(--a-sf),var(--card) 60%)}
+.badge{
+  position:absolute;top:13px;right:14px;
+  font-family:'Kanit','Sarabun',sans-serif;font-size:12px;font-weight:600;
+  color:var(--a);background:var(--a-sf);border:1px solid var(--a-bd);
+  padding:2px 9px;border-radius:999px;
+}
+
+/* ---------- 9. ปุ่ม ---------- */
+.btn{
+  font-family:'Kanit','Sarabun',sans-serif;font-weight:500;font-size:14px;
+  border-radius:10px;padding:10px 14px;border:1px solid var(--a);
+  cursor:pointer;transition:background .15s,color .15s;
+  flex:1;text-align:center;min-height:44px;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.btn.read{background:var(--card);color:var(--a)}
+.btn.read:hover{background:var(--a-sf)}
+.btn.quiz{background:var(--a);color:#fff}
+.btn.quiz:hover{background:var(--a-dk)}
+.next{
+  font-family:'Kanit','Sarabun',sans-serif;font-weight:600;font-size:16px;
+  background:var(--a);color:#fff;border:none;border-radius:12px;
+  padding:14px;width:100%;cursor:pointer;min-height:50px;
+}
+.next:hover:not(:disabled){background:var(--a-dk)}
+.next:disabled{background:#C3C9D1;cursor:not-allowed}
+.back{
+  font-family:'Kanit','Sarabun',sans-serif;font-weight:500;font-size:14px;
+  color:var(--a);background:var(--card);border:1px solid var(--line);
+  border-radius:10px;padding:9px 14px;cursor:pointer;min-height:40px;
+}
+.back:hover{border-color:var(--a-bd);background:var(--a-sf)}
+
+/* ---------- 10. หน้าอ่านเนื้อหา ---------- */
+.read-head{display:flex;align-items:center;gap:10px;margin:18px 0 4px;flex-wrap:wrap}
+.read-title{
+  font-family:'Kanit','Sarabun',sans-serif;font-weight:700;font-size:21px;
+  color:var(--ink);margin:8px 0 15px;line-height:1.35;
+}
+.content section{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);
+  padding:15px 17px;margin-bottom:12px;box-shadow:var(--shadow);
+}
+.content h4{
+  font-family:'Kanit','Sarabun',sans-serif;font-weight:600;font-size:16px;
+  color:var(--a);margin-bottom:9px;display:flex;align-items:center;gap:9px;
+}
+.content h4::before{content:"";width:5px;height:19px;background:var(--a);border-radius:3px;flex:none}
+.content ul{list-style:none;padding:0}
+.content li{position:relative;padding:5px 0 5px 19px;font-size:15.5px}
+.content li::before{content:"";position:absolute;left:3px;top:13px;width:5px;height:5px;border-radius:50%;background:var(--a-lt)}
+.content li b,.content li strong{color:var(--a-dk);font-weight:600}
+.kbox{
+  background:var(--a-sf);border:1px solid var(--a-bd);border-left:4px solid var(--a);
+  border-radius:var(--r-sm);padding:10px 14px;margin-top:10px;font-size:14.5px;
+}
+.kbox b{color:var(--a-dk)}
+.read-quiz-cta{margin:8px 0 30px;text-align:center}
+
+/* ตารางในเนื้อหา */
+table.tb{width:100%;border-collapse:collapse;margin-top:10px;font-size:14.5px}
+table.tb th,table.tb td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+table.tb th{background:var(--a-sf);color:var(--a-dk);font-family:'Kanit','Sarabun',sans-serif;font-weight:600}
+
+/* ---------- 11. ทำข้อสอบ ---------- */
+.quiz-head{margin:18px 0 12px}
+.q-progress{height:7px;background:var(--line);border-radius:999px;overflow:hidden;margin:11px 0 5px}
+.q-progress > i{display:block;height:100%;background:var(--a);width:0;transition:width .3s}
+.q-meta{display:flex;justify-content:space-between;font-family:'Kanit','Sarabun',sans-serif;font-size:13.5px;color:var(--ink-soft)}
+.q-card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:19px 18px;box-shadow:var(--shadow);margin-bottom:14px;
+}
+.q-cat{
+  font-family:'Kanit','Sarabun',sans-serif;font-size:12.5px;font-weight:500;
+  color:var(--a);background:var(--a-sf);border:1px solid var(--a-bd);
+  display:inline-block;padding:3px 11px;border-radius:999px;margin-bottom:11px;
+}
+.q-text{font-size:17.5px;font-weight:500;margin-bottom:15px;line-height:1.55}
+.opt{
+  display:block;width:100%;text-align:left;background:var(--card);
+  border:1.5px solid var(--line);border-radius:var(--r-md);
+  padding:13px 15px;margin-bottom:9px;font-size:16px;cursor:pointer;
+  font-family:inherit;color:var(--ink);transition:border-color .12s,background .12s;
+  line-height:1.5;min-height:52px;
+}
+.opt:hover:not(:disabled){border-color:var(--a);background:var(--a-sf)}
+.opt .lab{font-family:'Kanit','Sarabun',sans-serif;font-weight:600;color:var(--a);margin-right:9px}
+.opt.correct{background:var(--good-bg);border-color:var(--good)}
+.opt.correct .lab{color:var(--good)}
+.opt.wrong{background:var(--bad-bg);border-color:var(--bad)}
+.opt.wrong .lab{color:var(--bad)}
+.opt.dim{opacity:.55}
+.opt:disabled{cursor:default}
+.explain{
+  display:none;margin-top:6px;border-radius:var(--r-md);padding:13px 15px;
+  font-size:15px;background:var(--a-sf);border:1px solid var(--a-bd);
+}
+.explain.show{display:block;animation:fade .2s}
+.explain .e-tag{font-family:'Kanit','Sarabun',sans-serif;font-weight:600;font-size:13.5px;margin-bottom:4px}
+.explain.ok{background:var(--good-bg);border-color:var(--good-bd)}
+.explain.ok .e-tag{color:var(--good)}
+.explain.no{background:var(--bad-bg);border-color:var(--bad-bd)}
+.explain.no .e-tag{color:var(--bad)}
+
+/* ---------- 12. ผลคะแนน ---------- */
+.result{
+  text-align:center;background:var(--card);border:1px solid var(--line);
+  border-radius:var(--r-xl);padding:28px 20px;box-shadow:var(--shadow);margin:18px 0;
+}
+.score-ring{width:140px;height:140px;margin:6px auto 12px;position:relative}
+.score-ring svg{transform:rotate(-90deg)}
+.score-ring .pct{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score-ring .pct b{font-family:'Kanit','Sarabun',sans-serif;font-size:35px;font-weight:700;color:var(--ink);line-height:1}
+.score-ring .pct span{font-family:'Kanit','Sarabun',sans-serif;font-size:13px;color:var(--ink-soft)}
+.result h2{font-family:'Kanit','Sarabun',sans-serif;color:var(--ink);font-size:21px;margin-bottom:5px}
+.result .verdict{font-size:16px;color:var(--ink-soft);margin-bottom:17px}
+.result .actions{display:flex;gap:9px;flex-wrap:wrap;justify-content:center}
+.result .actions .btn{flex:none;min-width:140px}
+.review h3{font-family:'Kanit','Sarabun',sans-serif;color:var(--ink);font-size:17px;margin:24px 0 11px;text-align:left}
+.rev-item{
+  background:var(--card);border:1px solid var(--line);border-left:4px solid var(--bad);
+  border-radius:var(--r-sm);padding:13px 15px;margin-bottom:10px;text-align:left;font-size:15px;
+}
+.rev-item .rq{font-weight:600;margin-bottom:7px}
+.rev-item .ra{color:var(--good)}
+.rev-item .rw{color:var(--bad)}
+.rev-item .re{color:var(--ink-soft);margin-top:6px;font-size:14.5px}
+
+/* ---------- 13. เอกสารตัวบท ---------- */
+.doc-link{
+  background:var(--card);border:1px solid var(--line);border-left:4px solid var(--a);
+  border-radius:var(--r-md);padding:14px 16px;margin-bottom:11px;box-shadow:var(--shadow);
+}
+.doc-t{font-family:'Kanit','Sarabun',sans-serif;font-weight:600;font-size:15.5px;color:var(--ink);line-height:1.45}
+.doc-n{font-size:14px;color:var(--ink-soft);margin-top:5px}
+.doc-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:11px}
+.doc-b{
+  font-family:'Kanit','Sarabun',sans-serif;font-weight:500;font-size:13.5px;
+  text-decoration:none;padding:9px 14px;border-radius:var(--r-sm);
+  border:1px solid var(--a);color:var(--a);background:var(--card);
+  display:inline-flex;align-items:center;min-height:40px;
+}
+.doc-b:hover{background:var(--a-sf)}
+.doc-b.main{background:var(--a);color:#fff}
+.doc-b.main:hover{background:var(--a-dk)}
+
+/* law-sources: กลุ่มและปุ่มลัด */
+.jumps{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 4px}
+.jump{
+  font-family:'Kanit','Sarabun',sans-serif;font-weight:500;font-size:13.5px;
+  text-decoration:none;color:var(--ink-soft);background:var(--card);
+  border:1px solid var(--line);border-radius:999px;padding:8px 14px;
+}
+.jump:hover{border-color:var(--a-bd);color:var(--a);background:var(--a-sf)}
+.grp{margin-top:28px;scroll-margin-top:14px}
+.grp h2{font-size:19px;color:var(--ink);display:flex;align-items:center;gap:9px;margin-bottom:5px}
+.to-app{
+  display:inline-block;font-family:'Kanit','Sarabun',sans-serif;font-weight:500;font-size:13.5px;
+  text-decoration:none;color:var(--a);background:var(--a-sf);border:1px solid var(--a-bd);
+  border-radius:var(--r-sm);padding:7px 13px;margin-bottom:12px;
+}
+
+/* ---------- 14. ส่วนท้ายและหมายเหตุ ---------- */
+.disclaimer{
+  background:var(--card);border:1px dashed var(--line);border-radius:var(--r-md);
+  padding:12px 15px;font-size:13.5px;color:var(--ink-soft);margin:16px 0;
+}
+footer{text-align:center;color:var(--ink-faint);font-size:13px;margin:30px 0 8px;padding:0 18px}
+
+/* ---------- 15. จอกว้าง ---------- */
+@media(min-width:660px){
+  .grid{grid-template-columns:1fr 1fr}
+  .topic.full{grid-column:1/-1}
+  header h1{font-size:29px}
+}
+@media(min-width:900px){
+  .wrap{max-width:900px}
+}
+
+/* ---------- 16. โหมดมืด ---------- */
+@media(prefers-color-scheme:dark){
+  body[data-app]:not(.study-app){
+    --paper:#0F1419; --card:#171D24; --card-2:#1C232B;
+    --ink:#E8EDF2; --ink-soft:#A3B0BD; --ink-faint:#7D8B99;
+    --line:#2A333D; --line-soft:#222A33;
+    --good:#45C78F; --good-bg:#10291F; --good-bd:#1F5340;
+    --bad:#F2778D;  --bad-bg:#2B1219;  --bad-bd:#5C2533;
+    --shadow:0 1px 2px rgba(0,0,0,.30), 0 6px 20px rgba(0,0,0,.26);
+    --shadow-lg:0 2px 4px rgba(0,0,0,.34), 0 14px 38px rgba(0,0,0,.40);
+    --a:#94A3B8; --a-dk:#CBD5E1; --a-lt:#64748B; --a-sf:#1B2330; --a-bd:#33404F;
+  }
+  /* ในโหมดมืดใช้เฉดสว่างของแต่ละแอป เพื่อให้อ่านบนพื้นเข้มได้ */
+  body[data-app="sao"]:not(.study-app)        { --a:#7FA6FF; --a-dk:#AFC7FF; --a-lt:#3B63B5; --a-sf:#141E33; --a-bd:#2A3C63; }
+  body[data-app="opsmoac"]:not(.study-app)    { --a:#5CCB85; --a-dk:#95E3B2; --a-lt:#2B7A4B; --a-sf:#102418; --a-bd:#1F4A2F; }
+  body[data-app="rd"]:not(.study-app)         { --a:#FF8FA6; --a-dk:#FFBACA; --a-lt:#A8405A; --a-sf:#2B1119; --a-bd:#55222F; }
+  body[data-app="energy"]:not(.study-app)     { --a:#FF9F5E; --a-dk:#FFC296; --a-lt:#A85A28; --a-sf:#2B1A0E; --a-bd:#55331B; }
+  body[data-app="diprom"]:not(.study-app)     { --a:#B193FA; --a-dk:#CDBAFC; --a-lt:#6B4FB0; --a-sf:#1E1733; --a-bd:#382A5E; }
+  body[data-app="namban"]:not(.study-app)     { --a:#5BC2DF; --a-dk:#9BDCEE; --a-lt:#2A7A93; --a-sf:#0E2330; --a-bd:#1C4357; }
+  body[data-app="laws"]:not(.study-app)       { --a:#4FC9B6; --a-dk:#8FE0D2; --a-lt:#1F7A6D; --a-sf:#0E2421; --a-bd:#1B4740; }
+  body[data-app="law-sources"]:not(.study-app){ --a:#BFB8AF; --a-dk:#D8D3CC; --a-lt:#7A736B; --a-sf:#211F1C; --a-bd:#3D3935; }
+  body[data-app="compare"]:not(.study-app)    { --a:#9FB0C4; --a-dk:#C3CFDC; --a-lt:#5B6B7F; --a-sf:#172028; --a-bd:#2E3B49; }
+  body[data-app="english"]:not(.study-app)    { --a:#FF8CBB; --a-dk:#FFB6D3; --a-lt:#B04170; --a-sf:#2C1220; --a-bd:#57253D; }
+  body[data-app="english-course"]:not(.study-app){ --a:#E297F0; --a-dk:#EFBEF7; --a-lt:#8E3F9B; --a-sf:#271331; --a-bd:#49254F; }
+
+  body[data-app]:not(.study-app)>header{background:linear-gradient(140deg,var(--a-sf) 0%,var(--card) 100%);border-bottom:1px solid var(--a-bd)}
+  body[data-app]:not(.study-app) header h1,body[data-app]:not(.study-app) header .sub{color:var(--ink)}
+  body[data-app]:not(.study-app) header .sub{color:var(--ink-soft)}
+  body[data-app]:not(.study-app) header a[href]{color:var(--a)}
+  body[data-app]:not(.study-app) .eyebrow{color:var(--a)}
+  body[data-app]:not(.study-app) .chip{background:var(--a-sf);border-color:var(--a-bd);color:var(--ink-soft)}
+  body[data-app]:not(.study-app) .chip b{color:var(--a)}
+  body[data-app]:not(.study-app)>header::after{display:none}
+  body[data-app]:not(.study-app) .btn.quiz,body[data-app]:not(.study-app) .next{color:#0F1419;font-weight:600}
+  body[data-app]:not(.study-app) .btn.quiz:hover,body[data-app]:not(.study-app) .next:hover:not(:disabled){background:var(--a-dk)}
+  body[data-app]:not(.study-app) .topic .num{color:#0F1419}
+  body[data-app]:not(.study-app) .tab.active{color:#0F1419}
+  body[data-app]:not(.study-app) .doc-b.main{color:#0F1419}
+  body[data-app]:not(.study-app) .next:disabled{background:#2A333D;color:var(--ink-faint)}
+}
+
+/* ---------- 17. ลดการเคลื่อนไหว ---------- */
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+
+/* ---------- 18. ตัวแปรเน้นพิเศษ (แท็บชุดเร่งด่วน / หมวดตะลุยโจทย์) ---------- */
+.tab.sprint{
+  background:var(--a-dk);color:#fff;border-color:var(--a-dk);
+  text-decoration:none;font-weight:600;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.tab.sprint:hover{background:var(--a);border-color:var(--a);color:#fff}
+.num.alt{background:var(--a-dk)}
+.btn.quiz.alt{background:var(--a-dk);border-color:var(--a-dk);color:#fff}
+.btn.quiz.alt:hover{background:var(--a)}
+@media(prefers-color-scheme:dark){
+  /* ในโหมดมืด --a-dk คือเฉดสว่าง ตัวอักษรจึงต้องเป็นสีเข้ม */
+  body[data-app]:not(.study-app) .tab.sprint,
+  body[data-app]:not(.study-app) .tab.sprint:hover,
+  body[data-app]:not(.study-app) .btn.quiz.alt,
+  body[data-app]:not(.study-app) .btn.quiz.alt:hover,
+  body[data-app]:not(.study-app) .num.alt{color:#0F1419}
+}
+.cta-alt{
+  display:inline-block;background:var(--a-dk);color:#fff;
+  padding:12px 20px;border-radius:var(--r-sm);text-decoration:none;font-weight:700;
+  font-family:'Kanit','Sarabun',sans-serif;
+}
+.cta-alt:hover{background:var(--a)}
+@media(prefers-color-scheme:dark){
+  body[data-app]:not(.study-app) .cta-alt{color:#0F1419}
+}
