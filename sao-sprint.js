@@ -74,9 +74,9 @@
   }
   function renderQuestion(focus){
     const s=state.session,id=s.ids[s.idx],q=C.byId.get(id),chosen=s.answers[id],order=s.orders[id],answered=chosen!==undefined;
-    $('counter').textContent=`${s.mode==='exam'?'จำลองสอบ':'ฝึกเรียนรู้'} · ข้อ ${s.idx+1}/${s.ids.length}`;
+    $('counter').textContent=`ข้อ ${s.idx+1}/${s.ids.length}`;
     $('progress').max=s.ids.length;$('progress').value=s.idx+(answered?1:0);
-    $('question').innerHTML=`<div class="card"><p class="kicker">${E(s.title)} · ${E(D.topics[q.topic-1])}</p><h2 id="questionTitle" class="question-title" tabindex="-1">${E(q.q)}</h2><div class="options">${order.map((original,i)=>`<button class="option${answered&&chosen===original?' chosen':''}${answered&&s.mode==='practice'?(original===q.a?' correct':original===chosen?' wrong':''):''}" data-option="${original}" ${answered?'disabled':''}><span class="letter">${['ก','ข','ค','ง'][i]}.</span><span>${E(q.c[original])}</span></button>`).join('')}</div><div id="answerFeedback" aria-live="polite">${answered?(s.mode==='practice'?feedback(q,order,chosen):'<p class="notice">บันทึกคำตอบแล้ว เฉลยและคะแนนจะแสดงเมื่อจบชุด</p>'):''}</div></div>`;
+    $('question').innerHTML=`<div class="card"><p class="kicker">${E(s.title)} · ${E(D.topics[q.topic-1])}</p><h2 id="questionTitle" class="question-title" tabindex="-1">${E(q.q)}</h2><div class="options">${order.map((original,i)=>`<button class="option${answered&&chosen===original?' chosen':''}${answered?(original===q.a?' correct':original===chosen?' wrong':''):''}" data-option="${original}" ${answered?'disabled':''}><span class="letter">${['ก','ข','ค','ง'][i]}.</span><span>${E(q.c[original])}</span></button>`).join('')}</div><div id="answerFeedback" aria-live="polite">${answered?feedback(q,order,chosen):''}</div></div>`;
     $('next').disabled=!answered;$('next').textContent=!answered?'เลือกคำตอบก่อน':s.idx===s.ids.length-1?'จบชุดและดูผล':'ข้อถัดไป →';
     $('mark').textContent=state.marked.includes(id)?'✓ ปักไว้แล้ว (กดเอาออก)':'ปักไว้ทวน';$('mark').setAttribute('aria-pressed',String(state.marked.includes(id)));
     if(focus){window.scrollTo(0,0);$('questionTitle').focus({preventScroll:true});}
@@ -95,7 +95,7 @@
   $('topicButtons').innerHTML=D.topics.map((name,i)=>`<button data-topic="${i+1}">${i+1}. ${E(name)} (${D.questions.filter(q=>q.topic===i+1).length})</button>`).join('');
   document.querySelectorAll('[data-start]').forEach(b=>b.addEventListener('click',()=>{const s=D.sets.find(x=>x.id===b.dataset.start);start(s.ids,s.title);}));
   document.querySelectorAll('[data-topic]').forEach(b=>b.addEventListener('click',()=>{const t=Number(b.dataset.topic);start(D.questions.filter(q=>q.topic===t).map(q=>q.id),D.topics[t-1]);}));
-  $('question').addEventListener('click',event=>{const button=event.target.closest('[data-option]');if(!button)return;state.session=C.answer(state.session,Number(button.dataset.option));if(state.session.mode==='practice')state.records=C.progress(state.records,state.session);save();renderQuestion(false);$('next').focus({preventScroll:true});});
+  $('question').addEventListener('click',event=>{const button=event.target.closest('[data-option]');if(!button)return;state.session=C.answer(state.session,Number(button.dataset.option));state.records=C.progress(state.records,state.session);save();renderQuestion(false);$('next').focus({preventScroll:true});});
   $('next').addEventListener('click',()=>{
     const previous=state.session;state.session=C.next(previous);if(state.session===previous)return;
     if(state.session.complete){const r=C.score(state.session);state.records=C.progress(state.records,state.session);state.history.unshift({title:state.session.title,mode:state.session.mode,correct:r.correct,total:r.total,date:new Date().toLocaleString('th-TH')});state.history=state.history.slice(0,12);save();result();}
