@@ -569,3 +569,30 @@ body.app-sprint .set-number{color:var(--a)}
 }
 #quiz .opt:focus,#quiz .option:focus{outline:none}
 #quiz,#quiz .card,#quiz #question{scroll-margin-top:calc(5px + var(--safe-t) + 8px)}
+
+/* หน้า sprint ประกาศตัวแปรไว้ที่ :root (คือ <html>) จึงไม่เห็นสีประจำหน่วยงาน
+   ที่ตั้งไว้บน body ต้องประกาศซ้ำระดับ body ให้รับค่าถูกตัว */
+body.app-sprint{
+  --teal:var(--a);
+  --navy:var(--ink);
+  --muted:var(--ink-soft);
+  --good:var(--good);
+}
+body.app-sprint button.primary,
+body.app-sprint .button.primary{background:var(--a);border-color:var(--a);color:#fff}
+body.app-sprint button.primary:hover:not(:disabled){background:var(--a-dk);border-color:var(--a-dk)}
+body.app-sprint button:not(.primary){color:var(--a-dk)}
+
+/* ไล่สีกล่องเฉลยตามว่าตอบถูกหรือผิด ให้รู้ผลตั้งแต่แวบแรก */
+#quiz:has(.option.chosen.wrong) .feedback{
+  background:var(--bad-bg);border-color:var(--bad-bd);border-left:5px solid var(--bad);
+}
+#quiz:has(.option.chosen.correct) .feedback{
+  background:var(--good-bg);border-color:var(--good-bd);border-left:5px solid var(--good);
+}
+#quiz:has(.option.chosen.wrong) .feedback h3{color:var(--bad)}
+#quiz:has(.option.chosen.correct) .feedback h3{color:var(--good)}
+.feedback .trap{
+  background:var(--card);border-left:4px solid var(--a);border-radius:var(--r-sm);
+  padding:12px 14px;margin-top:14px;font-size:15px;
+}
