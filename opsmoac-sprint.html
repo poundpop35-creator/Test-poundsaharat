@@ -3,37 +3,51 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#183f33">
-  <title>สป.เกษตร จำลองสอบ 100 ข้อ • พร้อมเฉลยและเอกสารต้นทาง</title>
+  <title>สป.เกษตร เก็ง 300 ข้อ • 3 ชุด ชุดละ 100 • เฉลยทันที</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="theme.css?v=20261007-200">
-  <link rel="stylesheet" href="opsmoac-sprint.css?v=20261007-200">
-  <script defer src="opsmoac-sprint-data.js?v=20261007-100"></script>
-  <script defer src="opsmoac-sprint-extra.js?v=20261007-100"></script>
-  <script defer src="opsmoac-sprint-core.js?v=20261007-100"></script>
-  <script defer src="opsmoac-sprint.js?v=20261007-100"></script>
+  <link rel="stylesheet" href="opsmoac-sprint.css?v=20261009-300">
+  <script defer src="opsmoac-sprint-data.js?v=20261009-300"></script>
+  <script defer src="opsmoac-sprint-extra.js?v=20261009-300"></script>
+  <script defer src="opsmoac-sprint-a1.js?v=20261009-300"></script>
+  <script defer src="opsmoac-sprint-a2.js?v=20261009-300"></script>
+  <script defer src="opsmoac-sprint-b1.js?v=20261009-300"></script>
+  <script defer src="opsmoac-sprint-b2.js?v=20261009-300"></script>
+  <script defer src="opsmoac-sprint-300.js?v=20261009-300"></script>
+  <script defer src="opsmoac-sprint-core.js?v=20261009-300"></script>
+  <script defer src="opsmoac-sprint.js?v=20261009-300"></script>
   <link rel="stylesheet" href="app-shell.css?v=20261007-200">
-  <script defer src="app-catalog.js?v=20261007-100"></script>
-  <script defer src="app-shell.js?v=20261007-100"></script>
+  <script defer src="app-catalog.js?v=20261009-300"></script>
+  <script defer src="app-shell.js?v=20261009-300"></script>
 </head>
 <body class="study-app app-sprint" data-app="opsmoac">
-  <header><div class="wrap"><nav aria-label="ทางกลับ"><a href="index.html">← ทุกหน่วยงาน</a><a href="opsmoac.html">คลัง สป.เกษตร เดิม</a></nav><p class="eyebrow">สป.เกษตร · นักวิเคราะห์นโยบายและแผน</p><h1>จำลองสอบ <em>100 ข้อ</em></h1><p>โจทย์ไม่ซ้ำ 100 ข้อ • คะแนนเต็ม 200 • ครอบคลุม 5 หัวข้อที่มองเห็นในภาพขอบเขตสอบ</p><div class="chips"><span>สอบเต็มชุด 100 ข้อ</span><span>เฉลยทุกตัวเลือก</span><span>เปิดตัวบทจากแต่ละข้อ</span></div></div></header>
+  <header><div class="wrap"><nav aria-label="ทางกลับ"><a href="index.html">← ทุกหน่วยงาน</a><a href="opsmoac.html">คลัง สป.เกษตร เดิม</a></nav><p class="eyebrow">สป.เกษตร · นักวิเคราะห์นโยบายและแผน</p><h1>ตะลุยเก็ง <em>300 ข้อ</em></h1><p>3 ชุดไม่ซ้ำกัน • ชุดละ 100 ข้อ / 200 คะแนน • เพิ่มใหม่ 200 ข้อจากตัวอย่างที่ส่งมา</p><div class="chips"><span>อัปเดต 9 ต.ค. 2569</span><span>เฉลยทุกตัวเลือก</span><span>เปิดตัวบทจากแต่ละข้อ</span></div></div></header>
   <main class="wrap">
     <p id="storageNotice" class="notice" hidden>เบราว์เซอร์นี้ไม่อนุญาตให้บันทึกความคืบหน้า ขณะนี้ฝึกได้ตามปกติ แต่ปิดหน้านี้แล้วข้อมูลอาจหาย</p>
     <section id="dashboard">
-      <div class="lead card"><span class="kicker">สอบเต็มชุด · 100 ข้อ</span><h2>ตะลุยให้ครบชุด แล้วทวนจุดที่พลาด</h2><p>คัดประเด็นจากตัวบทและขอบเขตสอบ เน้นอำนาจ เงื่อนไข ข้อยกเว้น และการประยุกต์ ชุดนี้เป็นโจทย์แต่งเพื่อฝึก ไม่ใช่ข้อสอบจริงหรือการรับรองว่าจะออกข้อใด</p><div class="actions"><button class="primary" id="allPractice">เริ่มทำ 100 ข้อ · เฉลยทุกข้อทันที</button><button id="resume" hidden>ทำชุดค้างต่อ</button></div></div>
-      <p id="bankNotice" class="notice" role="alert" hidden>โหลดโจทย์ยังไม่ครบ 100 ข้อ กรุณาโหลดหน้าใหม่ก่อนเริ่มสอบเต็มชุด</p>
-      <p class="notice">ขอบเขต: ใช้ 5 หัวข้อที่มองเห็นในภาพเดิม ซึ่งส่วนล่างถูกตัด จึงไม่ยืนยันว่าครบประกาศฉบับเต็ม รายชื่อกฎหมายเป็นพื้นฐานแนะนำในหมวดกฎหมายราชการ</p>
+      <div class="lead card"><span class="kicker">เริ่มชุดใหม่ก่อน · เฉลยทันทีทุกข้อ</span><h2>ชุด 1 จับหลัก → ชุด 2 ฝึกประยุกต์ → ชุด 3 ทวนเดิม</h2><p>คัดประเด็นตามประกาศ 5 หมวดและตัวอย่างที่ส่งมา เน้นตัวบท ตัวเลข ข้อยกเว้น แผนฯ 13 เกษตรแปลงใหญ่ 3S และงานวิเคราะห์โครงการ เป็นโจทย์ฝึกที่แต่งและตรวจแหล่งอ้างอิง ไม่ใช่ข้อสอบจริงหรือคำรับรองว่าจะออกตรงข้อ</p><div class="actions"><button class="primary" id="allPractice">เริ่มชุด 1 · 100 ข้อใหม่</button><button id="resume" hidden>ทำชุดค้างต่อ</button><a class="button" href="#examSets">เลือกชุด 1 / 2 / 3</a></div></div>
+      <p id="bankNotice" class="notice" role="alert" hidden>โหลดคลังยังไม่ครบ 300 ข้อ กรุณาโหลดหน้าใหม่ก่อนเริ่ม ระบบจะเก็บความคืบหน้าเดิมไว้</p>
+      <p class="muted">ขอบเขตตรวจจาก <a href="https://www.opsmoac.go.th/news-files-481591791935#page=9" target="_blank" rel="noopener noreferrer">ประกาศรับสมัคร 14 ส.ค. 2569 หน้า 9 ↗</a> ครบ 5 หมวด ส่วนสัดส่วนโจทย์แต่ละหมวดเป็นการจัดเพื่อฝึก ไม่ใช่น้ำหนักข้อสอบที่ประกาศ</p>
       <div class="stats" id="stats" aria-live="polite"></div>
       <input type="radio" name="mode" value="practice" checked hidden>
-      <h2>แบ่งฝึกย่อย 5 ชุด ชุดละ 20 ข้อ</h2><p class="muted">เป็นส่วนย่อยของคลัง 100 ข้อเดียวกัน ใช้ทวนครั้งละสั้น ๆ ส่วนจำลองสอบเต็มชุดกดปุ่มด้านบน</p><div class="set-grid" id="sets"></div>
-      <div class="actions review-actions"><button id="wrongBtn">ซ้ำข้อที่ยังตอบผิด</button><button id="markedBtn">ทวนข้อที่ปักไว้</button></div>
-      <section class="card"><h2>แผนทวนแบบยืดหยุ่น</h2><div class="days"><div><h3>รอบแรก · รู้จุดพลาด</h3><ol><li>เริ่มจำลองสอบ 100 ข้อโดยไม่เปิดเฉลย</li><li>ทวนข้อผิด เปิดมาตราจริง แล้วเขียนเหตุผลสั้น ๆ ว่าพลาดตรงไหน</li><li>เลือกชุดฝึกย่อยหรือฝึกเฉพาะหมวดที่ยังไม่แม่น</li><li>ทวนแผน 13 กฎหมายราชการ และนโยบายเกษตร จากบัตรสรุปด้านล่าง</li></ol></div><div><h3>รอบถัดไป · ฝึกตัดตัวเลือก</h3><ol><li>ทวนบัตรสรุปและตัวบทก่อนเริ่มรอบใหม่</li><li>ซ้ำข้อผิดและข้อปักไว้ จนอธิบายได้ว่าทำไมอีก 3 ตัวเลือกผิด</li><li>ทำจำลองสอบ 100 ข้อรอบถัดไป โดยแยกผลรอบซ้ำจากการทำครั้งแรก</li><li>ก่อนพัก ทวนเฉพาะตัวเลข เงื่อนไข และคู่คำที่สับสน</li></ol></div></div><p class="muted">แต่ละหัวข้อมี 20 ข้อ รวม 100 ข้อ และแบ่งฝึกย่อยชุดละ 4 ข้อต่อหัวข้อเพื่อฝึกให้ทั่วถึง ไม่ใช่น้ำหนักหรือสถิติออกสอบ และไม่อิงวันสอบที่ยังไม่ได้ยืนยัน</p></section>
+      <h2>วันนี้ให้ครบ 300 ข้อ</h2><p class="muted">ชุด 1–2 เป็นข้อใหม่ ชุด 3 คือคลัง 100 ข้อเดิม ทั้งสามชุดไม่ซ้ำกัน ชุดทวนด่วนและการฝึกแยกหมวดดึงจากคลังเดียวกัน</p><div class="set-grid" id="examSets"></div>
+      <div class="actions review-actions"><button id="focusBtn">ทวนด่วน 20 ข้อ · ประเด็นจากภาพ</button><button id="wrongBtn">ซ้ำข้อที่ยังตอบผิด</button><button id="markedBtn">ทวนข้อที่ปักไว้</button></div>
+      <details class="card"><summary>เช็กตัวอย่างที่ส่งมา · 5 จุดที่ต้องแม่น</summary><ul>
+        <li>ข้อ 27: การเงิน/บุคลากร/สินทรัพย์ ระบบฮาร์ดแวร์ซอฟต์แวร์ และวิธีออก/เก็บข้อมูลใบรับรอง ล้วนอยู่ใน ม.29 — ตัวอย่างนี้ตอบ “ถูกทุกข้อ”</li>
+        <li>ข้อ 28: แปลงใหญ่ = เกษตรกรรวมกลุ่มผลิต บริหารจัดการ และเชื่อมตลาด ไม่ใช่แค่ขยายขนาดที่ดิน</li>
+        <li>ข้อ 29: “สังคมแห่งโอกาสและความเป็นธรรม” เป็นเป้าหมายหลัก ไม่ใช่หนึ่งใน 4 หลักคิดแผนฯ 13</li>
+        <li>ข้อ 30: 3S ตามกรอบที่อ้าง = Safety / Security / Sustainability</li>
+        <li>ข้อ 31: ม.20 เสนองบต่อรัฐสภาก่อนเริ่มปีงบประมาณอย่างน้อย 3 เดือน</li>
+        <li>ข้อ 32 ในภาพเห็นไม่ครบ จึงไม่เดาตัวเลือก: ฝึกแยก ม.35 โอนข้ามหน่วย กับ ม.36 โอนแผน/รายการ และข้อยกเว้น</li>
+      </ul><p>ลิงก์ตัวบทและเอกสารตรวจคำตอบอยู่ในเฉลยแต่ละข้อและท้ายหน้านี้</p></details>
+      <section class="card"><h2>แผนตะลุยก่อนสอบ</h2><ol><li>ทำชุด 1 จำนวน 100 ข้อ อ่านเฉลยทันทีและปักข้อที่ลังเล</li><li>พัก แล้วทำชุด 2 จำนวน 100 ข้อ เน้นเงื่อนไขกฎหมายและการคิดเป็นขั้น</li><li>ทำชุด 3 อีก 100 ข้อเพื่อทวนเนื้อหาเดิม หากเคยทำแล้วให้ดูว่าจำเหตุผลได้หรือไม่</li><li>ก่อนจบวัน กดซ้ำข้อผิดและทวนด่วน 20 ข้อ ไม่จำเพียงตำแหน่ง ก ข ค ง เพราะตัวเลือกสลับทุกครั้ง</li></ol><p class="muted">พักหรือปิดหน้าแล้วกลับมาทำชุดค้างต่อได้บนเบราว์เซอร์เดิม การเริ่มชุดใหม่ระหว่างมีชุดค้างจะถามก่อนแทนชุดเดิม</p></section>
+      <details class="card"><summary>แบ่งฝึกสั้นจากชุดเดิม · 5 ชุดย่อย ชุดละ 20 ข้อ</summary><p class="muted">เป็นส่วนของชุด 3 ไม่ใช่ข้อเพิ่มเติมจาก 300 ข้อ</p><div class="set-grid" id="sets"></div></details>
       <section class="card"><h2>บัตรทวน 5 หัวข้อ · อ่านก่อนซ้ำข้อผิด</h2><p>กดเปิดแต่ละหัวข้อเพื่อทวนจุดสับสน พร้อมกดตัวบทฉบับเต็ม</p><div id="notes"></div></section>
       <section class="card"><h2>เลือกฝึกเฉพาะจุดอ่อน</h2><div id="topicButtons" class="topic-buttons"></div></section>
       <section class="card"><h2>ผลการฝึกที่ผ่านมา</h2><div id="history"></div><p class="muted">บันทึกเฉพาะเบราว์เซอร์นี้ ความคืบหน้าชุดนี้แยกจากคลังเดิมและหน่วยงานอื่น ไม่มีการซิงก์ข้ามเครื่อง คะแนนซ้ำอาจสูงจากความจำ จึงไม่ใช่การทำนายผลสอบ</p></section>
-      <section class="card"><h2>เอกสารที่ใช้ตรวจคำตอบ</h2><p class="muted">ชุดเดิม 60 ข้อตรวจแหล่งประกอบ 5 ตุลาคม 2569 และโจทย์เพิ่ม 40 ข้อตรวจ 7 ตุลาคม 2569 ระบุฉบับแผนและวันที่ข้อมูลในแต่ละข้อ ข่าวและกฎหมายไม่ได้อัปเดตอัตโนมัติ และไม่ได้ตรวจคลังเดิมใหม่ทั้งหมด</p><div id="sources"></div></section>
+      <section class="card"><h2>เอกสารที่ใช้ตรวจคำตอบ</h2><p class="muted">โจทย์ใหม่ 200 ข้อตรวจแหล่งประกอบ 9 ตุลาคม 2569; คลังเดิม 100 ข้อตรวจ 5–7 ตุลาคม 2569 ระบุฉบับแผนและวันที่ข่าวในคำถาม กดลิงก์เพื่ออ่านตัวบท/เอกสารที่ใช้เฉลยได้โดยตรง</p><div id="sources"></div></section>
     </section>
     <section id="quiz" hidden aria-label="โจทย์"><div class="quiz-nav"><button id="pause">พัก / กลับหน้าเลือกชุด</button><span id="counter"></span></div><progress id="progress" max="100" value="0"></progress><div id="question"></div><div class="actions"><button id="next" class="primary" disabled>เลือกคำตอบก่อน</button><button id="mark">ปักไว้ทวน</button></div></section>
     <section id="result" hidden tabindex="-1"></section>

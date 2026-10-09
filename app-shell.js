@@ -38,7 +38,7 @@
       const eyebrow=header.querySelector('.eyebrow');if(eyebrow)eyebrow.textContent=page.group==='archive'?'คลังเดิม · หน่วยงานที่สอบแล้ว':'เตรียมสอบ · '+page.short;
     }
   }
-  if(page?.id==='opsmoac')document.querySelectorAll('body > .wrap > .intro-card, #home > .intro-card').forEach(card=>{if(!card.querySelector('a[href="opsmoac-sprint.html"]'))return;const walker=document.createTreeWalker(card,NodeFilter.SHOW_TEXT);while(walker.nextNode())walker.currentNode.nodeValue=walker.currentNode.nodeValue.replace(/60(?=\s*(ข้อ|โจทย์))/g,'100').replace(/3 ชุด/g,'5 ชุดฝึกย่อย');});
+  if(page?.id==='opsmoac')document.querySelectorAll('body > .wrap > .intro-card, #home > .intro-card').forEach(card=>{if(!card.querySelector('a[href="opsmoac-sprint.html"]'))return;const walker=document.createTreeWalker(card,NodeFilter.SHOW_TEXT);while(walker.nextNode())walker.currentNode.nodeValue=walker.currentNode.nodeValue.replace(/(?:60|100)(?=\s*(ข้อ|โจทย์))/g,'300').replace(/3 ชุด(?:ฝึก)?/g,'3 ชุด ชุดละ 100 ข้อ');});
   const tabInfo={home:['อ่านเนื้อหา','read'],book:['ฝึกแยกหมวด','practice'],mock:['ข้อสอบรวม','exam'],laws:['สรุปกฎหมาย','summary'],src:['ตัวบทฉบับเต็ม','sources']};
   const tabs=document.querySelector('.tabs');
   if(tabs){
