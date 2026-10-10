@@ -2,9 +2,10 @@
   'use strict';
   const D=window.ROLE_SPRINT,$=id=>document.getElementById(id);
   const E=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const ready=D&&D.questions.length===100&&new Set(D.questions.map(q=>q.id)).size===100&&D.loadedParts?.slice().sort().join(',')==='1,2,3,4'&&typeof window.createRoleSprintCore==='function';
+  const ready=D&&D.expectedTotal===200&&D.questions.length===200&&new Set(D.questions.map(q=>q.id)).size===200&&D.loadedParts?.slice().sort().join(',')==='1,2,3,4,5'&&D.sets?.length===2&&D.sets.every(s=>s.ids.length===100)&&new Set(D.sets.flatMap(s=>s.ids)).size===200&&D.briefing&&typeof window.createRoleSprintCore==='function';
   if(!ready){$('bankNotice').hidden=false;document.querySelectorAll('[data-launch],#allPractice,#examStart').forEach(b=>b.disabled=true);return;}
   const C=window.createRoleSprintCore(D),KEY=D.id+'100:v1';
+  let selectedSet=D.sets[0];
   let state={records:{},marked:[],history:[],session:null};
   try{const saved=JSON.parse(localStorage.getItem(KEY)||'null');if(saved&&typeof saved==='object'){
     state.records=Object.fromEntries(Object.entries(saved.records||{}).filter(([id,v])=>C.byId.has(id)&&typeof v==='boolean'));
@@ -18,7 +19,7 @@
   function visible(id){['dashboard','quiz','result'].forEach(v=>$(v).hidden=v!==id);window.scrollTo(0,0);}
   function dashboard(){
     visible('dashboard');const done=Object.keys(state.records).length,wrong=wrongIds().length;
-    $('stats').innerHTML=`<div class="stat"><b>${done}/100</b><span>ตอบและตรวจแล้ว</span></div><div class="stat"><b>${wrong}</b><span>ยังตอบผิด</span></div><div class="stat"><b>${state.marked.length}</b><span>ปักไว้ทวน</span></div>`;
+    $('stats').innerHTML=`<div class="stat"><b>${done}/${D.questions.length}</b><span>ตอบและตรวจแล้ว</span></div><div class="stat"><b>${wrong}</b><span>ยังตอบผิด</span></div><div class="stat"><b>${state.marked.length}</b><span>ปักไว้ทวน</span></div>`;
     $('resume').hidden=!state.session;$('resume').textContent=state.session?.complete?'เปิดผลชุดล่าสุด':'ทำชุดค้างต่อ';
     $('wrongBtn').disabled=!wrong;$('wrongBtn').textContent=`ซ้ำข้อผิด (${wrong})`;
     $('markedBtn').disabled=!state.marked.length;$('markedBtn').textContent=`ทวนข้อที่ปัก (${state.marked.length})`;
@@ -43,23 +44,29 @@
   function result(){
     const s=state.session,r=C.score(s);visible('result');
     const rows=D.topics.map((topic,i)=>{const ids=s.ids.filter(id=>C.byId.get(id).topic===i+1);return ids.length?`<tr><th scope="row">${E(topic)}</th><td>${ids.filter(id=>s.answers[id]===C.byId.get(id).a).length}/${ids.length}</td></tr>`:'';}).join('');
-    let sections='';if(D.id==='energy'&&r.total===100){sections=`<p>${[['general','ทั่วไป',50],['specific','เฉพาะตำแหน่ง',150]].map(([key,name,max])=>`${name} ${s.ids.filter(id=>C.byId.get(id).section===key&&s.answers[id]===C.byId.get(id).a).length*2}/${max} คะแนน`).join(' · ')}</p>`;}
+    let sections='';if(D.id==='energy'){sections=`<p>${[['general','ทั่วไป'],['specific','เฉพาะตำแหน่ง']].map(([key,name])=>{const ids=s.ids.filter(id=>C.byId.get(id).section===key);return `${name} ${ids.filter(id=>s.answers[id]===C.byId.get(id).a).length*2}/${ids.length*2} คะแนน`;}).join(' · ')}</p>`;}
     $('result').innerHTML=`<div class="card"><p class="kicker">${E(s.title)}</p><h2>ผลการฝึก</h2><div class="result-score">${r.correct}/${r.total} <small>ข้อ</small></div><p class="exam-points">คะแนนฝึก ${r.correct*2}/${r.total*2} คะแนน · ข้อละ 2 คะแนน</p>${sections}<p class="muted">คะแนนฝึกใช้หาจุดที่ควรทวน ไม่ใช่เกณฑ์ผ่านหรือการทำนายคะแนนจริง</p><div class="actions"><button id="resultWrong" class="primary" ${r.wrong.length?'':'disabled'}>ซ้ำข้อผิดชุดนี้ (${r.wrong.length})</button><button id="backDashboard">กลับหน้าเลือกชุด</button></div></div><section class="card"><h2>ผลแยกหัวข้อ</h2><div class="table-wrap"><table><thead><tr><th>หัวข้อ</th><th>ตอบถูก</th></tr></thead><tbody>${rows}</tbody></table></div></section><section class="card"><h2>เฉลยครบทุกข้อ</h2>${s.ids.map((id,i)=>{const q=C.byId.get(id),chosen=s.answers[id];return `<details><summary>${i+1}. ${chosen===q.a?'✓':'✗'} ${E(q.q)}</summary>${feedback(q,s.orders[id],chosen)}</details>`;}).join('')}</section>`;
     $('resultWrong').onclick=()=>start(r.wrong,'ซ้ำข้อผิดจากชุดล่าสุด');$('backDashboard').onclick=dashboard;$('result').focus({preventScroll:true});
   }
   $('topicButtons').innerHTML=D.topics.map((t,i)=>`<button data-topic="${i+1}"><span>${i+1}. ${E(t)}</span><small>${D.counts[i]} ข้อ</small></button>`).join('');
   $('notes').innerHTML=D.notes.map((items,i)=>`<details><summary>${i+1}. ${E(D.topics[i])}</summary><ul>${items.map(t=>`<li>${E(t)}</li>`).join('')}</ul></details>`).join('');
-  const used=[...new Set(['recruit',...(D.id==='rd'?['proc-amend2','proc-amend3','proc-amend3-copy']:[]),...D.questions.flatMap(q=>q.sources)])];
+  const B=D.briefing;
+  const cards=items=>items.map(([title,body,keys])=>`<details><summary>${E(title)}</summary><p>${E(body)}</p><div class="source-links">${links(keys.split(','))}</div></details>`).join('');
+  $('briefing').innerHTML=`<p class="kicker">ค้นและเทียบต้นฉบับ · 11 ต.ค.2569</p><h2>อ่านให้ตรงจุด แล้วทำโจทย์ให้เป็น</h2><p>${E(B.context)}</p><p class="muted">${E(B.method)}</p><div class="priority-list">${B.priorities.map(([title,tag,body,why])=>`<article class="priority-item"><h3>${E(title)}</h3><span class="priority-tag">${E(tag)}</span><p>${E(body)}</p><p class="muted">${E(why)}</p></article>`).join('')}</div><h3>สรุปจำก่อนทำชุด B</h3>${cards(B.recall)}<h3>ข้อมูลใหม่และจุดที่ต้องตรวจฉบับ</h3>${cards(B.updates)}<details><summary>แผนทวน 7 รอบ · ปรับตามวันที่เหลือ</summary><ol>${B.studyPlan.map(p=>`<li>${E(p)}</li>`).join('')}</ol></details><details><summary>วิธีค้นข้อมูลและที่มาของการเก็ง</summary><p>${E(B.provenance)}</p><div class="source-links">${links(B.sourceKeys)}</div></details>`;
+  $('setPicker').innerHTML=D.sets.map(s=>`<option value="${E(s.id)}">${E(s.title)} · ${s.ids.length} ข้อ</option>`).join('');
+  $('setPicker').onchange=()=>{selectedSet=D.sets.find(s=>s.id===$('setPicker').value);$('selectedSetLabel').textContent=selectedSet.title;};
+  $('selectedSetLabel').textContent=selectedSet.title;
+  const used=[...new Set(['recruit',...(D.id==='rd'?['proc-amend2','proc-amend3','proc-amend3-copy']:[]),...(D.extraSourceKeys||[]),...D.questions.flatMap(q=>q.sources)])];
   $('sources').innerHTML=used.map(k=>`<div class="source">${links([k])}${D.sources[k].note?`<p class="muted">${E(D.sources[k].note)}</p>`:''}</div>`).join('');
   $('topicButtons').onclick=e=>{const b=e.target.closest('[data-topic]');if(b){const t=Number(b.dataset.topic);start(D.questions.filter(q=>q.topic===t).map(q=>q.id),D.topics[t-1]);}};
   $('question').onclick=e=>{const b=e.target.closest('[data-option]');if(!b||b.disabled)return;state.session=C.answer(state.session,Number(b.dataset.option));if(state.session.mode==='practice')state.records=C.progress(state.records,state.session);save();question(false);$('next').focus({preventScroll:true});};
   $('next').onclick=()=>{const old=state.session;state.session=C.next(old);if(old===state.session)return;if(state.session.complete){const r=C.score(state.session);state.records=C.progress(state.records,state.session);state.history.unshift({title:state.session.title,mode:state.session.mode,correct:r.correct,total:r.total,date:new Date().toLocaleString('th-TH')});state.history=state.history.slice(0,12);save();result();}else{save();question(true);}};
   $('mark').onclick=()=>{const id=state.session.ids[state.session.idx];state.marked=state.marked.includes(id)?state.marked.filter(x=>x!==id):[...state.marked,id];save();question(false);$('mark').focus({preventScroll:true});};
   $('pause').onclick=dashboard;$('resume').onclick=()=>{if(state.session.complete)result();else{visible('quiz');question(true);}};
-  $('allPractice').onclick=()=>start(D.questions.map(q=>q.id),'ตะลุย '+D.agency+' 100 ข้อ');
-  $('examStart').onclick=()=>start(D.questions.map(q=>q.id),'ซ้อมสอบ '+D.agency+' 100 ข้อ','exam');
+  $('allPractice').onclick=()=>start(selectedSet.ids,selectedSet.title+' · '+D.agency+' 100 ข้อ');
+  $('examStart').onclick=()=>start(selectedSet.ids,'ซ้อมสอบ '+selectedSet.title+' · 100 ข้อ','exam');
   $('wrongBtn').onclick=()=>start(wrongIds(),'ซ้ำข้อที่ยังตอบผิด');$('markedBtn').onclick=()=>start(state.marked,'ทวนข้อที่ปักไว้');
-  document.querySelectorAll('[data-launch]').forEach(b=>b.onclick=()=>{const offset=Number(b.dataset.launch)*20;start(D.questions.slice(offset,offset+20).map(q=>q.id),`ฝึกย่อย ${Number(b.dataset.launch)+1} · 20 ข้อ`);});
-  function route(){const hash=location.hash.slice(1);if(['dashboard','notes','sources'].includes(hash)){dashboard();$(hash).scrollIntoView();}else if(hash==='resume'&&state.session)$('resume').click();}
+  document.querySelectorAll('[data-launch]').forEach(b=>b.onclick=()=>{const offset=Number(b.dataset.launch)*20;start(selectedSet.ids.slice(offset,offset+20),`${selectedSet.title} · ช่วง ${Number(b.dataset.launch)+1} · 20 ข้อ`);});
+  function route(){const hash=location.hash.slice(1);if(['dashboard','notes','sources','briefing','topicButtons'].includes(hash)){dashboard();$(hash).scrollIntoView();}else if(hash==='resume'&&state.session)$('resume').click();}
   window.addEventListener('hashchange',route);dashboard();route();
 })();

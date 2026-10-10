@@ -8,3 +8,5 @@ html{scroll-padding-top:150px}body.study-app{margin:0;font-family:'Sarabun',syst
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}body.study-app *,body.study-app *::before,body.study-app *::after{animation:none!important;transition:none!important}}
 /* Keep the question in focus when an agency has a featured practice card. */
 body.app-quizzing > .wrap > .intro-card { display: none; }
+/* Entry from the original study URL to the sourced role briefing. */
+.app-research-link{margin:1rem 0;padding:1rem;border:1px solid var(--line,#dce3e8);border-radius:12px;background:var(--a-sf,#edf5ff);line-height:1.65}.app-research-link a{font-weight:700;color:var(--a,#1e4d80)}

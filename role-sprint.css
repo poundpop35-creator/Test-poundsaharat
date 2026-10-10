@@ -8,3 +8,6 @@ body[data-app="energy"]{--accent:var(--a);--accent-dark:var(--a-dk)}
 
 body.app-sprint{--good:#0E7A54;--good-bg:#E7F6EF;--good-bd:#A8DCC6;--bad:#B4233B;--bad-bg:#FDF0F2;--bad-bd:#F0B5BF}
 body.app-sprint .option.correct{color:#0B6244}body.app-sprint .option.wrong{color:#942037}
+.set-picker{display:grid;gap:.5rem;margin:1rem 0}.set-picker label{font-weight:700}.set-picker select{font:inherit;max-width:100%;width:100%;padding:.8rem;border:1px solid var(--line);border-radius:10px;background:var(--card,#fff);color:var(--ink)}
+.priority-list{display:grid;gap:.75rem;margin:1.25rem 0}.priority-item{border:1px solid var(--line);border-radius:12px;padding:1rem}.priority-item h3{margin:0 0 .5rem}.priority-item p{margin:.5rem 0}.priority-tag{font-size:.85rem;font-weight:700;color:var(--accent-dark)}
+#briefing{scroll-margin-top:1.5rem}#briefing li{margin:.7rem 0}#briefing details p{line-height:1.8}#briefing summary{line-height:1.7}select:focus-visible{outline:3px solid #c47500;outline-offset:3px}

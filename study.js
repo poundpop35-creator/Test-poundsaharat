@@ -5,7 +5,7 @@
   if(!selected){location.replace('index.html');return;}
   const frame=document.getElementById('study-frame');
   const loading=document.getElementById('study-loading'),error=document.getElementById('study-error');
-  const base=new URL('.',location.href),version='20261010-roles';
+  const base=new URL('.',location.href),version='20261011-research';
   document.title=selected.short+' — คลังติว';frame.title=selected.title+' · '+selected.role;
   document.getElementById('study-original').href=selected.file+location.hash;
   function failed(){loading.hidden=true;error.hidden=false;}

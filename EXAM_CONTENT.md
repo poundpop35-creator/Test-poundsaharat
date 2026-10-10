@@ -62,3 +62,31 @@ Primary legal PDFs were retrieved and checked from `law.energy.go.th/laws/detail
 Content review corrected the Oil Fuel Fund Office's legal-status reference to section 18 (section 17 concerns meeting allowances). Fuel inspection scenarios explain general evidence quality; they do not invent sampling quantities or claim to replace official laboratory procedures. Numerical questions state hypothetical inputs and explain the calculation.
 
 Validation: `node --test tests/*.test.js` — 15 passing tests, including all 11 pre-existing checks and four energy coverage/integrity/calculation/link/progress checks. JavaScript syntax checked. No browser interaction test was performed. The existing agency data files and completed-agency pages are unchanged.
+# Research expansion — 11 October 2026
+
+Current priority roles: Revenue Department procurement academic officer and Office of the Permanent Secretary, Ministry of Energy, energy academic officer. Each role now has two distinct 100-question sets (200 questions per role, 400 total). Set A preserves all original question IDs and content; set B adds original scenario, interpretation and multistep calculation questions with explanations and source links. The briefing is available at `rd-sprint.html#briefing` and `energy-sprint.html#briefing`, including from the original `study.html?page=energy#read` entry point.
+
+## Scope and prediction method
+
+- RD: official recruitment notice dated 7 August 2569, PDF page 16, confirms eight syllabus headings. The 12/8/35/15/10/8/5/7 allocation in each 100-question set is an editorial practice allocation, not a published topic weighting.
+- OPS Energy: official recruitment notice dated 2 September 2569, PDF page 10, specifies general 50 points and role-specific 150 points. Each practice set has 25 general and 75 specific questions at two practice points each. The announcement does not establish that the actual examination must contain exactly 100 questions.
+- Thammasat is the stated examination setter in the user's information. Public procurement evidence found in OPS Energy's January 2568 monthly report, page 2 item 7, records Thammasat as the selected contractor for the specific-knowledge examination, contract 84/2568 dated 30 January 2568. This confirms a previous engagement, not the contents of the current test. No authenticated publicly released paper for the two current roles was located. No invented TU-specific frequency or guaranteed predictions are used.
+- Searches covered official recruitment pages/PDFs, legislation and amendments, agency plans/news, procurement records, technical agencies/standards publishers, public forum/social search results and commercial preparation listings. Secondary claims and material for different positions were not treated as authenticated past papers.
+
+## Content checks and updates
+
+The RD briefing distinguishes procurement authorization ceilings (200/100/50 million baht for the three methods) from method-selection thresholds, different appeal stages and working/calendar days, unanimous inspection decisions, treasury timelines, tax bases and budget allocation exceptions. It links the procurement regulation's 2569 amendment and the official index for September 2569 e-GP circulars; it does not invent unverified effective dates for those circulars. The July 2569 VAT news is explicitly a report of Cabinet approval in principle of a draft, not itself the enacted Royal Decree. GloBE MCAA coverage follows the RD September news release.
+
+Energy adds calculations of NPV, net payback, LCOE, SEC, interacting savings measures, three-phase power, PF, PV self-consumption, usable storage, COP, pumps and heat balances. Inputs and formulas are stated where needed. Fuel-testing questions distinguish properties, sampling, repeatability/bias and decision rules; they do not reproduce paid ASTM standards or prescribe unverified laboratory procedures. Legal questions use the five agency-hosted Acts and DEDE's 2569 notice. Draft PDP targets are not presented as final adopted policy.
+
+Source catalogs contain 32 RD and 44 energy entries (some entries concern copies or complementary sources, so this is not a claim of 76 independent authorities). Source names, exact URLs, dates and relevant provisions are attached to questions and briefing cards.
+
+## Compatibility and validation
+
+LocalStorage keys and bank version identifiers are retained, so existing 100-question sessions, answer order, bookmarks, history and progress remain valid. Full-set and 20-question practice use the selected A/B set; topic drills span both. A missing data part blocks launching rather than silently using an incomplete bank.
+
+`node --test tests/role-research.test.js`: seven passing tests covering bank integrity, disjoint sets, energy score allocation, legacy-session compatibility, completion/retry behavior and independently recomputed numerical answers. Existing `energy.test.js` and `exam-core.test.js`: 13 passing, two pre-existing failures also reproduced at the unchanged baseline `8f4e75b` (obsolete homepage link expectation and a dynamic-template URL interpreted as a local file). These baseline failures are separate from the new feature tests.
+
+Browser verification passed for both roles with Chromium: 320/390/1280 px layout, A/B selection, 100-question exam completion and score breakdown, old-session resume, reload persistence, wrong-answer retry, navigation from the original study URL, missing-part protection, and no JavaScript errors. Screenshots were visually inspected and remain QA intermediates, not application dependencies.
+
+---

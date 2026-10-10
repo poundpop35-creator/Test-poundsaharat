@@ -40,6 +40,10 @@
   }
   if(page?.id==='opsmoac')document.querySelectorAll('body > .wrap > .intro-card, #home > .intro-card').forEach(card=>{if(!card.querySelector('a[href="opsmoac-sprint.html"]'))return;const walker=document.createTreeWalker(card,NodeFilter.SHOW_TEXT);while(walker.nextNode())walker.currentNode.nodeValue=walker.currentNode.nodeValue.replace(/(?:60|100)(?=\s*(ข้อ|โจทย์))/g,'300').replace(/3 ชุด(?:ฝึก)?/g,'3 ชุด ชุดละ 100 ข้อ');});
   const tabInfo={home:['อ่านเนื้อหา','read'],book:['ฝึกแยกหมวด','practice'],mock:['ข้อสอบรวม','exam'],laws:['สรุปกฎหมาย','summary'],src:['ตัวบทฉบับเต็ม','sources']};
+  if(page?.research){
+    const research=document.createElement('p');research.className='app-research-link';
+    const link=document.createElement('a');link.href=page.research;link.textContent='สรุปเน้นสอบใหม่ + ชุด B เจาะลึก · รวม 200 ข้อ →';research.append(link);content.prepend(research);
+  }
   const tabs=document.querySelector('.tabs');
   if(tabs){
     tabs.setAttribute('role','navigation');tabs.setAttribute('aria-label','หมวดการเรียน');
@@ -67,7 +71,7 @@
     content.prepend(nav);
   } else if(sprint) {
     const nav=document.createElement('nav');nav.className='app-local-nav';nav.setAttribute('aria-label','หมวดตะลุย '+sprintPage.short);
-    nav.innerHTML=`<a href="#dashboard">เลือกชุดโจทย์</a><a href="#notes">บัตรทวน ${sprintPage.sprintTopics} หมวด</a><a href="#sources">ตัวบทฉบับเต็ม</a><a href="${href(sprintPage.file)}">คลัง ${esc(sprintPage.short)} ทั้งหมด ↗</a>`;
+    nav.innerHTML=`<a href="#dashboard">เลือกชุดโจทย์</a>${sprintPage.research?'<a href="#briefing">สรุปเน้นสอบใหม่</a>':''}<a href="#notes">บัตรทวน ${sprintPage.sprintTopics} หมวด</a><a href="#sources">ตัวบทฉบับเต็ม</a><a href="${href(sprintPage.file)}">คลัง ${esc(sprintPage.short)} ทั้งหมด ↗</a>`;
     content.prepend(nav);
   }
   function syncParentHash(){if(window.parent!==window)window.parent.postMessage({type:'study:hash',hash:location.hash},location.origin);}
