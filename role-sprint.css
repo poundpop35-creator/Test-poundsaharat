@@ -1,0 +1,10 @@
+@import url('opsmoac-sprint.css?v=20261009-300');
+body[data-app="rd"]{--accent:var(--a);--accent-dark:var(--a-dk)}
+body[data-app="energy"]{--accent:var(--a);--accent-dark:var(--a-dk)}
+.source-link{display:block;margin:.55rem 0;color:var(--accent);font-weight:600;text-decoration:underline;overflow-wrap:anywhere}
+.source p{margin:.3rem 0 .7rem}.topic-buttons button{display:flex;gap:1rem;justify-content:space-between;text-align:left;align-items:center}.topic-buttons button span{min-width:0}.topic-buttons button small{white-space:nowrap}.scope-note{border-left:4px solid var(--accent);padding:.75rem 1rem;background:var(--a-sf)}
+.set-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr))}.set-grid button{width:100%;margin-top:.5rem}.role-shortcuts{display:flex;gap:.5rem;flex-wrap:wrap}.role-shortcuts a{border:1px solid var(--line);padding:.55rem .8rem;border-radius:999px;color:var(--ink);text-decoration:none}.role-shortcuts a[aria-current]{background:var(--accent);color:#fff}.options .option.chosen{outline:2px solid var(--accent);outline-offset:1px}.question-title{line-height:1.65;overflow-wrap:anywhere}.feedback p{line-height:1.8}.feedback .source-links{display:block}table th[scope="row"]{font-weight:400;text-align:left}#result summary{line-height:1.65}.quiz-nav{flex-wrap:wrap}.source-link:focus-visible,a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #c47500;outline-offset:3px}
+@media(max-width:400px){header h1{font-size:2rem}.role-shortcuts{font-size:.88rem}.topic-buttons button{gap:.5rem}.actions>*{max-width:100%}}
+
+body.app-sprint{--good:#0E7A54;--good-bg:#E7F6EF;--good-bd:#A8DCC6;--bad:#B4233B;--bad-bg:#FDF0F2;--bad-bd:#F0B5BF}
+body.app-sprint .option.correct{color:#0B6244}body.app-sprint .option.wrong{color:#942037}

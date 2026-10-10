@@ -10,24 +10,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="theme.css?v=20261007-200">
   <link rel="stylesheet" href="app-shell.css?v=20261007-200">
-  <link rel="stylesheet" href="app-home.css?v=20261007-200">
-  <script defer src="app-catalog.js?v=20261009-300"></script>
-  <script defer src="app-shell.js?v=20261009-300"></script>
-  <script defer src="app-home.js?v=20261009-300"></script>
+  <link rel="stylesheet" href="app-home.css?v=20261010-roles">
+  <script defer src="app-catalog.js?v=20261010-roles"></script>
+  <script defer src="app-shell.js?v=20261010-roles"></script>
+  <script defer src="app-home.js?v=20261010-roles"></script>
 </head>
 <body class="study-app app-home">
   <main id="app-content" class="home-wrap" tabindex="-1">
     <section class="home-intro" aria-labelledby="home-title">
-      <div><p class="home-kicker">คลังเรียนและฝึกข้อสอบส่วนตัว</p><h1 id="home-title">วันนี้จะติว<span>หน่วยงานไหน?</span></h1><p>เลือกเรื่องที่ต้องอ่าน แล้วไปฝึกโจทย์ให้ตรงจุด</p></div>
-      <a class="home-focus" href="opsmoac-sprint.html"><strong>โฟกัสตอนนี้ · สป.เกษตร</strong><span>เก็ง 300 ข้อ · 3 ชุด × 100 →</span></a>
+      <div><p class="home-kicker">คลังเรียนและฝึกข้อสอบส่วนตัว</p><h1 id="home-title">โฟกัส<span>สองสนามที่เหลือ</span></h1><p>1. กรมสรรพากร — นักวิชาการพัสดุ · 2. สป.พลังงาน — นักวิชาการพลังงาน</p></div>
+      <a class="home-focus" href="rd-sprint.html"><strong>ลำดับ 1 · กรมสรรพากร</strong><span>เริ่มเก็งพัสดุ 100 ข้อ →</span></a>
     </section>
-    <div class="home-recent"><a href="opsmoac-five-essays.html" style="white-space:normal">อ่านข้อเขียน สป.เกษตร 5 ข้อ · คำตอบพร้อมเชื่อมยุทธศาสตร์ชาติ →</a></div>
+    <div class="home-recent"><a href="energy-sprint.html" style="white-space:normal">ลำดับ 2 · สป.พลังงาน นักวิชาการพลังงาน · เก็ง 100 ข้อ →</a></div>
     <div id="home-recent" class="home-recent" hidden></div>
     <div class="home-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="7.5"/><path d="m16 16 5 5"/></svg><label class="app-sr-only" for="home-search-input">ค้นหาหน่วยงาน ตำแหน่ง หรือหมวด</label><input type="search" id="home-search-input" placeholder="ค้นหาหน่วยงาน ตำแหน่ง หรือหมวด…" autocomplete="off"><button id="home-clear" type="button" aria-label="ล้างคำค้น" hidden>×</button></div>
     <nav class="home-categories" aria-label="หมวดการเรียน"><a href="#agencies" data-category="agencies" aria-current="page">หน่วยงานที่เตรียมสอบ</a><a href="#resources" data-category="resources">กฎหมายและตัวบท</a><a href="#english" data-category="english">ภาษาอังกฤษ</a><a href="#archive" data-category="archive">หน่วยงานที่สอบแล้ว</a></nav>
     <section aria-labelledby="home-section-title"><div class="home-section-heading"><div><h2 id="home-section-title">หน่วยงานที่กำลังเตรียมสอบ</h2><p id="home-section-description">เลือกหน่วยงาน แล้วเริ่มอ่านหรือทำโจทย์ได้เลย</p></div><span id="home-count" class="home-count" role="status"></span></div><div id="home-cards" class="home-cards"></div><div id="home-empty" class="home-empty" hidden><strong>ยังไม่พบสิ่งที่ค้นหา</strong><p>ลองชื่อย่อหน่วยงาน หรือคำว่า “พัสดุ” “กฎหมาย” “อังกฤษ”</p><button type="button" id="home-reset">ดูหน่วยงานทั้งหมด</button></div></section>
     <details class="home-help"><summary>เริ่มใช้งานอย่างไร?</summary><ol><li>เลือกหน่วยงาน แล้วกด <b>อ่านเนื้อหา</b> เพื่อเลือกบทที่ต้องทวน</li><li>กด <b>ฝึกแยกหมวด</b> หรือ <b>ข้อสอบรวม</b> ในหน่วยงานนั้น</li><li>ใช้ <b>ตัวบทฉบับเต็ม</b> เพื่อเปิดเอกสารต้นฉบับประกอบคำตอบ</li><li>สลับหน่วยงานได้จากปุ่ม <b>หน่วยงาน / หมวด</b> ด้านบนทุกหน้า</li></ol></details>
-    <noscript><div class="home-noscript"><p>เปิด JavaScript เพื่อใช้การค้นหาและทำแบบทดสอบ หรือเลือกหน้าที่ต้องการด้านล่าง</p><a href="opsmoac-sprint.html">เก็ง สป.เกษตร 300 ข้อ</a><a href="sao-sprint.html">ตะลุย สตง. 60 ข้อ</a><a href="sao.html">สตง.</a><a href="opsmoac.html">สป.เกษตร</a><a href="rd.html">สรรพากร</a><a href="energy.html">สป.พลังงาน</a><a href="law-sources.html">ตัวบทฉบับเต็ม</a><a href="laws.html">กฎหมายกลาง</a><a href="compare.html">เทียบขอบเขตสอบ</a><a href="english-course.html">คอร์สภาษาอังกฤษ</a><a href="english.html">อังกฤษพื้นฐาน</a><a href="diprom.html">กรมส่งเสริมอุตสาหกรรม</a><a href="namban.html">กรมทรัพยากรน้ำบาดาล</a></div></noscript>
+    <noscript><div class="home-noscript"><p>เปิด JavaScript เพื่อใช้การค้นหาและทำแบบทดสอบ หรือเลือกหน้าที่ต้องการด้านล่าง</p><a href="rd-sprint.html">1. สรรพากร 100 ข้อ</a><a href="energy-sprint.html">2. พลังงาน 100 ข้อ</a><a href="opsmoac-sprint.html">คลังเดิม สป.เกษตร 300 ข้อ</a><a href="sao-sprint.html">ตะลุย สตง. 60 ข้อ</a><a href="sao.html">สตง.</a><a href="opsmoac.html">สป.เกษตร</a><a href="rd.html">สรรพากร</a><a href="energy.html">สป.พลังงาน</a><a href="law-sources.html">ตัวบทฉบับเต็ม</a><a href="laws.html">กฎหมายกลาง</a><a href="compare.html">เทียบขอบเขตสอบ</a><a href="english-course.html">คอร์สภาษาอังกฤษ</a><a href="english.html">อังกฤษพื้นฐาน</a><a href="diprom.html">กรมส่งเสริมอุตสาหกรรม</a><a href="namban.html">กรมทรัพยากรน้ำบาดาล</a></div></noscript>
   </main>
   <footer class="home-footer">คลังติวส่วนตัว · อ่าน ฝึก และทวนจากตัวบท &nbsp; <a href="study.html?page=law-sources">เปิดเอกสารอ้างอิง ↗</a></footer>
 </body>
