@@ -9,7 +9,7 @@
   }
   function href(file,hash='') {
     const item=catalog.find(p=>p.file===file);
-    return (item?'study.html?page='+encodeURIComponent(item.id):file)+(hash?('#'+hash.replace(/^#/,'')):'');
+    return (item&&!item.standalone?'study.html?page='+encodeURIComponent(item.id):file)+(hash?('#'+hash.replace(/^#/,'')):'');
   }
   window.StudyUI={escape:esc,icon,href};
   const file = location.pathname.split('/').pop() || 'index.html';
@@ -43,6 +43,8 @@
   if(page?.research){
     const research=document.createElement('p');research.className='app-research-link';
     const link=document.createElement('a');link.href=page.research;link.textContent='สรุปเน้นสอบใหม่ + ชุด B เจาะลึก · รวม 200 ข้อ →';research.append(link);content.prepend(research);
+    const daily=document.createElement('p');daily.className='app-research-link';
+    const dailyLink=document.createElement('a');dailyLink.href='exam-14.html#day-1-'+page.id;dailyLink.textContent='ใหม่ · บทติว 14 วัน วันละ 3–4 ชั่วโมง + ฝึกเขียนตอบ →';daily.append(dailyLink);content.prepend(daily);
   }
   const tabs=document.querySelector('.tabs');
   if(tabs){
@@ -71,7 +73,7 @@
     content.prepend(nav);
   } else if(sprint) {
     const nav=document.createElement('nav');nav.className='app-local-nav';nav.setAttribute('aria-label','หมวดตะลุย '+sprintPage.short);
-    nav.innerHTML=`<a href="#dashboard">เลือกชุดโจทย์</a>${sprintPage.research?'<a href="#briefing">สรุปเน้นสอบใหม่</a>':''}<a href="#notes">บัตรทวน ${sprintPage.sprintTopics} หมวด</a><a href="#sources">ตัวบทฉบับเต็ม</a><a href="${href(sprintPage.file)}">คลัง ${esc(sprintPage.short)} ทั้งหมด ↗</a>`;
+    nav.innerHTML=`${sprintPage.research?`<a href="exam-14.html#day-1-${sprintPage.id}">ติว 14 วัน + ข้อเขียน</a>`:''}<a href="#dashboard">เลือกชุดโจทย์</a>${sprintPage.research?'<a href="#briefing">สรุปเน้นสอบใหม่</a>':''}<a href="#notes">บัตรทวน ${sprintPage.sprintTopics} หมวด</a><a href="#sources">ตัวบทฉบับเต็ม</a><a href="${href(sprintPage.file)}">คลัง ${esc(sprintPage.short)} ทั้งหมด ↗</a>`;
     content.prepend(nav);
   }
   function syncParentHash(){if(window.parent!==window)window.parent.postMessage({type:'study:hash',hash:location.hash},location.origin);}
