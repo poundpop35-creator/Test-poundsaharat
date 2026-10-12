@@ -596,3 +596,105 @@ body.app-sprint button:not(.primary){color:var(--a-dk)}
   background:var(--card);border-left:4px solid var(--a);border-radius:var(--r-sm);
   padding:12px 14px;margin-top:14px;font-size:15px;
 }
+
+/* ============================================================
+   21. รอบขัดเกลา — อ่านง่ายขึ้น ดูสะอาดขึ้น (เร่งสอบ 2 หน่วยงาน)
+   ============================================================ */
+
+/* ---- ป้ายนับถอยหลังวันสอบ ---- */
+.cd{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'Kanit','Sarabun',sans-serif;font-size:13px;font-weight:500;
+  padding:5px 13px;border-radius:999px;
+  background:var(--a-sf);border:1px solid var(--a-bd);color:var(--ink-soft);
+  white-space:nowrap;
+}
+.cd b{font-weight:700;color:var(--a-dk);font-size:13.5px}
+.cd span{color:var(--ink-faint);font-size:12.5px}
+.cd[data-cd-state="urgent"]{background:var(--bad-bg);border-color:var(--bad-bd)}
+.cd[data-cd-state="urgent"] b{color:var(--bad)}
+.cd[data-cd-state="soon"] b{color:var(--a-dk)}
+.cd[data-cd-state="past"]{opacity:.7}
+.cd[data-cd-state="past"] b{color:var(--ink-soft)}
+
+/* แถบนับถอยหลังเต็มความกว้าง ใช้บนหัวแอปของหน่วยงานที่ใกล้สอบ */
+.cd-bar{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  margin:14px 0 0;padding:12px 15px;border-radius:var(--r-md);
+  background:linear-gradient(100deg,var(--a-tint),var(--card) 85%);
+  border:1px solid var(--a-bd);
+}
+.cd-bar .cd-t{
+  font-family:'Kanit','Sarabun',sans-serif;font-weight:600;font-size:14.5px;color:var(--a-dk);
+}
+.cd-bar .cd-t em{display:block;font-style:normal;font-weight:400;font-size:13px;color:var(--ink-soft);margin-top:2px}
+
+/* ---- จังหวะการอ่าน: คุมความกว้างบรรทัดและเพิ่มช่องว่างให้ตาพัก ---- */
+.content section{padding:17px 19px;margin-bottom:14px}
+.content section + section{margin-top:0}
+.content h4{font-size:16.5px;margin-bottom:11px;line-height:1.4}
+.content li{font-size:16px;line-height:1.72;padding:6px 0 6px 21px}
+.content li::before{top:15px}
+.content li + li{border-top:1px dashed color-mix(in srgb,var(--line) 75%,transparent)}
+.content p{font-size:16px;line-height:1.72;color:var(--ink-soft)}
+@media(min-width:760px){
+  .content li,.content p{max-width:62em}
+}
+
+/* กล่อง “จำให้ได้” ให้เด่นกว่าเนื้อความรอบข้าง */
+.kbox{padding:12px 16px;font-size:15px;line-height:1.68;box-shadow:inset 3px 0 0 var(--a)}
+.kbox b{font-weight:700}
+
+/* ตารางให้อ่านไล่แถวได้ไม่หลงบรรทัด */
+table.tb tbody tr:nth-child(even) td{background:color-mix(in srgb,var(--a-sf) 60%,var(--card))}
+table.tb th,table.tb td{padding:9px 11px;line-height:1.6}
+
+/* ---- การ์ดหัวข้อ: ชัดว่าแตะได้ และแยกลำดับได้เร็ว ---- */
+.topic{padding:17px 18px}
+.topic:hover{transform:translateY(-1px)}
+.topic .num{box-shadow:0 2px 6px color-mix(in srgb,var(--a) 28%,transparent)}
+.topic h3{font-size:17px}
+.grid{gap:14px}
+
+/* ---- ตัวเลือกคำตอบ: วงกลมตัวอักษรกำกับเปลี่ยนสีตอนชี้ ให้รู้ว่าแตะได้ ---- */
+.opt:hover:not(:disabled) .lab{background:var(--a);border-color:var(--a);color:#fff}
+
+/* ---- กล่องเฉลย: มีแถบสีด้านซ้าย เห็นตั้งแต่แวบแรกว่าถูกหรือผิด ---- */
+.explain{border-left:4px solid var(--a)}
+.explain.ok{border-left-color:var(--good)}
+.explain.no{border-left-color:var(--bad)}
+
+/* ---- ชิปและป้าย ---- */
+.chip{padding:6px 13px;font-size:13.5px}
+
+/* ---- หัวแอป: ชื่อหน่วยงานเด่นขึ้นเล็กน้อย ---- */
+header h1{font-size:27px;line-height:1.3}
+@media(min-width:660px){header h1{font-size:30px}}
+
+/* ---- ผลคะแนน ---- */
+.result{padding:30px 22px}
+.rev-item{padding:14px 16px;line-height:1.7}
+
+/* ---- โหมดมืด: ปรับของใหม่ให้อ่านได้ด้วย ---- */
+@media (prefers-color-scheme: dark){
+  body[data-app]:not(.study-app) table.tb tbody tr:nth-child(even) td{
+    background:color-mix(in srgb,var(--card) 80%,var(--paper));
+  }
+  body[data-app]:not(.study-app) .cd{background:var(--card);border-color:var(--line)}
+  body[data-app]:not(.study-app) .cd b{color:var(--ink)}
+  body[data-app]:not(.study-app) .cd-bar{background:var(--card)}
+  body[data-app]:not(.study-app) .cd-bar .cd-t{color:var(--ink)}
+}
+
+/* ---- ขณะอ่านเนื้อหาหัวข้อ: ซ่อนหัวแอปและการ์ดแนะนำ ให้เริ่มอ่านได้เลย ---- */
+body:has(#read.view.show) > header,
+body:has(#read.view.show) > .wrap > .intro-card,
+body:has(#read.view.show) > .wrap > .disclaimer{display:none}
+body:has(#read.view.show){padding-top:calc(5px + var(--safe-t))}
+/* ปุ่มกลับติดอยู่กับแถบแท็บ กดกลับได้ทุกจังหวะที่อ่าน */
+#read .read-head{
+  position:sticky;top:calc(5px + var(--safe-t) + 52px);z-index:15;
+  margin:10px 0 2px;padding:4px 0;background:var(--paper);
+}
+#read .read-title{margin-top:4px}
+#read .content section{scroll-margin-top:calc(5px + var(--safe-t) + 112px)}

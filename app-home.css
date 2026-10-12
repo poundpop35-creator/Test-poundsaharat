@@ -14,3 +14,34 @@
 .agency-card:has(.agency-icon.compare){--a:#475569;--a-dk:#1E293B;--a-sf:#F3F5F8;--a-bd:#D2DAE3;border-left:4px solid #475569}
 .agency-card:has(.agency-icon.english){--a:#DB2777;--a-dk:#9D174D;--a-sf:#FFF0F6;--a-bd:#FAC4DA;border-left:4px solid #DB2777}
 .agency-card:has(.agency-icon.english-course){--a:#A21CAF;--a-dk:#701A75;--a-sf:#FDF0FD;--a-bd:#F3C2F6;border-left:4px solid #A21CAF}
+
+/* ---- สองสนามที่ใกล้ถึงที่สุด (เร่งสอบ) ---- */
+.home-sprintplan{margin:0 0 28px}
+.home-sprintplan h2{font-size:17px;margin:0 0 12px;color:var(--ink)}
+.plan-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.plan-card{
+  display:flex;flex-direction:column;gap:7px;text-decoration:none;color:inherit;
+  background:var(--card);border:1px solid var(--line);border-left:5px solid var(--a);
+  border-radius:16px;padding:18px 19px;box-shadow:0 3px 12px rgba(16,24,40,.05);
+  transition:box-shadow .15s,transform .15s,border-color .15s;
+}
+.plan-card:hover{box-shadow:0 8px 26px rgba(16,24,40,.1);transform:translateY(-2px);border-color:var(--a-bd)}
+.plan-card.energy{--a:#C2410C;--a-dk:#7C2D12;--a-sf:#FFF3EC;--a-bd:#FBCDAE}
+.plan-card.rd{--a:#BE123C;--a-dk:#881337;--a-sf:#FFF0F3;--a-bd:#FBC5D1}
+.plan-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.plan-top b{font-family:'Kanit','Sarabun',sans-serif;font-size:19px;font-weight:700;color:var(--a-dk)}
+.plan-mid{font-size:13.5px;color:var(--ink-soft);font-weight:600}
+.plan-note{font-size:13.5px;color:var(--ink-faint);line-height:1.65}
+.plan-go{
+  margin-top:6px;align-self:flex-start;
+  font-size:13px;font-weight:700;color:var(--a);
+  background:var(--a-sf);border:1px solid var(--a-bd);
+  border-radius:8px;padding:9px 14px;min-height:40px;
+  display:inline-flex;align-items:center;
+}
+.plan-hint{font-size:12.5px;color:var(--ink-faint);margin:11px 0 0}
+@media(max-width:650px){
+  .plan-row{grid-template-columns:1fr;gap:13px}
+  .plan-card{padding:16px 17px}
+  .plan-top b{font-size:17.5px}
+}
