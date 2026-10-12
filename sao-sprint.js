@@ -107,5 +107,8 @@
   $('wrongBtn').addEventListener('click',()=>start(wrongIds(),'ซ้ำข้อที่คำตอบล่าสุดยังผิด','practice'));
   $('markedBtn').addEventListener('click',()=>start(state.marked,'ทวนข้อที่ปักไว้'));
   $('allBtn').addEventListener('click',()=>start(D.questions.map(q=>q.id),'จำลองสอบรวม 60 ข้อ','exam'));
-  save();dashboard();
+  // เปิดจากหน้าแรกด้วย #resume ให้เข้าชุดที่ค้างไว้ทันที (เหมือนหน้า sprint ของ rd/energy)
+  function routeHash(){ if(location.hash==='#resume' && state.session) $('resume').click(); }
+  window.addEventListener('hashchange',routeHash);
+  save();dashboard();routeHash();
 })();

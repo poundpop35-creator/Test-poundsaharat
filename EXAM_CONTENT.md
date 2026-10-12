@@ -24,7 +24,7 @@
 
 ## การใช้งานและการดูแล
 
-เป็น static HTML/JS แบบเดิม ไม่เพิ่ม framework, backend หรือบริการภายนอกใหม่ บทเรียนอยู่ `data/sao.js`, `data/opsmoac.js`, `data/rd.js`; หน้าติวใช้ `exam-tutor.js`, `exam-core.js`, `exam-tutor.css` ร่วมกัน
+เป็น static HTML/JS แบบเดิม ไม่เพิ่ม framework, backend หรือบริการภายนอกใหม่ (หมายเหตุ 12 ต.ค. 2569: โครง `exam-tutor.js` / `exam-core.js` / `data/*.js` ถูกถอดออกแล้ว แต่ละหน่วยงานเก็บคลังข้อสอบไว้ในไฟล์ `.html` ของตัวเอง)
 
 บันทึกความคืบหน้าและคำตอบใน `localStorage` แยกหน่วยงานด้วย `exam-tutor-v1:<agency>` เป็นข้อมูลเฉพาะเบราว์เซอร์/อุปกรณ์ ไม่มีการซิงก์ข้ามเครื่อง หากบันทึกไม่ได้จะมีข้อความแจ้งและยังฝึกต่อได้
 
@@ -32,7 +32,7 @@
 
 เมื่อปรับคำถามให้รักษา `id` เดิมหากยังเป็นคำถามเดิม เพื่อไม่ล้างความคืบหน้า ตรวจ `a` ให้ชี้คำตอบถูกใน `c` และเพิ่มแหล่งใน `sources` พร้อม `fullUrl`/`fullType` สำหรับตัวบทฉบับเต็ม
 
-ตรวจด้วย `node --test tests/exam-core.test.js` ครอบคลุมขอบเขตและลำดับหัวข้อ ความสมบูรณ์ของข้อฝึก แหล่งอ่าน การสุ่ม/สลับเฉลย การทวนข้อผิด ข้อมูลบันทึกไม่สมบูรณ์ และไฟล์ที่แต่ละหน้าใช้ ไม่มีการทดสอบด้วยเบราว์เซอร์ในงานนี้
+ตรวจด้วย `node --test tests/*.test.js` (เดิมใช้ `tests/exam-core.test.js` ซึ่งถูกลบไปพร้อมโครง exam-tutor)
 
 ## ชุดเน้นสอบ 10 กันยายน 2569
 
@@ -90,3 +90,17 @@ LocalStorage keys and bank version identifiers are retained, so existing 100-que
 Browser verification passed for both roles with Chromium: 320/390/1280 px layout, A/B selection, 100-question exam completion and score breakdown, old-session resume, reload persistence, wrong-answer retry, navigation from the original study URL, missing-part protection, and no JavaScript errors. Screenshots were visually inspected and remain QA intermediates, not application dependencies.
 
 ---
+
+---
+
+# เคลียร์โครงที่ไม่ได้ใช้ — 12 ตุลาคม 2569
+
+ตอนนี้เหลือสองสนามสอบคือ สป.พลังงาน และ กรมสรรพากร งานรอบนี้ไม่เพิ่มเนื้อหา แต่ลบส่วนที่ไม่มีหน้าไหนเรียกใช้แล้ว และทำให้ชุดตรวจทั้งหมดผ่าน
+
+ลบ: `exam-core.js`, `exam-tutor.js`, `data/` (sao, opsmoac, rd, energy), `tests/energy.test.js`, `tests/exam-core.test.js` — ตรวจแล้วว่าไม่มีไฟล์ `.html` ไหนอ้างถึง เป็นซากของโครง exam-tutor ที่ถูกแทนด้วยแอปต่อหน่วยงานไปก่อนหน้านี้ คลังข้อสอบของทุกหน่วยงานอยู่ในไฟล์ `.html` ของตัวเอง ไม่มีเนื้อหาหายไป
+
+แก้ชุดตรวจที่ค้างอยู่ก่อนหน้า: `role-research.browser.js` ระบุลิงก์สรุปให้เจาะจง `#briefing` (เดิมชนกับลิงก์ "ติว 14 วัน" ที่เพิ่มมาทีหลัง), `opsmoac-sprint.browser.js` หาการ์ด สป.เกษตร จากหมวด "สอบแล้ว" ตามโครงหน้าแรกใหม่ และกลับเข้าชุดค้างด้วย `#resume`, `opsmoac-sprint.dom.js` ข้ามอย่างสุภาพเมื่อไม่มี jsdom, และปล่อยให้ Playwright เลือกเบราว์เซอร์เองเมื่อไม่ได้ตั้ง `CHROMIUM_PATH`
+
+แก้จริงหนึ่งจุด: `opsmoac-sprint.js` และ `sao-sprint.js` ไม่รองรับ `#resume` (มีแต่ `role-sprint.js` ของ rd/energy) ทำให้เปิดลิงก์ชุดค้างแล้วไม่เข้าข้อสอบ เพิ่มการอ่าน hash ให้ครบทั้งสองหน้า
+
+ผล: `tests/*.test.js` ผ่าน 4 ไฟล์ · `tests/*.browser.js` ผ่าน 3 ไฟล์ · `tests/opsmoac-sprint.dom.js` ข้ามเพราะเครื่องนี้ไม่มี jsdom

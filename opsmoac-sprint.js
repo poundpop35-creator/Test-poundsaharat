@@ -80,6 +80,9 @@
   $('markedBtn').addEventListener('click',()=>start(state.marked,'ทวนข้อที่ปักไว้'));
   $('allPractice').addEventListener('click',()=>start(D.examSets[0].ids,D.examSets[0].title,'practice'));
   $('focusBtn').addEventListener('click',()=>start(D.focusIds,'ทวนด่วน 20 ข้อ • ประเด็นจากภาพ','practice'));
-  save();dashboard();
+  // เปิดจากหน้าแรกด้วย #resume ให้เข้าชุดที่ค้างไว้ทันที (เหมือนหน้า sprint ของ rd/energy)
+  function routeHash(){ if(location.hash==='#resume' && state.session) $('resume').click(); }
+  window.addEventListener('hashchange',routeHash);
+  save();dashboard();routeHash();
 })();
 

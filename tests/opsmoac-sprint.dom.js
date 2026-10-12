@@ -1,7 +1,10 @@
 /* Optional integration check: NODE_PATH=/path/to/node_modules node tests/opsmoac-sprint.dom.js
    Requires jsdom. This verifies interaction and persistence, not rendered layout. */
 'use strict';
-const {JSDOM,VirtualConsole}=require('jsdom'),fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+let JSDOM,VirtualConsole;
+try{({JSDOM,VirtualConsole}=require('jsdom'));}
+catch(e){console.log('SKIP tests/opsmoac-sprint.dom.js: ต้องมี jsdom (NODE_PATH=<โมดูล> node tests/opsmoac-sprint.dom.js)');process.exit(0);}
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
 const root=path.join(__dirname,'..'),key='opsmoac60:v1',html=fs.readFileSync(path.join(root,'opsmoac-sprint.html'),'utf8');
 const names=['data','extra','a1','a2','b1','b2','300','core'].map(n=>'opsmoac-sprint-'+n+'.js').concat('opsmoac-sprint.js');
 const scripts=names.map(f=>fs.readFileSync(path.join(root,f),'utf8')),errors=[];

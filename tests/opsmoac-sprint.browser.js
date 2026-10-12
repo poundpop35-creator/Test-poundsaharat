@@ -13,8 +13,10 @@ module.exports=async function run(browser,base,out){
  async function answer(correct=true){const a=await page.evaluate(({key,correct})=>{const s=JSON.parse(localStorage.getItem(key)).session,q=window.OPS_SPRINT.questions.find(q=>q.id===s.ids[s.idx]);return correct?q.a:(q.a+1)%4;},{key,correct});await page.locator(`[data-option="${a}"]`).click();assert.equal(await page.locator('#answerFeedback .feedback li').count(),4);}
  async function finish(){return page.evaluate(key=>{let count=0;while(!document.getElementById('quiz').hidden){if(++count>100)throw Error('Loop');const s=JSON.parse(localStorage.getItem(key)).session,q=window.OPS_SPRINT.questions.find(q=>q.id===s.ids[s.idx]);if(s.answers[q.id]===undefined)document.querySelector(`[data-option="${q.a}"]`).click();if(document.querySelectorAll('#answerFeedback .feedback li').length!==4)throw Error('Missing choice feedback');if(!document.querySelector('#answerFeedback a[href^="https://"]'))throw Error('Missing source');document.getElementById('next').click();}return count;},key);}
  try{
-  await page.goto(base+'/index.html');await page.waitForSelector('.agency-card.priority');
-  check((await page.locator('.agency-card.priority').textContent()).includes('300 ข้อ'),'Homepage advertises 300');
+  // สป.เกษตร ย้ายไปหมวด "หน่วยงานที่สอบแล้ว" แล้ว การ์ดลำดับต้นตอนนี้เป็นสองสนามที่ยังไม่สอบ
+  await page.goto(base+'/index.html#archive');const opsCard=page.locator('.agency-card:has(.agency-icon.opsmoac)');
+  await opsCard.waitFor();
+  check((await opsCard.textContent()).includes('300 ข้อ'),'Homepage advertises 300');
   await page.goto(base+'/study.html?page=opsmoac');await page.waitForSelector('#study-frame[data-ready]');
   const legacy=page.frameLocator('#study-frame');check((await legacy.locator('.app-sprint-tab').textContent()).includes('300 ข้อ'),'Legacy tab links to 300');
   await page.goto(base+'/opsmoac-sprint.html');await page.waitForSelector('#examSets article');
@@ -29,8 +31,11 @@ module.exports=async function run(browser,base,out){
   check(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Question and feedback fit 320px');
   if(out)await page.screenshot({path:path.join(out,'ops300-feedback.png'),fullPage:false});
   await page.locator('#next').click();for(let i=1;i<10;i++){await answer();await page.locator('#next').click();}
-  const saved=await page.evaluate(k=>localStorage.getItem(k),key);await page.locator('#pause').click();await page.locator('.app-brand').click();await page.waitForURL('**/index.html');await page.locator('#home-recent a').click();await page.waitForSelector('#quiz:not([hidden])');
-  check((await page.locator('#counter').textContent()).includes('11/100'),'Homepage resumes at question 11');check(await page.evaluate(k=>localStorage.getItem(k),key)===saved,'Answers and shuffle survive navigation');
+  const saved=await page.evaluate(k=>localStorage.getItem(k),key);await page.locator('#pause').click();await page.locator('.app-brand').click();await page.waitForURL('**/index.html');
+  // แถบ "ทำชุดที่ค้างไว้ต่อ" หน้าแรกสงวนไว้ให้สองสนามที่ยังไม่สอบ สป.เกษตร อยู่หมวดสอบแล้ว จึงกลับเข้าชุดค้างด้วย #resume
+  check(!(await page.locator('#home-recent').innerHTML()).includes('ทำชุด สป.เกษตร ที่ค้างไว้ต่อ'),'Homepage resume shortcut stays on upcoming exams');
+  await page.goto(base+'/opsmoac-sprint.html#resume');await page.waitForSelector('#quiz:not([hidden])');
+  check((await page.locator('#counter').textContent()).includes('11/100'),'#resume returns to question 11');check(await page.evaluate(k=>localStorage.getItem(k),key)===saved,'Answers and shuffle survive navigation');
   await finish();check((await page.locator('.result-score').textContent()).includes('99/100'),'Set one score 99/100');check((await page.locator('.exam-points').textContent()).includes('198/200'),'Set one score 198/200');
   check(await page.locator('#result details').count()===100&&await page.locator('#result .feedback li').count()===400,'All 100 answers and 400 choice reasons');
   await page.locator('#nextSet').click();check((await read()).session.ids.every(id=>Number(id.slice(-3))>=201),'Next starts second distinct 100');await answer();await finish();check((await page.locator('.exam-points').textContent()).includes('200/200'),'Second set scores 200');
@@ -43,4 +48,4 @@ module.exports=async function run(browser,base,out){
   check(errors.length===0,'No JavaScript errors');return report;
  }finally{await context.close();}
 };
-if(require.main===module){const {chromium}=require('playwright');(async()=>{const browser=await chromium.launch({headless:true,executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',args:['--no-sandbox']});try{const report=await module.exports(browser,process.argv[2]||'http://127.0.0.1:8765',process.env.SCREENSHOT_DIR);console.log('PASS browser: '+report.join('; '));}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});}
+if(require.main===module){const {chromium}=require('playwright');(async()=>{const browser=await chromium.launch({headless:true,executablePath:process.env.CHROMIUM_PATH||undefined,args:['--no-sandbox']});try{const report=await module.exports(browser,process.argv[2]||'http://127.0.0.1:8765',process.env.SCREENSHOT_DIR);console.log('PASS browser: '+report.join('; '));}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});}
