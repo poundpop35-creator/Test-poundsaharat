@@ -36,6 +36,7 @@ body[data-app="rd"]            { --a:#BE123C; --a-dk:#881337; --a-tint:#FDE7ED; 
 body[data-app="energy"]        { --a:#C2410C; --a-dk:#7C2D12; --a-tint:#FDEADD; --a-sf:#FEF6F0; --a-bd:#FAC7A5; }
 body[data-app="diprom"]        { --a:#6D28D9; --a-dk:#4C1D95; --a-tint:#EFE7FE; --a-sf:#F8F4FF; --a-bd:#D8C7FB; }
 body[data-app="namban"]        { --a:#0E7490; --a-dk:#164E63; --a-tint:#DFF4FB; --a-sf:#F0FAFD; --a-bd:#A9E0F1; }
+body[data-app="dmh"]           { --a:#4338CA; --a-dk:#312E81; --a-tint:#E8E7FC; --a-sf:#F4F3FE; --a-bd:#C5C2F8; }
 body[data-app="laws"]          { --a:#0F766E; --a-dk:#134E4A; --a-tint:#DFF5F1; --a-sf:#F0FBF8; --a-bd:#A6E2D7; }
 body[data-app="law-sources"]   { --a:#57534E; --a-dk:#292524; --a-tint:#F1F0EE; --a-sf:#F8F7F6; --a-bd:#D8D4CE; }
 body[data-app="compare"]       { --a:#475569; --a-dk:#1E293B; --a-tint:#ECF0F5; --a-sf:#F6F8FA; --a-bd:#CFD8E2; }
@@ -363,6 +364,7 @@ footer{text-align:center;color:var(--ink-faint);font-size:13px;margin:30px 0 8px
   body[data-app="energy"]:not(.study-app)     { --a:#FF9F5E; --a-dk:#FFC296; --a-tint:#2B1A0E; --a-sf:#2B1A0E; --a-bd:#55331B; }
   body[data-app="diprom"]:not(.study-app)     { --a:#B193FA; --a-dk:#CDBAFC; --a-tint:#1E1733; --a-sf:#1E1733; --a-bd:#382A5E; }
   body[data-app="namban"]:not(.study-app)     { --a:#5BC2DF; --a-dk:#9BDCEE; --a-tint:#0E2330; --a-sf:#0E2330; --a-bd:#1C4357; }
+  body[data-app="dmh"]:not(.study-app)        { --a:#A5A0F5; --a-dk:#C7C4F9; --a-tint:#1A1830; --a-sf:#1A1830; --a-bd:#332E5C; }
   body[data-app="laws"]:not(.study-app)       { --a:#4FC9B6; --a-dk:#8FE0D2; --a-tint:#0E2421; --a-sf:#0E2421; --a-bd:#1B4740; }
   body[data-app="law-sources"]:not(.study-app){ --a:#BFB8AF; --a-dk:#D8D3CC; --a-tint:#211F1C; --a-sf:#211F1C; --a-bd:#3D3935; }
 
@@ -616,6 +618,8 @@ body.app-sprint button:not(.primary){color:var(--a-dk)}
 .cd[data-cd-state="soon"] b{color:var(--a-dk)}
 .cd[data-cd-state="past"]{opacity:.7}
 .cd[data-cd-state="past"] b{color:var(--ink-soft)}
+.cd[data-cd-state="unset"]{background:var(--card);border-style:dashed}
+.cd[data-cd-state="unset"] b{color:var(--ink-soft);font-weight:600}
 
 /* แถบนับถอยหลังเต็มความกว้าง ใช้บนหัวแอปของหน่วยงานที่ใกล้สอบ */
 .cd-bar{

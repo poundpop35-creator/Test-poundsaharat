@@ -45,7 +45,16 @@
   function paint(el) {
     var key = el.getAttribute('data-cd-key');
     var t = stored(key) || parseISO(el.getAttribute('data-cd'));
-    if (t === null) { el.hidden = true; return; }
+    if (t === null) {
+      // ยังไม่มีวันสอบ: ถ้าแก้ได้ก็ชวนให้ตั้ง ถ้าแก้ไม่ได้ก็ซ่อนไป
+      if (!key) { el.hidden = true; return; }
+      el.hidden = false;
+      el.dataset.cdState = 'unset';
+      el.innerHTML = '<b></b>';
+      el.firstChild.textContent = 'ตั้งวันสอบ';
+      el.title = 'ยังไม่ได้ตั้งวันสอบ — แตะเพื่อตั้ง';
+      return;
+    }
     el.hidden = false;
 
     var days = Math.round((t - todayUTCmid()) / MS);
