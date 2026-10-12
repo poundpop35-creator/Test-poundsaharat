@@ -3,8 +3,8 @@
   const D=window.OPS_SPRINT,KEY='opsmoac60:v1';
   const $=id=>document.getElementById(id),E=s=>String(s).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const fullSize=100;
-  const bankReady=D?.fullExam?.count===fullSize&&D.questions.length===fullSize&&typeof window.createOPSSprintCore==='function';
-  if(!bankReady){$('bankNotice').hidden=false;if($('allBtn'))$('allBtn').disabled=true;$('allPractice').disabled=true;return;}
+  const bankReady=D?.pack300Ready===true&&D.questions.length===300&&D.examSets?.length===3&&D.examSets.every(s=>s.ids.length===fullSize)&&typeof window.createOPSSprintCore==='function';
+  if(!bankReady){$('bankNotice').hidden=false;$('allPractice').disabled=true;$('focusBtn').disabled=true;return;}
   const C=window.createOPSSprintCore(D);
   let state={records:{},marked:[],history:[],session:null};
   try{
@@ -29,7 +29,8 @@
     $('resume').hidden=!state.session;$('resume').textContent=state.session?.complete?'เปิดผลชุดล่าสุด':'ทำชุดค้างต่อ';
     $('wrongBtn').disabled=!wrong;$('wrongBtn').textContent=`ซ้ำข้อที่ยังตอบผิด (${wrong})`;
     $('markedBtn').disabled=!state.marked.length;$('markedBtn').textContent=`ทวนข้อที่ปักไว้ (${state.marked.length})`;
-    $('history').innerHTML=state.history.length?state.history.map(h=>`<div class="history-row"><b>${E(h.title)} · ${h.correct}/${h.total}</b><span>${E(h.date)} · ${h.mode==='exam'?'จำลองสอบ':'ฝึกเรียนรู้'}</span></div>`).join(''):'<p class="muted">ยังไม่มีชุดที่ทำจบ เริ่มจำลองสอบ 100 ข้อเพื่อวัดจุดที่ต้องทวน</p>';
+    $('history').innerHTML=state.history.length?state.history.map(h=>`<div class="history-row"><b>${E(h.title)} · ${h.correct}/${h.total}</b><span>${E(h.date)} · ${h.mode==='exam'?'จำลองสอบเดิม':'ฝึกเรียนรู้'}</span></div>`).join(''):'<p class="muted">เริ่มชุด 1 แล้วทำชุด 2 และ 3 ให้ครบ 300 ข้อ</p>';
+    $('examSets').innerHTML=D.examSets.map((s,i)=>{const seen=s.ids.filter(id=>id in state.records).length;return `<article class="card exam-set"><span class="set-number">0${i+1}</span><h3>${E(s.title)}</h3><p>${E(s.description)}</p><p class="muted">เคยตอบ ${seen}/100 ข้อ · ชุดละ 200 คะแนน</p><button class="${i===0?'primary':''}" data-exam="${s.id}">เริ่มชุด ${i+1} · 100 ข้อ</button></article>`;}).join('');
   }
   function mode(){return document.querySelector('input[name=mode]:checked').value;}
   function start(ids,title,forcedMode){
@@ -53,7 +54,9 @@
     const s=state.session,r=C.score(s),percent=Math.round(r.correct/r.total*100);
     visible('result');
     const rows=D.topics.map((name,i)=>{const ids=s.ids.filter(id=>C.byId.get(id).topic===i+1);if(!ids.length)return '';const good=ids.filter(id=>s.answers[id]===C.byId.get(id).a).length;return `<tr><td>${E(name)}</td><td>${good}/${ids.length}</td></tr>`;}).join('');
-    $('result').innerHTML=`<div class="card"><p class="kicker">${E(s.title)}</p><h2>ผลการฝึกชุดนี้</h2><div class="result-score">${r.correct}/${r.total} <small>(${percent}%)</small></div><p class="exam-points">${r.total===fullSize?`คะแนนจำลองสอบ ${r.correct*2}/${fullSize*2} คะแนน · ข้อละ 2 คะแนน`:`ชุดฝึกย่อย ${r.total} ข้อ`}</p><p>${percent>=80?'ทำได้ดีในชุดนี้ ทวนเหตุผลของตัวเลือกที่ยังลังเลอีกครั้ง':'เริ่มทวนจากหัวข้อที่คะแนนน้อย แล้วซ้ำข้อผิดพร้อมเปิดตัวบท'}</p><p class="muted">เป็นคะแนนฝึก ไม่ใช่เกณฑ์ผ่านหรือการคาดการณ์คะแนนสอบจริง</p><div class="actions"><button class="primary" id="resultWrong" ${r.wrong.length?'':'disabled'}>ซ้ำข้อผิดชุดนี้ (${r.wrong.length})</button><button id="backDashboard">กลับหน้าเลือกชุด</button></div></div><div class="card"><h2>จุดอ่อนแยกตามหัวข้อ</h2><div class="table-wrap"><table><thead><tr><th>หัวข้อ</th><th>ตอบถูก</th></tr></thead><tbody>${rows}</tbody></table></div></div><div class="card"><h2>เฉลยทุกข้อ</h2><p class="muted">เปิดเฉลยได้ทั้งข้อถูกและข้อผิด พร้อมลิงก์ต้นฉบับ</p>${s.ids.map((id,i)=>{const q=C.byId.get(id),chosen=s.answers[id];return `<details ${chosen!==q.a?'open':''}><summary>${i+1}. ${chosen===q.a?'✓':'✗'} ${E(q.q)}</summary>${feedback(q,s.orders[id],chosen)}</details>`;}).join('')}</div>`;
+    $('result').innerHTML=`<div class="card"><p class="kicker">${E(s.title)}</p><h2>ผลการฝึกชุดนี้</h2><div class="result-score">${r.correct}/${r.total} <small>(${percent}%)</small></div><p class="exam-points">${r.total===fullSize?`คะแนนฝึก ${r.correct*2}/${fullSize*2} คะแนน · ข้อละ 2 คะแนน`:`ชุดฝึก ${r.total} ข้อ`}</p><p>${percent>=80?'ทำได้ดีในชุดนี้ ทวนเหตุผลของตัวเลือกที่ยังลังเลอีกครั้ง':'เริ่มทวนจากหัวข้อที่คะแนนน้อย แล้วซ้ำข้อผิดพร้อมเปิดตัวบท'}</p><p class="muted">เป็นคะแนนฝึก ไม่ใช่เกณฑ์ผ่านหรือการคาดการณ์คะแนนสอบจริง</p><div class="actions"><button class="primary" id="resultWrong" ${r.wrong.length?'':'disabled'}>ซ้ำข้อผิดชุดนี้ (${r.wrong.length})</button><button id="nextSet" hidden>ไปชุดถัดไป · 100 ข้อ</button><button id="backDashboard">กลับหน้าเลือกชุด</button></div></div><div class="card"><h2>จุดอ่อนแยกตามหัวข้อ</h2><div class="table-wrap"><table><thead><tr><th>หัวข้อ</th><th>ตอบถูก</th></tr></thead><tbody>${rows}</tbody></table></div></div><div class="card"><h2>เฉลยทุกข้อ</h2><p class="muted">เปิดเฉลยได้ทั้งข้อถูกและข้อผิด พร้อมลิงก์ต้นฉบับ</p>${s.ids.map((id,i)=>{const q=C.byId.get(id),chosen=s.answers[id];return `<details ${chosen!==q.a?'open':''}><summary>${i+1}. ${chosen===q.a?'✓':'✗'} ${E(q.q)}</summary>${feedback(q,s.orders[id],chosen)}</details>`;}).join('')}</div>`;
+    const setIndex=D.examSets.findIndex(set=>set.ids.length===s.ids.length&&set.ids.every(id=>s.ids.includes(id)));
+    if(setIndex>=0&&setIndex<2){const following=D.examSets[setIndex+1];$('nextSet').hidden=false;$('nextSet').textContent=`ไปชุด ${setIndex+2} · 100 ข้อ`;$('nextSet').addEventListener('click',()=>start(following.ids,following.title,'practice'));}
     $('resultWrong').addEventListener('click',()=>start(r.wrong,'ซ้ำข้อผิดจากชุดล่าสุด','practice'));
     $('backDashboard').addEventListener('click',dashboard);$('result').focus({preventScroll:true});
   }
@@ -63,6 +66,7 @@
   $('topicButtons').innerHTML=D.topics.map((name,i)=>`<button data-topic="${i+1}">${i+1}. ${E(name)} (${D.questions.filter(q=>q.topic===i+1).length})</button>`).join('');
   document.querySelectorAll('[data-start]').forEach(b=>b.addEventListener('click',()=>{const s=D.sets.find(x=>x.id===b.dataset.start);start(s.ids,s.title);}));
   document.querySelectorAll('[data-topic]').forEach(b=>b.addEventListener('click',()=>{const t=Number(b.dataset.topic);start(D.questions.filter(q=>q.topic===t).map(q=>q.id),D.topics[t-1]);}));
+  $('examSets').addEventListener('click',event=>{const button=event.target.closest('[data-exam]');if(!button)return;const set=D.examSets.find(s=>s.id===button.dataset.exam);if(set)start(set.ids,set.title,'practice');});
   $('question').addEventListener('click',event=>{const button=event.target.closest('[data-option]');if(!button)return;state.session=C.answer(state.session,Number(button.dataset.option));state.records=C.progress(state.records,state.session);save();renderQuestion(false);$('next').focus({preventScroll:true});});
   $('next').addEventListener('click',()=>{
     const previous=state.session;state.session=C.next(previous);if(state.session===previous)return;
@@ -74,8 +78,8 @@
   $('resume').addEventListener('click',()=>{if(state.session.complete)result();else{visible('quiz');renderQuestion(true);}});
   $('wrongBtn').addEventListener('click',()=>start(wrongIds(),'ซ้ำข้อที่คำตอบล่าสุดยังผิด','practice'));
   $('markedBtn').addEventListener('click',()=>start(state.marked,'ทวนข้อที่ปักไว้'));
-  $('allBtn')&&$('allBtn').addEventListener('click',()=>{if(bankReady)start(D.questions.map(q=>q.id),'จำลองสอบ สป.เกษตร 100 ข้อ','exam');});
-  $('allPractice').addEventListener('click',()=>{if(bankReady)start(D.questions.map(q=>q.id),'ฝึก สป.เกษตรครบ 100 ข้อ','practice');});
+  $('allPractice').addEventListener('click',()=>start(D.examSets[0].ids,D.examSets[0].title,'practice'));
+  $('focusBtn').addEventListener('click',()=>start(D.focusIds,'ทวนด่วน 20 ข้อ • ประเด็นจากภาพ','practice'));
   save();dashboard();
 })();
 

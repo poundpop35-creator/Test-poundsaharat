@@ -3,9 +3,10 @@
   const catalog=window.STUDY_CATALOG||[];
   const selected=catalog.find(p=>p.id===new URLSearchParams(location.search).get('page'));
   if(!selected){location.replace('index.html');return;}
+  if(selected.standalone){location.replace(selected.file+location.hash);return;}
   const frame=document.getElementById('study-frame');
   const loading=document.getElementById('study-loading'),error=document.getElementById('study-error');
-  const base=new URL('.',location.href),version='20261007-100';
+  const base=new URL('.',location.href),version='20261011-course';
   document.title=selected.short+' — คลังติว';frame.title=selected.title+' · '+selected.role;
   document.getElementById('study-original').href=selected.file+location.hash;
   function failed(){loading.hidden=true;error.hidden=false;}

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#164b91"><title>ติว 14 วัน · สรรพากรและพลังงาน</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="exam-14.css?v=20261012-400"><link rel="stylesheet" href="app-shell.css?v=20261012-400">
+  <script defer src="exam-14-data.js?v=20261012-400"></script>
+  <script defer src="exam-14-rd.js?v=20261012-400"></script>
+  <script defer src="exam-14-energy.js?v=20261012-400"></script>
+  <script defer src="rd-sprint-data.js?v=20261012-400"></script>
+  <script defer src="rd-sprint-1.js?v=20261012-400"></script>
+  <script defer src="rd-sprint-2.js?v=20261012-400"></script>
+  <script defer src="rd-sprint-3.js?v=20261012-400"></script>
+  <script defer src="rd-sprint-4.js?v=20261012-400"></script>
+  <script defer src="rd-sprint-b.js?v=20261012-400"></script>
+  <script defer src="role-research.js?v=20261012-400"></script>
+  <script defer src="exam-14-capture.js?v=20261012-400"></script>
+  <script defer src="energy-sprint-data.js?v=20261012-400"></script>
+  <script defer src="energy-sprint-1.js?v=20261012-400"></script>
+  <script defer src="energy-sprint-2.js?v=20261012-400"></script>
+  <script defer src="energy-sprint-3.js?v=20261012-400"></script>
+  <script defer src="energy-sprint-4.js?v=20261012-400"></script>
+  <script defer src="energy-sprint-b.js?v=20261012-400"></script>
+  <script defer src="role-research.js?v=20261012-400"></script>
+  <script defer src="exam-14-capture.js?v=20261012-400"></script>
+  <script defer src="exam-14-core.js?v=20261012-400"></script>
+  <script defer src="exam-14.js?v=20261012-400"></script>
+  <script defer src="app-catalog.js?v=20261012-400"></script>
+  <script defer src="app-shell.js?v=20261012-400"></script>
+</head>
+<body class="study-app course14">
+<main id="app-content" class="course-wrap">
+  <header class="course-hero">
+    <div><p class="eyebrow">สองสนามที่เหลือ · 14 วันก่อนสอบ</p><h1>อ่านให้เข้าใจ<br><span>ฝึกให้ตอบได้</span></h1><p class="hero-sub">สรรพากร · นักวิชาการพัสดุ<br>สป.พลังงาน · นักวิชาการพลังงาน</p></div>
+    <div class="hero-plan"><strong>วันละ 3–4 ชั่วโมง</strong><p>บทติว → ตัวบท → ปรนัย → เขียนตอบ → ทวนข้อผิด</p><p class="hero-numbers">28 บทอ่าน · 280 ข้อรายวัน · 28 กรณีฝึกเขียน</p><a href="#day-1" class="button primary">เริ่มวันที่ 1 →</a></div>
+  </header>
+  <p id="course-loading" role="status">กำลังเตรียมบทติว…</p>
+  <div id="course-error" class="notice" role="alert" hidden>โหลดบทเรียนหรือคลังคำถามไม่ครบ กรุณาโหลดหน้าใหม่ หรือ <a href="rd-sprint.html">เปิดคลังสรรพากร</a> / <a href="energy-sprint.html">คลังพลังงาน</a></div>
+  <div id="course-storage" class="notice" role="status" hidden>บันทึกบนเบราว์เซอร์นี้ไม่ได้ ขณะนี้ยังอ่านและฝึกได้ แต่ปิดหน้าแล้วคำตอบอาจหาย คัดลอกคำตอบที่ต้องการเก็บไว้</div>
+  <section class="course-controls" aria-label="ปรับตารางติว">
+    <div><span class="control-label">เวลาอ่านวันนี้</span><div class="segmented"><button data-hours="3" aria-pressed="true">3 ชั่วโมง</button><button data-hours="4" aria-pressed="false">4 ชั่วโมง</button></div></div>
+    <div><span class="control-label">ทำครบตามแผนแล้ว</span><strong id="course-progress">0 / 14 วัน</strong><progress id="course-progress-bar" value="0" max="14" aria-label="วันที่ทำครบตามแผน"></progress></div>
+    <a class="button" href="#plan">ดูแผนทั้ง 14 วัน</a><a class="button" href="#mistakes" id="wrong-link">ทวนข้อผิด</a>
+  </section>
+  <nav class="course-days" id="course-days" aria-label="เลือกวันติว"></nav>
+  <section id="course-view" tabindex="-1" aria-live="off"></section>
+  <details class="method-note"><summary>ขอบเขตสอบ แหล่งข้อมูล และวิธีใช้ชุดนี้</summary><p>สรรพากรยึด 8 หัวข้อในประกาศนักวิชาการพัสดุ พลังงานยึดข้อความหลักสูตรที่ส่งมา: ส่วนทั่วไป 50 คะแนน และส่วนเฉพาะตำแหน่ง 150 คะแนน โดยแยกกฎหมาย 5 ฉบับเป็นบทอ่านเฉพาะ</p><p>ตารางให้งานเฉพาะของพลังงาน 11 วันและทั่วไป 3 วัน; สัดส่วนย่อยเป็นการจัดติว คลังซ้อมเดิมหน่วยงานละ 200 ข้อยังเปิดแยกได้ และชุดพลังงานเดิมคงสัดส่วนทั่วไป/เฉพาะ 25:75 ข้อต่อชุด 100 ข้อ</p><p>280 ข้อรายวัน = คัดจากคลังเดิม 224 ข้อ + ข้อฝึกใหม่ 56 ข้อ ไม่ซ้ำกันในตารางนี้ ฝึกเขียน 28 กรณีใช้สถานการณ์ของบทอ่าน พร้อมแนวคำตอบและรายการตรวจด้วยตนเอง คำว่า “สอบข้อเขียน” ไม่ยืนยันว่าจะมีอัตนัยหรือจำนวนข้อจริง</p><p>ใช้ข้อมูลผู้เตรียมสอบว่าธรรมศาสตร์เป็นผู้ออกข้อสอบในการจัดบริบท ข้อฝึกเป็นข้อแต่งตามขอบเขตและหลักวิชา ไม่ใช่ข้อสอบจริงหรือสถิติการออกของธรรมศาสตร์ อ้างอิงประกาศรับสมัคร ตัวบท และแหล่งเทคนิคที่แนบในบท</p><p>บันทึกคำตอบและความคืบหน้าเฉพาะเบราว์เซอร์และเครื่องนี้ ไม่มีการซิงก์ข้ามเครื่อง ตารางใช้วันที่ 1–14 โดยไม่ตั้งวันสอบจริงแทนประกาศ</p><p><a href="https://www.rd.go.th/fileadmin/download/jortor/54962/C3-07082569.pdf#page=16" target="_blank" rel="noopener noreferrer">หลักสูตรสรรพากร ↗</a> · <a href="https://ops.energy.go.th/web-upload/199x2471eaffefcee693fbb074725b1b9d8d/202609/m_news/13315/9992/file_download/81e408e4e2cc6c0dcb07f6c0bed73778.pdf#page=10" target="_blank" rel="noopener noreferrer">หลักสูตรพลังงาน ↗</a></p></details>
+  <noscript><p class="notice">เปิด JavaScript เพื่อใช้ตารางและบันทึกคำตอบ หรืออ่าน <a href="rd.html">สรรพากร</a> / <a href="energy.html">พลังงาน</a></p></noscript>
+</main>
+<footer class="course-footer"><a href="index.html">กลับหน้าแรก</a> · <a href="rd-sprint.html">สรรพากร 200 ข้อ</a> · <a href="energy-sprint.html">พลังงาน 200 ข้อ</a></footer>
+</body></html>

@@ -24,7 +24,7 @@
       if (!query && a.dataset.category===category) a.setAttribute('aria-current','page');
       else a.removeAttribute('aria-current');
     });
-    $('home-cards').innerHTML = items.map(p => `<article class="agency-card${p.priority?' priority':''}"><div class="agency-top"><span class="agency-icon ${p.color}" aria-hidden="true">${ui.icon(p.icon)}</span>${p.exam?`<span class="cd" data-cd-key="${esc(p.id)}" data-cd="${esc(p.exam)}"></span>`:p.group==='archive'?'<span class="agency-badge archived">สอบแล้ว</span>':''}</div><h3><a href="${ui.href(p.file)}">${esc(p.title)}<span aria-hidden="true">↗</span></a></h3><p class="agency-role">${esc(p.role)}${p.bank?` · คลัง ${p.bank} ข้อ`:''}</p><p class="agency-description">${esc(p.description)}</p>${p.sprint?`<div class="sprint-feature"><div><strong>${p.sprintCount===100?'จำลองสอบ':'ตะลุย'} ${esc(p.short)} ${p.sprintCount||60} ข้อ</strong><span>${p.sprintCount===100?'100 ข้อเต็มชุด • 200 คะแนน':'3 ชุดฝึก • เฉลยทุกตัวเลือก'} • ซ้ำข้อผิด</span></div><a href="${p.sprint}">เริ่มทำโจทย์ →</a></div>`:''}<div class="agency-actions">${p.actions.length?p.actions.map(a=>`<a href="${ui.href(p.file,a)}">${labels[a]}</a>`).join(''):`<a class="agency-open" href="${ui.href(p.file)}">เปิด${p.group==='english'?'บทเรียน':'หมวดนี้'} →</a>`}</div></article>`).join('');
+    $('home-cards').innerHTML = items.map(p => `<article class="agency-card${p.priority?' priority':''}"><div class="agency-top"><span class="agency-icon ${p.color}" aria-hidden="true">${ui.icon(p.icon)}</span>${p.exam?`<span class="cd" data-cd-key="${esc(p.id)}" data-cd="${esc(p.exam)}"></span>`:p.priority?`<span class="agency-badge">ลำดับ ${p.priorityRank||1} · ${esc(p.short)}</span>`:p.group==='archive'?'<span class="agency-badge archived">สอบแล้ว</span>':''}</div><h3><a href="${ui.href(p.file)}">${esc(p.title)}<span aria-hidden="true">↗</span></a></h3><p class="agency-role">${esc(p.role)}${p.bank?` · คลัง ${p.bank} ข้อ`:''}</p><p class="agency-description">${esc(p.description)}</p>${p.sprint?`<div class="sprint-feature"><div><strong>${p.sprintCount===100?'เก็ง':'ตะลุย'} ${esc(p.short)} ${p.sprintCount||60} ข้อ</strong><span>${p.sprintCount===300?'3 ชุด × 100 ข้อ • ชุดละ 200 คะแนน':p.sprintCount===200?'2 ชุด × 100 ข้อ • เพิ่มชุด B เจาะลึก':p.sprintCount===100?'100 ข้อเต็มชุด • 200 คะแนน':'3 ชุดฝึก • เฉลยทุกตัวเลือก'} • ซ้ำข้อผิด</span></div><a href="${p.sprint}">เริ่มทำโจทย์ →</a></div>`:''}<div class="agency-actions">${p.actions.length?p.actions.map(a=>`<a href="${ui.href(p.file,a)}">${labels[a]}</a>`).join(''):`<a class="agency-open" href="${ui.href(p.file)}">เปิด${p.group==='english'?'บทเรียน':'หมวดนี้'} →</a>`}</div></article>`).join('');
     if (window.StudyCountdown) window.StudyCountdown.refresh();
   }
   input.addEventListener('input',render);
@@ -36,7 +36,7 @@
   window.addEventListener('hashchange',()=>{category=groups[location.hash.slice(1)]?location.hash.slice(1):'agencies';input.value='';render();});
   try {
     let recent;
-    for(const p of catalog.filter(p=>p.sprint)){
+    for(const p of catalog.filter(p=>p.sprint&&p.group==='agencies')){
       let saved;try{saved=JSON.parse(localStorage.getItem(p.sprintKey)||'null');}catch(_){continue;}
       const session=saved&&saved.session;
       if(session&&!session.complete&&Array.isArray(session.ids)&&Number.isInteger(session.idx)&&session.idx>=0&&session.idx<session.ids.length){recent={label:'ทำชุด '+p.short+' ที่ค้างไว้ต่อ',file:p.sprint,hash:'#resume'};break;}

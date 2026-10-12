@@ -9,7 +9,7 @@
   }
   function href(file,hash='') {
     const item=catalog.find(p=>p.file===file);
-    return (item?'study.html?page='+encodeURIComponent(item.id):file)+(hash?('#'+hash.replace(/^#/,'')):'');
+    return (item&&!item.standalone?'study.html?page='+encodeURIComponent(item.id):file)+(hash?('#'+hash.replace(/^#/,'')):'');
   }
   window.StudyUI={escape:esc,icon,href};
   const file = location.pathname.split('/').pop() || 'index.html';
@@ -18,7 +18,7 @@
   const page = catalog.find(p=>p.file===file);
   const groups = {agencies:'กำลังเตรียมสอบ',resources:'กฎหมายและตัวบท',english:'ภาษาอังกฤษ',archive:'หน่วยงานที่สอบแล้ว'};
   const bar = document.createElement('div');bar.className='app-bar';
-  bar.innerHTML=`<div class="app-bar-inner"><a class="app-brand" href="index.html" aria-label="คลังติว กลับหน้าเลือกหน่วยงาน"><span class="app-brand-mark">${icon('book')}</span><span>คลังติว</span></a><span class="app-breadcrumb">${esc(sprint?sprintPage.short+' / '+(sprintPage.sprintCount||60)+' ข้อ':page?page.short:'เลือกหน่วยงาน')}</span><details class="app-menu"><summary>${icon('menu')}<span>หน่วยงาน / หมวด</span></summary><nav aria-label="เลือกหน่วยงานและหมวด" class="app-menu-panel"><a class="app-menu-home" href="index.html">หน้าแรก · ทุกหมวด →</a><div class="app-menu-groups">${Object.entries(groups).map(([key,label])=>`<section><h2>${label}</h2>${catalog.filter(p=>p.group===key).map(p=>`<a href="${href(p.file)}"${p.file===file?' aria-current="page"':''}><span>${esc(p.short)}</span>${p.priority?'<small>อ่านก่อน</small>':''}</a>${p.sprint?`<a class="app-menu-child" href="${p.sprint}"${p.sprint===file?' aria-current="page"':''}>↳ ${p.sprintCount===100?'สอบเต็มชุด':'ตะลุย'} ${esc(p.short)} ${p.sprintCount||60} ข้อ</a>`:''}`).join('')}</section>`).join('')}</div></nav></details></div>`;
+  bar.innerHTML=`<div class="app-bar-inner"><a class="app-brand" href="index.html" aria-label="คลังติว กลับหน้าเลือกหน่วยงาน"><span class="app-brand-mark">${icon('book')}</span><span>คลังติว</span></a><span class="app-breadcrumb">${esc(sprint?sprintPage.short+' / '+(sprintPage.sprintCount||60)+' ข้อ':page?page.short:'เลือกหน่วยงาน')}</span><details class="app-menu"><summary>${icon('menu')}<span>หน่วยงาน / หมวด</span></summary><nav aria-label="เลือกหน่วยงานและหมวด" class="app-menu-panel"><a class="app-menu-home" href="index.html">หน้าแรก · ทุกหมวด →</a><div class="app-menu-groups">${Object.entries(groups).map(([key,label])=>`<section><h2>${label}</h2>${catalog.filter(p=>p.group===key).map(p=>`<a href="${href(p.file)}"${p.file===file?' aria-current="page"':''}><span>${esc(p.short)}</span>${p.priority?'<small>ลำดับ '+p.priorityRank+'</small>':''}</a>${p.sprint?`<a class="app-menu-child" href="${p.sprint}"${p.sprint===file?' aria-current="page"':''}>↳ ${p.sprintCount===100?'สอบเต็มชุด':'ตะลุย'} ${esc(p.short)} ${p.sprintCount||60} ข้อ</a>`:''}`).join('')}</section>`).join('')}</div></nav></details></div>`;
   document.body.prepend(bar);
   const content = document.querySelector('main') || document.querySelector('body > .wrap');
   if(content){if(!content.id)content.id='app-content';content.tabIndex=-1;const skip=document.createElement('a');skip.className='app-skip';skip.href='#'+content.id;skip.textContent='ข้ามไปเนื้อหา';document.body.prepend(skip);}
@@ -38,8 +38,14 @@
       const eyebrow=header.querySelector('.eyebrow');if(eyebrow)eyebrow.textContent=page.group==='archive'?'คลังเดิม · หน่วยงานที่สอบแล้ว':'เตรียมสอบ · '+page.short;
     }
   }
-  if(page?.id==='opsmoac')document.querySelectorAll('body > .wrap > .intro-card, #home > .intro-card').forEach(card=>{if(!card.querySelector('a[href="opsmoac-sprint.html"]'))return;const walker=document.createTreeWalker(card,NodeFilter.SHOW_TEXT);while(walker.nextNode())walker.currentNode.nodeValue=walker.currentNode.nodeValue.replace(/60(?=\s*(ข้อ|โจทย์))/g,'100').replace(/3 ชุด/g,'5 ชุดฝึกย่อย');});
+  if(page?.id==='opsmoac')document.querySelectorAll('body > .wrap > .intro-card, #home > .intro-card').forEach(card=>{if(!card.querySelector('a[href="opsmoac-sprint.html"]'))return;const walker=document.createTreeWalker(card,NodeFilter.SHOW_TEXT);while(walker.nextNode())walker.currentNode.nodeValue=walker.currentNode.nodeValue.replace(/(?:60|100)(?=\s*(ข้อ|โจทย์))/g,'300').replace(/3 ชุด(?:ฝึก)?/g,'3 ชุด ชุดละ 100 ข้อ');});
   const tabInfo={home:['อ่านเนื้อหา','read'],book:['ฝึกแยกหมวด','practice'],mock:['ข้อสอบรวม','exam'],laws:['สรุปกฎหมาย','summary'],src:['ตัวบทฉบับเต็ม','sources']};
+  if(page?.research){
+    const research=document.createElement('p');research.className='app-research-link';
+    const link=document.createElement('a');link.href=page.research;link.textContent='สรุปเน้นสอบใหม่ + ชุด B เจาะลึก · รวม 200 ข้อ →';research.append(link);content.prepend(research);
+    const daily=document.createElement('p');daily.className='app-research-link';
+    const dailyLink=document.createElement('a');dailyLink.href='exam-14.html#day-1-'+page.id;dailyLink.textContent='ใหม่ · บทติว 14 วัน วันละ 3–4 ชั่วโมง + ฝึกเขียนตอบ →';daily.append(dailyLink);content.prepend(daily);
+  }
   const tabs=document.querySelector('.tabs');
   if(tabs){
     tabs.setAttribute('role','navigation');tabs.setAttribute('aria-label','หมวดการเรียน');
@@ -67,7 +73,7 @@
     content.prepend(nav);
   } else if(sprint) {
     const nav=document.createElement('nav');nav.className='app-local-nav';nav.setAttribute('aria-label','หมวดตะลุย '+sprintPage.short);
-    nav.innerHTML=`<a href="#dashboard">เลือกชุดโจทย์</a><a href="#notes">บัตรทวน ${sprintPage.sprintTopics} หมวด</a><a href="#sources">ตัวบทฉบับเต็ม</a><a href="${href(sprintPage.file)}">คลัง ${esc(sprintPage.short)} ทั้งหมด ↗</a>`;
+    nav.innerHTML=`${sprintPage.research?`<a href="exam-14.html#day-1-${sprintPage.id}">ติว 14 วัน + ข้อเขียน</a>`:''}<a href="#dashboard">เลือกชุดโจทย์</a>${sprintPage.research?'<a href="#briefing">สรุปเน้นสอบใหม่</a>':''}<a href="#notes">บัตรทวน ${sprintPage.sprintTopics} หมวด</a><a href="#sources">ตัวบทฉบับเต็ม</a><a href="${href(sprintPage.file)}">คลัง ${esc(sprintPage.short)} ทั้งหมด ↗</a>`;
     content.prepend(nav);
   }
   function syncParentHash(){if(window.parent!==window)window.parent.postMessage({type:'study:hash',hash:location.hash},location.origin);}
