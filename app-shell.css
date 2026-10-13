@@ -10,3 +10,22 @@ html{scroll-padding-top:150px}body.study-app{margin:0;font-family:'Sarabun',syst
 body.app-quizzing > .wrap > .intro-card { display: none; }
 /* Entry from the original study URL to the sourced role briefing. */
 .app-research-link{margin:1rem 0;padding:1rem;border:1px solid var(--line,#dce3e8);border-radius:12px;background:var(--a-sf,#edf5ff);line-height:1.65}.app-research-link a{font-weight:700;color:var(--a,#1e4d80)}
+/* Fold section shortcuts on phones; the reading area has no stacked sticky menus. */
+.app-menu{padding:0;border:0}
+.app-section-menu{position:sticky;top:var(--app-bar-height);z-index:25;background:var(--app-paper);margin:0 0 16px;padding:0;border:0}
+.app-section-menu>summary{display:none}
+.app-section-menu>.app-local-nav{position:static;margin:0}
+body.study-app.app-quizzing .app-section-menu{display:none}
+@media(max-width:650px){
+  :root{--app-bar-height:52px}
+  html{scroll-padding-top:12px}
+  .app-bar{position:relative}
+  body.study-app .tabs,body.study-app #read .read-head{position:static;top:auto}
+  body.study-app .view,body.study-app #read .content section{scroll-margin-top:12px}
+  .app-section-menu{position:static;margin:12px 0 16px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+  .app-section-menu>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;list-style:none;cursor:pointer;min-height:44px;padding:9px 14px;color:var(--ink);font-size:14px;font-weight:700}
+  .app-section-menu>summary::-webkit-details-marker{display:none}
+  .app-section-menu>summary::after{content:'';width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);margin:0 3px 5px}
+  .app-section-menu[open]>summary::after{transform:rotate(225deg);margin-top:5px;margin-bottom:0}
+  .app-section-menu>.app-local-nav{padding:8px;border:0;border-top:1px solid var(--line);border-radius:0 0 10px 10px;background:var(--app-paper)}
+}

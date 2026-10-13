@@ -76,6 +76,21 @@
     nav.innerHTML=`${sprintPage.research?`<a href="exam-14.html#day-1-${sprintPage.id}">ติว 14 วัน + ข้อเขียน</a>`:''}<a href="#dashboard">เลือกชุดโจทย์</a>${sprintPage.research?'<a href="#briefing">สรุปเน้นสอบใหม่</a>':''}<a href="#notes">บัตรทวน ${sprintPage.sprintTopics} หมวด</a><a href="#sources">ตัวบทฉบับเต็ม</a><a href="${href(sprintPage.file)}">คลัง ${esc(sprintPage.short)} ทั้งหมด ↗</a>`;
     content.prepend(nav);
   }
+  // On small screens, keep section shortcuts available without pinning a grid over the text.
+  const localNav=content?.querySelector('.app-local-nav');
+  if(localNav){
+    const compact=window.matchMedia('(max-width:650px)');
+    const sections=document.createElement('details');sections.className='app-section-menu';
+    const summary=document.createElement('summary');summary.textContent='เมนูหน้านี้';
+    localNav.before(sections);sections.append(summary,localNav);
+    const sync=()=>{sections.open=!compact.matches;};sync();compact.addEventListener('change',sync);
+    localNav.addEventListener('click',e=>{
+      if(compact.matches&&e.target.closest('a,button')){sections.open=false;summary.focus({preventScroll:true});}
+    });
+    sections.addEventListener('keydown',e=>{
+      if(e.key==='Escape'&&compact.matches&&sections.open){sections.open=false;summary.focus();}
+    });
+  }
   function syncParentHash(){if(window.parent!==window)window.parent.postMessage({type:'study:hash',hash:location.hash},location.origin);}
   window.addEventListener('hashchange',syncParentHash);
   function rememberHash(hash){history.replaceState(null,'',hash?'#'+hash:location.pathname);syncParentHash();try{if(page)localStorage.setItem('study:last-page',JSON.stringify({file,hash:location.hash}));}catch(_) {}}
