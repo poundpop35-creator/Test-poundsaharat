@@ -113,3 +113,22 @@ The default Energy practice is now set C, selected from the existing 200-questio
 A and B retain all original IDs, answers and ordering within saved sessions. B is labeled supplemental; three-phase power, pumps, fan affinity laws and multiyear discounted calculations are excluded from C. C shares questions with A/B, so there are still 200 distinct questions, not 300. A direct 50-question law mode, comparison table, and revised reading priorities make legal study easy to find. The 14-day course's lesson IDs, writing and existing daily progress remain unchanged.
 
 Checked the supplied syllabus against the agency recruitment PDF, physical page 10 (the engineer role begins on page 11). No verified current paper establishes a numerical-question percentage. Bank tests verify the new distribution, preservation of old sessions and all source references. Browser checks cover both roles, the new default, the law-only mode, scoring, pause/resume, reader links and missing-focus-script protection.
+
+## Choice and source audit — 14 October 2026
+
+Reviewed the Energy and Revenue Department A/B banks, their questions in the original reading pages, and the 14-day course's additional drills. Revised 139 Energy and 143 RD sprint questions. Distractors now use neighboring legal powers, procedures, exceptions, time limits, tax bases and energy concepts instead of unrelated or obviously absurd alternatives. Correct answer IDs and indices remain unchanged so saved sprint answers retain their meaning. Per-choice explanations tied to superseded wording were removed; the revised questions retain their main explanation and source references.
+
+Before/after counts of answers that are **uniquely the longest option**, measured by JavaScript string length:
+
+| Sprint bank | Before | After | Total |
+| --- | ---: | ---: | ---: |
+| Energy A+B | 124 | 46 | 200 |
+| RD A+B | 129 | 52 | 200 |
+
+Length is only a cue audit, not proof of question difficulty or factual accuracy. Shortest-answer frequency is checked too, to avoid simply reversing the cue. Some statutory names and numbers naturally differ in length. Energy C still draws from A/B: 50 law questions and ten elementary numerical exercises, with the 25/75 section split. Other agencies are untouched.
+
+Public searches found a [ten-question procurement training test hosted by Maejo University](https://finance.mju.ac.th/wtms_documentDownload.aspx?id=NzgxNDk%3D). It includes old 2564 circulars and pandemic measures: it informs the style of condition/exception questions, not current legal answers. Questions were not copied. DEDE's training handbook index concerns a different training program, and its unavailable PDF was not represented as read. Commercial preparation listings and recollections were not treated as authenticated past papers. No authenticated public past paper for these specific roles or current Thammasat examination was located; the app states that limitation.
+
+The source review also corrected material errors in the reading banks: fuel-trade section 11 registration versus transport notice; licensed conservation verifiers; the updated NDC 3.0 Net Zero 2050 target versus explicitly historical COP26 questions; the Oil Fuel Fund's transitional period versus subsequent policy; procurement authority one level above the agency head; the 15% advance-payment ceiling versus retention; the start of delay-notification periods; stamp-duty rounding; and current RD vision and values. VAT questions now distinguish historical Cabinet draft news from [Royal Decree 807](https://www.rd.go.th/fileadmin/user_upload/kormor/newlaw/dc807.pdf), covering 1 October 2569 through 30 September 2570. Sources and scope are attached to the revised explanations and research briefing.
+
+Validation: 16 targeted Node tests pass, covering 997 question instances across sprint banks, reading banks and course drills, 280 daily-course questions, numerical recomputation, sources, and a pre-edit snapshot of all 400 sprint question IDs/answer indices. Length thresholds are regression alarms, not a substitute for content review. Browser verification covers both roles and the course, mobile layouts, complete scoring, saved-session resume, wrong-answer retry, source links, writing/notes persistence and missing-data handling.
