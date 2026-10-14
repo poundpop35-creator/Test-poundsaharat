@@ -1,11 +1,11 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
 const root=path.join(__dirname,'..'),createCore=require('../role-sprint-core.js');
-function load(role,supplement=true){const ctx={window:{}};vm.createContext(ctx);for(const n of ['data','1','2','3','4',...(supplement?['b']:[])])vm.runInContext(fs.readFileSync(path.join(root,`${role}-sprint-${n}.js`),'utf8'),ctx);if(supplement)vm.runInContext(fs.readFileSync(path.join(root,'role-research.js'),'utf8'),ctx);return JSON.parse(JSON.stringify(ctx.window.ROLE_SPRINT));}
+function load(role,supplement=true){const ctx={window:{}};vm.createContext(ctx);for(const n of ['data','1','2','3','4',...(supplement?['b']:[])])vm.runInContext(fs.readFileSync(path.join(root,`${role}-sprint-${n}.js`),'utf8'),ctx);if(supplement&&role==='energy')vm.runInContext(fs.readFileSync(path.join(root,'energy-sprint-focus.js'),'utf8'),ctx);if(supplement)vm.runInContext(fs.readFileSync(path.join(root,'role-research.js'),'utf8'),ctx);return JSON.parse(JSON.stringify(ctx.window.ROLE_SPRINT));}
 for(const role of ['rd','energy']){
-  test(`${role}: 200 sourced questions in disjoint 100-question sets`,()=>{
+  test(`${role}: 200 sourced questions with intact A/B banks and valid practice sets`,()=>{
     const d=load(role);assert.equal(d.questions.length,200);assert.equal(new Set(d.questions.map(q=>q.id)).size,200);assert.equal(new Set(d.questions.map(q=>q.q.trim())).size,200);
-    assert.deepEqual(d.sets.map(s=>s.ids.length),[100,100]);assert.equal(new Set(d.sets.flatMap(s=>s.ids)).size,200);
+    assert.deepEqual(d.sets.map(s=>s.ids.length),role==='energy'?[100,100,100]:[100,100]);assert.equal(new Set(d.sets.filter(s=>s.id!=='c').flatMap(s=>s.ids)).size,200);for(const set of d.sets){assert.equal(new Set(set.ids).size,100);assert.ok(set.ids.every(id=>d.questions.some(q=>q.id===id)));}
     for(const q of d.questions){assert.equal(q.c.length,4,q.id);assert.equal(new Set(q.c).size,4,q.id);assert.ok(q.a>=0&&q.a<4&&Number.isInteger(q.a),q.id);assert.ok(q.e&&q.reference&&q.sources.length,q.id);for(const k of q.sources)assert.match(d.sources[k]?.url||'',/^https:\/\//,q.id+': '+k);}
     for(const row of [...d.briefing.recall,...d.briefing.updates])for(const k of row[2].split(','))assert.ok(d.sources[k],k);
     assert.deepEqual(d.counts,d.topics.map((_,i)=>d.questions.filter(q=>q.topic===i+1).length));
@@ -24,6 +24,22 @@ for(const role of ['rd','energy']){
     assert.equal(c.valid({...s,ids:[...s.ids,'missing']}),false);
   });
 }
+test('Energy main set doubles law coverage and keeps only ten elementary numerical exercises',()=>{
+  const d=load('energy'),main=d.sets[0],byId=new Map(d.questions.map(q=>[q.id,q]));
+  assert.equal(main.id,'c');const qs=main.ids.map(id=>byId.get(id));
+  assert.equal(qs.filter(q=>q.topic<=3).length,25);
+  assert.equal(qs.filter(q=>q.topic>=4&&q.topic<=6).length,25);
+  assert.equal(qs.filter(q=>q.topic>=7).length,50);
+  for(let topic=7;topic<=11;topic++)assert.equal(qs.filter(q=>q.topic===topic).length,10);
+  assert.equal(d.focus.calculationIds.length,10);assert.equal(new Set(d.focus.calculationIds).size,10);
+  assert.ok(d.focus.calculationIds.every(id=>main.ids.includes(id)));
+  assert.deepEqual([...d.focus.lawIds].sort(),qs.filter(q=>q.topic>=7).map(q=>q.id).sort());
+  assert.ok(qs.every(q=>!/สามเฟส|NPV|LCOE|COP|power factor|API gravity|ρg|ยกกำลังสาม/i.test(q.q)), 'advanced calculations stay in the supplemental bank');
+  const old=load('energy',false),baselineB=JSON.parse(JSON.stringify(d.sets.find(s=>s.id==='b')));
+  assert.equal(baselineB.ids.length,100);assert.equal(new Set([...main.ids,...d.sets.find(s=>s.id==='a').ids,...baselineB.ids]).size,200);
+  const core=createCore(d);let session=core.createSession(baselineB.ids,'practice','saved B',()=>.3);session=core.next(core.answer(session,1));assert.ok(core.valid(session));
+  assert.equal(old.questions.length,100);
+});
 test('independently recomputed multistep numerical answers',()=>{
   const rd=load('rd'),en=load('energy');const checks=[
     [rd,'rd-b-001',214000-(214000/1.07)*.01,0],

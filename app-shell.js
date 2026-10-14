@@ -42,7 +42,7 @@
   const tabInfo={home:['อ่านเนื้อหา','read'],book:['ฝึกแยกหมวด','practice'],mock:['ข้อสอบรวม','exam'],laws:['สรุปกฎหมาย','summary'],src:['ตัวบทฉบับเต็ม','sources']};
   if(page?.research){
     const research=document.createElement('p');research.className='app-research-link';
-    const link=document.createElement('a');link.href=page.research;link.textContent='สรุปเน้นสอบใหม่ + ชุด B เจาะลึก · รวม 200 ข้อ →';research.append(link);content.prepend(research);
+    const link=document.createElement('a');link.href=page.research;link.textContent=page.id==='energy'?'ชุดหลักเน้น พ.ร.บ. 50 ข้อ + คำนวณพื้นฐาน · เริ่มติวพลังงาน →':'สรุปเน้นสอบใหม่ + ชุด B เจาะลึก · รวม 200 ข้อ →';research.append(link);content.prepend(research);
     const daily=document.createElement('p');daily.className='app-research-link';
     const dailyLink=document.createElement('a');dailyLink.href='exam-14.html#day-1-'+page.id;dailyLink.textContent='ใหม่ · บทติว 14 วัน วันละ 3–4 ชั่วโมง + ฝึกเขียนตอบ →';daily.append(dailyLink);content.prepend(daily);
   }

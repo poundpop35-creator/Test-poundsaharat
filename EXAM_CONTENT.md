@@ -104,3 +104,12 @@ Browser verification passed for both roles with Chromium: 320/390/1280 px layout
 แก้จริงหนึ่งจุด: `opsmoac-sprint.js` และ `sao-sprint.js` ไม่รองรับ `#resume` (มีแต่ `role-sprint.js` ของ rd/energy) ทำให้เปิดลิงก์ชุดค้างแล้วไม่เข้าข้อสอบ เพิ่มการอ่าน hash ให้ครบทั้งสองหน้า
 
 ผล: `tests/*.test.js` ผ่าน 4 ไฟล์ · `tests/*.browser.js` ผ่าน 3 ไฟล์ · `tests/opsmoac-sprint.dom.js` ข้ามเพราะเครื่องนี้ไม่มี jsdom
+
+
+## Energy practice rebalance — 14 October 2026
+
+The default Energy practice is now set C, selected from the existing 200-question bank: 25 general questions, 25 non-law specialist questions, and 50 law questions (10 per Act). Ten of the 100 involve elementary numerical work, including conversion, energy use, efficiency, percentages, averages, payback, savings, trade thresholds and fund balances. This is an editorial law-focused allocation, not a claim about the real exam's question proportions; the official syllabus establishes only the 50/150-point section split.
+
+A and B retain all original IDs, answers and ordering within saved sessions. B is labeled supplemental; three-phase power, pumps, fan affinity laws and multiyear discounted calculations are excluded from C. C shares questions with A/B, so there are still 200 distinct questions, not 300. A direct 50-question law mode, comparison table, and revised reading priorities make legal study easy to find. The 14-day course's lesson IDs, writing and existing daily progress remain unchanged.
+
+Checked the supplied syllabus against the agency recruitment PDF, physical page 10 (the engineer role begins on page 11). No verified current paper establishes a numerical-question percentage. Bank tests verify the new distribution, preservation of old sessions and all source references. Browser checks cover both roles, the new default, the law-only mode, scoring, pause/resume, reader links and missing-focus-script protection.

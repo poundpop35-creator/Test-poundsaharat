@@ -2,8 +2,9 @@
   'use strict';
   const D=window.ROLE_SPRINT,$=id=>document.getElementById(id);
   const E=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const ready=D&&D.expectedTotal===200&&D.questions.length===200&&new Set(D.questions.map(q=>q.id)).size===200&&D.loadedParts?.slice().sort().join(',')==='1,2,3,4,5'&&D.sets?.length===2&&D.sets.every(s=>s.ids.length===100)&&new Set(D.sets.flatMap(s=>s.ids)).size===200&&D.briefing&&typeof window.createRoleSprintCore==='function';
-  if(!ready){$('bankNotice').hidden=false;document.querySelectorAll('[data-launch],#allPractice,#examStart').forEach(b=>b.disabled=true);return;}
+  const expectedParts=D?.id==='energy'?'1,2,3,4,5,6':'1,2,3,4,5';
+  const ready=D&&D.expectedTotal===200&&D.questions.length===200&&new Set(D.questions.map(q=>q.id)).size===200&&D.loadedParts?.slice().sort().join(',')===expectedParts&&D.sets?.length===(D.id==='energy'?3:2)&&D.sets.every(s=>s.ids.length===100&&new Set(s.ids).size===100&&s.ids.every(id=>D.questions.some(q=>q.id===id)))&&new Set(D.sets.flatMap(s=>s.ids)).size===200&&(D.id!=='energy'||D.focus?.lawIds.length===50)&&D.briefing&&typeof window.createRoleSprintCore==='function';
+  if(!ready){$('bankNotice').hidden=false;document.querySelectorAll('[data-launch],#allPractice,#examStart,#lawPractice').forEach(b=>b.disabled=true);return;}
   const C=window.createRoleSprintCore(D),KEY=D.id+'100:v1';
   let selectedSet=D.sets[0];
   let state={records:{},marked:[],history:[],session:null};
@@ -52,7 +53,7 @@
   $('notes').innerHTML=D.notes.map((items,i)=>`<details><summary>${i+1}. ${E(D.topics[i])}</summary><ul>${items.map(t=>`<li>${E(t)}</li>`).join('')}</ul></details>`).join('');
   const B=D.briefing;
   const cards=items=>items.map(([title,body,keys])=>`<details><summary>${E(title)}</summary><p>${E(body)}</p><div class="source-links">${links(keys.split(','))}</div></details>`).join('');
-  $('briefing').innerHTML=`<p class="kicker">ค้นและเทียบต้นฉบับ · 11 ต.ค.2569</p><h2>อ่านให้ตรงจุด แล้วทำโจทย์ให้เป็น</h2><p>${E(B.context)}</p><p class="muted">${E(B.method)}</p><div class="priority-list">${B.priorities.map(([title,tag,body,why])=>`<article class="priority-item"><h3>${E(title)}</h3><span class="priority-tag">${E(tag)}</span><p>${E(body)}</p><p class="muted">${E(why)}</p></article>`).join('')}</div><h3>สรุปจำก่อนทำชุด B</h3>${cards(B.recall)}<h3>ข้อมูลใหม่และจุดที่ต้องตรวจฉบับ</h3>${cards(B.updates)}<details><summary>แผนทวน 7 รอบ · ปรับตามวันที่เหลือ</summary><ol>${B.studyPlan.map(p=>`<li>${E(p)}</li>`).join('')}</ol></details><details><summary>วิธีค้นข้อมูลและที่มาของการเก็ง</summary><p>${E(B.provenance)}</p><div class="source-links">${links(B.sourceKeys)}</div></details>`;
+  $('briefing').innerHTML=`<p class="kicker">ค้นและเทียบต้นฉบับ · 11 ต.ค.2569</p><h2>อ่านให้ตรงจุด แล้วทำโจทย์ให้เป็น</h2><p>${E(B.context)}</p><p class="muted">${E(B.method)}</p><div class="priority-list">${B.priorities.map(([title,tag,body,why])=>`<article class="priority-item"><h3>${E(title)}</h3><span class="priority-tag">${E(tag)}</span><p>${E(body)}</p><p class="muted">${E(why)}</p></article>`).join('')}</div><h3>สรุปช่วยจำก่อนฝึก</h3>${cards(B.recall)}${B.supplementRecall?`<details><summary>สูตรเพิ่มเติมสำหรับชุดเสริม B · อ่านภายหลังได้</summary>${cards(B.supplementRecall)}</details>`:""}<h3>ข้อมูลใหม่และจุดที่ต้องตรวจฉบับ</h3>${cards(B.updates)}<details><summary>แผนทวน 7 รอบ · ปรับตามวันที่เหลือ</summary><ol>${B.studyPlan.map(p=>`<li>${E(p)}</li>`).join('')}</ol></details><details><summary>วิธีค้นข้อมูลและที่มาของการเก็ง</summary><p>${E(B.provenance)}</p><div class="source-links">${links(B.sourceKeys)}</div></details>`;
   $('setPicker').innerHTML=D.sets.map(s=>`<option value="${E(s.id)}">${E(s.title)} · ${s.ids.length} ข้อ</option>`).join('');
   $('setPicker').onchange=()=>{selectedSet=D.sets.find(s=>s.id===$('setPicker').value);$('selectedSetLabel').textContent=selectedSet.title;};
   $('selectedSetLabel').textContent=selectedSet.title;
@@ -64,6 +65,7 @@
   $('mark').onclick=()=>{const id=state.session.ids[state.session.idx];state.marked=state.marked.includes(id)?state.marked.filter(x=>x!==id):[...state.marked,id];save();question(false);$('mark').focus({preventScroll:true});};
   $('pause').onclick=dashboard;$('resume').onclick=()=>{if(state.session.complete)result();else{visible('quiz');question(true);}};
   $('allPractice').onclick=()=>start(selectedSet.ids,selectedSet.title+' · '+D.agency+' 100 ข้อ');
+  if($('lawPractice'))$('lawPractice').onclick=()=>start(D.focus.lawIds,'พ.ร.บ. พลังงาน 5 ฉบับ · 50 ข้อ');
   $('examStart').onclick=()=>start(selectedSet.ids,'ซ้อมสอบ '+selectedSet.title+' · 100 ข้อ','exam');
   $('wrongBtn').onclick=()=>start(wrongIds(),'ซ้ำข้อที่ยังตอบผิด');$('markedBtn').onclick=()=>start(state.marked,'ทวนข้อที่ปักไว้');
   document.querySelectorAll('[data-launch]').forEach(b=>b.onclick=()=>{const offset=Number(b.dataset.launch)*20;start(selectedSet.ids.slice(offset,offset+20),`${selectedSet.title} · ช่วง ${Number(b.dataset.launch)+1} · 20 ข้อ`);});
