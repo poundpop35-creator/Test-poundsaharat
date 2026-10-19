@@ -1,10 +1,17 @@
-/* countdown.js — ป้ายนับถอยหลังวันสอบ
-   ใช้กับ <span class="cd" data-cd-key="energy" data-cd="2026-10-26"></span>
-   แตะที่ป้ายเพื่อแก้วันสอบเอง (เก็บไว้ในเครื่อง ไม่ส่งออกไปที่ไหน)
+/* countdown.js — ป้ายวันสอบทางการ / วันที่ส่วนตัว
+   ใช้กับ <span class="cd" data-cd-key="energy" data-cd=""></span>
+   แตะที่ป้ายเพื่อแก้วันที่ส่วนตัว (เก็บไว้ในเครื่อง ไม่ส่งออกไปที่ไหน)
    ไม่มี element ที่ตรงเงื่อนไข สคริปต์นี้จะไม่ทำอะไรเลย */
 (function () {
   var PREFIX = 'study:examdate:';
   var MS = 86400000;
+  // These two recruitment rounds have not announced the actual exam date.
+  // Remove a key only after checking a dated official exam notice.
+  var OFFICIAL_PENDING = { energy: true, rd: true };
+
+  function defaultDate(el, key) {
+    return OFFICIAL_PENDING[key] ? null : parseISO(el.getAttribute('data-cd'));
+  }
 
   function todayUTCmid() {
     var n = new Date();
@@ -44,15 +51,16 @@
 
   function paint(el) {
     var key = el.getAttribute('data-cd-key');
-    var t = stored(key) || parseISO(el.getAttribute('data-cd'));
+    var personal = stored(key);
+    var t = personal !== null ? personal : defaultDate(el, key);
     if (t === null) {
       // ยังไม่มีวันสอบ: ถ้าแก้ได้ก็ชวนให้ตั้ง ถ้าแก้ไม่ได้ก็ซ่อนไป
       if (!key) { el.hidden = true; return; }
       el.hidden = false;
       el.dataset.cdState = 'unset';
       el.innerHTML = '<b></b>';
-      el.firstChild.textContent = 'ตั้งวันสอบ';
-      el.title = 'ยังไม่ได้ตั้งวันสอบ — แตะเพื่อตั้ง';
+      el.firstChild.textContent = OFFICIAL_PENDING[key] ? 'รอวันสอบทางการ' : 'ตั้งวันส่วนตัว';
+      el.title = 'ยังไม่มีวันสอบที่ยืนยัน — แตะเพื่อตั้งวันที่ส่วนตัว';
       return;
     }
     el.hidden = false;
@@ -66,17 +74,18 @@
 
     el.dataset.cdState = state;
     el.innerHTML = '<b></b><span></span>';
-    el.firstChild.textContent = label;
+    el.firstChild.textContent = personal !== null ? (days > 0 ? 'วันที่ตั้งเอง: อีก ' + days + ' วัน' : days === 0 ? 'วันที่ตั้งเอง: วันนี้' : 'วันที่ตั้งเอง: ผ่านแล้ว') : label;
     el.lastChild.textContent = thaiDate(t);
-    el.title = 'วันสอบ ' + thaiDate(t) + ' — แตะเพื่อแก้วันสอบ';
+    el.title = personal !== null ? 'วันที่ส่วนตัว ' + thaiDate(t) + (OFFICIAL_PENDING[key] ? ' · ยังรอวันสอบทางการ' : '') + ' — แตะเพื่อแก้' : 'วันสอบ ' + thaiDate(t) + ' — แตะเพื่อแก้วันที่ส่วนตัว';
   }
 
   function edit(el) {
     var key = el.getAttribute('data-cd-key');
     if (!key || typeof window.prompt !== 'function') return;
-    var cur = stored(key) || parseISO(el.getAttribute('data-cd'));
+    var cur = stored(key);
+    if (cur === null) cur = defaultDate(el, key);
     var now = cur === null ? '' : new Date(cur).toISOString().slice(0, 10);
-    var ans = window.prompt('วันสอบ (ปี ค.ศ. เดือน วัน เช่น 2026-10-26)\nเว้นว่างเพื่อกลับไปใช้ค่าตั้งต้น', now);
+    var ans = window.prompt('วันที่ส่วนตัว (ปี ค.ศ. เดือน วัน เช่น 2026-11-06)\nค่านี้ไม่ใช่การยืนยันวันสอบทางการ\nเว้นว่างเพื่อล้างวันที่ส่วนตัว', now);
     if (ans === null) return;
     ans = ans.trim();
     if (ans && parseISO(ans) === null) { window.alert('รูปแบบวันที่ไม่ถูกต้อง ต้องเป็น ปปปป-ดด-วว'); return; }
