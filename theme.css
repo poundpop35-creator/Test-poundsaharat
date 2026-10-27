@@ -5,21 +5,26 @@
 
 /* ---------- 1. โทเคนพื้นฐาน ---------- */
 :root{
-  --a:#475569;        /* สีหลัก — แถบบน ปุ่ม ตัวเลข แท็บที่เลือก */
-  --a-dk:#1E293B;     /* เข้มขึ้น — ตัวหนังสือเน้น สถานะ hover */
-  --a-tint:#EDF1F6;   /* พื้นหัวแอป — อ่อนแต่เห็นสีชัด */
-  --a-sf:#F6F8FA;     /* พื้นอ่อนสุด — ชิป ป้าย กล่องเน้น */
-  --a-bd:#D2DAE3;     /* เส้นขอบโทนสี */
+  color-scheme:light;      /* ใช้โทนสว่างอย่างเดียว ไม่ให้เบราว์เซอร์สลับเป็นโหมดมืดเอง */
 
-  --paper:#FAFBFC;
+  --a:#2563EB;        /* สีหลัก — แถบบน ปุ่ม ตัวเลข แท็บที่เลือก */
+  --a-dk:#1E3A8A;     /* เข้มขึ้น — ตัวหนังสือเน้น สถานะ hover */
+  --a-tint:#DBEAFE;   /* พื้นหัวแอป — พาสเทลสด เห็นสีชัด */
+  --a-sf:#EFF6FF;     /* พื้นอ่อน — ชิป ป้าย กล่องเน้น */
+  --a-bd:#BFDBFE;     /* เส้นขอบโทนสี */
+
+  --paper:#F7FAFF;    /* พื้นหลังหน้า — ขาวอมสีจาง ๆ ให้การ์ดขาวเด้งขึ้นมา */
   --card:#FFFFFF;
-  --ink:#14191F;
-  --ink-soft:#52606D;
-  --ink-faint:#7A8794;
-  --line:#E5E9ED;
 
-  --good:#0E7A54; --good-bg:#E7F6EF; --good-bd:#A8DCC6;
-  --bad:#C0304A;  --bad-bg:#FDECEF;  --bad-bd:#F2B8C2;
+  /* ตัวหนังสือ: เข้มพอให้อ่านชัดบนพื้นขาวและบนพื้นพาสเทล
+     ink 17.7:1 · ink-soft 8.8:1 · ink-faint 5.9:1 (ผ่าน AA ทั้งหมด) */
+  --ink:#111827;
+  --ink-soft:#3F4C5A;
+  --ink-faint:#5A6675;
+  --line:#E3E9F0;
+
+  --good:#0E7A54; --good-bg:#DCFCE7; --good-bd:#86E0B4;
+  --bad:#C0304A;  --bad-bg:#FFE4EA;  --bad-bd:#F5AEBE;
 
   --r-sm:9px; --r-md:12px; --r-lg:16px; --r-xl:20px;
   --shadow:0 1px 2px rgba(16,24,40,.04), 0 4px 14px rgba(16,24,40,.05);
@@ -30,18 +35,18 @@
 /* ---------- 2. สีประจำแต่ละหน่วยงาน (โทนสว่าง) ----------
    --a คงความเข้มไว้ให้ปุ่ม/ตัวเลขอ่านง่ายและระบุหน่วยงานได้
    --a-tint คือพื้นหัวแอป ทำให้หน้าสว่างแต่ยังแยกหน่วยงานออกชัด   */
-body[data-app="sao"]           { --a:#1D4ED8; --a-dk:#1E3A8A; --a-tint:#E7F0FE; --a-sf:#F4F8FF; --a-bd:#BFD3FD; }
-body[data-app="opsmoac"]       { --a:#15803D; --a-dk:#14532D; --a-tint:#E4F7EB; --a-sf:#F2FBF5; --a-bd:#AEE5C1; }
-body[data-app="rd"]            { --a:#BE123C; --a-dk:#881337; --a-tint:#FDE7ED; --a-sf:#FEF4F7; --a-bd:#F9BECD; }
-body[data-app="energy"]        { --a:#C2410C; --a-dk:#7C2D12; --a-tint:#FDEADD; --a-sf:#FEF6F0; --a-bd:#FAC7A5; }
-body[data-app="diprom"]        { --a:#6D28D9; --a-dk:#4C1D95; --a-tint:#EFE7FE; --a-sf:#F8F4FF; --a-bd:#D8C7FB; }
-body[data-app="namban"]        { --a:#0E7490; --a-dk:#164E63; --a-tint:#DFF4FB; --a-sf:#F0FAFD; --a-bd:#A9E0F1; }
-body[data-app="dmh"]           { --a:#4338CA; --a-dk:#312E81; --a-tint:#E8E7FC; --a-sf:#F4F3FE; --a-bd:#C5C2F8; }
-body[data-app="laws"]          { --a:#0F766E; --a-dk:#134E4A; --a-tint:#DFF5F1; --a-sf:#F0FBF8; --a-bd:#A6E2D7; }
-body[data-app="law-sources"]   { --a:#57534E; --a-dk:#292524; --a-tint:#F1F0EE; --a-sf:#F8F7F6; --a-bd:#D8D4CE; }
-body[data-app="compare"]       { --a:#475569; --a-dk:#1E293B; --a-tint:#ECF0F5; --a-sf:#F6F8FA; --a-bd:#CFD8E2; }
-body[data-app="english"]       { --a:#DB2777; --a-dk:#9D174D; --a-tint:#FDE6F0; --a-sf:#FEF4F8; --a-bd:#F9BDD6; }
-body[data-app="english-course"]{ --a:#A21CAF; --a-dk:#701A75; --a-tint:#F7E5FA; --a-sf:#FDF3FD; --a-bd:#F0BBF4; }
+body[data-app="sao"]           { --a:#1D4ED8; --a-dk:#1E3A8A; --a-tint:#DBEAFE; --a-sf:#EFF6FF; --a-bd:#BFDBFE; --paper:#F6FAFF; }
+body[data-app="opsmoac"]       { --a:#15803D; --a-dk:#14532D; --a-tint:#DCFCE7; --a-sf:#F0FDF4; --a-bd:#A3E9BF; --paper:#F5FDF8; }
+body[data-app="rd"]            { --a:#BE123C; --a-dk:#881337; --a-tint:#FFE4EA; --a-sf:#FFF1F5; --a-bd:#FBBFCF; --paper:#FFF7F9; }
+body[data-app="energy"]        { --a:#C2410C; --a-dk:#7C2D12; --a-tint:#FFEAD9; --a-sf:#FFF6EF; --a-bd:#FBCBA4; --paper:#FFF9F4; }
+body[data-app="diprom"]        { --a:#6D28D9; --a-dk:#4C1D95; --a-tint:#EDE9FE; --a-sf:#F6F3FF; --a-bd:#D4C4FD; --paper:#FAF8FF; }
+body[data-app="namban"]        { --a:#0E7490; --a-dk:#164E63; --a-tint:#D7F2FB; --a-sf:#EEFAFE; --a-bd:#A5E2F3; --paper:#F5FCFE; }
+body[data-app="dmh"]           { --a:#4338CA; --a-dk:#312E81; --a-tint:#E4E2FD; --a-sf:#F2F1FF; --a-bd:#C3BFFA; --paper:#F8F7FF; }
+body[data-app="laws"]          { --a:#0F766E; --a-dk:#134E4A; --a-tint:#D4F5EF; --a-sf:#EDFCF9; --a-bd:#9FE4D7; --paper:#F4FDFB; }
+body[data-app="law-sources"]   { --a:#57534E; --a-dk:#292524; --a-tint:#EFEDEA; --a-sf:#F8F7F5; --a-bd:#D9D4CE; --paper:#FAF9F7; }
+body[data-app="compare"]       { --a:#475569; --a-dk:#1E293B; --a-tint:#E6EDF5; --a-sf:#F3F7FB; --a-bd:#CBD8E5; --paper:#F8FAFC; }
+body[data-app="english"]       { --a:#DB2777; --a-dk:#9D174D; --a-tint:#FFE2EE; --a-sf:#FFF1F6; --a-bd:#FBBDD6; --paper:#FFF8FB; }
+body[data-app="english-course"]{ --a:#A21CAF; --a-dk:#701A75; --a-tint:#FAE3FC; --a-sf:#FDF2FD; --a-bd:#F2BCF6; --paper:#FDF8FE; }
 
 /* ---------- 3. พื้นฐานเอกสาร ---------- */
 *,*::before,*::after{box-sizing:border-box}
@@ -245,7 +250,7 @@ table.tb th{background:var(--a-sf);color:var(--a-dk);font-family:'Kanit','Sarabu
 .opt.correct .lab{color:var(--good)}
 .opt.wrong{background:var(--bad-bg);border-color:var(--bad)}
 .opt.wrong .lab{color:var(--bad)}
-.opt.dim{opacity:.55}
+.opt.dim{opacity:.72}
 .opt:disabled{cursor:default}
 .explain{
   display:none;margin-top:6px;border-radius:var(--r-md);padding:13px 15px;
@@ -347,41 +352,7 @@ footer{text-align:center;color:var(--ink-faint);font-size:13px;margin:30px 0 8px
 }
 @media(min-width:900px){ .wrap{max-width:920px} }
 
-/* ---------- 18. โหมดมืด (เฉพาะแอปที่ใช้ theme.css เต็มตัว) ---------- */
-@media(prefers-color-scheme:dark){
-  body[data-app]:not(.study-app){
-    --paper:#10151A; --card:#181E25; --ink:#E9EEF3; --ink-soft:#A5B2BF;
-    --ink-faint:#7E8C9A; --line:#2B343E;
-    --good:#45C78F; --good-bg:#10291F; --good-bd:#1F5340;
-    --bad:#F2778D;  --bad-bg:#2B1219;  --bad-bd:#5C2533;
-    --shadow:0 1px 2px rgba(0,0,0,.30), 0 6px 20px rgba(0,0,0,.26);
-    --shadow-lg:0 2px 4px rgba(0,0,0,.34), 0 14px 38px rgba(0,0,0,.40);
-    --a:#94A3B8; --a-dk:#CBD5E1; --a-tint:#1B2430; --a-sf:#1B2330; --a-bd:#33404F;
-  }
-  body[data-app="sao"]:not(.study-app)        { --a:#7FA6FF; --a-dk:#AFC7FF; --a-tint:#141E33; --a-sf:#141E33; --a-bd:#2A3C63; }
-  body[data-app="opsmoac"]:not(.study-app)    { --a:#5CCB85; --a-dk:#95E3B2; --a-tint:#102418; --a-sf:#102418; --a-bd:#1F4A2F; }
-  body[data-app="rd"]:not(.study-app)         { --a:#FF8FA6; --a-dk:#FFBACA; --a-tint:#2B1119; --a-sf:#2B1119; --a-bd:#55222F; }
-  body[data-app="energy"]:not(.study-app)     { --a:#FF9F5E; --a-dk:#FFC296; --a-tint:#2B1A0E; --a-sf:#2B1A0E; --a-bd:#55331B; }
-  body[data-app="diprom"]:not(.study-app)     { --a:#B193FA; --a-dk:#CDBAFC; --a-tint:#1E1733; --a-sf:#1E1733; --a-bd:#382A5E; }
-  body[data-app="namban"]:not(.study-app)     { --a:#5BC2DF; --a-dk:#9BDCEE; --a-tint:#0E2330; --a-sf:#0E2330; --a-bd:#1C4357; }
-  body[data-app="dmh"]:not(.study-app)        { --a:#A5A0F5; --a-dk:#C7C4F9; --a-tint:#1A1830; --a-sf:#1A1830; --a-bd:#332E5C; }
-  body[data-app="laws"]:not(.study-app)       { --a:#4FC9B6; --a-dk:#8FE0D2; --a-tint:#0E2421; --a-sf:#0E2421; --a-bd:#1B4740; }
-  body[data-app="law-sources"]:not(.study-app){ --a:#BFB8AF; --a-dk:#D8D3CC; --a-tint:#211F1C; --a-sf:#211F1C; --a-bd:#3D3935; }
-
-  body[data-app]:not(.study-app) .chip{background:var(--a-sf)}
-  body[data-app]:not(.study-app) .btn.quiz,
-  body[data-app]:not(.study-app) .next,
-  body[data-app]:not(.study-app) .topic .num,
-  body[data-app]:not(.study-app) .tab.active,
-  body[data-app]:not(.study-app) .doc-b.main,
-  body[data-app]:not(.study-app) .btn.quiz.alt,
-  body[data-app]:not(.study-app) .num.alt,
-  body[data-app]:not(.study-app) .cta-alt,
-  body[data-app]:not(.study-app) .tab.sprint:hover{color:#10151A}
-  body[data-app]:not(.study-app) .next:disabled{background:#2B343E;color:var(--ink-faint)}
-}
-
-/* ---------- 19. ลดการเคลื่อนไหว ---------- */
+/* ---------- 18. ลดการเคลื่อนไหว ---------- */
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition:none!important}
@@ -539,6 +510,8 @@ body.app-quizzing{padding-top:0}
    (ปุ่ม "ออก" บนแถบข้อสอบใช้กลับได้) */
 /* แอปคลังติว: #quiz เป็น .view.show   |   หน้า sprint: #quiz ถอด [hidden] ออก */
 body:has(#quiz.view.show) > header,
+body:has(#quiz.view.show) > .wrap > .app-research-link,
+body:has(#quiz.view.show) > .wrap > .app-section-menu,
 body:has(#quiz.view.show) > .wrap > .tabs,
 body:has(#quiz.view.show) > .wrap > .intro-card,
 body:has(#quiz.view.show) > .wrap > .disclaimer,
@@ -679,17 +652,6 @@ header h1{font-size:27px;line-height:1.3}
 .result{padding:30px 22px}
 .rev-item{padding:14px 16px;line-height:1.7}
 
-/* ---- โหมดมืด: ปรับของใหม่ให้อ่านได้ด้วย ---- */
-@media (prefers-color-scheme: dark){
-  body[data-app]:not(.study-app) table.tb tbody tr:nth-child(even) td{
-    background:color-mix(in srgb,var(--card) 80%,var(--paper));
-  }
-  body[data-app]:not(.study-app) .cd{background:var(--card);border-color:var(--line)}
-  body[data-app]:not(.study-app) .cd b{color:var(--ink)}
-  body[data-app]:not(.study-app) .cd-bar{background:var(--card)}
-  body[data-app]:not(.study-app) .cd-bar .cd-t{color:var(--ink)}
-}
-
 /* ---- ขณะอ่านเนื้อหาหัวข้อ: ซ่อนหัวแอปและการ์ดแนะนำ ให้เริ่มอ่านได้เลย ---- */
 body:has(#read.view.show) > header,
 body:has(#read.view.show) > .wrap > .intro-card,
@@ -702,3 +664,24 @@ body:has(#read.view.show){padding-top:calc(5px + var(--safe-t))}
 }
 #read .read-title{margin-top:4px}
 #read .content section{scroll-margin-top:calc(5px + var(--safe-t) + 112px)}
+
+/* ============================================================
+   22. โทนสว่างทั้งระบบ — บังคับหัวแอปให้สว่างเหมือนกันทุกหน้า
+   บางหน้ารุ่นเก่า (เทียบขอบเขต / ภาษาอังกฤษ) เขียนหัวเป็นพื้นเข้มตัวหนังสือขาวไว้เอง
+   เลือกด้วย body[data-app] > header เพื่อให้ชนะกฎ header ในหน้านั้น
+   ============================================================ */
+body[data-app] > header{
+  background:linear-gradient(170deg,var(--a-tint) 0%,var(--card) 92%);
+  color:var(--ink);
+  border-bottom:1px solid var(--a-bd);
+}
+body[data-app] > header::after{display:none}          /* วงกลมเรืองแสงมุมขวาของหัวแบบเดิม */
+body[data-app] > header h1{color:var(--ink)}
+body[data-app] > header .sub{color:var(--ink-soft)}
+body[data-app] > header .eyebrow{color:var(--ink-faint)}
+body[data-app] > header a,
+body[data-app] > header a.back{color:var(--a-dk)}
+body[data-app] > header .chip{
+  background:var(--card);border:1px solid var(--a-bd);color:var(--ink-soft);
+}
+body[data-app] > header .chip b{color:var(--a-dk)}

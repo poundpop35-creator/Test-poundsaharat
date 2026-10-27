@@ -4,14 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <title>วิเคราะห์เหมือน–ต่าง: หัวข้อสอบข้ามหน่วยงาน</title>
+<meta name="theme-color" content="#E6EDF5">
+<meta name="color-scheme" content="light">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --ink0:#475569;--ink0-700:#1E293B;--ink0-500:#64748B;
-  --gold:#475569;--gold-soft:#F3F5F8;--paper:#F6F7F9;--card:#FFFFFF;
-  --ink:#141A21;--ink-soft:#54616E;--line:#E3E7EC;
+  --gold:#475569;--gold-soft:#E6EDF5;--paper:#F8FAFC;--card:#FFFFFF;
+  --ink:#111827;--ink-soft:#3F4C5A;--line:#E3E9F0;
   --core:#0E7A54;--core-bg:#E7F6EF;
   --uniq:#C0304A;--uniq-bg:#FDECEF;
   --half:#9A6400;--half-bg:#FFF6E3;
@@ -22,15 +24,15 @@ html{-webkit-text-size-adjust:100%}
 body{font-family:'Sarabun',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;font-size:17px;padding-bottom:60px}
 .wrap{max-width:900px;margin:0 auto;padding:0 16px}
 h1,h2,h3,.kanit{font-family:'Kanit',sans-serif;font-weight:600;line-height:1.35}
-header{background:linear-gradient(135deg,var(--ink0) 0%,var(--ink0-500) 100%);color:#fff;padding:26px 0 22px;position:relative;overflow:hidden}
-header::after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(198,138,30,.40),transparent 70%)}
-header a.back{display:inline-flex;align-items:center;gap:6px;color:#D6DEE5;text-decoration:none;font-family:'Kanit';font-size:14px;font-weight:500;margin-bottom:10px}
-.eyebrow{font-family:'Kanit';font-weight:500;letter-spacing:.06em;font-size:13px;color:var(--gold-soft);text-transform:uppercase}
+header{background:linear-gradient(165deg,#E6EDF5 0%,#FFFFFF 92%);color:#111827;border-bottom:1px solid #CBD8E5;padding:26px 0 22px;position:relative;overflow:hidden}
+header::after{display:none}
+header a.back{display:inline-flex;align-items:center;gap:6px;color:#1E293B;text-decoration:none;font-family:'Kanit';font-size:14px;font-weight:500;margin-bottom:10px}
+.eyebrow{font-family:'Kanit';font-weight:500;letter-spacing:.06em;font-size:13px;color:#5A6675;text-transform:uppercase}
 header h1{font-size:24px;margin:6px 0 4px;font-weight:700}
-header .sub{font-size:15px;color:#DCE4EA}
+header .sub{font-size:15px;color:#3F4C5A}
 .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);padding:5px 11px;border-radius:999px;font-size:13px;font-family:'Kanit';font-weight:500}
-.chip b{color:var(--gold-soft)}
+.chip{background:#FFFFFF;border:1px solid #CBD8E5;color:#3F4C5A;padding:5px 11px;border-radius:999px;font-size:13px;font-family:'Kanit';font-weight:500}
+.chip b{color:var(--ink0)}
 .tabs{display:flex;gap:6px;margin:18px 0 6px;position:sticky;top:0;z-index:20;background:var(--paper);padding:10px 0;border-bottom:1px solid var(--line);overflow-x:auto}
 .tab{flex:1;min-width:110px;text-align:center;font-family:'Kanit';font-weight:500;font-size:14.5px;padding:9px 8px;border-radius:11px;border:1px solid var(--line);background:var(--card);color:var(--ink-soft);cursor:pointer;transition:.15s;white-space:nowrap}
 .tab.active{background:var(--ink0);color:#fff;border-color:var(--ink0)}
@@ -52,7 +54,7 @@ table.mx td.subj{text-align:left;font-weight:600;color:var(--ink0-700);min-width
 table.mx td.cnt{font-family:'Kanit';font-weight:700}
 .yes{color:var(--core);font-weight:700;font-size:17px}
 .part{color:var(--half);font-weight:700;font-size:17px}
-.no{color:#C3CCD3}
+.no{color:#6B7380}
 .badge-core{background:var(--core-bg);color:#12664B;font-family:'Kanit';font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px;white-space:nowrap}
 .badge-uniq{background:var(--uniq-bg);color:#8C332C;font-family:'Kanit';font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px;white-space:nowrap}
 section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 17px;margin-bottom:12px;box-shadow:var(--shadow)}
@@ -91,7 +93,7 @@ body{padding-top:4px}
 <script defer src="app-catalog.js?v=20261027-ia"></script>
 <script defer src="app-shell.js?v=20261027-ia"></script>
 </head>
-<body>
+<body data-app="compare">
 <header>
   <div class="wrap">
     <a class="back" href="index.html">← กลับหน้าแรก</a>
@@ -335,7 +337,7 @@ function go(i){
 /* ratios */
 el('ratios').innerHTML = AGENCIES.map(a=>`
   <div style="margin-bottom:11px">
-    <div class="barlab"><span>${a.ico} ${a.nm} <span style="color:#93A1AC">— ${a.pos}</span></span><span><b>${a.core}%</b> ใช้ร่วมได้</span></div>
+    <div class="barlab"><span>${a.ico} ${a.nm} <span style="color:#5A6675">— ${a.pos}</span></span><span><b>${a.core}%</b> ใช้ร่วมได้</span></div>
     <div class="bar"><i style="width:${a.core}%"></i></div>
   </div>`).join('');
 
@@ -357,12 +359,12 @@ el('agencies').innerHTML = AGENCIES.map(a=>`
   h+='<th>ความถี่</th></tr></thead><tbody>';
   SUBJECTS.forEach(s=>{
     const cnt = AGENCIES.filter(a=>s.v[a.key]===2).length;
-    h+=`<tr${s.sep?' style="background:#F7F9FA"':''}><td class="subj">${s.n}${s.note?`<div style="font-weight:400;font-size:12.5px;color:#7C8A95;margin-top:2px">${s.note}</div>`:''}</td>`;
+    h+=`<tr${s.sep?' style="background:#F7F9FA"':''}><td class="subj">${s.n}${s.note?`<div style="font-weight:400;font-size:12.5px;color:#5A6675;margin-top:2px">${s.note}</div>`:''}</td>`;
     AGENCIES.forEach(a=>{
       const v=s.v[a.key];
       h+=`<td>${v===2?'<span class="yes">●</span>':v===1?'<span class="part">◐</span>':'<span class="no">–</span>'}</td>`;
     });
-    h+=`<td class="cnt" style="color:${cnt>=4?'var(--core)':cnt>=2?'var(--half)':'#93A1AC'}">${cnt}/5</td></tr>`;
+    h+=`<td class="cnt" style="color:${cnt>=4?'var(--core)':cnt>=2?'var(--half)':'#5A6675'}">${cnt}/5</td></tr>`;
   });
   h+='</tbody>';
   el('matrix').innerHTML=h;
