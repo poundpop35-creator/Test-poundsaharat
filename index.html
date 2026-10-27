@@ -3,50 +3,98 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#173f35">
-  <title>คลังติว — เลือกหน่วยงานและหมวดการเรียน</title>
+  <meta name="theme-color" content="#ffffff">
+  <title>คลังติว — เลือกหน่วยงานที่จะสอบ</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="theme.css?v=20261012-402">
-  <link rel="stylesheet" href="app-shell.css?v=20261013-nav">
-  <link rel="stylesheet" href="app-home.css?v=20261012-402">
-  <script defer src="app-catalog.js?v=20261019-intensive"></script>
-  <script defer src="app-shell.js?v=20261019-intensive"></script>
-  <script defer src="countdown.js?v=20261019-intensive"></script>
-  <script defer src="app-home.js?v=20261019-intensive"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="theme.css?v=20261027-ia">
+  <link rel="stylesheet" href="app-shell.css?v=20261027-ia">
+  <link rel="stylesheet" href="app-home.css?v=20261027-ia">
+  <script defer src="app-catalog.js?v=20261027-ia"></script>
+  <script defer src="app-shell.js?v=20261027-ia"></script>
+  <script defer src="countdown.js?v=20261027-ia"></script>
+  <script defer src="app-home.js?v=20261027-ia"></script>
 </head>
 <body class="study-app app-home">
   <main id="app-content" class="home-wrap" tabindex="-1">
-    <section class="home-intro" aria-labelledby="home-title">
-      <div><p class="home-kicker">คลังเรียนและฝึกข้อสอบส่วนตัว</p><h1 id="home-title">โฟกัส<span>สองสนามที่เหลือ</span></h1><p>1. สป.พลังงาน — นักวิชาการพลังงาน · 2. กรมสรรพากร — นักวิชาการพัสดุ</p></div>
-      <a class="home-focus" href="energy-intensive.html"><strong>พลังงานเข้มข้น · 5 ชุด 500 ข้อ</strong><span>เฉลยทุกตัวเลือก · แผนพร้อม 6 พ.ย. →</span></a>
+
+    <section class="home-hero" aria-labelledby="home-title">
+      <p class="home-kicker">คลังติวสอบราชการส่วนตัว</p>
+      <h1 id="home-title">เลือก<span>หน่วยงานที่จะสอบ</span></h1>
+      <p class="home-lead">ทุกหน่วยงานจัดเหมือนกันหมด — <b>อ่านเนื้อหา → ฝึกรายหมวด → ชุดจำลองสอบ</b> เปิดหน่วยงานไหนก็เจอลำดับเดิม</p>
+      <div id="home-stats" class="home-stats"></div>
+      <a class="home-focus" href="exam-14.html">
+        <strong>ยังไม่รู้จะเริ่มตรงไหน?</strong>
+        <span>เปิดแผนติว 14 วัน จัดให้ว่าวันนี้อ่านอะไร →</span>
+      </a>
     </section>
-    <section class="home-sprintplan" aria-labelledby="home-plan-title">
-      <h2 id="home-plan-title">สองสนามที่ใกล้ถึงที่สุด</h2>
-      <div class="plan-row">
-        <article class="plan-card energy">
-          <span class="plan-top"><b>สป.พลังงาน</b><span class="cd" data-cd-key="energy" data-cd=""></span></span>
-          <span class="plan-mid">นักวิชาการพลังงานปฏิบัติการ · คลังหลัก 243 ข้อ + เก็ง 200 ข้อ</span>
-          <span class="plan-note">ส่วนที่ 2 มี 150 จาก 200 คะแนน — ลงน้ำหนักที่แผนพลังงาน น้ำมัน-ก๊าซ-ไฟฟ้า การทดสอบตรวจสอบ และการอนุรักษ์พลังงาน</span>
-          <span class="plan-links"><a class="plan-go" href="energy-intensive.html">เข้มข้น 500 ข้อ →</a><a class="plan-go" href="energy.html">อ่าน + ฝึกรายหมวด →</a><a class="plan-go alt" href="energy-sprint.html">เก็ง 200 ข้อ →</a></span>
-        </article>
-        <article class="plan-card rd">
-          <span class="plan-top"><b>กรมสรรพากร</b><span class="cd" data-cd-key="rd" data-cd=""></span></span>
-          <span class="plan-mid">นักวิชาการพัสดุปฏิบัติการ · คลังหลัก 298 ข้อ + เก็ง 200 ข้อ</span>
-          <span class="plan-note">จัดซื้อจัดจ้างคือหัวใจของตำแหน่ง ให้ลงเวลามากที่สุด แล้วค่อยไล่ไปการเบิกจ่าย ประมวลรัษฎากร และงบประมาณ</span>
-          <span class="plan-links"><a class="plan-go" href="rd.html">อ่าน + ฝึกรายหมวด →</a><a class="plan-go alt" href="rd-sprint.html">เก็ง 200 ข้อ →</a></span>
-        </article>
-      </div>
-      <p class="plan-hint">วันสอบทั้งสองสนามรอประกาศทางการ · วันที่ตั้งเองเป็นแผนส่วนตัว เก็บเฉพาะเครื่องนี้</p>
-    </section>
+
     <div id="home-recent" class="home-recent" hidden></div>
-    <div class="home-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="7.5"/><path d="m16 16 5 5"/></svg><label class="app-sr-only" for="home-search-input">ค้นหาหน่วยงาน ตำแหน่ง หรือหมวด</label><input type="search" id="home-search-input" placeholder="ค้นหาหน่วยงาน ตำแหน่ง หรือหมวด…" autocomplete="off"><button id="home-clear" type="button" aria-label="ล้างคำค้น" hidden>×</button></div>
-    <nav class="home-categories" aria-label="หมวดการเรียน"><a href="#agencies" data-category="agencies" aria-current="page">หน่วยงานที่เตรียมสอบ</a><a href="#resources" data-category="resources">กฎหมายและตัวบท</a><a href="#english" data-category="english">ภาษาอังกฤษ</a><a href="#archive" data-category="archive">หน่วยงานที่สอบแล้ว</a></nav>
-    <section aria-labelledby="home-section-title"><div class="home-section-heading"><div><h2 id="home-section-title">หน่วยงานที่กำลังเตรียมสอบ</h2><p id="home-section-description">เลือกหน่วยงาน แล้วเริ่มอ่านหรือทำโจทย์ได้เลย</p></div><span id="home-count" class="home-count" role="status"></span></div><div id="home-cards" class="home-cards"></div><div id="home-empty" class="home-empty" hidden><strong>ยังไม่พบสิ่งที่ค้นหา</strong><p>ลองชื่อย่อหน่วยงาน หรือคำว่า “พัสดุ” “กฎหมาย” “อังกฤษ”</p><button type="button" id="home-reset">ดูหน่วยงานทั้งหมด</button></div></section>
-    <details class="home-help"><summary>เริ่มใช้งานอย่างไร?</summary><ol><li>เลือกหน่วยงาน แล้วกด <b>อ่านเนื้อหา</b> เพื่อเลือกบทที่ต้องทวน</li><li>กด <b>ฝึกแยกหมวด</b> หรือ <b>ข้อสอบรวม</b> ในหน่วยงานนั้น</li><li>ใช้ <b>ตัวบทฉบับเต็ม</b> เพื่อเปิดเอกสารต้นฉบับประกอบคำตอบ</li><li>สลับหน่วยงานได้จากปุ่ม <b>หน่วยงาน / หมวด</b> ด้านบนทุกหน้า</li></ol></details>
-    <noscript><div class="home-noscript"><p>เปิด JavaScript เพื่อใช้การค้นหาและทำแบบทดสอบ หรือเลือกหน้าที่ต้องการด้านล่าง</p><a href="energy.html">1. สป.พลังงาน</a><a href="energy-sprint.html">เก็งพลังงาน 200 ข้อ</a><a href="rd.html">2. สรรพากร</a><a href="rd-sprint.html">เก็งสรรพากร 200 ข้อ</a><a href="exam-14.html">ติว 14 วัน</a><a href="dmh.html">กรมสุขภาพจิต (ยังไม่ยืนยันขอบเขต)</a><a href="opsmoac-sprint.html">คลังเดิม สป.เกษตร 300 ข้อ</a><a href="sao-sprint.html">ตะลุย สตง. 60 ข้อ</a><a href="sao.html">สตง.</a><a href="opsmoac.html">สป.เกษตร</a><a href="law-sources.html">ตัวบทฉบับเต็ม</a><a href="laws.html">กฎหมายกลาง</a><a href="compare.html">เทียบขอบเขตสอบ</a><a href="english-course.html">คอร์สภาษาอังกฤษ</a><a href="english.html">อังกฤษพื้นฐาน</a><a href="diprom.html">กรมส่งเสริมอุตสาหกรรม</a><a href="namban.html">กรมทรัพยากรน้ำบาดาล</a></div></noscript>
+
+    <div class="home-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="7.5"/><path d="m16 16 5 5"/></svg>
+      <label class="app-sr-only" for="home-search-input">ค้นหาหน่วยงาน ตำแหน่ง หรือหมวด</label>
+      <input type="search" id="home-search-input" placeholder="ค้นหาหน่วยงาน ตำแหน่ง หรือหมวด…" autocomplete="off">
+      <button id="home-clear" type="button" aria-label="ล้างคำค้น" hidden>×</button>
+    </div>
+
+    <nav class="home-categories" aria-label="หมวดการเรียน">
+      <a href="#agencies" data-category="agencies" aria-current="page">กำลังเตรียมสอบ</a>
+      <a href="#resources" data-category="resources">คลังกลาง</a>
+      <a href="#english" data-category="english">ภาษาอังกฤษ</a>
+      <a href="#archive" data-category="archive">สอบไปแล้ว</a>
+    </nav>
+
+    <section aria-labelledby="home-section-title">
+      <div class="home-section-heading">
+        <div>
+          <h2 id="home-section-title">หน่วยงานที่กำลังเตรียมสอบ</h2>
+          <p id="home-section-description">แต่ละหน่วยงานมีครบ ตั้งแต่อ่านเนื้อหาไปจนถึงชุดจำลองสอบ</p>
+        </div>
+        <span id="home-count" class="home-count" role="status"></span>
+      </div>
+      <div id="home-cards" class="home-cards"></div>
+      <div id="home-empty" class="home-empty" hidden>
+        <strong>ยังไม่พบสิ่งที่ค้นหา</strong>
+        <p>ลองชื่อย่อหน่วยงาน หรือคำว่า “พัสดุ” “กฎหมาย” “อังกฤษ”</p>
+        <button type="button" id="home-reset">ดูหน่วยงานทั้งหมด</button>
+      </div>
+    </section>
+
+    <details class="home-help">
+      <summary>คำที่ใช้ในคลังนี้ หมายถึงอะไรบ้าง</summary>
+      <dl class="home-legend">
+        <dt>อ่านเนื้อหา</dt><dd>สรุปบทเรียนตามขอบเขตสอบ จบบทแล้วมีข้อสอบท้ายบทให้ทำทันที</dd>
+        <dt>ฝึกรายหมวด</dt><dd>คลังข้อสอบแยกหมวด ใช้ทำซ้ำเฉพาะจุดที่ยังไม่แม่น</dd>
+        <dt>ชุดจำลองสอบ</dt><dd>ชุดเต็มเสมือนสอบจริง ใช้วัดว่าพร้อมหรือยัง</dd>
+        <dt>จุดต้องท่อง</dt><dd>ตัวเลข มาตรา และคำนิยามที่ออกสอบบ่อย ทวนก่อนเข้าห้องสอบ</dd>
+        <dt>ตัวบทฉบับเต็ม</dt><dd>ลิงก์กฎหมายต้นฉบับบนเว็บไซต์ราชการ ใช้ยืนยันตัวเลขก่อนสอบ</dd>
+      </dl>
+    </details>
+
+    <noscript><div class="home-noscript">
+      <p>เปิด JavaScript เพื่อใช้การค้นหาและทำแบบทดสอบ หรือเลือกหน้าที่ต้องการด้านล่าง</p>
+      <a href="energy.html">สป.พลังงาน — อ่าน + ฝึกรายหมวด</a>
+      <a href="energy-intensive.html">สป.พลังงาน — ชุดเข้มข้น 500 ข้อ</a>
+      <a href="energy-sprint.html">สป.พลังงาน — ชุดเก็ง 200 ข้อ</a>
+      <a href="rd.html">สรรพากร — อ่าน + ฝึกรายหมวด</a>
+      <a href="rd-sprint.html">สรรพากร — ชุดเก็ง 200 ข้อ</a>
+      <a href="dmh.html">กรมสุขภาพจิต — แกนร่วมของตำแหน่ง</a>
+      <a href="exam-14.html">แผนติว 14 วัน</a>
+      <a href="laws.html">กฎหมายกลาง</a>
+      <a href="law-sources.html">ตัวบทฉบับเต็ม</a>
+      <a href="compare.html">เทียบขอบเขตสอบ</a>
+      <a href="english-course.html">คอร์สภาษาอังกฤษ</a>
+      <a href="english.html">อังกฤษพื้นฐาน</a>
+      <a href="sao.html">สตง. (สอบแล้ว)</a>
+      <a href="sao-sprint.html">สตง. — จำลองสอบ 60 ข้อ</a>
+      <a href="opsmoac.html">สป.เกษตร (สอบแล้ว)</a>
+      <a href="opsmoac-sprint.html">สป.เกษตร — จำลองสอบ 300 ข้อ</a>
+      <a href="diprom.html">กรมส่งเสริมอุตสาหกรรม (สอบแล้ว)</a>
+      <a href="namban.html">กรมทรัพยากรน้ำบาดาล (สอบแล้ว)</a>
+    </div></noscript>
   </main>
-  <footer class="home-footer">คลังติวส่วนตัว · อ่าน ฝึก และทวนจากตัวบท &nbsp; <a href="study.html?page=law-sources">เปิดเอกสารอ้างอิง ↗</a></footer>
+  <footer class="home-footer">คลังติวส่วนตัว · อ่าน ฝึก และทวนจากตัวบท &nbsp; <a href="law-sources.html">เปิดเอกสารอ้างอิง ↗</a></footer>
 </body>
 </html>

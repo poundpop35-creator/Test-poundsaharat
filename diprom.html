@@ -9,6 +9,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="theme.css?v=20261012-402">
+<link rel="stylesheet" href="app-shell.css?v=20261027-ia">
+<script defer src="app-catalog.js?v=20261027-ia"></script>
+<script defer src="app-shell.js?v=20261027-ia"></script>
 </head>
 <body data-app="diprom">
 <header>
@@ -28,7 +31,7 @@
   <div class="tabs">
     <div class="tab active" data-tab="home" onclick="startHome()"><span class="s">1</span>อ่านเนื้อหา</div>
     <div class="tab" data-tab="book" onclick="startBook()"><span class="s">2</span>ฝึกรายหมวด</div>
-    <div class="tab" data-tab="mock" onclick="startMock()"><span class="s">3</span>ข้อสอบรวม</div>
+    <div class="tab" data-tab="mock" onclick="startMock()"><span class="s">3</span>จำลองสอบ</div>
     <div class="tab" data-tab="src" onclick="startSources()"><span class="s">4</span>ตัวบทฉบับเต็ม</div>
   </div>
   <div id="home" class="view show">
@@ -37,20 +40,20 @@
       <ol>
         <li><span><b>อ่านเนื้อหา</b> — ไล่อ่านทีละหัวข้อ จบหัวข้อไหนกดทำข้อสอบหัวข้อนั้นเลย</span></li>
         <li><span><b>ฝึกรายหมวด</b> — คลังข้อสอบเสริม แยกหมวดให้ฝึกซ้ำเฉพาะจุดที่ยังไม่แม่น</span></li>
-        <li><span><b>ข้อสอบรวม</b> — สุ่มทุกหัวข้อเสมือนสอบจริง ใช้วัดว่าพร้อมหรือยัง</span></li>
+        <li><span><b>จำลองสอบ</b> — สุ่มทุกหัวข้อเสมือนสอบจริง ใช้วัดว่าพร้อมหรือยัง</span></li>
         <li><span><b>ตัวบทฉบับเต็ม</b> — ลิงก์กฎหมายจริงบนเว็บราชการ ใช้ยืนยันตัวเลขก่อนสอบ</span></li>
       </ol>
     </div>
     <div class="intro-card">
       <h2>ครบทั้ง 13 หมวด ตามประกาศ</h2>
-      <p>แต่ละหมวดมี <b>สรุปเนื้อหา (อ่าน)</b> และ <b>ข้อสอบพร้อมเฉลย+คำอธิบาย (ทำข้อสอบ)</b> — เลือกฝึกทีละหมวด หรือกด “ข้อสอบรวม” เพื่อสุ่มทุกหมวดเสมือนสอบจริง</p>
+      <p>แต่ละหมวดมี <b>สรุปเนื้อหา (อ่าน)</b> และ <b>ข้อสอบพร้อมเฉลย+คำอธิบาย (ทำข้อสอบ)</b> — เลือกฝึกทีละหมวด หรือกด “จำลองสอบ” เพื่อสุ่มทุกหมวดเสมือนสอบจริง</p>
     </div>
     <div id="topicGrid" class="grid"></div>
     <div class="disclaimer">⚠️ <b>หมายเหตุ:</b> ชุดนี้สรุปจากแหล่งราชการ (เว็บไซต์กรมฯ dip.go.th, ตัวบทกฎหมายที่ระบุในประกาศ และข่าวนโยบายปัจจุบัน) เพื่อเป็นแนวทาง ไม่ใช่ข้อสอบจริง ก่อนสอบควรเปิดตัวบท พ.ร.บ. ฉบับเต็มและประกาศกรมฯ ล่าสุดประกอบ เพราะตัวเลข/ผู้บริหาร/นโยบายอาจเปลี่ยนแปลงได้</div>
   </div>
   <div id="book" class="view">
     <div class="intro-card">
-      <h2>ตะลุยโจทย์ 360 ข้อ</h2>
+      <h2>ฝึกรายหมวด 360 ข้อ</h2>
       <p>รวมแนวข้อสอบ <b>360 ข้อ</b> จากคู่มือเตรียมสอบ พร้อมเฉลยและคำอธิบายอ้างอิงตัวบท — แยกไว้ต่างหากจากคลังหลัก เลือกฝึกทีละหมวด หรือกดสุ่มรวมทุกหมวด</p>
       <button class="btn quiz" style="max-width:280px;margin:10px auto 2px;display:block" onclick="startBookMock()">สุ่มรวมทุกหมวด (60 ข้อ) ›</button>
     </div>
@@ -1156,7 +1159,7 @@ EXTRA[1]=(EXTRA[1]||[]).concat([
 /* merge extra questions into topics */
 TOPICS.forEach(function(t){ if(EXTRA[t.id] && EXTRA[t.id].length) t.q = t.q.concat(EXTRA[t.id]); });
 
-/* ===== ตะลุยโจทย์ (รวมแนวข้อสอบ 360 ข้อ) ===== */
+/* ===== ฝึกรายหมวด (รวมแนวข้อสอบ 360 ข้อ) ===== */
 var BOOK_TOPICS=[
  {id:2,title:"พ.ร.บ. ระเบียบข้าราชการพลเรือน 2551",q:[
   {q:"พระราชบัญญัติระเบียบข้าราชการพลเรือนพ.ศ.2551 ตราขึ้นโดยคำแนะนำและยินยอมของใคร",c:["รัฐสภา","นายกรัฐมนตรี","สภาปฏิรูปการปกครองแผ่นดิน","สภานิติบัญญัติแห่งชาติ"],a:3,e:"พระราชบัญญัติระเบียบข้าราชการพลเรือนพ.ศ.2551 ตราขึ้นโดยคำแนะนำและยินยอมของสภานิติบัญญัติแห่งชาติ"},
@@ -1616,7 +1619,7 @@ function startMock(){
   shuffle(all);
   const N=Math.min(100,all.length); // mock exam = 100 random questions (or all if fewer)
   all=all.slice(0,N);
-  S={list:all,idx:0,score:0,wrong:[],answered:false,title:"ข้อสอบรวมเสมือนจริง • "+N+" ข้อสุ่มทุกหัวข้อ",topicId:null};
+  S={list:all,idx:0,score:0,wrong:[],answered:false,title:"จำลองสอบเสมือนจริง • "+N+" ข้อสุ่มทุกหัวข้อ",topicId:null};
   show('quiz');renderQ();
 }
 
@@ -1636,7 +1639,7 @@ function renderBookGrid(){
 }
 function startBookTopic(id){
   const t=BOOK_TOPICS.find(x=>x.id===id);
-  S={list:shuffle(buildQ(t)),idx:0,score:0,wrong:[],answered:false,title:`ตะลุยโจทย์ • ${t.title}`,topicId:id,book:true};
+  S={list:shuffle(buildQ(t)),idx:0,score:0,wrong:[],answered:false,title:`ฝึกรายหมวด • ${t.title}`,topicId:id,book:true};
   setTab(null);show('quiz');renderQ();
 }
 function startBookMock(){
@@ -1646,7 +1649,7 @@ function startBookMock(){
   shuffle(all);
   const N=Math.min(60,all.length);
   all=all.slice(0,N);
-  S={list:all,idx:0,score:0,wrong:[],answered:false,title:"ตะลุยโจทย์ • สุ่มรวม "+N+" ข้อ",topicId:null,book:true,bookMock:true};
+  S={list:all,idx:0,score:0,wrong:[],answered:false,title:"ฝึกรายหมวด • สุ่มรวม "+N+" ข้อ",topicId:null,book:true,bookMock:true};
   show('quiz');renderQ();
 }
 

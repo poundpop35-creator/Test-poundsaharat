@@ -9,6 +9,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="theme.css?v=20261012-402">
+<link rel="stylesheet" href="app-shell.css?v=20261027-ia">
+<script defer src="app-catalog.js?v=20261027-ia"></script>
+<script defer src="app-shell.js?v=20261027-ia"></script>
 </head>
 <body data-app="rd">
 <header>
@@ -33,17 +36,17 @@
     <div class="tab active" data-tab="home" onclick="startHome()"><span class="s">1</span>อ่านเนื้อหา</div>
     <div class="tab" data-tab="laws" onclick="startLaws()"><span class="s">2</span>จุดต้องท่อง</div>
     <div class="tab" data-tab="book" onclick="startBook()"><span class="s">3</span>ฝึกรายหมวด</div>
-    <div class="tab" data-tab="mock" onclick="startMock()"><span class="s">4</span>ข้อสอบรวม</div>
+    <div class="tab" data-tab="mock" onclick="startMock()"><span class="s">4</span>จำลองสอบ</div>
     <div class="tab" data-tab="src" onclick="startSources()"><span class="s">5</span>ตัวบทฉบับเต็ม</div>
   </div>
-  <div id="home" class="view show"><div class="intro-card"><h2>ลำดับ 2 · ชุดเก็งพัสดุ 100 ข้อ</h2><p>ครบ 8 หัวข้อ พร้อมเฉลยและตัวบท ตรวจ 10 ต.ค.2569 รวมฉบับแก้ไขระเบียบจัดซื้อจัดจ้างที่ 3/2569</p><a class="btn quiz" href="rd-sprint.html">เริ่ม 100 ข้อ →</a></div>
+  <div id="home" class="view show"><div class="intro-card"><h2>ชุดจำลองสอบของหน่วยงานนี้มีอะไรบ้าง</h2><p>ครบ 8 หัวข้อ พร้อมเฉลยและตัวบท ตรวจ 10 ต.ค.2569 รวมฉบับแก้ไขระเบียบจัดซื้อจัดจ้างที่ 3/2569</p><a class="btn quiz" href="rd-sprint.html">เริ่ม 100 ข้อ →</a></div>
     <div class="flow">
       <h2>ใช้ตามลำดับนี้</h2>
       <ol>
         <li><span><b>อ่านเนื้อหา</b> — ไล่อ่านทีละหัวข้อ จบหัวข้อไหนกดทำข้อสอบหัวข้อนั้นเลย</span></li>
         <li><span><b>จุดต้องท่อง</b> — ตัวเลข มาตรา และคำนิยามที่ออกสอบบ่อย ทวนก่อนเข้าห้องสอบ</span></li>
         <li><span><b>ฝึกรายหมวด</b> — คลังข้อสอบเสริม แยกหมวดให้ฝึกซ้ำเฉพาะจุดที่ยังไม่แม่น</span></li>
-        <li><span><b>ข้อสอบรวม</b> — สุ่มทุกหัวข้อเสมือนสอบจริง ใช้วัดว่าพร้อมหรือยัง</span></li>
+        <li><span><b>จำลองสอบ</b> — สุ่มทุกหัวข้อเสมือนสอบจริง ใช้วัดว่าพร้อมหรือยัง</span></li>
         <li><span><b>ตัวบทฉบับเต็ม</b> — ลิงก์กฎหมายจริงบนเว็บราชการ ใช้ยืนยันตัวเลขก่อนสอบ</span></li>
       </ol>
     </div>
@@ -63,7 +66,7 @@
   </div>
   <div id="book" class="view">
     <div class="intro-card">
-      <h2>ตะลุยโจทย์ 217 ข้อ</h2>
+      <h2>ฝึกรายหมวด 217 ข้อ</h2>
       <p>คลังข้อสอบเสริม <b>217 ข้อ</b> พร้อมเฉลยและคำอธิบายอ้างอิงตัวบท — แยกจากคลังหลัก เลือกฝึกทีละหมวด หรือกดสุ่มรวมทุกหมวด <b>หมวด 12–14 เป็นชุดเจาะลึกใหม่</b> (วิธีจัดซื้อ/ระยะเวลา/หลักประกัน · แบบยื่นภาษีและอัตรา · การคลัง-ควบคุมภายใน-PDPA)</p>
       <button class="btn quiz" style="max-width:280px;margin:10px auto 2px;display:block" onclick="startBookMock()">สุ่มรวมทุกหมวด (40 ข้อ) ›</button>
     </div>
@@ -4215,7 +4218,7 @@ function startMock(){
   shuffle(all);
   const N=Math.min(100,all.length);
   all=all.slice(0,N);
-  S={list:all,idx:0,score:0,wrong:[],answered:false,title:"ข้อสอบรวมเสมือนจริง • "+N+" ข้อสุ่มทุกหัวข้อ",topicId:null};
+  S={list:all,idx:0,score:0,wrong:[],answered:false,title:"จำลองสอบเสมือนจริง • "+N+" ข้อสุ่มทุกหัวข้อ",topicId:null};
   show('quiz');renderQ();
 }
 
@@ -4226,7 +4229,7 @@ function renderBookGrid(){
     h+=`<div class="topic">
       <span class="badge">${t.q.length} ข้อ</span>
       <div class="top"><span class="num alt">${t.id}</span>
-        <div><h3>${t.title}</h3><div class="tag">คลังข้อสอบเสริม • ตะลุยโจทย์</div></div></div>
+        <div><h3>${t.title}</h3><div class="tag">คลังข้อสอบเสริม • ฝึกรายหมวด</div></div></div>
       <div class="btns">
         <button class="btn quiz alt" onclick="startBookTopic(${t.id})">ทำข้อสอบหัวข้อนี้</button>
       </div></div>`;
@@ -4235,7 +4238,7 @@ function renderBookGrid(){
 }
 function startBookTopic(id){
   const t=BOOK_TOPICS.find(x=>x.id===id);
-  S={list:shuffle(buildQ(t)),idx:0,score:0,wrong:[],answered:false,title:`ตะลุยโจทย์ • ${t.title}`,topicId:id,book:true};
+  S={list:shuffle(buildQ(t)),idx:0,score:0,wrong:[],answered:false,title:`ฝึกรายหมวด • ${t.title}`,topicId:id,book:true};
   setTab(null);show('quiz');renderQ();
 }
 function startBookMock(){
@@ -4245,7 +4248,7 @@ function startBookMock(){
   shuffle(all);
   const N=Math.min(40,all.length);
   all=all.slice(0,N);
-  S={list:all,idx:0,score:0,wrong:[],answered:false,title:"ตะลุยโจทย์ • สุ่มรวม "+N+" ข้อ",topicId:null,book:true,bookMock:true};
+  S={list:all,idx:0,score:0,wrong:[],answered:false,title:"ฝึกรายหมวด • สุ่มรวม "+N+" ข้อ",topicId:null,book:true,bookMock:true};
   show('quiz');renderQ();
 }
 function renderQ(){

@@ -7,18 +7,17 @@
     const paths = {book:'M12 6c-3-2-7-2-10-1v14c3-1 7-1 10 1m0-14c3-2 7-2 10-1v14c-3-1-7-1-10 1V6',file:'M14 2H5v20h14V7l-5-5v6h5M8 12h8M8 16h8',layers:'m12 3 10 5-10 5L2 8l10-5Zm-10 10 10 5 10-5M2 18l10 5 10-5',search:'M21 21l-5-5M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0',menu:'M3 6h18M3 12h18M3 18h18'};
     return paths[name]?`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${paths[name]}"/></svg>`:esc(name);
   }
-  function href(file,hash='') {
-    const item=catalog.find(p=>p.file===file);
-    return (item&&!item.standalone?'study.html?page='+encodeURIComponent(item.id):file)+(hash?('#'+hash.replace(/^#/,'')):'');
-  }
+  function href(file,hash=''){return file+(hash?('#'+hash.replace(/^#/,'')):'');}
   window.StudyUI={escape:esc,icon,href};
+  if(window.__studyShellReady)return;
+  window.__studyShellReady=true;
   const file = location.pathname.split('/').pop() || 'index.html';
   const sprintPage = catalog.find(p=>p.sprint===file);
   const sprint = !!sprintPage;
   const page = catalog.find(p=>p.file===file);
   const groups = {agencies:'กำลังเตรียมสอบ',resources:'กฎหมายและตัวบท',english:'ภาษาอังกฤษ',archive:'หน่วยงานที่สอบแล้ว'};
   const bar = document.createElement('div');bar.className='app-bar';
-  bar.innerHTML=`<div class="app-bar-inner"><a class="app-brand" href="index.html" aria-label="คลังติว กลับหน้าเลือกหน่วยงาน"><span class="app-brand-mark">${icon('book')}</span><span>คลังติว</span></a><span class="app-breadcrumb">${esc(sprint?sprintPage.short+' / '+(sprintPage.sprintCount||60)+' ข้อ':page?page.short:'เลือกหน่วยงาน')}</span><details class="app-menu"><summary>${icon('menu')}<span>หน่วยงาน / หมวด</span></summary><nav aria-label="เลือกหน่วยงานและหมวด" class="app-menu-panel"><a class="app-menu-home" href="index.html">หน้าแรก · ทุกหมวด →</a><div class="app-menu-groups">${Object.entries(groups).map(([key,label])=>`<section><h2>${label}</h2>${catalog.filter(p=>p.group===key).map(p=>`<a href="${href(p.file)}"${p.file===file?' aria-current="page"':''}><span>${esc(p.short)}</span>${p.priority?'<small>ลำดับ '+p.priorityRank+'</small>':''}</a>${p.sprint?`<a class="app-menu-child" href="${p.sprint}"${p.sprint===file?' aria-current="page"':''}>↳ ${p.sprintCount===100?'สอบเต็มชุด':'ตะลุย'} ${esc(p.short)} ${p.sprintCount||60} ข้อ</a>`:''}`).join('')}</section>`).join('')}</div></nav></details></div>`;
+  bar.innerHTML=`<div class="app-bar-inner"><a class="app-brand" href="index.html" aria-label="คลังติว กลับหน้าเลือกหน่วยงาน"><span class="app-brand-mark">${icon('book')}</span><span>คลังติว</span></a><span class="app-breadcrumb">${esc(sprint?sprintPage.short+' / '+(sprintPage.sprintCount||60)+' ข้อ':page?page.short:'เลือกหน่วยงาน')}</span><details class="app-menu"><summary>${icon('menu')}<span>หน่วยงาน / หมวด</span></summary><nav aria-label="เลือกหน่วยงานและหมวด" class="app-menu-panel"><a class="app-menu-home" href="index.html">หน้าแรก · ทุกหมวด →</a><div class="app-menu-groups">${Object.entries(groups).map(([key,label])=>`<section><h2>${label}</h2>${catalog.filter(p=>p.group===key&&p.hub!==false).map(p=>`<a href="${href(p.file)}"${p.file===file?' aria-current="page"':''}><span>${esc(p.short)}</span>${p.total?'<small>'+p.total.toLocaleString('en-US')+' ข้อ</small>':''}</a>${(p.resources||[]).filter(r=>r.file!==p.file).map(r=>`<a class="app-menu-child" href="${href(r.file,r.hash||'')}"${r.file===file?' aria-current="page"':''}>↳ ${esc(r.label)}${r.meta?' · '+esc(r.meta):''}</a>`).join('')}`).join('')}</section>`).join('')}</div></nav></details></div>`;
   document.body.prepend(bar);
   const content = document.querySelector('main') || document.querySelector('body > .wrap');
   if(content){if(!content.id)content.id='app-content';content.tabIndex=-1;const skip=document.createElement('a');skip.className='app-skip';skip.href='#'+content.id;skip.textContent='ข้ามไปเนื้อหา';document.body.prepend(skip);}
@@ -30,7 +29,7 @@
   try{if(page)localStorage.setItem('study:last-page',JSON.stringify({file,hash:location.hash}));}catch(_){}
   const header = document.querySelector('body > header');
   if(header){
-    header.querySelectorAll('a[href="index.html"]').forEach(a=>a.hidden=true);
+    header.querySelectorAll('a[href="index.html"]').forEach(a=>{a.hidden=true;a.style.display='none';});
     if(sprint){const n=header.querySelector('nav');if(n)n.hidden=true;}
     if(page&&(page.group==='agencies'||page.group==='archive')){
       const h=header.querySelector('h1'),sub=header.querySelector('.sub');
@@ -39,13 +38,32 @@
     }
   }
   if(page?.id==='opsmoac')document.querySelectorAll('body > .wrap > .intro-card, #home > .intro-card').forEach(card=>{if(!card.querySelector('a[href="opsmoac-sprint.html"]'))return;const walker=document.createTreeWalker(card,NodeFilter.SHOW_TEXT);while(walker.nextNode())walker.currentNode.nodeValue=walker.currentNode.nodeValue.replace(/(?:60|100)(?=\s*(ข้อ|โจทย์))/g,'300').replace(/3 ชุด(?:ฝึก)?/g,'3 ชุด ชุดละ 100 ข้อ');});
-  const tabInfo={home:['อ่านเนื้อหา','read'],book:['ฝึกแยกหมวด','practice'],mock:['ข้อสอบรวม','exam'],laws:['สรุปกฎหมาย','summary'],src:['ตัวบทฉบับเต็ม','sources']};
+  const tabInfo={home:['อ่านเนื้อหา','read'],laws:['จุดต้องท่อง','summary'],book:['ฝึกรายหมวด','practice'],mock:['จำลองสอบ','exam'],src:['ตัวบทฉบับเต็ม','sources']};
   if(page?.research){
     const research=document.createElement('p');research.className='app-research-link';
-    const link=document.createElement('a');link.href=page.research;link.textContent=page.id==='energy'?'ชุดหลักเน้น พ.ร.บ. 50 ข้อ + คำนวณพื้นฐาน · เริ่มติวพลังงาน →':'สรุปเน้นสอบใหม่ + ชุด B เจาะลึก · รวม 200 ข้อ →';research.append(link);content.prepend(research);
-    const daily=document.createElement('p');daily.className='app-research-link';
-    const dailyLink=document.createElement('a');dailyLink.href='exam-14.html#day-1-'+page.id;dailyLink.textContent='ใหม่ · บทติว 14 วัน วันละ 3–4 ชั่วโมง + ฝึกเขียนตอบ →';daily.append(dailyLink);content.prepend(daily);
+    research.innerHTML='<span class="app-research-label">ลัดไปที่</span>';
+    const link=document.createElement('a');link.href=page.research;
+    link.textContent=page.id==='energy'?'สรุปเน้นสอบ + ชุดโจทย์ →':'สรุปเน้นสอบ + ชุด B เจาะลึก →';
+    const daily=document.createElement('a');daily.href='exam-14.html#day-1-'+page.id;
+    daily.textContent='แผนติว 14 วัน →';
+    research.append(link,daily);content.prepend(research);
   }
+  /* แถบ "ชุดอื่นของหน่วยงานนี้" — สร้างจาก resources ในแคตาล็อก
+     ทำให้สลับระหว่างคลังหลัก ชุดเข้มข้น ชุดเก็ง และคู่มือ ได้โดยไม่ต้องย้อนกลับหน้าแรก */
+  function addAgencyRail(tabs){
+    const owner = page || catalog.find(p=>p.id===(catalog.find(q=>q.file===file)||{}).parent)
+                || catalog.find(p=>(p.resources||[]).some(r=>r.file===file));
+    if(!owner)return;
+    const siblings=(owner.resources||[]).filter(r=>r.file!==owner.file&&r.file!==owner.sprint);
+    if(!siblings.length)return;
+    const rail=document.createElement('nav');
+    rail.className='app-agency-rail';
+    rail.setAttribute('aria-label','ชุดอื่นของ '+owner.short);
+    rail.innerHTML='<span class="app-rail-label">ชุดอื่นของ '+esc(owner.short)+'</span>'+
+      siblings.map(r=>`<a href="${href(r.file,r.hash||'')}"${r.file===file?' aria-current="page"':''}>${esc(r.label)}<small>${esc(r.meta||'')}</small></a>`).join('');
+    tabs.after(rail);
+  }
+
   const tabs=document.querySelector('.tabs');
   if(tabs){
     tabs.setAttribute('role','navigation');tabs.setAttribute('aria-label','หมวดการเรียน');
@@ -59,13 +77,17 @@
         [...old.attributes].forEach(a=>el.setAttribute(a.name,a.value));el.type='button';el.innerHTML=old.innerHTML;old.replaceWith(el);
       }
       if(tabInfo[el.dataset.tab]){
-        const [label,hash]=tabInfo[el.dataset.tab];el.textContent=label;el.style.order=Object.keys(tabInfo).indexOf(el.dataset.tab);
+        const [label,hash]=tabInfo[el.dataset.tab];
+        const step=el.querySelector('.s');
+        el.textContent=label;if(step)el.prepend(step);
+        el.style.order=Object.keys(tabInfo).indexOf(el.dataset.tab);
         el.addEventListener('click',()=>rememberHash(hash));
       }else if(el.tagName==='A'&&catalog.some(p=>p.sprint===el.getAttribute('href'))){
-        const bank=catalog.find(p=>p.sprint===el.getAttribute('href'));el.textContent=(bank.sprintCount===100?'สอบเต็มชุด ':'ตะลุย ')+(bank.sprintCount||60)+' ข้อ ↗';el.removeAttribute('style');el.classList.add('app-sprint-tab');el.style.order=5;
+        const bank=catalog.find(p=>p.sprint===el.getAttribute('href'));el.textContent='จำลองสอบ '+(bank.sprintCount||60)+' ข้อ ↗';el.removeAttribute('style');el.classList.add('app-sprint-tab');el.style.order=5;
       }
     });
     if(tabs.querySelector('[data-tab]'))[...tabs.children].sort((a,b)=>Number(a.style.order)-Number(b.style.order)).forEach(el=>tabs.append(el));
+    addAgencyRail(tabs);
   } else if(page&&page.group==='english') {
     const nav=document.createElement('nav');nav.className='app-local-nav';nav.setAttribute('aria-label','บทเรียนภาษาอังกฤษ');
     nav.innerHTML=`<button type="button" class="app-button">เลือกบทเรียน</button><a href="${href(file==='english.html'?'english-course.html':'english.html')}">${file==='english.html'?'คอร์สภาษาอังกฤษ':'อังกฤษพื้นฐาน'} ↗</a>`;

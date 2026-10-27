@@ -9,6 +9,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="theme.css?v=20261012-402">
+<link rel="stylesheet" href="app-shell.css?v=20261027-ia">
+<script defer src="app-catalog.js?v=20261027-ia"></script>
+<script defer src="app-shell.js?v=20261027-ia"></script>
 </head>
 <body data-app="laws">
 <header>
@@ -27,7 +30,7 @@
 <div class="wrap">
   <div class="tabs">
     <div class="tab active" data-tab="home" onclick="startHome()"><span class="s">1</span>อ่านเนื้อหา</div>
-    <div class="tab" data-tab="mock" onclick="startMock()"><span class="s">2</span>ข้อสอบรวม</div>
+    <div class="tab" data-tab="mock" onclick="startMock()"><span class="s">2</span>จำลองสอบ</div>
     <div class="tab" data-tab="src" onclick="startSources()"><span class="s">3</span>ตัวบทฉบับเต็ม</div>
   </div>
   <div id="home" class="view show">
@@ -35,7 +38,7 @@
       <h2>ใช้ตามลำดับนี้</h2>
       <ol>
         <li><span><b>อ่านเนื้อหา</b> — ไล่อ่านทีละหัวข้อ จบหัวข้อไหนกดทำข้อสอบหัวข้อนั้นเลย</span></li>
-        <li><span><b>ข้อสอบรวม</b> — สุ่มทุกหัวข้อเสมือนสอบจริง ใช้วัดว่าพร้อมหรือยัง</span></li>
+        <li><span><b>จำลองสอบ</b> — สุ่มทุกหัวข้อเสมือนสอบจริง ใช้วัดว่าพร้อมหรือยัง</span></li>
         <li><span><b>ตัวบทฉบับเต็ม</b> — ลิงก์กฎหมายจริงบนเว็บราชการ ใช้ยืนยันตัวเลขก่อนสอบ</span></li>
       </ol>
     </div>
@@ -542,7 +545,7 @@ function startMock(){
   shuffle(all);
   const N=Math.min(100,all.length);
   all=all.slice(0,N);
-  S={list:all,idx:0,score:0,wrong:[],answered:false,title:"ข้อสอบรวมเสมือนจริง • "+N+" ข้อสุ่มทุกฉบับ",topicId:null};
+  S={list:all,idx:0,score:0,wrong:[],answered:false,title:"จำลองสอบเสมือนจริง • "+N+" ข้อสุ่มทุกฉบับ",topicId:null};
   show('quiz');renderQ();
 }
 

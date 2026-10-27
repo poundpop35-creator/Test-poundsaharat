@@ -1,52 +1,237 @@
-.home-wrap{max-width:1080px;margin:auto;padding:38px 24px 28px}.home-intro{display:flex;justify-content:space-between;align-items:center;gap:24px;margin-bottom:26px}.home-kicker{color:var(--ink-soft);font-size:13px;font-weight:700;letter-spacing:.06em;margin:0 0 8px}.home-intro h1{font-size:clamp(28px,4vw,40px);letter-spacing:-.7px;line-height:1.35;margin:0;font-weight:700}.home-intro h1 span{color:var(--a)}.home-intro p:not(.home-kicker){color:var(--ink-soft);margin:10px 0 0;font-size:15px}.home-focus{border-left:3px solid var(--a-bd);padding:5px 0 5px 18px;text-decoration:none;color:var(--a);font-size:14px;flex-shrink:0}.home-focus strong,.home-focus span{display:block}.home-focus span{color:var(--ink-soft);font-size:13px;margin-top:3px}.home-search{display:flex;align-items:center;gap:10px;max-width:660px;min-height:54px;border:1px solid var(--line);border-radius:12px;background:white;padding:0 15px;box-shadow:0 3px 10px rgba(16,24,40,.04)}.home-search:focus-within{outline:3px solid var(--a-bd);outline-offset:2px}.home-search svg{width:20px;color:var(--ink-soft);flex:none}.home-search input{border:0;outline:none;background:transparent;font:inherit;font-size:16px;min-width:0;width:100%;height:52px;color:var(--ink)}.home-search button{border:0;background:transparent;color:var(--ink-soft);font:inherit;min-width:44px;min-height:44px;cursor:pointer}.home-categories{display:flex;gap:8px;margin:24px 0 30px;flex-wrap:wrap}.home-categories a{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border:1px solid var(--line);background:var(--card);color:var(--ink-soft);padding:10px 17px;border-radius:10px;min-height:44px;font-size:14px;font-weight:700}.home-categories a[aria-current]{background:var(--a-dk);color:var(--card);border-color:var(--a-dk)}.home-section-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:17px}.home-section-heading h2{font-size:21px;margin:0 0 3px}.home-section-heading p{font-size:14px;color:var(--ink-soft);margin:0}.home-count{white-space:nowrap;font-size:13px;color:var(--ink-soft);background:var(--a-sf);padding:5px 10px;border-radius:20px}.home-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.agency-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:23px;display:flex;flex-direction:column;box-shadow:0 3px 12px #183d2d04}.agency-card.priority{border-color:var(--a-bd);box-shadow:0 3px 14px #1b765c08}.agency-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:17px}.agency-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;flex:none}.agency-icon.sao{background:#EFF4FF;color:#1D4ED8;box-shadow:inset 0 0 0 1px #C3D4FE}.agency-icon.opsmoac{background:#EDFAF0;color:#15803D;box-shadow:inset 0 0 0 1px #B3E6C4}.agency-icon.rd{background:#FFF0F3;color:#BE123C;box-shadow:inset 0 0 0 1px #FBC5D1}.agency-icon.energy{background:#FFF3EC;color:#C2410C;box-shadow:inset 0 0 0 1px #FBCDAE}.agency-icon.diprom{background:#F5F0FF;color:#6D28D9;box-shadow:inset 0 0 0 1px #DCCDFB}.agency-icon.namban{background:#ECFAFE;color:#0E7490;box-shadow:inset 0 0 0 1px #B2E4F3}.agency-icon.dmh{background:#EEEDFD;color:#4338CA;box-shadow:inset 0 0 0 1px #C9C6F9}.agency-icon.laws{background:#EAFBF7;color:#0F766E;box-shadow:inset 0 0 0 1px #AEE5DB}.agency-icon.law-sources{background:#F7F6F4;color:#57534E;box-shadow:inset 0 0 0 1px #DCD8D2}.agency-icon.compare{background:#F3F5F8;color:#475569;box-shadow:inset 0 0 0 1px #D2DAE3}.agency-icon.english{background:#FFF0F6;color:#DB2777;box-shadow:inset 0 0 0 1px #FAC4DA}.agency-icon.english-course{background:#FDF0FD;color:#A21CAF;box-shadow:inset 0 0 0 1px #F3C2F6}.agency-icon svg{width:24px;height:24px}.agency-badge{font-size:12px;font-weight:700;padding:5px 10px;border-radius:20px;background:var(--a-sf);color:var(--a-dk)}.agency-badge.archived{color:var(--ink-faint);background:var(--paper)}.agency-card h3{font-size:19px;line-height:1.5;margin:0}.agency-card h3 a{display:flex;justify-content:space-between;gap:15px;color:inherit;text-decoration:none}.agency-card h3 a span{color:var(--ink-faint);font-size:19px}.agency-card h3 a:hover{text-decoration:underline;text-underline-offset:4px}.agency-role{font-size:14px;color:var(--ink-soft);margin:4px 0 0}.agency-description{font-size:14px;color:var(--ink-faint);line-height:1.65;margin:13px 0 19px}.agency-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:auto;padding-top:3px}.agency-actions a{display:flex;align-items:center;justify-content:center;min-height:42px;border:1px solid var(--line);padding:8px 12px;border-radius:8px;color:var(--ink-soft);text-decoration:none;font-size:13px;font-weight:700;flex:1;white-space:nowrap}.agency-actions a:hover{background:var(--a-sf);border-color:var(--a-bd)}.agency-actions .agency-open{flex:0 1 auto;border:0;padding-left:0}.sprint-feature{background:var(--a-sf);border-radius:10px;padding:13px 14px;margin:0 0 17px;display:flex;align-items:center;justify-content:space-between;gap:10px}.sprint-feature strong{display:block;color:var(--a-dk);font-size:14px}.sprint-feature span{display:block;font-size:12px;color:var(--ink-soft);margin-top:3px}.sprint-feature a{display:inline-flex;align-items:center;background:var(--a);color:var(--card);text-decoration:none;border-radius:7px;padding:10px 12px;min-height:44px;font-size:13px;font-weight:700;white-space:nowrap}.home-recent{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#eaf0fa;border:1px solid #ceddef;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:14px;color:#355a7c}.home-recent a{color:var(--a);font-weight:700;white-space:nowrap;padding:5px 0}.home-help{margin:25px 0 0;border-top:1px solid var(--line);padding-top:16px;font-size:14px;color:var(--ink-soft)}.home-help summary{cursor:pointer;min-height:44px;padding:8px 0;color:var(--ink-soft)}.home-help ol{margin:4px 0 10px;padding-left:22px}.home-help li{margin-bottom:7px}.home-empty{text-align:center;background:white;border:1px dashed var(--line);border-radius:12px;padding:35px 18px}.home-empty p{color:var(--ink-soft)}.home-empty button{font:inherit;color:var(--a);background:var(--a-sf);border:1px solid var(--a-bd);border-radius:8px;min-height:44px;padding:8px 16px;cursor:pointer}.home-footer{max-width:1080px;margin:auto;border-top:1px solid var(--line);padding:20px 24px;color:var(--ink-faint);font-size:12px}.home-footer a{color:var(--ink-soft)}.home-noscript a{display:block;padding:10px}
-@media(max-width:650px){.home-wrap{padding:25px 18px 22px}.home-intro{margin-bottom:20px;display:block}.home-intro h1{font-size:29px}.home-intro h1 span{display:block}.home-focus{display:block;margin-top:18px;padding:12px 16px;background:var(--a-sf);border-radius:10px}.home-intro p:not(.home-kicker){font-size:14px}.home-categories{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:18px 0 25px}.home-categories a{font-size:13px;padding:10px 6px}.home-cards{grid-template-columns:1fr;gap:14px}.home-section-heading h2{font-size:19px}.home-section-heading p{font-size:13px}.agency-card{padding:19px}.agency-card h3{font-size:18px}.agency-top{margin-bottom:13px}.agency-description{margin:11px 0 16px}.agency-actions a{padding:8px;font-size:12px}.sprint-feature{flex-wrap:wrap}.sprint-feature a{flex-grow:1;text-align:center;justify-content:center}.home-count{font-size:12px}.home-recent{flex-wrap:wrap}.home-footer{padding:18px;font-size:12px}}
-.agency-card:has(.agency-icon.opsmoac){border-left:4px solid #15803D}.agency-card:has(.agency-icon.rd){border-left:4px solid #BE123C}.agency-card:has(.agency-icon.energy){border-left:4px solid #C2410C}.agency-card:has(.agency-icon.diprom){border-left:4px solid #6D28D9}.agency-card:has(.agency-icon.namban){border-left:4px solid #0E7490}.agency-card:has(.agency-icon.laws){border-left:4px solid #0F766E}.agency-card:has(.agency-icon.law-sources){border-left:4px solid #57534E}.agency-card:has(.agency-icon.compare){border-left:4px solid #475569}.agency-card:has(.agency-icon.english){border-left:4px solid #DB2777}.agency-card:has(.agency-icon.english-course){border-left:4px solid #A21CAF}
+/* ============================================================
+   app-home.css — หน้าแรกของคลังติว
+   โครง: hero → แถบค้นหา → หมวด → การ์ดหน่วยงาน
+   การ์ดทุกใบมีโครงเดียวกัน เพื่อให้กวาดตาหาของที่ต้องการได้เร็ว
+   ============================================================ */
 
-/* การ์ดแต่ละหน่วยงานรับสีประจำตัว ปุ่มและลิงก์ข้างในจึงเปลี่ยนตาม */
-.agency-card:has(.agency-icon.sao){--a:#1D4ED8;--a-dk:#1E3A8A;--a-sf:#EFF4FF;--a-bd:#C3D4FE;border-left:4px solid #1D4ED8}
-.agency-card:has(.agency-icon.opsmoac){--a:#15803D;--a-dk:#14532D;--a-sf:#EDFAF0;--a-bd:#B3E6C4;border-left:4px solid #15803D}
-.agency-card:has(.agency-icon.rd){--a:#BE123C;--a-dk:#881337;--a-sf:#FFF0F3;--a-bd:#FBC5D1;border-left:4px solid #BE123C}
-.agency-card:has(.agency-icon.energy){--a:#C2410C;--a-dk:#7C2D12;--a-sf:#FFF3EC;--a-bd:#FBCDAE;border-left:4px solid #C2410C}
-.agency-card:has(.agency-icon.diprom){--a:#6D28D9;--a-dk:#4C1D95;--a-sf:#F5F0FF;--a-bd:#DCCDFB;border-left:4px solid #6D28D9}
-.agency-card:has(.agency-icon.namban){--a:#0E7490;--a-dk:#164E63;--a-sf:#ECFAFE;--a-bd:#B2E4F3;border-left:4px solid #0E7490}
-.agency-card:has(.agency-icon.laws){--a:#0F766E;--a-dk:#134E4A;--a-sf:#EAFBF7;--a-bd:#AEE5DB;border-left:4px solid #0F766E}
-.agency-card:has(.agency-icon.law-sources){--a:#57534E;--a-dk:#292524;--a-sf:#F7F6F4;--a-bd:#DCD8D2;border-left:4px solid #57534E}
-.agency-card:has(.agency-icon.compare){--a:#475569;--a-dk:#1E293B;--a-sf:#F3F5F8;--a-bd:#D2DAE3;border-left:4px solid #475569}
-.agency-card:has(.agency-icon.english){--a:#DB2777;--a-dk:#9D174D;--a-sf:#FFF0F6;--a-bd:#FAC4DA;border-left:4px solid #DB2777}
-.agency-card:has(.agency-icon.english-course){--a:#A21CAF;--a-dk:#701A75;--a-sf:#FDF0FD;--a-bd:#F3C2F6;border-left:4px solid #A21CAF}
+.home-wrap{max-width:1120px;margin:auto;padding:30px 24px 32px}
 
-/* ---- สองสนามที่ใกล้ถึงที่สุด (เร่งสอบ) ---- */
-.home-sprintplan{margin:0 0 28px}
-.home-sprintplan h2{font-size:17px;margin:0 0 12px;color:var(--ink)}
-.plan-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.plan-card{
-  display:flex;flex-direction:column;gap:7px;text-decoration:none;color:inherit;
+/* ---------- 1. หัวหน้า ---------- */
+.home-hero{
+  position:relative;margin:0 0 26px;padding:26px 28px;
+  background:linear-gradient(150deg,var(--a-tint,#EDF1F6) 0%,var(--card) 70%);
+  border:1px solid var(--line);border-radius:20px;
+}
+.home-kicker{
+  font-family:'Kanit','Sarabun',sans-serif;font-size:12.5px;font-weight:600;
+  letter-spacing:.06em;color:var(--ink-faint);margin:0 0 8px;
+}
+.home-hero h1{
+  font-family:'Kanit','Sarabun',sans-serif;
+  font-size:clamp(27px,3.6vw,40px);line-height:1.25;margin:0;font-weight:700;letter-spacing:-.5px;
+}
+.home-hero h1 span{color:var(--a);display:block}
+.home-lead{color:var(--ink-soft);margin:12px 0 0;font-size:15.5px;line-height:1.65;max-width:56em}
+.home-lead b{color:var(--ink);font-weight:600}
+
+.home-stats{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
+.home-stats span{
+  display:inline-flex;align-items:baseline;gap:6px;
+  background:var(--card);border:1px solid var(--line);border-radius:999px;
+  padding:7px 15px;font-size:13.5px;color:var(--ink-soft);
+  font-family:'Kanit','Sarabun',sans-serif;
+}
+.home-stats b{font-size:16px;font-weight:700;color:var(--ink)}
+
+.home-focus{
+  display:flex;flex-direction:column;gap:3px;margin-top:18px;
+  text-decoration:none;border-radius:13px;padding:13px 17px;
+  background:var(--card);border:1px solid var(--a-bd);
+  box-shadow:0 2px 10px rgba(16,24,40,.05);
+  transition:border-color .15s,box-shadow .15s,transform .15s;
+}
+.home-focus:hover{border-color:var(--a);box-shadow:0 8px 22px rgba(16,24,40,.09);transform:translateY(-1px)}
+.home-focus strong{font-family:'Kanit','Sarabun',sans-serif;font-size:15px;color:var(--ink)}
+.home-focus span{color:var(--a);font-size:13.5px;font-weight:500}
+
+/* ---------- 2. กลับไปต่อ ---------- */
+.home-recent{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+  background:var(--a-sf);border:1px solid var(--a-bd);border-radius:12px;
+  padding:12px 17px;margin:0 0 18px;font-size:14px;color:var(--ink-soft);
+}
+.home-recent a{color:var(--a);font-weight:700;white-space:nowrap;padding:4px 0;text-decoration:none}
+.home-recent a:hover{text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- 3. ค้นหา + หมวด ---------- */
+.home-search{
+  display:flex;align-items:center;gap:11px;max-width:660px;min-height:52px;
+  border:1px solid var(--line);border-radius:13px;background:var(--card);padding:0 16px;
+  box-shadow:0 2px 8px rgba(16,24,40,.04);
+}
+.home-search:focus-within{border-color:var(--a);box-shadow:var(--focus)}
+.home-search svg{width:19px;height:19px;color:var(--ink-faint);flex:none}
+.home-search input{border:0;outline:none;background:transparent;font:inherit;font-size:16px;min-width:0;width:100%;height:50px;color:var(--ink)}
+.home-search button{border:0;background:transparent;color:var(--ink-faint);font:inherit;font-size:20px;min-width:40px;min-height:40px;cursor:pointer;border-radius:8px}
+.home-search button:hover{background:var(--a-sf);color:var(--ink)}
+
+.home-categories{display:flex;gap:8px;margin:20px 0 26px;flex-wrap:wrap}
+.home-categories a{
+  display:inline-flex;align-items:center;justify-content:center;text-decoration:none;
+  border:1px solid var(--line);background:var(--card);color:var(--ink-soft);
+  padding:10px 18px;border-radius:999px;min-height:44px;font-size:14px;font-weight:600;
+  font-family:'Kanit','Sarabun',sans-serif;transition:background .15s,color .15s,border-color .15s;
+}
+.home-categories a:hover{border-color:var(--a-bd);color:var(--a);background:var(--a-sf)}
+.home-categories a[aria-current]{background:var(--ink);color:var(--card);border-color:var(--ink)}
+
+.home-section-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:18px}
+.home-section-heading h2{font-family:'Kanit','Sarabun',sans-serif;font-size:21px;margin:0 0 4px;color:var(--ink)}
+.home-section-heading p{font-size:14px;color:var(--ink-soft);margin:0;line-height:1.6}
+.home-count{
+  white-space:nowrap;font-size:13px;color:var(--ink-soft);background:var(--a-sf);
+  border:1px solid var(--a-bd);padding:5px 12px;border-radius:999px;flex:none;
+}
+
+/* ---------- 4. การ์ดหน่วยงาน ---------- */
+.home-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start}
+
+.agency-card{
   background:var(--card);border:1px solid var(--line);border-left:5px solid var(--a);
-  border-radius:16px;padding:18px 19px;box-shadow:0 3px 12px rgba(16,24,40,.05);
-  transition:box-shadow .15s,transform .15s,border-color .15s;
+  border-radius:18px;padding:20px 22px 18px;display:flex;flex-direction:column;
+  box-shadow:0 2px 10px rgba(16,24,40,.04);
+  transition:box-shadow .16s,transform .16s,border-color .16s;
 }
-.plan-card:hover{box-shadow:0 8px 26px rgba(16,24,40,.1);transform:translateY(-2px);border-color:var(--a-bd)}
-.plan-card.energy{--a:#C2410C;--a-dk:#7C2D12;--a-sf:#FFF3EC;--a-bd:#FBCDAE}
-.plan-card.rd{--a:#BE123C;--a-dk:#881337;--a-sf:#FFF0F3;--a-bd:#FBC5D1}
-.plan-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.plan-top b{font-family:'Kanit','Sarabun',sans-serif;font-size:19px;font-weight:700;color:var(--a-dk)}
-.plan-mid{font-size:13.5px;color:var(--ink-soft);font-weight:600}
-.plan-note{font-size:13.5px;color:var(--ink-faint);line-height:1.65}
-.plan-go{
-  margin-top:6px;align-self:flex-start;
-  font-size:13px;font-weight:700;color:var(--a);
-  background:var(--a-sf);border:1px solid var(--a-bd);
-  border-radius:8px;padding:9px 14px;min-height:40px;
-  display:inline-flex;align-items:center;
+.agency-card:hover{box-shadow:0 10px 30px rgba(16,24,40,.09);transform:translateY(-2px)}
+.agency-card.priority{box-shadow:0 3px 16px color-mix(in srgb,var(--a) 14%,transparent)}
+
+.agency-top{display:flex;align-items:flex-start;gap:14px}
+.agency-icon{
+  width:48px;height:48px;border-radius:14px;flex:none;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Kanit','Sarabun',sans-serif;font-size:16px;font-weight:700;
 }
-.plan-hint{font-size:12.5px;color:var(--ink-faint);margin:11px 0 0}
+.agency-icon svg{width:23px;height:23px}
+.agency-id{min-width:0;flex:1}
+.agency-card h3{font-family:'Kanit','Sarabun',sans-serif;font-size:19px;line-height:1.4;margin:0;font-weight:700}
+.agency-card h3 a{color:var(--ink);text-decoration:none}
+.agency-card h3 a:hover{color:var(--a);text-decoration:underline;text-underline-offset:4px}
+.agency-role{font-size:13.5px;color:var(--ink-soft);margin:3px 0 0;line-height:1.5}
+.agency-total{
+  flex:none;text-align:right;font-family:'Kanit','Sarabun',sans-serif;
+  font-size:11.5px;color:var(--ink-faint);line-height:1.1;
+}
+.agency-total b{display:block;font-size:21px;font-weight:700;color:var(--a-dk);letter-spacing:-.4px}
+
+.agency-badges{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}
+.agency-flag{
+  font-family:'Kanit','Sarabun',sans-serif;font-size:12px;font-weight:600;
+  padding:4px 11px;border-radius:999px;
+  background:var(--a-sf);color:var(--a-dk);border:1px solid var(--a-bd);
+}
+.agency-flag.soft{background:var(--card);color:var(--ink-soft);border-color:var(--line)}
+.agency-flag.quiet{background:var(--paper);color:var(--ink-faint);border-color:var(--line)}
+
+.agency-headline{
+  font-size:13.5px;color:var(--ink-faint);line-height:1.68;margin:13px 0 0;
+}
+
+/* ---- รายการสิ่งที่ทำได้: โครงเดียวกันทุกหน่วยงาน ---- */
+.res-list{display:grid;gap:7px;margin-top:15px}
+.res-row{
+  display:grid;grid-template-columns:32px 1fr auto;align-items:center;gap:12px;
+  padding:11px 13px;border-radius:11px;text-decoration:none;
+  background:var(--paper);border:1px solid transparent;
+  transition:background .14s,border-color .14s;min-height:52px;
+}
+.res-row:hover{background:var(--a-sf);border-color:var(--a-bd)}
+.res-row.strong{background:var(--a-sf);border-color:var(--a-bd)}
+.res-row.strong:hover{background:color-mix(in srgb,var(--a) 10%,var(--card))}
+.res-ico{
+  width:32px;height:32px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;
+  background:var(--card);border:1px solid var(--line);color:var(--a);
+}
+.res-row.strong .res-ico{background:var(--a);border-color:var(--a);color:#fff}
+.res-ico svg{width:17px;height:17px}
+.res-text{min-width:0;display:flex;flex-direction:column;gap:1px}
+.res-text b{font-family:'Kanit','Sarabun',sans-serif;font-size:14.5px;font-weight:600;color:var(--ink)}
+.res-text small{font-size:12.5px;color:var(--ink-faint)}
+.res-go{color:var(--a);font-size:15px;font-weight:700;flex:none}
+
+.res-extras{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
+.res-extras a{
+  font-size:12.5px;font-weight:600;color:var(--ink-soft);text-decoration:none;
+  border:1px solid var(--line);border-radius:8px;padding:7px 11px;min-height:36px;
+  display:inline-flex;align-items:center;font-family:'Kanit','Sarabun',sans-serif;
+}
+.res-extras a:hover{border-color:var(--a-bd);background:var(--a-sf);color:var(--a-dk)}
+
+/* ---------- 5. สถานะว่างและตัวช่วย ---------- */
+.home-empty{text-align:center;background:var(--card);border:1px dashed var(--line);border-radius:14px;padding:38px 20px}
+.home-empty strong{font-family:'Kanit','Sarabun',sans-serif;font-size:17px;display:block;margin-bottom:6px}
+.home-empty p{color:var(--ink-soft);margin:0 0 14px}
+.home-empty button{
+  font:inherit;font-weight:600;color:var(--a);background:var(--a-sf);
+  border:1px solid var(--a-bd);border-radius:10px;min-height:44px;padding:9px 18px;cursor:pointer;
+}
+
+.home-help{margin:30px 0 0;border-top:1px solid var(--line);padding-top:8px;font-size:14px;color:var(--ink-soft)}
+.home-help summary{
+  cursor:pointer;min-height:46px;padding:12px 0;color:var(--ink);
+  font-family:'Kanit','Sarabun',sans-serif;font-weight:600;
+}
+.home-legend{display:grid;gap:10px;margin:4px 0 14px}
+.home-legend dt{font-family:'Kanit','Sarabun',sans-serif;font-weight:600;color:var(--ink);font-size:14.5px}
+.home-legend dd{margin:2px 0 0;color:var(--ink-soft);font-size:14px;line-height:1.65}
+@media(min-width:720px){
+  .home-legend{grid-template-columns:auto 1fr;column-gap:20px;row-gap:12px;align-items:baseline}
+  .home-legend dt{text-align:right;white-space:nowrap}
+  .home-legend dd{margin:0}
+}
+
+.home-footer{
+  max-width:1120px;margin:auto;border-top:1px solid var(--line);
+  padding:22px 24px;color:var(--ink-faint);font-size:12.5px;
+}
+.home-footer a{color:var(--ink-soft)}
+.home-noscript a{display:block;padding:11px 0;border-bottom:1px solid var(--line)}
+
+/* ---------- 6. จอเล็ก ---------- */
+@media(max-width:860px){
+  .home-cards{grid-template-columns:1fr;gap:16px}
+}
 @media(max-width:650px){
-  .plan-row{grid-template-columns:1fr;gap:13px}
-  .plan-card{padding:16px 17px}
-  .plan-top b{font-size:17.5px}
+  .home-wrap{padding:20px 16px 24px}
+  .home-hero{padding:20px 18px;border-radius:16px;margin-bottom:20px}
+  .home-lead{font-size:14.5px}
+  .home-stats span{font-size:12.5px;padding:6px 12px}
+  .home-stats b{font-size:15px}
+  .home-categories{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0 22px}
+  .home-categories a{font-size:13.5px;padding:10px 8px}
+  .home-section-heading h2{font-size:19px}
+  .agency-card{padding:17px 17px 15px;border-radius:15px}
+  .agency-icon{width:42px;height:42px;border-radius:12px;font-size:14.5px}
+  .agency-card h3{font-size:17.5px}
+  .agency-total b{font-size:19px}
+  .res-row{padding:10px 11px;gap:10px;grid-template-columns:30px 1fr auto}
+  .res-ico{width:30px;height:30px}
+  .res-text b{font-size:14px}
+  .home-footer{padding:18px 16px}
 }
-.plan-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-.plan-go.alt{background:var(--card);border-color:var(--line);color:var(--ink-soft)}
-.plan-go.alt:hover{background:var(--a-sf);border-color:var(--a-bd);color:var(--a-dk)}
-.plan-card a.plan-go{text-decoration:none}
-.agency-card:has(.agency-icon.dmh){--a:#4338CA;--a-dk:#312E81;--a-sf:#EEEDFD;--a-bd:#C9C6F9;border-left:4px solid #4338CA}
+
+/* ---------- 7. สีประจำหน่วยงานบนการ์ด ---------- */
+.agency-icon.sao{background:#EFF4FF;color:#1D4ED8;box-shadow:inset 0 0 0 1px #C3D4FE}
+.agency-icon.opsmoac{background:#EDFAF0;color:#15803D;box-shadow:inset 0 0 0 1px #B3E6C4}
+.agency-icon.rd{background:#FFF0F3;color:#BE123C;box-shadow:inset 0 0 0 1px #FBC5D1}
+.agency-icon.energy{background:#FFF3EC;color:#C2410C;box-shadow:inset 0 0 0 1px #FBCDAE}
+.agency-icon.dmh{background:#EEEDFD;color:#4338CA;box-shadow:inset 0 0 0 1px #C9C6F9}
+.agency-icon.diprom{background:#F5F0FF;color:#6D28D9;box-shadow:inset 0 0 0 1px #DCCDFB}
+.agency-icon.namban{background:#ECFAFE;color:#0E7490;box-shadow:inset 0 0 0 1px #B2E4F3}
+.agency-icon.laws{background:#EAFBF7;color:#0F766E;box-shadow:inset 0 0 0 1px #AEE5DB}
+.agency-icon.law-sources{background:#F7F6F4;color:#57534E;box-shadow:inset 0 0 0 1px #DCD8D2}
+.agency-icon.compare{background:#F3F5F8;color:#475569;box-shadow:inset 0 0 0 1px #D2DAE3}
+.agency-icon.english{background:#FFF0F6;color:#DB2777;box-shadow:inset 0 0 0 1px #FAC4DA}
+.agency-icon.english-course{background:#FDF0FD;color:#A21CAF;box-shadow:inset 0 0 0 1px #F3C2F6}
+
+.agency-card:has(.agency-icon.sao){--a:#1D4ED8;--a-dk:#1E3A8A;--a-sf:#EFF4FF;--a-bd:#C3D4FE}
+.agency-card:has(.agency-icon.opsmoac){--a:#15803D;--a-dk:#14532D;--a-sf:#EDFAF0;--a-bd:#B3E6C4}
+.agency-card:has(.agency-icon.rd){--a:#BE123C;--a-dk:#881337;--a-sf:#FFF0F3;--a-bd:#FBC5D1}
+.agency-card:has(.agency-icon.energy){--a:#C2410C;--a-dk:#7C2D12;--a-sf:#FFF3EC;--a-bd:#FBCDAE}
+.agency-card:has(.agency-icon.dmh){--a:#4338CA;--a-dk:#312E81;--a-sf:#EEEDFD;--a-bd:#C9C6F9}
+.agency-card:has(.agency-icon.diprom){--a:#6D28D9;--a-dk:#4C1D95;--a-sf:#F5F0FF;--a-bd:#DCCDFB}
+.agency-card:has(.agency-icon.namban){--a:#0E7490;--a-dk:#164E63;--a-sf:#ECFAFE;--a-bd:#B2E4F3}
+.agency-card:has(.agency-icon.laws){--a:#0F766E;--a-dk:#134E4A;--a-sf:#EAFBF7;--a-bd:#AEE5DB}
+.agency-card:has(.agency-icon.law-sources){--a:#57534E;--a-dk:#292524;--a-sf:#F7F6F4;--a-bd:#DCD8D2}
+.agency-card:has(.agency-icon.compare){--a:#475569;--a-dk:#1E293B;--a-sf:#F3F5F8;--a-bd:#D2DAE3}
+.agency-card:has(.agency-icon.english){--a:#DB2777;--a-dk:#9D174D;--a-sf:#FFF0F6;--a-bd:#FAC4DA}
+.agency-card:has(.agency-icon.english-course){--a:#A21CAF;--a-dk:#701A75;--a-sf:#FDF0FD;--a-bd:#F3C2F6}
