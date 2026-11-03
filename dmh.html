@@ -11,20 +11,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="theme.css?v=20261012-402">
 <link rel="stylesheet" href="app-shell.css?v=20261027-ia">
-<script defer src="app-catalog.js?v=20261027-ia"></script>
+<script defer src="app-catalog.js?v=20261103"></script>
 <script defer src="app-shell.js?v=20261027-ia"></script>
 </head>
 <body data-app="dmh">
 <header>
   <div class="wrap">
     <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:inherit;opacity:.85;text-decoration:none;font-family:'Kanit';font-size:14px;font-weight:500;margin-bottom:10px">← กลับหน้าแรก</a>
-    <div class="eyebrow">ชุดเตรียมตัวล่วงหน้า • ยังไม่ยืนยันขอบเขตกับประกาศ</div>
+    <div class="eyebrow">คลังพื้นฐานเดิม • มีชุดใหม่ตามภาพประกาศแล้ว</div>
     <h1>นักวิเคราะห์นโยบายและแผนปฏิบัติการ</h1>
     <div class="sub">กรมสุขภาพจิต • กระทรวงสาธารณสุข</div>
     <div class="meta-row">
       <span class="chip">แกนร่วม <b>6 บท</b></span>
       <span class="chip">คลังข้อสอบ <b>78 ข้อ</b></span>
-      <span class="chip">ขอบเขตจริง <b>รออ่านประกาศ</b></span>
+      <span class="chip">ชุดใหม่ <b>ครบ 10 หัวข้อ</b></span>
     </div>
     <div class="cd-bar">
       <div class="cd-t">ยังไม่ตั้งวันสอบ<em>ตั้งวันสอบเองได้เมื่อตัดสินใจสมัคร — แตะที่ป้าย</em></div>
@@ -40,7 +40,7 @@
     <div class="tab" data-tab="mock" onclick="startMock()"><span class="s">4</span>จำลองสอบ</div>
     <div class="tab" data-tab="src" onclick="startSources()"><span class="s">5</span>ตัวบทฉบับเต็ม</div>
   </div>
-  <div id="home" class="view show"><div class="intro-card"><h2>⚠️ ขอบเขตสอบยังไม่ได้ยืนยันกับประกาศ</h2><p>ชุดนี้สร้างจาก <b>แกนร่วมของตำแหน่งนักวิเคราะห์นโยบายและแผนปฏิบัติการ</b> ที่ใช้เหมือนกันแทบทุกหน่วยงาน ยังไม่ได้ตรวจกับประกาศรับสมัครของกรมสุขภาพจิตลงวันที่ 12 ต.ค. 2569 เพราะเปิดไฟล์ประกาศจากเครื่องนี้ไม่ได้</p><p><b>เปิดประกาศแล้วให้ทำ 3 อย่าง:</b> เทียบหัวข้อในประกาศกับ 6 บทด้านล่าง · จดหัวข้อเฉพาะของกรมที่ยังไม่มีในนี้ (เช่น พ.ร.บ. สุขภาพจิต วิสัยทัศน์และโครงสร้างกรม แผนด้านสุขภาพจิต) · ตั้งวันสอบที่ป้ายนับถอยหลังด้านบน</p><a class="btn read" style="max-width:360px;text-decoration:none" href="#" onclick="startSources();return false">เปิดลิงก์ประกาศและแหล่งอ้างอิง ›</a></div>
+  <div id="home" class="view show"><div class="intro-card"><h2>เพิ่มชุดใหม่ตามภาพประกาศแล้ว · 50 ข้อ</h2><p>ชุดใหม่ครอบคลุม 10 หัวข้อ รวมกฎหมายสุขภาพจิต ร่างแผนฯ 14 แผนสุขภาพจิต แผนกรม ความเสี่ยง และ AI ส่วนหน้านี้เป็นคลังพื้นฐานเดิม 78 ข้อ ซึ่งมีเนื้อหาแผนฯ 13 สำหรับอ่านเสริม</p><a class="btn read" href="dmh-syllabus.html">เปิดชุดตามภาพประกาศ ›</a></div>
     <div class="flow">
       <h2>ใช้ตามลำดับนี้</h2>
       <ol>
@@ -56,7 +56,7 @@
       <p>ทั้ง 6 บทคือเรื่องที่ตำแหน่งนักวิเคราะห์นโยบายและแผนปฏิบัติการต้องรู้ไม่ว่าสอบกรมไหน ได้แก่ <b>ระบบแผน 3 ระดับและยุทธศาสตร์ชาติ · แผนพัฒนาฯ ฉบับที่ 13 · บริหารราชการแผ่นดินและบ้านเมืองที่ดี · งบประมาณและวินัยการเงินการคลัง · การวางแผนวิเคราะห์โครงการและประเมินผล · ข้อมูลข่าวสารและ PDPA</b> เมื่ออ่านจบแล้วไปต่อที่แท็บ <b>“ฝึกรายหมวด”</b> ซึ่งมีโจทย์ประยุกต์อีก 30 ข้อ</p>
     </div>
     <div id="topicGrid" class="grid"></div>
-    <div class="disclaimer">⚠️ <b>หมายเหตุ:</b> ชุดนี้เป็น <b>แกนร่วมของตำแหน่ง</b> ไม่ใช่ขอบเขตที่ถอดจากประกาศของกรมสุขภาพจิต และไม่ใช่ข้อสอบจริง เมื่อเปิดประกาศได้แล้วให้เทียบหัวข้อและเพิ่มส่วนเฉพาะของกรม ตัวเลขและมาตราทั้งหมดควรเปิดตัวบทฉบับเต็มในแท็บ “ตัวบทฉบับเต็ม” ยืนยันอีกครั้งก่อนสอบ</div>
+    <div class="disclaimer">⚠️ <b>หมายเหตุ:</b> ชุดนี้เป็น <b>แกนร่วมของตำแหน่ง</b> ไม่ใช่ขอบเขตที่ถอดจากประกาศของกรมสุขภาพจิต และไม่ใช่ข้อสอบจริง สำหรับชุดใหม่ที่ถอดหัวข้อจากภาพประกาศ ให้เปิดลิงก์ด้านบน ตัวเลขและมาตราทั้งหมดควรเปิดตัวบทฉบับเต็มในแท็บ “ตัวบทฉบับเต็ม” ยืนยันอีกครั้งก่อนสอบ</div>
   </div>
   <div id="laws" class="view">
     <div class="intro-card">

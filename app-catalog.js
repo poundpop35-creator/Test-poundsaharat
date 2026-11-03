@@ -60,20 +60,36 @@ window.STUDY_CATALOG = [
   {
     id:'dmh',group:'agencies',short:'กรมสุขภาพจิต',title:'กรมสุขภาพจิต',
     role:'นักวิเคราะห์นโยบายและแผนปฏิบัติการ',icon:'สจ.',color:'dmh',
-    priorityRank:3,bank:78,total:78,
-    flag:'ขอบเขตยังไม่ยืนยันกับประกาศ',
-    headline:'สร้างจากแกนร่วมของตำแหน่ง ยังไม่ได้เทียบกับประกาศ 12 ต.ค. 2569 — เปิดประกาศแล้วค่อยเติมส่วนเฉพาะของกรม',
-    description:'แกนร่วมของตำแหน่ง 78 ข้อ — แผน 3 ระดับ แผน 13 ระเบียบราชการ งบประมาณ ประเมินผล และ PDPA',
+    priorityRank:3,bank:78,total:128,
+    file:'dmh-syllabus.html',standalone:true,
+    flag:'เพิ่มชุดตามภาพประกาศ 50 ข้อ',
+    headline:'ชุดใหม่ครบ 10 หัวข้อในภาพประกาศ รวม พ.ร.บ.สุขภาพจิต ร่างแผนฯ 14 แผนกรม ความเสี่ยง และ AI',
+    description:'ชุดตามภาพประกาศ 50 ข้อ + คลังพื้นฐานเดิม 78 ข้อ พร้อมเฉลย แหล่งอ้างอิง และทวนข้อผิด',
     search:'dmh สุขภาพจิต นักวิเคราะห์นโยบายและแผน',
     actions:['read','practice','sources'],
     resources:[
-      {kind:'read', label:'อ่านเนื้อหา', meta:'6 บท · 48 ข้อท้ายบท', file:'dmh.html', hash:'read'},
+      {kind:'drill',label:'ฝึกรายหมวด · ตามประกาศ',meta:'10 หัวข้อ · 50 ข้อใหม่',file:'dmh-syllabus.html',hash:'topicButtons',strong:true},
+      {kind:'mock',label:'ชุดฝึกครบทุกหัวข้อ',meta:'50 ข้อ · เลือกฝึกหรือซ้อมสอบ',file:'dmh-syllabus.html'},
+      {kind:'read', label:'อ่านพื้นฐานเดิม', meta:'6 บท · 48 ข้อท้ายบท', file:'dmh.html', hash:'read'},
       {kind:'drill',label:'ฝึกรายหมวด',  meta:'3 หมวด · 30 ข้อ',     file:'dmh.html', hash:'practice'}
     ],
     extras:[
       {label:'จุดต้องท่อง',   file:'dmh.html', hash:'summary'},
       {label:'ตัวบทฉบับเต็ม', file:'dmh.html', hash:'sources'}
     ]
+  },
+
+  {
+    id:'drr',file:'drr-syllabus.html',standalone:true,group:'agencies',short:'กรมทางหลวงชนบท',title:'กรมทางหลวงชนบท',
+    role:'นักจัดการงานทั่วไปปฏิบัติการ',icon:'ทช.',color:'rd',priorityRank:4,total:50,bank:50,
+    headline:'ครบ 5 หัวข้อในภาพประกาศ: จัดซื้อจัดจ้าง สารบรรณ การลา งบประมาณ และคอมพิวเตอร์',
+    description:'ข้อฝึกใหม่ 50 ข้อ พร้อมเฉลย แหล่งอ้างอิง ทำต่อจากข้อค้าง และทวนข้อผิด',
+    search:'drr ทช ทางหลวงชนบท นักจัดการงานทั่วไป สารบรรณ การลา',actions:[],
+    resources:[
+      {kind:'read',label:'อ่านสรุปหัวข้อ',meta:'5 หัวข้อ',file:'drr-syllabus.html',hash:'notes'},
+      {kind:'drill',label:'ฝึกรายหมวด',meta:'5 หมวด · 50 ข้อ',file:'drr-syllabus.html',hash:'topicButtons',strong:true},
+      {kind:'mock',label:'ชุดฝึกครบทุกหัวข้อ',meta:'50 ข้อ · เลือกฝึกหรือซ้อมสอบ',file:'drr-syllabus.html'}
+    ],extras:[{label:'ตัวบทและแหล่งอ้างอิง',file:'drr-syllabus.html',hash:'sources'}]
   },
 
   /* ---- คลังกลาง: ใช้ได้มากกว่าหนึ่งหน่วยงาน ---- */
