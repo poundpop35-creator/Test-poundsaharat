@@ -25,6 +25,7 @@ window.STUDY_CATALOG = [
     search:'energy พลังงาน สป.พน. นักวิชาการพลังงาน',
     actions:['read','practice','sources'],
     resources:[
+      {kind:'read',label:'บทติวพร้อมตัวอย่างและแหล่งค้นคว้า',meta:'ทบทวน 3 พ.ย.2569',file:'exam-tutor.html',hash:'energy',strong:true},
       {kind:'read', label:'อ่านเนื้อหา',  meta:'11 บท · 48 ข้อท้ายบท', file:'energy.html', hash:'read'},
       {kind:'drill',label:'ฝึกรายหมวด',   meta:'10 หมวด · 195 ข้อ',    file:'energy.html', hash:'practice'},
       {kind:'mock', label:'จำลองสอบ · ชุดเข้มข้น', meta:'5 ชุด · 500 ข้อ', file:'energy-intensive.html', strong:true},
@@ -48,6 +49,7 @@ window.STUDY_CATALOG = [
     search:'rd ภาษี พัสดุ สรรพากร จัดซื้อจัดจ้าง',
     actions:['read','practice','sources'],
     resources:[
+      {kind:'read',label:'บทติวพร้อมตัวอย่างและแหล่งค้นคว้า',meta:'ทบทวน 3 พ.ย.2569',file:'exam-tutor.html',hash:'rd',strong:true},
       {kind:'read', label:'อ่านเนื้อหา', meta:'8 บท · 81 ข้อท้ายบท', file:'rd.html', hash:'read'},
       {kind:'drill',label:'ฝึกรายหมวด',  meta:'14 หมวด · 217 ข้อ',   file:'rd.html', hash:'practice'},
       {kind:'mock', label:'จำลองสอบ · ชุดเก็ง', meta:'2 ชุด · 200 ข้อ', file:'rd-sprint.html', strong:true}
@@ -60,16 +62,17 @@ window.STUDY_CATALOG = [
   {
     id:'dmh',group:'agencies',short:'กรมสุขภาพจิต',title:'กรมสุขภาพจิต',
     role:'นักวิเคราะห์นโยบายและแผนปฏิบัติการ',icon:'สจ.',color:'dmh',
-    priorityRank:3,bank:78,total:128,
+    priorityRank:3,bank:78,total:178,
     file:'dmh-syllabus.html',standalone:true,
-    flag:'เพิ่มชุดตามภาพประกาศ 50 ข้อ',
+    flag:'เพิ่มชุดตามภาพประกาศ 100 ข้อ',
     headline:'ชุดใหม่ครบ 10 หัวข้อในภาพประกาศ รวม พ.ร.บ.สุขภาพจิต ร่างแผนฯ 14 แผนกรม ความเสี่ยง และ AI',
-    description:'ชุดตามภาพประกาศ 50 ข้อ + คลังพื้นฐานเดิม 78 ข้อ พร้อมเฉลย แหล่งอ้างอิง และทวนข้อผิด',
+    description:'ชุดตามภาพประกาศ 100 ข้อ + คลังพื้นฐานเดิม 78 ข้อ พร้อมเฉลย แหล่งอ้างอิง และทวนข้อผิด',
     search:'dmh สุขภาพจิต นักวิเคราะห์นโยบายและแผน',
     actions:['read','practice','sources'],
     resources:[
-      {kind:'drill',label:'ฝึกรายหมวด · ตามประกาศ',meta:'10 หัวข้อ · 50 ข้อใหม่',file:'dmh-syllabus.html',hash:'topicButtons',strong:true},
-      {kind:'mock',label:'ชุดฝึกครบทุกหัวข้อ',meta:'50 ข้อ · เลือกฝึกหรือซ้อมสอบ',file:'dmh-syllabus.html'},
+      {kind:'read',label:'บทติวพร้อมตัวอย่างและแหล่งค้นคว้า',meta:'ทบทวน 3 พ.ย.2569',file:'exam-tutor.html',hash:'dmh',strong:true},
+      {kind:'drill',label:'ฝึกรายหมวด · ตามประกาศ',meta:'10 หัวข้อ · 100 ข้อใหม่',file:'dmh-syllabus.html',hash:'topicButtons',strong:true},
+      {kind:'mock',label:'ชุดฝึกครบทุกหัวข้อ',meta:'100 ข้อ · เลือกฝึกหรือซ้อมสอบ',file:'dmh-syllabus.html'},
       {kind:'read', label:'อ่านพื้นฐานเดิม', meta:'6 บท · 48 ข้อท้ายบท', file:'dmh.html', hash:'read'},
       {kind:'drill',label:'ฝึกรายหมวด',  meta:'3 หมวด · 30 ข้อ',     file:'dmh.html', hash:'practice'}
     ],
@@ -81,14 +84,15 @@ window.STUDY_CATALOG = [
 
   {
     id:'drr',file:'drr-syllabus.html',standalone:true,group:'agencies',short:'กรมทางหลวงชนบท',title:'กรมทางหลวงชนบท',
-    role:'นักจัดการงานทั่วไปปฏิบัติการ',icon:'ทช.',color:'rd',priorityRank:4,total:50,bank:50,
+    role:'นักจัดการงานทั่วไปปฏิบัติการ',icon:'ทช.',color:'rd',priorityRank:4,total:100,bank:100,
     headline:'ครบ 5 หัวข้อในภาพประกาศ: จัดซื้อจัดจ้าง สารบรรณ การลา งบประมาณ และคอมพิวเตอร์',
-    description:'ข้อฝึกใหม่ 50 ข้อ พร้อมเฉลย แหล่งอ้างอิง ทำต่อจากข้อค้าง และทวนข้อผิด',
+    description:'ข้อฝึกใหม่ 100 ข้อ พร้อมเฉลย แหล่งอ้างอิง ทำต่อจากข้อค้าง และทวนข้อผิด',
     search:'drr ทช ทางหลวงชนบท นักจัดการงานทั่วไป สารบรรณ การลา',actions:[],
     resources:[
+      {kind:'read',label:'บทติวพร้อมตัวอย่างและแหล่งค้นคว้า',meta:'ทบทวน 3 พ.ย.2569',file:'exam-tutor.html',hash:'drr',strong:true},
       {kind:'read',label:'อ่านสรุปหัวข้อ',meta:'5 หัวข้อ',file:'drr-syllabus.html',hash:'notes'},
-      {kind:'drill',label:'ฝึกรายหมวด',meta:'5 หมวด · 50 ข้อ',file:'drr-syllabus.html',hash:'topicButtons',strong:true},
-      {kind:'mock',label:'ชุดฝึกครบทุกหัวข้อ',meta:'50 ข้อ · เลือกฝึกหรือซ้อมสอบ',file:'drr-syllabus.html'}
+      {kind:'drill',label:'ฝึกรายหมวด',meta:'5 หมวด · 100 ข้อ',file:'drr-syllabus.html',hash:'topicButtons',strong:true},
+      {kind:'mock',label:'ชุดฝึกครบทุกหัวข้อ',meta:'100 ข้อ · เลือกฝึกหรือซ้อมสอบ',file:'drr-syllabus.html'}
     ],extras:[{label:'ตัวบทและแหล่งอ้างอิง',file:'drr-syllabus.html',hash:'sources'}]
   },
 

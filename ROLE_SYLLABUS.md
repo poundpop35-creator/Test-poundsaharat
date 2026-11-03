@@ -1,16 +1,31 @@
-# DMH and DRR syllabus practice — 3 November 2026
+# Four-exam study update — 3 November 2026
 
-- DMH: `dmh-syllabus.html`, 50 new questions, five per each of ten supplied headings.
-- DRR: `drr-syllabus.html`, 50 new questions, ten per each of five supplied headings.
-- Scope comes from four user-supplied screenshots: DMH policy/planning analyst and DRR general administration officer. No exam date, duration or question allocation is inferred. The notices state 200 points; this practice uses one point per question.
-- These are original introductory practice questions, not authenticated past examination papers or exhaustive legal coverage. Policy questions emphasize application; draft Plan 14 remains explicitly a draft. Original DMH content includes Plan 13 and remains available as supplementary material.
-- Data: `*-syllabus-data.js`; UI: `role-syllabus.js`; existing pure `role-sprint-core.js` reused unchanged. Each new bank has its own storage key. Existing questions, IDs, answer indices and storage keys are untouched.
-- The catalog shows 128 DMH questions (78 existing + 50 new), and 50 DRR questions. The home and DMH pages refresh the catalog asset version.
+## Delivered
 
-## Validation
+- DMH policy/planning analyst: 100 original practice questions (10 per supplied syllabus topic).
+- DRR general administration officer: 100 original practice questions (20 per supplied syllabus topic).
+- Full practice score: 100 × 2 = 200 points. Partial/retry sessions score 2 points per question. Allocation is for practice, not an assertion of the official per-topic distribution or exam duration.
+- `exam-tutor.html`: 30 substantive lessons across Energy (7), Revenue/procurement (7), DMH (8), DRR (8). Each has an explanation, worked example, pitfall and primary-source reading links. An isolated checklist persists on this browser.
+- Entry points on all four catalog cards and practice pages. All four remain active preparation targets.
+- DMH catalog total 178 includes 78 legacy questions; DRR total 100. Energy and Revenue banks remain unchanged.
 
-`node --test tests/*.test.js` — 53 passing checks.
+## Evidence and limits
 
-`NODE_PATH=/path/to/node_modules node tests/role-syllabus.dom.js` — requires jsdom. Tests both real banks and HTML pages: full 50-question exams, 49/50 scoring, withheld exam explanations, reload/resume with same choice order, bookmarks, cancelled replacement, wrong-answer retry, preservation of legacy storage, blocked storage and missing bank handling.
+DMH/DRR topic lists follow the user's notice screenshots. DMH explicitly includes draft Plan 14 (2571–2575), not Plan 13. The guide separates plan targets from measured outcomes, including the DMH mid-plan update for 2569–2570.
 
-A local Playwright browser could not launch because Chromium was absent and the downloaded browser archive was invalid. DOM checks do not establish visual browser verification.
+Research includes official recruitment pages, statutory text and amendments, government plans, Microsoft/EIA/UNFCCC documentation, public training examples and commercial syllabus/sample listings. Commercial claims and unmatched exam experiences are not evidence of actual exam questions or frequency. Paid material was not obtained/copied. Source categories and links are visible in the guide. No verified actual paper for these exact current rounds was found.
+
+Energy's 30 October applicant-list page was found through search; its attachment could not be read through the redirect. No exam date was invented. Revenue's 30 October listing concerns different positions; it was not used to mark procurement as completed. Some DMH PDF URLs return a moved-page response on fresh access despite indexed full text; the official plan-list page is included as a fallback.
+
+This update does not claim a fresh audit of every question in the legacy Energy/Revenue banks. The new guide adds researched explanations and source navigation, while preserving the existing banks.
+
+## Compatibility and verification
+
+The original 50 questions in each expanded bank are unchanged, including IDs, choices, correct-answer indices, explanations and references. Their storage keys and version remain unchanged. Old 50-question sessions stay 50-question sessions and can resume; starting a new full session uses 100. All legacy banks and the shared core are untouched.
+
+- `node --test tests/*.test.js`: 54 passing tests, including old-50-session acceptance by the expanded banks.
+- `NODE_PATH=/path/to/node_modules node tests/role-syllabus.dom.js`: actual HTML/data/engine flows, both complete 100-question exams, 99/100 = 198/200 points, hidden exam explanations, reload/resume with fixed choice order, bookmark, cancellation, retry, blocked storage, missing bank and unrelated stored data.
+- `NODE_PATH=/path/to/node_modules node tests/exam-tutor.dom.js`: four sections, 30 lessons, internal file/fragment links, persisted checklist and blocked-storage behavior.
+- Original question objects compared against the prior commit; all 100 unchanged. `git diff --check` passes.
+
+These are DOM and data checks; they do not establish visual mobile/browser verification.
