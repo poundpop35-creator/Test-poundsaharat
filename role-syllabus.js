@@ -50,7 +50,7 @@
   $('topicButtons').innerHTML=D.topics.map((t,i)=>`<button data-topic="${i+1}"><span>${i+1}. ${E(t)}</span><small>${D.counts[i]} ข้อ</small></button>`).join('');
   $('notes').innerHTML=D.notes.map((items,i)=>`<details><summary>${i+1}. ${E(D.topics[i])}</summary><ul>${items.map(t=>`<li>${E(t)}</li>`).join('')}</ul></details>`).join('');
   const B=D.briefing;
-  $('briefing').innerHTML=`<p class="kicker">ขอบเขตชุดฝึก · 3 พ.ย.2569</p><h2>วิธีใช้ชุดนี้</h2><p>${E(B.context)}</p><p class="muted">${E(B.method)}</p><ol>${B.studyPlan.map(p=>`<li>${E(p)}</li>`).join('')}</ol><details><summary>ที่มาและข้อจำกัดของชุดฝึก</summary><p>${E(B.provenance)}</p></details>`;
+  $('briefing').innerHTML=`<p class="kicker">ขอบเขตชุดฝึก · ${D.id==='coj'?'11 พ.ย.2569':'3 พ.ย.2569'}</p><h2>วิธีใช้ชุดนี้</h2><p>${E(B.context)}</p><p class="muted">${E(B.method)}</p><ol>${B.studyPlan.map(p=>`<li>${E(p)}</li>`).join('')}</ol><details><summary>ที่มาและข้อจำกัดของชุดฝึก</summary><p>${E(B.provenance)}</p></details>`;
   $('setPicker').innerHTML=D.sets.map(s=>`<option value="${E(s.id)}">${E(s.title)} · ${s.ids.length} ข้อ</option>`).join('');
   $('setPicker').onchange=()=>{selectedSet=D.sets.find(s=>s.id===$('setPicker').value);$('selectedSetLabel').textContent=selectedSet.title;};
   $('selectedSetLabel').textContent=selectedSet.title;
