@@ -13,6 +13,8 @@
      kind:'write'  ฝึกเขียนตอบ       ข้อเขียน/อัตนัย                                   */
 
 window.STUDY_CATALOG = [
+  {id:'coj',group:'agencies',file:'coj.html',standalone:true,short:'ศาลยุติธรรม',title:'สำนักงานศาลยุติธรรม',role:'นักวิชาการพัสดุปฏิบัติการ',icon:'book',color:'rd',priorityRank:1,headline:'ภาค ข. 200 คะแนน • กฎหมาย 60 / พัสดุ 140',description:'14 หัวข้อตามประกาศ และชุดฝึกที่คัดตรงตำแหน่ง',resources:[{kind:'read',file:'coj.html',label:'อ่านหลักสูตรและจุดที่ต้องทวน',meta:'14 หัวข้อ'},{kind:'drill',file:'coj.html',hash:'sets',label:'ทำแนวข้อสอบ',meta:'เนวิเอ้เตอร์และคลังเดิม'}],actions:[]},
+
   {
     id:'energy',group:'agencies',short:'สป.พลังงาน',title:'สำนักงานปลัดกระทรวงพลังงาน',
     role:'นักวิชาการพลังงานปฏิบัติการ',icon:'พน.',color:'energy',
