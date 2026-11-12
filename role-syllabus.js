@@ -72,6 +72,7 @@
   $('next').onclick=()=>{const old=state.session;state.session=C.next(old);if(old===state.session)return;if(state.session.complete){const r=C.score(state.session);state.records=C.progress(state.records,state.session);state.history.unshift({title:state.session.title,mode:state.session.mode,correct:r.correct,total:r.total,date:new Date().toLocaleString('th-TH')});state.history=state.history.slice(0,12);save();result();}else{save();question(true);}};
   $('mark').onclick=()=>{const id=state.session.ids[state.session.idx];state.marked=state.marked.includes(id)?state.marked.filter(x=>x!==id):[...state.marked,id];save();question(false);$('mark').focus({preventScroll:true});};
   $('pause').onclick=dashboard;$('resume').onclick=()=>{if(state.session.complete)result();else{visible('quiz');question(true);}};
+  if($('sourceStart'))$('sourceStart').onclick=()=>{const original=D.sets.find(s=>s.id==='coj1-all'&&s.fixedOrder);if(original)start(original.ids,original.title);};
   $('allPractice').onclick=()=>start(selectedSet.ids,selectedSet.title+' · '+D.agency+' '+selectedSet.ids.length+' ข้อ');
   $('examStart').onclick=()=>start(selectedSet.ids,'ซ้อมสอบ '+selectedSet.title+' · '+selectedSet.ids.length+' ข้อ','exam');
   $('wrongBtn').onclick=()=>start(wrongIds(),'ซ้ำข้อที่ยังตอบผิด');$('markedBtn').onclick=()=>start(state.marked,'ทวนข้อที่ปักไว้');
