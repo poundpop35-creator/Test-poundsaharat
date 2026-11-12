@@ -1,11 +1,18 @@
-(() => {
+(async () => {
   'use strict';
   const D=window.ROLE_SYLLABUS,$=id=>document.getElementById(id);
   const E=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  if(D?.id==='coj'&&window.openCojPersonal){
+    const key='coj:personal-pack:v1',file=$('privateFile'),note=$('privateMsg');
+    let raw=document.getElementById('private-pack')?.textContent;
+    try{raw=raw||localStorage.getItem(key);}catch(_){}
+    if(raw){try{window.openCojPersonal(D,JSON.parse(raw));if(note)note.textContent='เปิดชุด COJ1 ต้นฉบับบนเครื่องนี้แล้ว';}catch(_){if(note)note.textContent='ไฟล์ชุดส่วนตัวไม่สมบูรณ์ กรุณาเลือกไฟล์อีกครั้ง';}}
+    if(file)file.onchange=async()=>{try{const html=await file.files[0].text();const match=html.match(/<script type="application\/json" id="private-pack">([^<]*)<\/script>/);if(!match)throw Error();const rows=JSON.parse(match[1]);if(!Array.isArray(rows)||rows.length!==11||!rows.every(r=>r&&typeof r.q==='string'&&r.c?.length===4&&Number.isInteger(r.a)&&r.a>=0&&r.a<4&&typeof r.e==='string'))throw Error();localStorage.setItem(key,JSON.stringify(rows));location.reload();}catch(_){note.textContent='เลือกไฟล์ COJ1-Private.html ที่ได้รับ หรือเปิดไฟล์นั้นโดยตรงเพื่อฝึกแบบออฟไลน์';}};
+  }
   const ready=D&&D.expectedTotal===(D.id==='coj'?115:100)&&D.questions.length===D.expectedTotal&&new Set(D.questions.map(q=>q.id)).size===D.expectedTotal&&D.questions.every(q=>Number.isInteger(q.topic)&&q.topic>=1&&q.topic<=D.topics.length&&Array.isArray(q.c)&&q.c.length===4&&new Set(q.c).size===4&&Number.isInteger(q.a)&&q.a>=0&&q.a<4&&q.e&&q.reference&&q.sources.every(k=>D.sources[k]))&&D.sets?.length>0&&D.sets[0].ids.length===100&&D.sets.every(s=>s.ids.length>0&&new Set(s.ids).size===s.ids.length&&s.ids.every(id=>D.questions.some(q=>q.id===id)))&&typeof window.createRoleSprintCore==='function';
   if(!ready){$('bankNotice').hidden=false;document.querySelectorAll('[data-launch],#allPractice,#examStart').forEach(b=>b.disabled=true);return;}
   const C=window.createRoleSprintCore(D),KEY=D.storageKey;
-  let selectedSet=D.sets[0];
+  let selectedSet=D.sets.find(s=>s.id===D.initialSet)||D.sets[0];
   let state={records:{},marked:[],history:[],session:null};
   try{const saved=JSON.parse(localStorage.getItem(KEY)||'null');if(saved&&typeof saved==='object'){
     state.records=Object.fromEntries(Object.entries(saved.records||{}).filter(([id,v])=>C.byId.has(id)&&typeof v==='boolean'));
@@ -27,7 +34,10 @@
   }
   function start(ids,title,mode='practice'){
     if(state.session&&!state.session.complete&&!confirm('มีชุดที่ยังทำไม่จบ เริ่มชุดใหม่จะแทนชุดค้าง ต้องการเริ่มใหม่หรือไม่?'))return;
-    state.session=C.createSession(ids,mode,title);save();visible('quiz');question(true);
+    state.session=C.createSession(ids,mode,title);
+    if(D.sets.some(s=>s.fixedOrder&&s.ids===ids))state.session.ids=ids.slice();
+    for(const id of ids)if(C.byId.get(id).fixedOrder)state.session.orders[id]=[0,1,2,3];
+    save();visible('quiz');question(true);
   }
   function feedback(q,order,chosen){
     const labels=['ก','ข','ค','ง'];
@@ -52,6 +62,7 @@
   const B=D.briefing;
   $('briefing').innerHTML=`<p class="kicker">ขอบเขตชุดฝึก · ${D.id==='coj'?'11 พ.ย.2569':'3 พ.ย.2569'}</p><h2>วิธีใช้ชุดนี้</h2><p>${E(B.context)}</p><p class="muted">${E(B.method)}</p><ol>${B.studyPlan.map(p=>`<li>${E(p)}</li>`).join('')}</ol><details><summary>ที่มาและข้อจำกัดของชุดฝึก</summary><p>${E(B.provenance)}</p></details>`;
   $('setPicker').innerHTML=D.sets.map(s=>`<option value="${E(s.id)}">${E(s.title)} · ${s.ids.length} ข้อ</option>`).join('');
+  $('setPicker').value=selectedSet.id;
   $('setPicker').onchange=()=>{selectedSet=D.sets.find(s=>s.id===$('setPicker').value);$('selectedSetLabel').textContent=selectedSet.title;};
   $('selectedSetLabel').textContent=selectedSet.title;
   const used=[...new Set([...D.questions.flatMap(q=>q.sources)])];
