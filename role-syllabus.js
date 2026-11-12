@@ -2,7 +2,7 @@
   'use strict';
   const D=window.ROLE_SYLLABUS,$=id=>document.getElementById(id);
   const E=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const ready=D&&D.expectedTotal===100&&D.questions.length===100&&new Set(D.questions.map(q=>q.id)).size===100&&D.questions.every(q=>Number.isInteger(q.topic)&&q.topic>=1&&q.topic<=D.topics.length&&Array.isArray(q.c)&&q.c.length===4&&new Set(q.c).size===4&&Number.isInteger(q.a)&&q.a>=0&&q.a<4&&q.e&&q.reference&&q.sources.every(k=>D.sources[k]))&&D.sets?.length===1&&D.sets[0].ids.length===100&&new Set(D.sets[0].ids).size===100&&D.sets[0].ids.every(id=>D.questions.some(q=>q.id===id))&&typeof window.createRoleSprintCore==='function';
+  const ready=D&&D.expectedTotal===(D.id==='coj'?115:100)&&D.questions.length===D.expectedTotal&&new Set(D.questions.map(q=>q.id)).size===D.expectedTotal&&D.questions.every(q=>Number.isInteger(q.topic)&&q.topic>=1&&q.topic<=D.topics.length&&Array.isArray(q.c)&&q.c.length===4&&new Set(q.c).size===4&&Number.isInteger(q.a)&&q.a>=0&&q.a<4&&q.e&&q.reference&&q.sources.every(k=>D.sources[k]))&&D.sets?.length>0&&D.sets[0].ids.length===100&&D.sets.every(s=>s.ids.length>0&&new Set(s.ids).size===s.ids.length&&s.ids.every(id=>D.questions.some(q=>q.id===id)))&&typeof window.createRoleSprintCore==='function';
   if(!ready){$('bankNotice').hidden=false;document.querySelectorAll('[data-launch],#allPractice,#examStart').forEach(b=>b.disabled=true);return;}
   const C=window.createRoleSprintCore(D),KEY=D.storageKey;
   let selectedSet=D.sets[0];
@@ -61,8 +61,8 @@
   $('next').onclick=()=>{const old=state.session;state.session=C.next(old);if(old===state.session)return;if(state.session.complete){const r=C.score(state.session);state.records=C.progress(state.records,state.session);state.history.unshift({title:state.session.title,mode:state.session.mode,correct:r.correct,total:r.total,date:new Date().toLocaleString('th-TH')});state.history=state.history.slice(0,12);save();result();}else{save();question(true);}};
   $('mark').onclick=()=>{const id=state.session.ids[state.session.idx];state.marked=state.marked.includes(id)?state.marked.filter(x=>x!==id):[...state.marked,id];save();question(false);$('mark').focus({preventScroll:true});};
   $('pause').onclick=dashboard;$('resume').onclick=()=>{if(state.session.complete)result();else{visible('quiz');question(true);}};
-  $('allPractice').onclick=()=>start(selectedSet.ids,selectedSet.title+' · '+D.agency+' 100 ข้อ');
-  $('examStart').onclick=()=>start(selectedSet.ids,'ซ้อมสอบ '+selectedSet.title+' · 100 ข้อ','exam');
+  $('allPractice').onclick=()=>start(selectedSet.ids,selectedSet.title+' · '+D.agency+' '+selectedSet.ids.length+' ข้อ');
+  $('examStart').onclick=()=>start(selectedSet.ids,'ซ้อมสอบ '+selectedSet.title+' · '+selectedSet.ids.length+' ข้อ','exam');
   $('wrongBtn').onclick=()=>start(wrongIds(),'ซ้ำข้อที่ยังตอบผิด');$('markedBtn').onclick=()=>start(state.marked,'ทวนข้อที่ปักไว้');
   function route(){const hash=location.hash.slice(1);if(['dashboard','notes','sources','briefing','topicButtons'].includes(hash)){dashboard();$(hash).scrollIntoView();}else if(hash==='resume'&&state.session)$('resume').click();}
   window.addEventListener('hashchange',route);dashboard();route();
