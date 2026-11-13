@@ -9,7 +9,7 @@
     if(raw){try{window.openCojPersonal(D,JSON.parse(raw));if(note)note.textContent='เปิดชุด COJ1 ต้นฉบับบนเครื่องนี้แล้ว';}catch(_){if(note)note.textContent='ไฟล์ชุดส่วนตัวไม่สมบูรณ์ กรุณาเลือกไฟล์อีกครั้ง';}}
     if(file)file.onchange=async()=>{try{const html=await file.files[0].text();const match=html.match(/<script type="application\/json" id="private-pack">([^<]*)<\/script>/);if(!match)throw Error();const rows=JSON.parse(match[1]);if(!Array.isArray(rows)||rows.length!==11||!rows.every(r=>r&&typeof r.q==='string'&&r.c?.length===4&&Number.isInteger(r.a)&&r.a>=0&&r.a<4&&typeof r.e==='string'))throw Error();localStorage.setItem(key,JSON.stringify(rows));location.reload();}catch(_){note.textContent='เลือกไฟล์ COJ1-Private.html ที่ได้รับ หรือเปิดไฟล์นั้นโดยตรงเพื่อฝึกแบบออฟไลน์';}};
   }
-  const ready=D&&D.expectedTotal===(D.id==='coj'?115:100)&&D.questions.length===D.expectedTotal&&new Set(D.questions.map(q=>q.id)).size===D.expectedTotal&&D.questions.every(q=>Number.isInteger(q.topic)&&q.topic>=1&&q.topic<=D.topics.length&&Array.isArray(q.c)&&q.c.length===4&&new Set(q.c).size===4&&Number.isInteger(q.a)&&q.a>=0&&q.a<4&&q.e&&q.reference&&q.sources.every(k=>D.sources[k]))&&D.sets?.length>0&&D.sets[0].ids.length===100&&D.sets.every(s=>s.ids.length>0&&new Set(s.ids).size===s.ids.length&&s.ids.every(id=>D.questions.some(q=>q.id===id)))&&typeof window.createRoleSprintCore==='function';
+  const ready=D&&D.expectedTotal===(D.id==='coj'?155:100)&&D.questions.length===D.expectedTotal&&new Set(D.questions.map(q=>q.id)).size===D.expectedTotal&&D.questions.every(q=>Number.isInteger(q.topic)&&q.topic>=1&&q.topic<=D.topics.length&&Array.isArray(q.c)&&q.c.length===4&&new Set(q.c).size===4&&Number.isInteger(q.a)&&q.a>=0&&q.a<4&&q.e&&q.reference&&q.sources.every(k=>D.sources[k]))&&D.sets?.length>0&&D.sets[0].ids.length===100&&D.sets.every(s=>s.ids.length>0&&new Set(s.ids).size===s.ids.length&&s.ids.every(id=>D.questions.some(q=>q.id===id)))&&typeof window.createRoleSprintCore==='function';
   if(!ready){$('bankNotice').hidden=false;document.querySelectorAll('[data-launch],#allPractice,#examStart').forEach(b=>b.disabled=true);return;}
   const C=window.createRoleSprintCore(D),KEY=D.storageKey;
   let selectedSet=D.sets.find(s=>s.id===D.initialSet)||D.sets[0];
@@ -72,10 +72,14 @@
   $('next').onclick=()=>{const old=state.session;state.session=C.next(old);if(old===state.session)return;if(state.session.complete){const r=C.score(state.session);state.records=C.progress(state.records,state.session);state.history.unshift({title:state.session.title,mode:state.session.mode,correct:r.correct,total:r.total,date:new Date().toLocaleString('th-TH')});state.history=state.history.slice(0,12);save();result();}else{save();question(true);}};
   $('mark').onclick=()=>{const id=state.session.ids[state.session.idx];state.marked=state.marked.includes(id)?state.marked.filter(x=>x!==id):[...state.marked,id];save();question(false);$('mark').focus({preventScroll:true});};
   $('pause').onclick=dashboard;$('resume').onclick=()=>{if(state.session.complete)result();else{visible('quiz');question(true);}};
+  if(D.id==='coj'){
+    for(const [button,id] of [['focusA','focus-1'],['focusB','focus-2']])if($(button))$(button).onclick=()=>{const set=D.sets.find(s=>s.id===id);start(set.ids,set.title);};
+    if($('randomCourt'))$('randomCourt').onclick=()=>start(window.drawCourtExam(D.questions,items=>C.shuffle(items)),'สุ่มสอบนักวิชาการพัสดุ 100 ข้อ','exam');
+  }
   if($('sourceStart'))$('sourceStart').onclick=()=>{const original=D.sets.find(s=>s.id==='coj1-all'&&s.fixedOrder);if(original)start(original.ids,original.title);};
   $('allPractice').onclick=()=>start(selectedSet.ids,selectedSet.title+' · '+D.agency+' '+selectedSet.ids.length+' ข้อ');
   $('examStart').onclick=()=>start(selectedSet.ids,'ซ้อมสอบ '+selectedSet.title+' · '+selectedSet.ids.length+' ข้อ','exam');
   $('wrongBtn').onclick=()=>start(wrongIds(),'ซ้ำข้อที่ยังตอบผิด');$('markedBtn').onclick=()=>start(state.marked,'ทวนข้อที่ปักไว้');
-  function route(){const hash=location.hash.slice(1);if(['dashboard','notes','sources','briefing','topicButtons'].includes(hash)){dashboard();$(hash).scrollIntoView();}else if(hash==='resume'&&state.session)$('resume').click();}
+  function route(){const hash=location.hash.slice(1);if(['dashboard','notes','sources','briefing','topicButtons','focus'].includes(hash)&&$(hash)){dashboard();$(hash).scrollIntoView();}else if(hash==='resume'&&state.session)$('resume').click();}
   window.addEventListener('hashchange',route);dashboard();route();
 })();
