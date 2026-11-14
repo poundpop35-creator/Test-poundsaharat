@@ -1,0 +1,13 @@
+body.app-home,body[data-app=coj]{background:#f5f5ef;--a:#126657;--a-dk:#10483f;--a-bd:#aed1c5;--a-sf:#ecf5ef;--app-paper:#f5f5ef}
+.app-home .home-hero,body.study-app>header.court-head{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at top right,#216a5c,transparent 68%),#103e37;color:#fff;border:0}
+.app-home .home-hero{padding:clamp(22px,4vw,48px);border-radius:24px}
+.app-home .home-hero h1,.app-home .home-hero h1 span,body.study-app>header.court-head h1{color:#fff;margin:0;line-height:1.35}
+.app-home .home-hero h1 span{color:#d0e9a3}
+.studio-tag,body.study-app>header.court-head .studio-tag,.section-tag{font-size:.79rem;font-weight:700;letter-spacing:.05em;margin:0 0 .65rem;color:#d0e9a3}
+.studio-sub,body.study-app>header.court-head .studio-sub{color:#e1eae2;margin:8px 0 0}
+.court-art{position:absolute;width:31%;height:88%;right:3%;top:5%;color:#aed5a4;opacity:.7;z-index:-1}
+.studio-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.studio-links a{border:1px solid #84aa94;border-radius:12px;text-decoration:none;padding:10px 16px;color:#fff;font-weight:700}.studio-links a:first-child{background:#dbeca8;color:#1e3b2b;border-color:transparent}.studio-links b{margin-left:12px}
+.resource-fold summary,.studio-fold>summary{cursor:pointer;padding:10px 0;font-weight:700;color:#195949}.agency-card .resource-fold{margin-top:auto;border-top:1px solid #dfe6df}.app-home .agency-card{border:1px solid #d8e1d8;box-shadow:none;border-radius:18px}.home-search{max-width:none}
+body[data-app=coj] .wrap{max-width:960px}.section-tag{color:#486954}body.study-app #dashboard .card{border-radius:18px;border:1px solid #d3dfd5}.studio-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.studio-grid button,#dashboard button.studio-exam{text-align:left;display:grid;gap:4px;padding:17px;border-radius:13px}.studio-grid button{background:#f4f7f1;color:#173e34;border:1px solid #d4e2d5}.studio-grid strong{font-size:1.1rem}.studio-grid small{color:#476a55}.studio-grid span,.studio-exam small{font-weight:400;font-size:.87rem}.studio-grid button:hover{background:#e8f2e3}
+#dashboard button.studio-exam{width:100%;background:#124f42;color:white;margin-top:12px}.studio-fold{padding:12px 18px!important}#resume:not([hidden]){width:100%;margin:10px 0;background:#e6f0c7;color:#294627}body[data-app=coj]:has(#quiz:not([hidden]))>.court-head{display:none}
+@media(max-width:580px){.studio-grid{grid-template-columns:1fr}.studio-grid button{padding:12px 16px}.app-home .court-art{width:34%;opacity:.25;top:-12%}.studio-links a{font-size:14px}.home-categories{gap:5px}.home-categories a{padding:8px 12px}}

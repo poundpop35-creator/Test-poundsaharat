@@ -67,10 +67,11 @@
       </div>
       ${badge ? `<div class="agency-badges">${badge}</div>` : ''}
       ${p.headline ? `<p class="agency-headline">${esc(p.headline)}</p>` : `<p class="agency-headline">${esc(p.description || '')}</p>`}
+      ${res.length || extras.length ? '<details class="resource-fold"><summary>ดูบทเรียนและชุดฝึก</summary>' : ''}
       ${res.length ? `<div class="res-list">${res.map(r => row(p, r)).join('')}</div>` : ''}
       ${extras.length ? `<div class="res-extras">${extras.map(e =>
           `<a href="${ui.href(e.file, e.hash || '')}">${esc(e.label)}</a>`).join('')}</div>` : ''}
-    </article>`;
+    ${res.length || extras.length ? '</details>' : ''}</article>`;
   }
 
   function render() {
