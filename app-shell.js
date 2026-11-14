@@ -11,6 +11,8 @@
   window.StudyUI={escape:esc,icon,href};
   if(window.__studyShellReady)return;
   window.__studyShellReady=true;
+  const sheet=document.createElement('link');sheet.rel='stylesheet';sheet.href='refresh-ui.css?v=room1';document.head.append(sheet);
+  const room=document.createElement('script');room.src='refresh-ui.js?v=room1';document.head.append(room);
   const file = location.pathname.split('/').pop() || 'index.html';
   const sprintPage = catalog.find(p=>p.sprint===file);
   const sprint = !!sprintPage;
