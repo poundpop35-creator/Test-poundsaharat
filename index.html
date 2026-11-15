@@ -1,94 +1,26 @@
-<!doctype html>
-<html lang="th">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#DBEAFE">
-<meta name="color-scheme" content="light">
-  <title>คลังติว — เลือกหน่วยงานที่จะสอบ</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="theme.css?v=20261027-ia">
-  <link rel="stylesheet" href="app-shell.css?v=20261027-ia">
-  <link rel="stylesheet" href="app-home.css?v=20261027-ia">
-  <script defer src="app-catalog.js?v=studio2"></script>
-  <script defer src="app-shell.js?v=20261027-ia"></script>
-  <script defer src="countdown.js?v=20261027-ia"></script>
-  <script defer src="app-home.js?v=studio2"></script>
-<link rel="stylesheet" href="studio.css?v=2"><style>
-.app-home .home-wrap{padding-top:14px}.exam-directory{margin:0 0 18px}.exam-directory h1{font-size:clamp(1.55rem,4vw,2.1rem);line-height:1.25;color:#143f36;margin:0}.exam-directory h2{font-size:.88rem;color:#486450;margin:12px 0 6px}.exam-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:6px}.exam-links a{display:flex;align-items:center;justify-content:space-between;gap:4px;padding:9px 12px;min-height:46px;background:#fff;color:#173f34;border:1px solid #cbd9cd;border-radius:11px;text-decoration:none;font-weight:650;line-height:1.45}.exam-links a span{color:#59806d}.exam-links a:hover,.exam-links a:focus-visible{background:#e8f1e6}.exam-directory .exam-links:first-of-type a{border-left:3px solid #28715d}@media(max-width:600px){.exam-links{grid-template-columns:repeat(2,minmax(0,1fr))}.exam-links a{font-size:.9rem;padding:8px}.app-home .home-wrap{padding-inline:14px}}
-</style></head>
-<body class="study-app app-home">
-  <main id="app-content" class="home-wrap" tabindex="-1">
+<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#fcfbf7"><title>คลังติว · เลือกสนามสอบ</title><style>*{box-sizing:border-box}body{margin:0;background:#fcfbf7;color:#1c312c;font:16px/1.5 system-ui,"Sarabun",sans-serif}main{max-width:1000px;margin:auto;padding:20px clamp(14px,4vw,40px) 54px}header{border-bottom:1px solid #dfe5df;padding-bottom:12px}header span{font-size:.82rem;font-weight:650;color:#42695b}h1{margin:1px 0 0;font-size:clamp(1.65rem,4vw,2.4rem);line-height:1.35}h2{font-size:1.04rem;margin:18px 0 9px;display:flex;align-items:center;gap:8px}h2 small{font-size:.76rem;font-weight:500;color:#5e6d65}.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;align-items:start}article{background:linear-gradient(140deg,var(--wash) 60%,#fff);border:1px solid color-mix(in srgb,var(--tone) 22%,white);border-radius:16px;color:var(--tone);box-shadow:0 3px 9px #142c2110;overflow:hidden}a{color:inherit;text-decoration:none}.tile{display:block;padding:14px 14px 8px}.tiletop{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}.tiletop svg{height:30px;width:30px;padding:5px;border-radius:9px;background:var(--tone);color:#fff;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linejoin:round;stroke-linecap:round}.tile small{font-size:.76rem;font-weight:650}.tile strong,.role{display:block}.tile strong{font-size:1.04rem;line-height:1.45}.role{font-size:.79rem;color:#3f4947;margin-top:2px}.tile:hover strong{text-decoration:underline}details{margin:0 13px;border-top:1px solid color-mix(in srgb,var(--tone) 17%,transparent)}summary{cursor:pointer;padding:9px 0;font-weight:600;font-size:.78rem}details a{display:block;padding:8px 0;border-top:1px solid #ffffffaa;font-size:.85rem}.other a,#home-recent a{display:inline-block;background:white;border:1px solid #d8ded7;border-radius:10px;padding:9px 13px;margin:0 6px 6px 0}.other{border-top:1px solid #e0e5df;margin-top:20px}#home-recent:not([hidden]){margin-top:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}a:focus-visible,summary:focus-visible{outline:3px solid #965b06;outline-offset:-3px}@media(max-width:640px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.tile{padding:11px 11px 7px}.tile strong{font-size:.98rem}details{margin:0 10px}summary{min-height:40px}.role{min-height:2.9em}}
+</style></head><body><main><header><span>คลังติวสอบราชการ</span><h1>เลือกสนามสอบ</h1></header><section id="agencies"><h2>กำลังเตรียมสอบ <small>5 สนาม</small></h2><div class="tiles"><article style="--tone:#42357b;--wash:#eeebff"><a class="tile" href="coj.html"><span class="tiletop"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 10l9-6 9 6H3zm2 10h14M7 12v5m5-5v5m5-5v5"/></svg><small>205 ข้อ</small></span><strong>ศาลยุติธรรม</strong><span class="role">นักวิชาการพัสดุปฏิบัติการ</span></a><details><summary>บทเรียนและชุดฝึก</summary><a href="coj-quiz.html">ซ้อมสอบศาลฯ 100 ข้อจากคลัง 205 ข้อ</a><a href="coj.html">อ่านหลักสูตรและจุดที่ต้องทวน</a><a href="coj.html#sets">ทำแนวข้อสอบ</a></details></article><article style="--tone:#884104;--wash:#fff0d8"><a class="tile" href="energy.html"><span class="tiletop"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14 2 5 14h6l-1 8 9-13h-6z"/></svg><small>943 ข้อ</small></span><strong>สป.พลังงาน</strong><span class="role">นักวิชาการพลังงานปฏิบัติการ</span></a><details><summary>บทเรียนและชุดฝึก</summary><a href="exam-tutor.html#energy">บทติวพร้อมตัวอย่างและแหล่งค้นคว้า</a><a href="energy.html#read">อ่านเนื้อหา</a><a href="energy.html#practice">ฝึกรายหมวด</a><a href="energy-intensive.html">จำลองสอบ · ชุดเข้มข้น</a><a href="energy-sprint.html">จำลองสอบ · ชุดเก็ง</a><a href="energy.html#summary">จุดต้องท่อง</a><a href="energy.html#sources">ตัวบทฉบับเต็ม</a><a href="energy-study-guide.html">คู่มืออ่าน</a></details></article><article style="--tone:#1d5586;--wash:#e2f2ff"><a class="tile" href="rd.html"><span class="tiletop"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 3h14v18l-3-2-4 2-4-2-3 2zm3 5h8m-8 4h6"/></svg><small>498 ข้อ</small></span><strong>กรมสรรพากร</strong><span class="role">นักวิชาการพัสดุปฏิบัติการ</span></a><details><summary>บทเรียนและชุดฝึก</summary><a href="exam-tutor.html#rd">บทติวพร้อมตัวอย่างและแหล่งค้นคว้า</a><a href="rd.html#read">อ่านเนื้อหา</a><a href="rd.html#practice">ฝึกรายหมวด</a><a href="rd-sprint.html">จำลองสอบ · ชุดเก็ง</a><a href="rd.html#summary">จุดต้องท่อง</a><a href="rd.html#sources">ตัวบทฉบับเต็ม</a></details></article><article style="--tone:#006754;--wash:#dff5ec"><a class="tile" href="dmh-syllabus.html"><span class="tiletop"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 12h4l2-5 4 11 2-6h6"/></svg><small>178 ข้อ</small></span><strong>กรมสุขภาพจิต</strong><span class="role">นักวิเคราะห์นโยบายและแผนปฏิบัติการ</span></a><details><summary>บทเรียนและชุดฝึก</summary><a href="exam-tutor.html#dmh">บทติวพร้อมตัวอย่างและแหล่งค้นคว้า</a><a href="dmh-syllabus.html#topicButtons">ฝึกรายหมวด · ตามประกาศ</a><a href="dmh-syllabus.html">ชุดฝึกครบทุกหัวข้อ</a><a href="dmh.html#read">อ่านพื้นฐานเดิม</a><a href="dmh.html#practice">ฝึกรายหมวด</a><a href="dmh.html#summary">จุดต้องท่อง</a><a href="dmh.html#sources">ตัวบทฉบับเต็ม</a></details></article><article style="--tone:#71486c;--wash:#f7e7f2"><a class="tile" href="drr-syllabus.html"><span class="tiletop"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 3 3 21m13-18 5 18M12 4v3m0 3v4m0 3v4"/></svg><small>100 ข้อ</small></span><strong>กรมทางหลวงชนบท</strong><span class="role">นักจัดการงานทั่วไปปฏิบัติการ</span></a><details><summary>บทเรียนและชุดฝึก</summary><a href="exam-tutor.html#drr">บทติวพร้อมตัวอย่างและแหล่งค้นคว้า</a><a href="drr-syllabus.html#notes">อ่านสรุปหัวข้อ</a><a href="drr-syllabus.html#topicButtons">ฝึกรายหมวด</a><a href="drr-syllabus.html">ชุดฝึกครบทุกหัวข้อ</a><a href="drr-syllabus.html#sources">ตัวบทและแหล่งอ้างอิง</a></details></article></div></section><section id="archive"><h2>สอบไปแล้ว · เปิดทวน <small>4 สนาม</small></h2><div class="tiles"><article style="--tone:#7a383f;--wash:#fbe7e4"><a class="tile" href="sao.html"><span class="tiletop"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 3h14v12M7 7h7m-7 4h4m1 6 3 3 6-8"/></svg><small>614 ข้อ</small></span><strong>สตง.</strong><span class="role">นักวิเคราะห์นโยบายและแผน</span></a><details><summary>บทเรียนและชุดฝึก</summary><a href="sao.html#read">อ่านเนื้อหา</a><a href="sao.html#practice">ฝึกรายหมวด</a><a href="sao-sprint.html">จำลองสอบ · โค้งสุดท้าย</a><a href="sao.html#summary">จุดต้องท่อง</a><a href="sao.html#sources">ตัวบทฉบับเต็ม</a></details></article><article style="--tone:#4b602a;--wash:#eff3d9"><a class="tile" href="opsmoac.html"><span class="tiletop"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 19C3 9 10 4 20 4c0 9-5 15-13 13m-3 4L16 8"/></svg><small>499 ข้อ</small></span><strong>สป.เกษตร</strong><span class="role">นักวิเคราะห์นโยบายและแผน</span></a><details><summary>บทเรียนและชุดฝึก</summary><a href="opsmoac.html#read">อ่านเนื้อหา</a><a href="opsmoac.html#practice">ฝึกรายหมวด</a><a href="opsmoac-sprint.html">จำลองสอบ · ชุดเก็ง</a><a href="opsmoac-writing.html">ฝึกเขียนตอบ</a><a href="opsmoac-five-essays.html">ข้อเขียน 5 ข้อ</a><a href="opsmoac.html#sources">ตัวบทฉบับเต็ม</a></details></article><article style="--tone:#744e29;--wash:#f7ebda"><a class="tile" href="diprom.html"><span class="tiletop"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 21V9l6 4V8l6 4V4h4l2 17H3z"/></svg><small>989 ข้อ</small></span><strong>กรมส่งเสริมอุตสาหกรรม</strong><span class="role">คลังเนื้อหาที่สอบไปแล้ว</span></a><details><summary>บทเรียนและชุดฝึก</summary><a href="diprom.html#read">อ่านเนื้อหา</a><a href="diprom.html#practice">ฝึกรายหมวด</a><a href="diprom.html#sources">ตัวบทฉบับเต็ม</a></details></article><article style="--tone:#176674;--wash:#dbf3f5"><a class="tile" href="namban.html"><span class="tiletop"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2C10 6 5 11 5 15a7 7 0 0 0 14 0c0-4-5-9-7-13z"/></svg><small>95 ข้อ</small></span><strong>กรมทรัพยากรน้ำบาดาล</strong><span class="role">คลังเนื้อหาที่สอบไปแล้ว</span></a><details><summary>บทเรียนและชุดฝึก</summary><a href="namban.html#read">อ่านเนื้อหา</a><a href="namban.html#sources">ตัวบทฉบับเต็ม</a></details></article></div></section><div id="home-recent" hidden></div><section class="other" id="resources"><h2>คลังกลาง</h2><a href="exam-14.html">ติว 14 วัน</a><a href="laws.html">กฎหมายกลาง</a><a href="law-sources.html">ตัวบทฉบับเต็ม</a><a href="compare.html">เทียบขอบเขตสอบ</a></section><section class="other" id="english"><h2>ภาษาอังกฤษ</h2><a href="english-course.html">คอร์สภาษาอังกฤษ</a><a href="english.html">อังกฤษพื้นฐาน</a></section></main><script src="app-catalog.js?v=studio2"></script><script>(()=>{const catalog=window.STUDY_CATALOG,$=id=>document.getElementById(id),ui={href:(file,hash)=>file+(hash||"")},esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));  try {
+    let recent;
+    for (const p of catalog.filter(p => p.sprint && p.group === 'agencies')) {
+      let saved;
+      try { saved = JSON.parse(localStorage.getItem(p.sprintKey) || 'null'); } catch (_) { continue; }
+      const session = saved && saved.session;
+      if (session && !session.complete && Array.isArray(session.ids) &&
+          Number.isInteger(session.idx) && session.idx >= 0 && session.idx < session.ids.length) {
+        recent = {label: 'ทำชุด ' + p.short + ' ที่ค้างไว้ต่อ', file: p.sprint, hash: '#resume'};
+        break;
+      }
+    }
+    if (!recent) {
+      const saved = JSON.parse(localStorage.getItem('study:last-page') || 'null');
+      const page = saved && catalog.find(p => p.file === saved.file);
+      if (page) recent = {label: 'เปิดล่าสุด: ' + page.short, file: page.file,
+        hash: ['#read','#practice','#sources','#summary'].includes(saved.hash) ? saved.hash : ''};
+    }
+    if (recent) {
+      $('home-recent').innerHTML = `<span>${esc(recent.label)}</span><a href="${ui.href(recent.file, recent.hash)}">กลับไปต่อ →</a>`;
+      $('home-recent').hidden = false;
+    }
+  } catch (_) { /* Browsing remains available without storage. */ }
 
-    <section aria-labelledby="home-title" class="exam-directory"><h1 id="home-title">เลือกสนามสอบ</h1><h2>กำลังเตรียมสอบ</h2><div class="exam-links"><a href="coj.html">ศาลยุติธรรม<span aria-hidden="true">›</span></a><a href="energy.html">สป.พลังงาน<span aria-hidden="true">›</span></a><a href="rd.html">กรมสรรพากร<span aria-hidden="true">›</span></a><a href="dmh-syllabus.html">กรมสุขภาพจิต<span aria-hidden="true">›</span></a><a href="drr-syllabus.html">กรมทางหลวงชนบท<span aria-hidden="true">›</span></a></div><h2>สอบไปแล้ว · เปิดทวนได้</h2><div class="exam-links"><a href="sao.html">สตง.<span aria-hidden="true">›</span></a><a href="opsmoac.html">สป.เกษตรฯ<span aria-hidden="true">›</span></a><a href="diprom.html">กรมส่งเสริมอุตสาหกรรม<span aria-hidden="true">›</span></a><a href="namban.html">กรมทรัพยากรน้ำบาดาล<span aria-hidden="true">›</span></a></div></section>
-
-    <div id="home-recent" class="home-recent" hidden></div>
-
-    <div class="home-search">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="7.5"/><path d="m16 16 5 5"/></svg>
-      <label class="app-sr-only" for="home-search-input">ค้นหาหน่วยงาน ตำแหน่ง หรือหมวด</label>
-      <input type="search" id="home-search-input" placeholder="ค้นหาหน่วยงาน ตำแหน่ง หรือหมวด…" autocomplete="off">
-      <button id="home-clear" type="button" aria-label="ล้างคำค้น" hidden>×</button>
-    </div>
-
-    <nav class="home-categories" aria-label="หมวดการเรียน">
-      <a href="#agencies" data-category="agencies" aria-current="page">กำลังเตรียมสอบ</a>
-      <a href="#resources" data-category="resources">คลังกลาง</a>
-      <a href="#english" data-category="english">ภาษาอังกฤษ</a>
-      <a href="#archive" data-category="archive">สอบไปแล้ว</a>
-    </nav>
-
-    <section aria-labelledby="home-section-title">
-      <div class="home-section-heading">
-        <div>
-          <h2 id="home-section-title">หน่วยงานที่กำลังเตรียมสอบ</h2>
-          <p id="home-section-description">แต่ละหน่วยงานมีครบ ตั้งแต่อ่านเนื้อหาไปจนถึงชุดจำลองสอบ</p>
-        </div>
-        <span id="home-count" class="home-count" role="status"></span>
-      </div>
-      <div id="home-cards" class="home-cards"></div>
-      <div id="home-empty" class="home-empty" hidden>
-        <strong>ยังไม่พบสิ่งที่ค้นหา</strong>
-        <p>ลองชื่อย่อหน่วยงาน หรือคำว่า “พัสดุ” “กฎหมาย” “อังกฤษ”</p>
-        <button type="button" id="home-reset">ดูหน่วยงานทั้งหมด</button>
-      </div>
-    </section>
-
-    <details class="home-help">
-      <summary>คำที่ใช้ในคลังนี้ หมายถึงอะไรบ้าง</summary>
-      <dl class="home-legend">
-        <dt>อ่านเนื้อหา</dt><dd>สรุปบทเรียนตามขอบเขตสอบ จบบทแล้วมีข้อสอบท้ายบทให้ทำทันที</dd>
-        <dt>ฝึกรายหมวด</dt><dd>คลังข้อสอบแยกหมวด ใช้ทำซ้ำเฉพาะจุดที่ยังไม่แม่น</dd>
-        <dt>ชุดจำลองสอบ</dt><dd>ชุดเต็มเสมือนสอบจริง ใช้วัดว่าพร้อมหรือยัง</dd>
-        <dt>จุดต้องท่อง</dt><dd>ตัวเลข มาตรา และคำนิยามที่ออกสอบบ่อย ทวนก่อนเข้าห้องสอบ</dd>
-        <dt>ตัวบทฉบับเต็ม</dt><dd>ลิงก์กฎหมายต้นฉบับบนเว็บไซต์ราชการ ใช้ยืนยันตัวเลขก่อนสอบ</dd>
-      </dl>
-    </details>
-
-    <noscript><div class="home-noscript">
-      <p>เปิด JavaScript เพื่อใช้การค้นหาและทำแบบทดสอบ หรือเลือกหน้าที่ต้องการด้านล่าง</p>
-      <a href="energy.html">สป.พลังงาน — อ่าน + ฝึกรายหมวด</a>
-      <a href="energy-intensive.html">สป.พลังงาน — ชุดเข้มข้น 500 ข้อ</a>
-      <a href="energy-sprint.html">สป.พลังงาน — ชุดเก็ง 200 ข้อ</a>
-      <a href="rd.html">สรรพากร — อ่าน + ฝึกรายหมวด</a>
-      <a href="rd-sprint.html">สรรพากร — ชุดเก็ง 200 ข้อ</a>
-      <a href="dmh.html">กรมสุขภาพจิต — แกนร่วมของตำแหน่ง</a>
-      <a href="exam-14.html">แผนติว 14 วัน</a>
-      <a href="laws.html">กฎหมายกลาง</a>
-      <a href="law-sources.html">ตัวบทฉบับเต็ม</a>
-      <a href="compare.html">เทียบขอบเขตสอบ</a>
-      <a href="english-course.html">คอร์สภาษาอังกฤษ</a>
-      <a href="english.html">อังกฤษพื้นฐาน</a>
-      <a href="sao.html">สตง. (สอบแล้ว)</a>
-      <a href="sao-sprint.html">สตง. — จำลองสอบ 60 ข้อ</a>
-      <a href="opsmoac.html">สป.เกษตร (สอบแล้ว)</a>
-      <a href="opsmoac-sprint.html">สป.เกษตร — จำลองสอบ 300 ข้อ</a>
-      <a href="diprom.html">กรมส่งเสริมอุตสาหกรรม (สอบแล้ว)</a>
-      <a href="namban.html">กรมทรัพยากรน้ำบาดาล (สอบแล้ว)</a>
-    </div></noscript>
-  </main>
-  <footer class="home-footer">คลังติวส่วนตัว · อ่าน ฝึก และทวนจากตัวบท &nbsp; <a href="law-sources.html">เปิดเอกสารอ้างอิง ↗</a></footer>
-</body>
-</html>
+})();</script></body></html>
