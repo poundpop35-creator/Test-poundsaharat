@@ -45,7 +45,7 @@ window.STUDY_CATALOG = [
     priority:true,priorityRank:2,exam:'',examPending:true,bank:298,
     sprint:'rd-sprint.html',sprintKey:'rd100:v1',sprintTopics:8,sprintCount:200,
     research:'rd-sprint.html#briefing',
-    total:498,
+    total:500,
     headline:'จัดซื้อจัดจ้างคือหัวใจของตำแหน่ง ให้ลงเวลามากที่สุด แล้วค่อยไล่ไปการเบิกจ่าย ประมวลรัษฎากร และงบประมาณ',
     description:'คลังหลัก 298 ข้อ + ชุดเก็ง 200 ข้อ — จัดซื้อจัดจ้าง ประมวลรัษฎากร การเงินการคลัง งบประมาณ ควบคุมภายใน และ PDPA',
     search:'rd ภาษี พัสดุ สรรพากร จัดซื้อจัดจ้าง',
@@ -64,7 +64,7 @@ window.STUDY_CATALOG = [
   {
     id:'dmh',group:'agencies',short:'กรมสุขภาพจิต',title:'กรมสุขภาพจิต',
     role:'นักวิเคราะห์นโยบายและแผนปฏิบัติการ',icon:'สจ.',color:'dmh',
-    priorityRank:3,bank:78,total:178,
+    priorityRank:3,bank:78,total:500,
     file:'dmh-syllabus.html',standalone:true,
     flag:'เพิ่มชุดตามภาพประกาศ 100 ข้อ',
     headline:'ชุดใหม่ครบ 10 หัวข้อในภาพประกาศ รวม พ.ร.บ.สุขภาพจิต ร่างแผนฯ 14 แผนกรม ความเสี่ยง และ AI',
@@ -86,7 +86,7 @@ window.STUDY_CATALOG = [
 
   {
     id:'drr',file:'drr-syllabus.html',standalone:true,group:'agencies',short:'กรมทางหลวงชนบท',title:'กรมทางหลวงชนบท',
-    role:'นักจัดการงานทั่วไปปฏิบัติการ',icon:'ทช.',color:'rd',priorityRank:4,total:100,bank:100,
+    role:'นักจัดการงานทั่วไปปฏิบัติการ',icon:'ทช.',color:'rd',priorityRank:4,total:500,bank:100,
     headline:'ครบ 5 หัวข้อในภาพประกาศ: จัดซื้อจัดจ้าง สารบรรณ การลา งบประมาณ และคอมพิวเตอร์',
     description:'ข้อฝึกใหม่ 100 ข้อ พร้อมเฉลย แหล่งอ้างอิง ทำต่อจากข้อค้าง และทวนข้อผิด',
     search:'drr ทช ทางหลวงชนบท นักจัดการงานทั่วไป สารบรรณ การลา',actions:[],
@@ -174,7 +174,7 @@ window.STUDY_CATALOG = [
   {
     id:'opsmoac',group:'archive',short:'สป.เกษตร',title:'สำนักงานปลัดกระทรวงเกษตรและสหกรณ์',
     role:'นักวิเคราะห์นโยบายและแผน',icon:'กษ.',color:'opsmoac',
-    sprint:'opsmoac-sprint.html',sprintKey:'opsmoac60:v1',sprintTopics:5,sprintCount:300,total:499,
+    sprint:'opsmoac-sprint.html',sprintKey:'opsmoac60:v1',sprintTopics:5,sprintCount:300,total:500,
     description:'เก็ง 300 ข้อ แบ่ง 3 ชุด ชุดละ 100 พร้อมเฉลยและตัวบท และมีชุดฝึกเขียนตอบ',
     search:'opsmoac สป.กษ. เกษตร',actions:['read','practice','sources'],
     resources:[
@@ -201,7 +201,7 @@ window.STUDY_CATALOG = [
   },
   {
     id:'namban',group:'archive',short:'กรมทรัพยากรน้ำบาดาล',title:'กรมทรัพยากรน้ำบาดาล',
-    role:'คลังเนื้อหาที่สอบไปแล้ว',icon:'นบ.',color:'namban',total:95,
+    role:'คลังเนื้อหาที่สอบไปแล้ว',icon:'นบ.',color:'namban',total:500,
     description:'เก็บบทอ่าน แบบทดสอบ และเอกสารเดิมไว้ให้กลับมาทบทวน',
     search:'namban น้ำบาดาล',actions:['read','exam','sources'],
     resources:[
