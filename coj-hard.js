@@ -17,7 +17,7 @@ for(const [g,[topic,title,src,ref,rows]] of cases.entries()){
  const x=(g+i)%4,y=(x+2)%4,b=(x+1)%4,k=(y+1)%4;
  const pairs=[[x,y],[b,y],[x,k],[b,k]],a=(g+i)%4;
  const c=pairs.map((_,n)=>{const [f,t]=pairs[(n-a+4)%4];return answers[f]+' / '+answers[t]});
- put(4,topic,'ตรวจสองสำนวนตามลำดับ • (1) '+rows[x][0]+' • (2) '+rows[y][0]+' คู่คำวินิจฉัยใดถูกทั้งสองสำนวน',c,a,'สำนวนแรก: '+why[x]+' ส่วนสำนวนที่สอง: '+why[y],src,ref);
+ put(4,topic,'ตรวจสองสำนวนตามลำดับ • (1) '+rows[x][0]+' • (2) '+rows[y][0]+' คู่คำตอบใดถูกทั้งสองกรณี',c,a,'สำนวนแรก: '+why[x]+' ส่วนสำนวนที่สอง: '+why[y],src,ref);
  }
 }
 const num=n=>n.toLocaleString('en-US',{maximumFractionDigits:2});
@@ -74,7 +74,7 @@ for(const [name,budget,commit,est,omit,rebate] of [['ปรับคลังพ
  f('หากส่วนลดใช้ไม่ได้ ต้องจัดหาเงินเพิ่มจากวงเงินว่างเท่าใด',gross-fund,[Math.abs(net-fund),omit,gross-commit],'ต้นทุนก่อนส่วนลด − เงินที่ยังไม่ผูกพัน');
  f('หากใช้ส่วนลดได้ ยอดผูกพันรวมทั้งสองงานจะเป็นเท่าใด',commit+net,[commit+gross,commit+est,budget],'ยอดผูกพันงานอื่น + ราคาใหม่สุทธิรวมติดตั้ง');
 }
-const names=['วินิจฉัยสำนวน ก','วินิจฉัยสำนวน ข','จับเหตุผล ก','จับเหตุผล ข','เปรียบเทียบสองสำนวน','คำนวณจากแฟ้มงาน'];
+const names=['ทบทวนเนื้อหา ก','ทบทวนเนื้อหา ข','จับเหตุผล ก','จับเหตุผล ข','เปรียบเทียบสองสำนวน','คำนวณจากแฟ้มงาน'];
 sets.forEach((ids,i)=>d.sets.push({id:'hard-'+(i+1),title:'ขั้นยาก · '+names[i]+' · '+ids.length+' ข้อ',ids}));
 d.expectedTotal=d.questions.length;
 })();
