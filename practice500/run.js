@@ -3,6 +3,9 @@
 const $=id=>document.getElementById(id),app=$('app'),E=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 if(!Object.hasOwn(catalog,agency)){app.textContent='ไม่พบหน่วยงาน กรุณากลับไปเลือกสนามสอบ';return}
 const [name,role,legacy]=catalog[agency];document.title=name+' · คลังติว';$('name').textContent=name;$('subtitle').textContent=role;
+const sourcePage=agency==='dmh'?'dmh.html#sources':legacy+'#sources';
+const practiceLinks=$('practice-links');
+if(practiceLinks)practiceLinks.innerHTML='<a href="'+legacy+'">อ่านบทเรียน</a><a href="'+sourcePage+'">ตัวบท / เอกสาร</a><a href="index.html#agencies">เปลี่ยนสนามสอบ</a>';
 try{const r=await fetch('practice500/'+agency+'.json.gz');if(!r.ok)throw Error();const buf=new Uint8Array(await r.arrayBuffer());const rows=JSON.parse(buf[0]===31&&buf[1]===139?await new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip'))).text():new TextDecoder().decode(buf));
 const core=createRoleSprintCore({questions:rows,version:1}),key=agency+':practice500:v1',letters=['ก','ข','ค','ง'];let s;try{s=JSON.parse(localStorage.getItem(key));}catch{}if(!core.valid(s))s=null;
 const save=()=>{try{localStorage.setItem(key,JSON.stringify(s))}catch{$('storage').hidden=false}},ids=rows.map(q=>q.id),topics=[...new Set(rows.map(q=>q.t))];
