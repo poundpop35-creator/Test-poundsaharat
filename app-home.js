@@ -52,6 +52,9 @@
   function card(p) {
     const res = p.resources || [];
     const extras = p.extras || [];
+    const primary = res.find(r => r.file && r.file.startsWith('practice500.html?'))
+      || res.find(r => r.kind === 'mock') || res.find(r => r.strong) || res[0];
+    const more = res.filter(r => r !== primary);
     const badge = p.flag ? `<span class="agency-flag">${esc(p.flag)}</span>`
       : p.exam ? `<span class="cd" data-cd-key="${esc(p.id)}" data-cd="${esc(p.exam)}"></span>`
       : p.examPending ? '<span class="agency-flag soft">รอวันสอบทางการ</span>'
@@ -67,11 +70,12 @@
       </div>
       ${badge ? `<div class="agency-badges">${badge}</div>` : ''}
       ${p.headline ? `<p class="agency-headline">${esc(p.headline)}</p>` : `<p class="agency-headline">${esc(p.description || '')}</p>`}
-      ${res.length || extras.length ? '<details class="resource-fold"><summary>ดูบทเรียนและชุดฝึก</summary>' : ''}
-      ${res.length ? `<div class="res-list">${res.map(r => row(p, r)).join('')}</div>` : ''}
+      ${primary ? `<a class="agency-primary" href="${ui.href(primary.file, primary.hash || '')}"><span>เริ่มเลย · ${esc(primary.label)}</span><span aria-hidden="true">→</span></a>` : ''}
+      ${more.length || extras.length ? '<details class="resource-fold"><summary>อ่านบทเรียนและตัวเลือกอื่น</summary>' : ''}
+      ${more.length ? `<div class="res-list">${more.map(r => row(p, r)).join('')}</div>` : ''}
       ${extras.length ? `<div class="res-extras">${extras.map(e =>
           `<a href="${ui.href(e.file, e.hash || '')}">${esc(e.label)}</a>`).join('')}</div>` : ''}
-    ${res.length || extras.length ? '</details>' : ''}</article>`;
+    ${more.length || extras.length ? '</details>' : ''}</article>`;
   }
 
   function render() {
@@ -117,6 +121,13 @@
       if (session && !session.complete && Array.isArray(session.ids) &&
           Number.isInteger(session.idx) && session.idx >= 0 && session.idx < session.ids.length) {
         recent = {label: 'ทำชุด ' + p.short + ' ที่ค้างไว้ต่อ', file: p.sprint, hash: '#resume'};
+        break;
+      }
+    }
+    if (!recent) for (const id of ['rd','dmh','drr','opsmoac','namban']) {
+      const saved = JSON.parse(localStorage.getItem(id + ':practice500:v1') || 'null');
+      if (saved && !saved.complete && Array.isArray(saved.ids) && saved.ids.length && Number.isInteger(saved.idx)) {
+        recent = {label:'ทำข้อสอบ '+(catalog.find(p => p.id === id)?.short || id)+' ที่ค้างไว้ต่อ',file:'practice500.html?agency='+id,hash:'#resume'};
         break;
       }
     }
