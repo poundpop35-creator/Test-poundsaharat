@@ -97,3 +97,5 @@ body.hub-v2 #home-recent a:hover{background:#0d4238}
  body.hub-v2 #home-recent a{text-align:center}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}body.hub-v2 article{transition:none}}
+
+@media(max-width:390px){.hub-nav-inner{flex-wrap:wrap;gap:0;padding-top:7px;padding-bottom:6px}.hub-nav-links{width:100%;justify-content:flex-start}.hub-nav-links a{padding:5px 10px}.hub-brand{margin-bottom:1px}}
