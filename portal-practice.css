@@ -1,0 +1,45 @@
+/* Quiz player polish; functionality and question content are unchanged. */
+:root{color-scheme:light}
+body{background:#f4f7f4!important;color:#1d3932!important;font-family:"Sarabun","Noto Sans Thai",system-ui,sans-serif!important}
+main{max-width:920px!important;padding:20px clamp(14px,3vw,28px) 64px!important}
+main>a:first-child{display:inline-flex;padding:8px 12px;border:1px solid #d1e1d7;border-radius:10px;background:white;color:#23624e;font-weight:700;text-decoration:none}
+main>header{margin:15px 0 10px!important;border-radius:18px;padding:clamp(20px,3vw,30px);background:radial-gradient(ellipse at 100% 0%,#357564,transparent 60%),linear-gradient(120deg,#153f38,#195549);color:#fff}
+main>header small{color:#cae2d3;letter-spacing:.03em;font-weight:700}
+main>header h1{color:white;font-size:clamp(1.5rem,4vw,2.1rem);margin:5px 0!important}
+main>header .muted{color:#dfefe4}
+#practice-links{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 0 18px}
+#practice-links a{border:1px solid #cadfd2;border-radius:10px;background:#fff;color:#23604d;padding:8px 13px;text-decoration:none;font-size:.88rem;font-weight:700;min-height:42px;display:inline-flex;align-items:center}
+#practice-links a:hover{background:#e8f3eb}
+.panel{border:1px solid #d9e5dd;border-radius:17px;background:#fff;box-shadow:0 7px 25px #163b2810;padding:clamp(17px,3vw,28px)!important}
+.panel h2{color:#1b4035;line-height:1.48;font-size:clamp(1.1rem,2.5vw,1.36rem);margin:10px 0 16px}
+.panel h2+ .row{margin-bottom:14px}
+.panel .muted{font-size:.9rem;color:#597468}
+.panel button{border-radius:12px;border-color:#cee0d5;background:#fbfcfa;color:#245447;min-height:48px;font-weight:650;transition:background .12s,border-color .12s}
+.panel button:hover:not(:disabled){background:#edf6f0;border-color:#8db9a1}
+.panel button.primary{background:#165947;border-color:#165947;color:#fff}
+.panel button.primary:hover:not(:disabled){background:#0e4437}
+.panel button:focus-visible,.panel a:focus-visible{outline:3px solid #c58b22;outline-offset:2px}
+.panel .row{gap:10px}
+.panel .grid{gap:10px}
+.panel .grid:has(button[data-set]){grid-template-columns:repeat(2,minmax(0,1fr))}
+.panel button[data-set]{background:#f5faf6;text-align:left}
+.panel button.choice{line-height:1.65;font-size:1rem;padding:13px 16px;font-weight:500;width:100%;white-space:normal;text-align:left}
+.panel button.choice.right{background:#e1f4e7;border-color:#2a8b53;color:#174d2b}
+.panel button.choice.wrong{background:#fff0ed;border-color:#bc5c57;color:#82312d}
+.panel button.choice:disabled{opacity:1;cursor:default}
+.panel progress{height:12px;accent-color:#1d7957;margin:12px 0 19px}
+.panel small{color:#567266}
+.panel #feedback:not(:empty){background:#ecf6ed;border-left:4px solid #23835d;padding:14px 16px;border-radius:0 10px 10px 0;line-height:1.8}
+.panel #feedback a{color:#13624a;text-decoration:underline;text-underline-offset:3px}
+.panel details{border:1px solid #dde9e0;border-radius:13px;padding:0 13px;margin:15px 0}
+.panel summary{font-weight:750;color:#27594b}
+#storage{background:#fff1e9;border:1px solid #e8bf9e;border-radius:10px;padding:10px}
+@media(max-width:620px){
+ main{padding:12px 13px 45px!important}
+ main>header{border-radius:14px}
+ #practice-links{gap:6px}
+ #practice-links a{flex:1 1 auto;justify-content:center;padding:7px 9px;font-size:.82rem}
+ .panel .grid:has(button[data-set]){grid-template-columns:1fr}
+ .panel .row>button{flex:1 1 auto}
+}
+@media(prefers-reduced-motion:reduce){.panel button{transition:none}}
