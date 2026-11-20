@@ -1,3 +1,47 @@
-<!doctype html><html lang="th"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>คลังฝึกรายหน่วยงาน</title><style>
-*{box-sizing:border-box}body{margin:0;background:#f2f6f7;color:#192e38;font:16px/1.65 system-ui,sans-serif}main{max-width:52rem;margin:auto;padding:1rem clamp(12px,3vw,30px) 3rem}a{color:#19566b}header{margin:1rem 0}h1,h2{line-height:1.4;text-wrap:pretty}h1{font-size:clamp(1.5rem,4vw,2rem);margin:.4rem 0}h2{font-size:1.25rem}button,select{font:inherit;color:inherit;padding:.65rem .9rem;border:1px solid #b8c8cb;border-radius:.75rem;background:white;cursor:pointer;text-align:left;max-width:100%;overflow-wrap:anywhere;min-height:44px}button:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid #008397;outline-offset:2px}button:disabled{cursor:default}button.primary{background:#155965;color:white}.panel{background:white;padding:clamp(14px,3vw,26px);border-radius:1rem;border:1px solid #cfdbde}.row{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}.grid{display:grid;gap:.6rem}.choice{width:100%}.right{background:#dcf5e7;border-color:#22824c;color:#16432d}.wrong{background:#fff0ef;border-color:#b74142;color:#722424}.muted{color:#48616b}progress{width:100%;accent-color:#126877}#feedback:not(:empty){margin:1rem 0;padding:.85rem;border-left:4px solid #287778;background:#eff6f5}summary{cursor:pointer;padding:.7rem 0}#storage{color:#782b17}
-</style><link rel="stylesheet" href="portal-practice.css?v=2"><main><a href="index.html">← ทุกสนามสอบ</a><header><small>คลังฝึกเฉพาะตำแหน่ง</small><h1 id="name">แบบฝึกหัด</h1><p id="subtitle" class="muted"></p></header><nav id="practice-links" aria-label="ลัดไปยังบทเรียนและเอกสาร"></nav><p id="storage" role="status" hidden>เครื่องนี้ไม่อนุญาตให้บันทึก แต่ยังทำข้อสอบได้ในหน้านี้</p><section id="app" class="panel">กำลังเปิดคลังข้อสอบ…</section></main><script src="role-sprint-core.js"></script><script src="practice500/run.js?v=3"></script></html>
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#174e43">
+<title>คลังฝึก 500 ข้อ · คลังติวสอบราชการ</title>
+<style>
+:root{--green:#1d5e4d;--ink:#182e28;--muted:#50645b;--line:#dbe7dc;--paper:#f6f8f5}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.7 "Sarabun",system-ui,sans-serif}
+a{color:#1d6552}button,select{font:inherit;color:inherit}
+.top{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
+.top-inner{max-width:880px;margin:auto;padding:10px clamp(14px,3vw,30px);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-weight:800;text-decoration:none;color:#1d5547}.top small{color:var(--muted)}
+main{max-width:880px;margin:auto;padding:21px clamp(14px,3vw,30px) 70px}
+header{background:linear-gradient(115deg,#173f35,#2a725d);padding:22px 24px;border-radius:18px;color:#fff;margin:0 0 16px}
+header small{color:#d5e8dc;font-weight:700}header h1{margin:5px 0;font-size:clamp(23px,4vw,32px);line-height:1.4}header p{margin:0;color:#e1f1e6}
+#practice-links{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 17px}#practice-links a{border:1px solid #caddcf;border-radius:10px;background:#fff;padding:8px 14px;text-decoration:none;min-height:44px;font-size:14px;font-weight:700}
+#practice-links a:hover{background:#e8f4eb}
+.panel{background:#fff;padding:clamp(17px,4vw,28px);border-radius:17px;border:1px solid var(--line);box-shadow:0 4px 20px #133a2510;overflow-wrap:anywhere}
+h2{line-height:1.45;font-size:clamp(19px,3vw,24px);margin:0 0 14px}
+h2:not(:first-child){margin-top:24px}.row{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:13px 0}.grid{display:grid;gap:10px}
+button{padding:11px 15px;border:1px solid #ceded2;background:#fff;border-radius:11px;cursor:pointer;text-align:left;min-height:48px;max-width:100%;overflow-wrap:anywhere;font-weight:550}
+button:hover:not(:disabled){border-color:#3b9279;background:#f0f8f1}button.primary{background:var(--green);color:#fff;border-color:var(--green);font-weight:750}
+button.primary:hover{background:#164a3d}.choice{width:100%;line-height:1.65;min-height:60px}
+button.right{background:#e3f7e9;border-color:#23975e;color:#174d35}button.wrong{background:#fff0ed;border-color:#c44942;color:#76251f}
+button:disabled{cursor:default;opacity:1}
+.muted{color:var(--muted)}progress{width:100%;height:13px;accent-color:var(--green);margin:8px 0 18px}
+#feedback:not(:empty){margin:16px 0;padding:16px;border-left:4px solid var(--green);border-radius:0 9px 9px 0;background:#f1f8f2;line-height:1.8}
+#storage{color:#8d2c13;font-weight:650;background:#fff0e8;padding:12px;border-radius:9px}
+summary{cursor:pointer;padding:13px 0;font-weight:650}details .grid{padding-bottom:12px}
+:focus-visible{outline:3px solid #c78b22;outline-offset:3px}
+@media(max-width:600px){header{padding:19px;border-radius:14px}.panel{border-radius:14px}.row button{flex:1 1 auto}.top small{display:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<nav class="top" aria-label="เส้นทางกลับ"><div class="top-inner"><a class="brand" href="index.html">▤ คลังติวสอบราชการ</a><small>คลังฝึก · 500 ข้อ</small></div></nav>
+<main>
+<header><small>ฝึกทุกวัน · เฉลยทันที</small><h1 id="name">คลังฝึก 500 ข้อ</h1><p id="subtitle"></p></header>
+<nav id="practice-links" aria-label="เมนูสนามสอบ"><a href="index.html">← เลือกสนามสอบ</a></nav>
+<p id="storage" role="status" hidden>เครื่องนี้ไม่อนุญาตให้บันทึก แต่ยังทำข้อสอบได้ในหน้านี้</p>
+<section id="app" class="panel" aria-live="polite">กำลังเปิดคลังข้อสอบ…</section>
+</main>
+<script src="role-sprint-core.js?v=20261120"></script>
+<script src="practice500/run.js?v=20261120"></script>
+</body></html>
