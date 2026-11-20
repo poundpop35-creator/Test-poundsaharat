@@ -235,3 +235,11 @@
 .agency-card:has(.agency-icon.compare){--a:#475569;--a-dk:#1E293B;--a-sf:#F3F5F8;--a-bd:#D2DAE3}
 .agency-card:has(.agency-icon.english){--a:#DB2777;--a-dk:#9D174D;--a-sf:#FFF0F6;--a-bd:#FAC4DA}
 .agency-card:has(.agency-icon.english-course){--a:#A21CAF;--a-dk:#701A75;--a-sf:#FDF0FD;--a-bd:#F3C2F6}
+
+/* Dashboard navigation v3: one clear action per exam with secondary paths folded away. */
+.resource-fold{margin-top:11px;border-top:1px solid var(--line)}
+.resource-fold>summary{padding:13px 2px;cursor:pointer;color:var(--ink-soft);font-size:14px;font-weight:650;min-height:46px}
+.resource-fold[open]>summary{color:var(--a-dk)}
+.agency-primary{margin-top:17px;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;padding:12px 15px;border-radius:11px;text-decoration:none;background:var(--a-sf);border:1px solid var(--a-bd);font-weight:700;color:var(--a-dk);font-size:14px;line-height:1.5}
+.agency-primary:hover{background:color-mix(in srgb,var(--a) 15%,var(--card));border-color:var(--a)}
+.agency-primary>span:first-child{min-width:0}.agency-primary>span:last-child{font-size:20px;flex:none}
