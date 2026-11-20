@@ -7,7 +7,7 @@ const path=require('node:path');
 const vm=require('node:vm');
 const root=path.resolve(__dirname,'..');
 const read=name=>fs.readFileSync(path.join(root,name),'utf8');
-const exists=name=>fs.existsSync(path.join(root,name));
+const exists=name=>fs.existsSync(path.join(root,name.split(/[?#]/)[0]));
 const htmlFiles=fs.readdirSync(root).filter(name=>name.endsWith('.html'));
 const context={window:{}};
 vm.runInNewContext(read('app-catalog.js'),context);
