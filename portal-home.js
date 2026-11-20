@@ -36,6 +36,28 @@
     '</div>'
   );
   const recent=document.getElementById('home-recent');
+  // Legacy sprint pages already publish a recent link. Complete the loop for
+  // the newer 500-question banks, which save a separate session per agency.
+  if(recent&&recent.hidden){
+    for(const tile of document.querySelectorAll('.tile[data-bank]')){
+      const bank=tile.dataset.bank;
+      if(!['rd','dmh','drr','opsmoac','namban'].includes(bank))continue;
+      try{
+        const saved=JSON.parse(localStorage.getItem(bank+':practice500:v1')||'null');
+        if(!saved||saved.complete||!Array.isArray(saved.ids)||!saved.ids.length||
+           !Number.isInteger(saved.idx)||saved.idx<0||saved.idx>=saved.ids.length)continue;
+        const name=tile.querySelector('strong')?.textContent||'สนามสอบ';
+        const label=document.createElement('span');
+        label.textContent='ทำข้อสอบ '+name+' ค้างไว้ที่ข้อ '+(saved.idx+1);
+        const link=document.createElement('a');
+        link.href='practice500.html?agency='+bank+'#resume';
+        link.textContent='ทำต่อจากข้อเดิม →';
+        recent.replaceChildren(label,link);
+        recent.hidden=false;
+        break;
+      }catch(_){}
+    }
+  }
   if(recent)header.after(recent);
   header.insertAdjacentHTML('afterend',
     '<div class="hub-tabs" role="group" aria-label="กรองสนามสอบ">'+
