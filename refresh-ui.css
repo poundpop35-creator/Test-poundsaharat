@@ -11,3 +11,16 @@ html.reading-room :is(.agency-card,.card,.intro-card,.topic,.doc-link){border-ra
 .reading-room :focus-visible{outline:3px solid #8b6500;outline-offset:3px}.reading-room .room-fold :target{scroll-margin-top:85px}.reading-room .app-quizzing .room-fold{display:none}.reading-room .studio-links a{display:inline-flex;align-items:center;min-height:46px}.reading-room .home-hero{box-shadow:0 15px 34px #0d332219}
 @media(max-width:650px){.room-path{gap:5px}.room-fold{padding:0 12px}.reading-room body.study-app .app-local-nav,.reading-room body.study-app .tabs{position:static}.reading-room .studio-links{gap:7px}.reading-room .studio-links a{padding:9px 12px}.room-directory .home-categories{gap:5px}}
 @media print{.room-nav,.room-path,.app-bar{display:none!important}.room-fold{border:none}.room-fold>summary{color:#000}}
+
+/* Direct in-app directory: small disclosures instead of a duplicated full sitemap. */
+html.reading-room .app-menu-panel{width:min(360px,calc(100vw - 24px));padding:13px}
+.room-menu-groups{display:grid;gap:7px}
+.room-menu-group{border:1px solid #dbe6dc;border-radius:11px;overflow:hidden;background:#fff;margin:0}
+.room-menu-group>summary{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:45px;padding:10px 12px;cursor:pointer;color:#244c40;font-size:.89rem;font-weight:700;list-style:none}
+.room-menu-group>summary::-webkit-details-marker{display:none}
+.room-menu-group>summary small{color:#5b786d;background:#eaf2eb;border-radius:6px;padding:1px 7px;font-size:.76rem}
+.room-menu-group[open]>summary{background:#edf5ee;border-bottom:1px solid #dbe6dc}
+.room-menu-items{display:grid;gap:2px;padding:6px}
+.room-menu-items a{color:#28594b;text-decoration:none;border-radius:8px;padding:9px 10px;min-height:42px;display:flex;align-items:center;line-height:1.45;font-size:.87rem}
+.room-menu-items a:hover,.room-menu-items a[aria-current]{background:#dfeee4;color:#123c30;font-weight:750}
+.room-menu-items a.room-group-overview{color:#557266;border-bottom:1px dashed #e2ebe4;border-radius:0;font-size:.82rem}
