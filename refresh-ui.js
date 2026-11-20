@@ -5,7 +5,19 @@ const qs=(s)=>document.querySelector(s),all=s=>[...document.querySelectorAll(s)]
 const bar=qs('.app-bar');
 if(bar){
  const panel=bar.querySelector('.app-menu-panel');
- panel.innerHTML='<a class="app-menu-home" href="index.html">หน้าแรก · ห้องติว</a>'+[['agencies','สนามที่กำลังเตรียมสอบ'],['resources','กฎหมายและคลังกลาง'],['english','ภาษาอังกฤษ'],['archive','สนามที่สอบแล้ว']].map(([k,v])=>'<a class="room-menu-link" href="index.html#'+k+'">'+v+' <span>→</span></a>').join('');
+ const catalog=(window.STUDY_CATALOG||[]).filter(p=>p.hub!==false);
+ const current=catalog.find(p=>p.file===file||p.sprint===file);
+ const safe=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const groups=[['agencies','กำลังเตรียมสอบ'],['archive','สอบแล้ว · เปิดทวน'],['resources','คลังกลางและกฎหมาย'],['english','ภาษาอังกฤษ']];
+ panel.innerHTML='<a class="app-menu-home" href="index.html">← หน้าแรก · คลังติวทั้งหมด</a>'+
+   '<div class="room-menu-groups">'+groups.map(([key,title])=>{
+     const pages=catalog.filter(p=>p.group===key);
+     return '<details class="room-menu-group"'+(current?.group===key?' open':'')+'>'+
+       '<summary>'+title+' <small>'+pages.length+'</small></summary>'+
+       '<div class="room-menu-items"><a class="room-group-overview" href="index.html#'+key+'">ดูภาพรวมหมวดนี้</a>'+
+       pages.map(p=>'<a href="'+safe(p.file)+'"'+(p.id===current?.id?' aria-current="page"':'')+'>'+safe(p.short)+'</a>').join('')+
+       '</div></details>';
+   }).join('')+'</div>';
  bar.querySelector('.app-menu summary span').textContent='เลือกสนาม';
 }else if(file!=='study.html'){
  const n=document.createElement('nav');n.className='room-nav';n.setAttribute('aria-label','เมนูหลัก');n.innerHTML='<a class="room-brand" href="index.html">▤ &nbsp;คลังติว</a><a href="index.html#agencies">เลือกสนาม →</a>';document.body.prepend(n);
