@@ -51,6 +51,7 @@ window.STUDY_CATALOG = [
     search:'rd ภาษี พัสดุ สรรพากร จัดซื้อจัดจ้าง',
     actions:['read','practice','sources'],
     resources:[
+      {kind:'drill',label:'คลังฝึก 500 ข้อ / ซ้อมสอบ 100 ข้อ',meta:'ฝึก 5 ชุด · เฉลยทันที',file:'practice500.html?agency=rd',strong:true},
       {kind:'read',label:'บทติวพร้อมตัวอย่างและแหล่งค้นคว้า',meta:'ทบทวน 3 พ.ย.2569',file:'exam-tutor.html',hash:'rd',strong:true},
       {kind:'read', label:'อ่านเนื้อหา', meta:'8 บท · 81 ข้อท้ายบท', file:'rd.html', hash:'read'},
       {kind:'drill',label:'ฝึกรายหมวด',  meta:'14 หมวด · 217 ข้อ',   file:'rd.html', hash:'practice'},
@@ -72,6 +73,7 @@ window.STUDY_CATALOG = [
     search:'dmh สุขภาพจิต นักวิเคราะห์นโยบายและแผน',
     actions:['read','practice','sources'],
     resources:[
+      {kind:'drill',label:'คลังฝึก 500 ข้อ / ซ้อมสอบ 100 ข้อ',meta:'ฝึก 5 ชุด · เฉลยทันที',file:'practice500.html?agency=dmh',strong:true},
       {kind:'read',label:'บทติวพร้อมตัวอย่างและแหล่งค้นคว้า',meta:'ทบทวน 3 พ.ย.2569',file:'exam-tutor.html',hash:'dmh',strong:true},
       {kind:'drill',label:'ฝึกรายหมวด · ตามประกาศ',meta:'10 หัวข้อ · 100 ข้อใหม่',file:'dmh-syllabus.html',hash:'topicButtons',strong:true},
       {kind:'mock',label:'ชุดฝึกครบทุกหัวข้อ',meta:'100 ข้อ · เลือกฝึกหรือซ้อมสอบ',file:'dmh-syllabus.html'},
@@ -91,6 +93,7 @@ window.STUDY_CATALOG = [
     description:'ข้อฝึกใหม่ 100 ข้อ พร้อมเฉลย แหล่งอ้างอิง ทำต่อจากข้อค้าง และทวนข้อผิด',
     search:'drr ทช ทางหลวงชนบท นักจัดการงานทั่วไป สารบรรณ การลา',actions:[],
     resources:[
+      {kind:'drill',label:'คลังฝึก 500 ข้อ / ซ้อมสอบ 100 ข้อ',meta:'ฝึก 5 ชุด · เฉลยทันที',file:'practice500.html?agency=drr',strong:true},
       {kind:'read',label:'บทติวพร้อมตัวอย่างและแหล่งค้นคว้า',meta:'ทบทวน 3 พ.ย.2569',file:'exam-tutor.html',hash:'drr',strong:true},
       {kind:'read',label:'อ่านสรุปหัวข้อ',meta:'5 หัวข้อ',file:'drr-syllabus.html',hash:'notes'},
       {kind:'drill',label:'ฝึกรายหมวด',meta:'5 หมวด · 100 ข้อ',file:'drr-syllabus.html',hash:'topicButtons',strong:true},
@@ -178,6 +181,7 @@ window.STUDY_CATALOG = [
     description:'เก็ง 300 ข้อ แบ่ง 3 ชุด ชุดละ 100 พร้อมเฉลยและตัวบท และมีชุดฝึกเขียนตอบ',
     search:'opsmoac สป.กษ. เกษตร',actions:['read','practice','sources'],
     resources:[
+      {kind:'drill',label:'คลังฝึก 500 ข้อ / ซ้อมสอบ 100 ข้อ',meta:'ฝึก 5 ชุด · เฉลยทันที',file:'practice500.html?agency=opsmoac',strong:true},
       {kind:'read', label:'อ่านเนื้อหา', meta:'5 บท · 56 ข้อท้ายบท', file:'opsmoac.html', hash:'read'},
       {kind:'drill',label:'ฝึกรายหมวด',  meta:'10 หมวด · 143 ข้อ',   file:'opsmoac.html', hash:'practice'},
       {kind:'mock', label:'จำลองสอบ · ชุดเก็ง', meta:'3 ชุด · 300 ข้อ', file:'opsmoac-sprint.html'}
@@ -205,6 +209,7 @@ window.STUDY_CATALOG = [
     description:'เก็บบทอ่าน แบบทดสอบ และเอกสารเดิมไว้ให้กลับมาทบทวน',
     search:'namban น้ำบาดาล',actions:['read','exam','sources'],
     resources:[
+      {kind:'drill',label:'คลังฝึก 500 ข้อ / ซ้อมสอบ 100 ข้อ',meta:'ฝึก 5 ชุด · เฉลยทันที',file:'practice500.html?agency=namban',strong:true},
       {kind:'read', label:'อ่านเนื้อหา', meta:'6 บท · 95 ข้อ', file:'namban.html', hash:'read', strong:true}
     ],
     extras:[{label:'ตัวบทฉบับเต็ม', file:'namban.html', hash:'sources'}]
