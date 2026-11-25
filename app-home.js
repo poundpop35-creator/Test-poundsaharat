@@ -4,13 +4,6 @@
   if (!catalog || !ui) return;
   const $ = id => document.getElementById(id), esc = ui.escape;
 
-  const groups = {
-    agencies:['หน่วยงานที่กำลังเตรียมสอบ','แต่ละหน่วยงานมีครบ ตั้งแต่อ่านเนื้อหาไปจนถึงชุดจำลองสอบ'],
-    resources:['คลังกลาง ใช้ได้หลายหน่วยงาน','กฎหมายที่ออกสอบซ้ำ ตัวบทต้นฉบับ และตัวช่วยวางแผนอ่าน'],
-    english:['ภาษาอังกฤษ','เลือกเรียนเป็นคอร์ส หรือทวนบทเรียนพื้นฐาน'],
-    archive:['หน่วยงานที่สอบไปแล้ว','คลังเดิมยังอยู่ครบ เปิดมาทวนได้ทุกเมื่อ']
-  };
-
   /* คำเรียกและไอคอนประจำ "ชนิดของสิ่งที่ทำได้" ใช้ชุดเดียวกันทุกหน่วยงาน */
   const KIND = {
     read:  {name:'อ่าน',    d:'M12 6c-3-2-7-2-10-1v14c3-1 7-1 10 1m0-14c3-2 7-2 10-1v14c-3-1-7-1-10 1V6'},
@@ -27,18 +20,6 @@
   };
 
   const hubItems = catalog.filter(p => p.hub !== false);
-  const totalQ = hubItems.reduce((sum, p) => sum + (p.total || 0), 0);
-  const agencyCount = hubItems.filter(p => p.group === 'agencies' || p.group === 'archive').length;
-
-  const stats = $('home-stats');
-  if (stats) {
-    stats.innerHTML =
-      `<span><b>${totalQ.toLocaleString('en-US')}</b> ข้อพร้อมเฉลย</span>` +
-      `<span><b>${agencyCount}</b> หน่วยงาน</span>` +
-      `<span><b>${hubItems.filter(p => p.group === 'agencies').length}</b> สนามที่กำลังเตรียม</span>`;
-  }
-
-  let category = groups[location.hash.slice(1)] ? location.hash.slice(1) : 'agencies';
   const input = $('home-search-input');
 
   function row(p, r) {
@@ -80,36 +61,41 @@
 
   function render() {
     const query = input.value.trim().toLocaleLowerCase('th');
-    const items = hubItems.filter(p => query
-      ? [p.title, p.short, p.role, p.search, p.description, p.headline].join(' ').toLocaleLowerCase('th').includes(query)
-      : p.group === category);
-    $('home-section-title').textContent = query ? 'ผลการค้นหา' : groups[category][0];
-    $('home-section-description').textContent = query ? 'ค้นจากทุกหน่วยงานและทุกหมวด' : groups[category][1];
-    $('home-count').textContent = items.length + ' รายการ';
+    const matches = hubItems.filter(p => [p.title, p.short, p.role, p.search, p.description, p.headline,
+      ...(p.resources || []).map(r => r.label)].join(' ').toLocaleLowerCase('th').includes(query));
+    const agencies = matches.filter(p => ['agencies', 'archive'].includes(p.group));
+    const shared = matches.filter(p => ['resources', 'english'].includes(p.group));
+    for (const [prefix, section, items, unit] of [
+      ['agency', 'agencies', agencies, 'หน่วยงาน'], ['shared', 'resources', shared, 'รายการ']
+    ]) {
+      $(section).hidden = items.length === 0;
+      $(prefix + '-count').textContent = items.length + ' ' + unit;
+      const subgroup = prefix === 'agency' ? 'archive' : 'english';
+      const secondary = items.filter(p => p.group === subgroup);
+      $(prefix + '-cards').innerHTML = items.filter(p => p.group !== subgroup).map(card).join('');
+      $(subgroup).hidden = secondary.length === 0;
+      $(subgroup + '-cards').innerHTML = secondary.map(card).join('');
+    }
     $('home-clear').hidden = !input.value;
-    $('home-empty').hidden = !!items.length;
-    document.querySelectorAll('[data-category]').forEach(a => {
-      if (!query && a.dataset.category === category) a.setAttribute('aria-current', 'page');
-      else a.removeAttribute('aria-current');
-    });
-    $('home-cards').innerHTML = items.map(card).join('');
+    $('home-empty').hidden = matches.length > 0;
+    $('search-status').textContent = query ? 'พบ ' + agencies.length + ' หน่วยงาน และ ' + shared.length + ' รายการในคลังกลาง' : '';
     if (window.StudyCountdown) window.StudyCountdown.refresh();
   }
 
   input.addEventListener('input', render);
   $('home-clear').addEventListener('click', () => { input.value = ''; render(); input.focus(); });
   $('home-reset').addEventListener('click', () => {
-    input.value = ''; category = 'agencies';
-    history.replaceState(null, '', '#agencies'); render(); input.focus();
+    input.value = ''; render(); input.focus();
   });
-  document.querySelectorAll('[data-category]').forEach(a => a.addEventListener('click', e => {
-    e.preventDefault(); category = a.dataset.category; input.value = '';
-    history.replaceState(null, '', '#' + category); render();
-  }));
-  window.addEventListener('hashchange', () => {
-    category = groups[location.hash.slice(1)] ? location.hash.slice(1) : 'agencies';
-    input.value = ''; render();
-  });
+  function openSection(hash) {
+    const target = {archive:'archive', english:'english', agencies:'agencies', resources:'resources'}[hash.slice(1)];
+    if (!target) return;
+    input.value = '';
+    render();
+    $(target).scrollIntoView();
+  }
+  document.querySelectorAll('.portal-nav a').forEach(link => link.addEventListener('click', () => openSection(link.hash)));
+  window.addEventListener('hashchange', () => openSection(location.hash));
 
   /* แถบ "กลับไปต่อ" — ชุดที่ค้างไว้มาก่อน แล้วค่อยเป็นหน้าที่เปิดล่าสุด */
   try {
@@ -144,4 +130,5 @@
   } catch (_) { /* Browsing remains available without storage. */ }
 
   render();
+  if (location.hash) openSection(location.hash);
 })();

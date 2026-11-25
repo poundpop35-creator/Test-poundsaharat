@@ -38,6 +38,7 @@
       .home-hero h1{font-size:clamp(26px,7.3vw,34px)}.home-section-heading{align-items:center}
     }
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  #home-directory > section {scroll-margin-top:5rem;margin:2rem 0} #resources {border-top:2px solid var(--line);padding-top:1rem}.home-hero{min-height:0}.home-hero h1{margin:0}
   </style>
 </head>
 <body>
@@ -45,23 +46,15 @@
     <div class="portal-top-inner">
       <a href="index.html" class="portal-logo"><span class="portal-mark" aria-hidden="true">▤</span>คลังติวสอบราชการ</a>
       <div class="portal-nav">
-        <a href="#agencies" data-category="agencies">สนามสอบ</a>
-        <a href="#resources" data-category="resources">คลังกลาง</a>
-        <a href="#english" data-category="english">อังกฤษ</a>
-        <a href="#archive" data-category="archive">สอบแล้ว</a>
+        <a href="#agencies">ข้อสอบรายหน่วยงาน</a>
+        <a href="#resources">คลังกลาง</a>
       </div>
     </div>
   </nav>
   <main class="home-wrap" id="app-content">
     <section class="home-hero" aria-labelledby="home-title">
-      <p class="home-kicker">พื้นที่อ่านหนังสือและตะลุยโจทย์</p>
-      <h1 id="home-title">เตรียมสอบให้เป็นระบบ <span>อ่าน ฝึก แล้วทวนจุดที่พลาด</span></h1>
-      <p class="home-lead">เลือกหน่วยงานที่กำลังสอบ แล้วเข้าสู่คลังฝึกพร้อมเฉลยทันที หรือเปิดบทอ่านและชุดจำลองสอบในสนามเดียวกัน ไม่ต้องไล่หาเมนูหลายหน้า</p>
-      <div id="home-stats" class="home-stats" aria-label="สถิติคลังข้อสอบ"></div>
-      <a class="home-focus" href="coj-quiz.html">
-        <strong>สนามแนะนำ · สำนักงานศาลยุติธรรม</strong>
-        <span>นักวิชาการพัสดุปฏิบัติการ · เลือกฝึก 20 หรือ 100 ข้อ พร้อมเฉลย →</span>
-      </a>
+      <h1 id="home-title">คลังข้อสอบราชการ</h1>
+      <p class="home-lead">เลือกหน่วยงานเพื่อฝึกข้อสอบตามตำแหน่ง หรือเปิดคลังกลางเพื่อทบทวนวิชาที่ใช้ร่วมกัน</p>
     </section>
     <div id="home-recent" class="home-recent" hidden aria-live="polite"></div>
     <section aria-label="ค้นหาสนามสอบ">
@@ -71,19 +64,21 @@
         <input type="search" id="home-search-input" placeholder="เช่น พัสดุ ศาลยุติธรรม พลังงาน สุขภาพจิต" autocomplete="off" aria-label="ค้นหาหน่วยงานและหัวข้อ">
         <button id="home-clear" type="button" aria-label="ล้างคำค้น" hidden>×</button>
       </div>
-      <nav class="home-categories" aria-label="เลือกหมวดคลังติว">
-        <a href="#agencies" data-category="agencies" aria-current="page">กำลังเตรียมสอบ</a>
-        <a href="#resources" data-category="resources">กฎหมายและคลังกลาง</a>
-        <a href="#english" data-category="english">ภาษาอังกฤษ</a>
-        <a href="#archive" data-category="archive">สนามที่สอบแล้ว</a>
-      </nav>
+
     </section>
-    <section id="home-directory" aria-labelledby="home-section-title">
-      <div class="home-section-heading">
-        <div><h2 id="home-section-title">กำลังเตรียมสอบ</h2><p id="home-section-description">อ่านเนื้อหา ฝึกโจทย์ และจำลองสอบได้ในสนามเดียว</p></div>
-        <span id="home-count" class="home-count" aria-live="polite"></span>
-      </div>
-      <div id="home-cards" class="home-cards"></div>
+    <section id="home-directory" aria-label="รายการคลังข้อสอบ">
+      <section id="agencies" aria-labelledby="agency-title">
+        <div class="home-section-heading"><h2 id="agency-title">ข้อสอบรายหน่วยงาน</h2><span class="home-count" id="agency-count"></span></div>
+        <div class="home-cards" id="agency-cards"></div>
+        <div id="archive"><h3>หน่วยงานที่สอบแล้ว</h3><div class="home-cards" id="archive-cards"></div></div>
+      </section>
+      <section id="resources" aria-labelledby="shared-title">
+        <div class="home-section-heading"><h2 id="shared-title">คลังกลาง</h2><span class="home-count" id="shared-count"></span></div>
+        <p>กฎหมาย ภาษาอังกฤษ และเครื่องมือเตรียมสอบที่ใช้ร่วมกัน</p>
+        <div class="home-cards" id="shared-cards"></div>
+        <div id="english"><h3>ภาษาอังกฤษ</h3><div class="home-cards" id="english-cards"></div></div>
+      </section>
+      <p id="search-status" class="home-status" role="status"></p>
       <div id="home-empty" class="home-empty" hidden>
         <strong>ไม่พบรายการที่ค้นหา</strong><p>ลองค้นชื่อหน่วยงาน ตำแหน่ง หรือเลือกหมวดอีกครั้ง</p>
         <button id="home-reset" type="button">แสดงสนามสอบทั้งหมด</button>
@@ -116,6 +111,6 @@
       }
     };
   </script>
-  <script src="app-home.js?v=20261120-hub3"></script>
+  <script src="app-home.js?v=20261125-directory"></script>
 </body>
 </html>
