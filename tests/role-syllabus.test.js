@@ -1,4 +1,5 @@
-const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
+const root=path.join(__dirname,'..');
 const create=require('../role-sprint-core.js');
 function bank(id){const c={window:{}};vm.runInNewContext(fs.readFileSync(`${id}-syllabus-data.js`,'utf8'),c);return JSON.parse(JSON.stringify(c.window.ROLE_SYLLABUS));}
 for(const id of ['dmh','drr'])test(`${id}: complete syllabus, valid sources, stable resume and independent scoring`,()=>{
@@ -9,7 +10,27 @@ for(const id of ['dmh','drr'])test(`${id}: complete syllabus, valid sources, sta
  for(let i=0;i<100;i++){const q=core.byId.get(s.ids[s.idx]),a=i%3===0?(q.a+1)%4:q.a;if(a===q.a)correct++;s=core.answer(s,a);s=JSON.parse(JSON.stringify(s));assert(core.valid(s));s=core.next(s);}
  assert(s.complete);assert.equal(core.score(s).correct,correct);assert.equal(JSON.stringify(s.orders),savedOrder);assert.notEqual(b.storageKey,'energy100:v1');assert.notEqual(b.storageKey,'rd100:v1');
 });
-test('new catalog keeps old DMH resources and exposes both new banks',()=>{const c={window:{}};vm.runInNewContext(fs.readFileSync('app-catalog.js','utf8'),c);for(const id of ['dmh','drr']){const e=c.window.STUDY_CATALOG.find(x=>x.id===id);assert(fs.existsSync(e.file));for(const r of e.resources)assert(fs.existsSync(r.file));}const dmh=c.window.STUDY_CATALOG.find(x=>x.id==='dmh');assert.equal(dmh.total,178);assert(dmh.resources.some(r=>r.file==='dmh.html'));});
+test('catalog exposes working chapter-bank routes while retaining the original DMH and DRR resources',()=>{
+ const c={window:{}};vm.runInNewContext(fs.readFileSync(path.join(root,'app-catalog.js'),'utf8'),c);
+ for(const id of ['dmh','drr']){
+  const entry=c.window.STUDY_CATALOG.find(item=>item.id===id);assert.ok(entry);
+  for(const resource of [entry,...entry.resources,...(entry.extras||[])]){
+   const route=new URL(resource.file,'https://test.invalid/');
+   assert.equal(route.origin,'https://test.invalid');
+   assert.ok(fs.existsSync(path.join(root,route.pathname.slice(1))),id+': missing '+resource.file);
+   if(route.pathname==='/question-bank.html')assert.equal(route.searchParams.get('agency'),id);
+  }
+  const primary=entry.resources.find(resource=>resource.primary===true);
+  assert.equal(primary.file,'question-bank.html?agency='+id);assert.equal(primary.hash,'chapters');
+  assert.equal(entry.directoryFile,primary.file);assert.equal(entry.chapterBank,id);
+  assert.ok(entry.resources.some(resource=>resource.file===primary.file&&resource.hash==='mixed'));
+  assert.ok(entry.resources.some(resource=>resource.file===id+'-syllabus.html'),'The original 100-question syllabus remains available');
+  const chapterBank=JSON.parse(fs.readFileSync(path.join(root,'question-banks',id+'.json'),'utf8'));
+  assert.equal(chapterBank.id,id);assert.equal(entry.total,chapterBank.questions.length);
+ }
+ const dmh=c.window.STUDY_CATALOG.find(item=>item.id==='dmh');
+ assert.ok(dmh.resources.some(resource=>resource.file==='dmh.html'));
+});
 test('DMH includes draft 14 rather than replacing it with plan 13',()=>{const b=bank('dmh');assert.match(b.topics[2],/ร่าง.*14.*2571.*2575/);assert.equal(b.questions.filter(q=>q.topic===3).length,10);});
 test('expanded banks accept unfinished sessions created with the original 50-question bank',()=>{
  for(const id of ['dmh','drr']){const expanded=bank(id),old={...expanded,questions:expanded.questions.slice(0,50)},oldCore=create(old),newCore=create(expanded);let s=oldCore.createSession(old.questions.map(q=>q.id),'exam','original 50',()=>.31);s=oldCore.answer(s,oldCore.byId.get(s.ids[0]).a);s=oldCore.next(s);const roundtrip=JSON.parse(JSON.stringify(s));assert(newCore.valid(roundtrip));assert.deepEqual(roundtrip.orders,s.orders);assert.equal(roundtrip.ids.length,50);assert.equal(roundtrip.idx,1);}

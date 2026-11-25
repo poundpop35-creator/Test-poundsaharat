@@ -5,6 +5,11 @@
    ============================================================ */
 
 .home-wrap{max-width:1120px;margin:auto;padding:30px 24px 32px}
+.agency-entry{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.agency-entry .agency-primary{justify-content:center;text-align:center;margin-bottom:0;min-height:48px;font-size:15px}
+.agency-entry .agency-mixed{background:#174e43;color:#fff;border-color:#174e43}
+.agency-entry .agency-mixed:hover{background:#236958;color:#fff}
+@media(max-width:650px){.home-wrap{padding:20px 14px}.agency-entry{gap:8px}.agency-entry .agency-primary{font-size:15px;padding:12px 8px}.home-search input{font-size:16px;min-height:48px}.home-kicker{font-size:14px!important}.resource-fold summary{min-height:44px;display:flex;align-items:center}.agency-role{font-size:14px!important}}
 
 /* ---------- 1. หัวหน้า ---------- */
 .home-hero{

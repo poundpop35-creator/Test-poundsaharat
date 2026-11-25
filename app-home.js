@@ -36,7 +36,8 @@
     const primary = res.find(r => r.primary === true)
       || res.find(r => r.file && r.file.startsWith('practice500.html?'))
       || res.find(r => r.kind === 'mock') || res.find(r => r.strong) || res[0];
-    const more = res.filter(r => r !== primary);
+    const mixed = res.find(r => r.featuredMixed);
+    const more = res.filter(r => r !== primary && r !== mixed);
     const badge = p.flag ? `<span class="agency-flag">${esc(p.flag)}</span>`
       : p.exam ? `<span class="cd" data-cd-key="${esc(p.id)}" data-cd="${esc(p.exam)}"></span>`
       : p.examPending ? '<span class="agency-flag soft">รอวันสอบทางการ</span>'
@@ -45,15 +46,15 @@
       <div class="agency-top">
         <span class="agency-icon ${esc(p.color)}" aria-hidden="true">${ui.icon(p.icon)}</span>
         <div class="agency-id">
-          <h3><a href="${ui.href(p.file)}">${esc(p.title)}</a></h3>
+          <h3><a href="${ui.href(p.directoryFile || p.file)}">${esc(p.title)}</a></h3>
           <p class="agency-role">${esc(p.role || '')}</p>
         </div>
         ${p.total ? `<span class="agency-total"><b>${p.total.toLocaleString('en-US')}</b>ข้อ</span>` : ''}
       </div>
       ${badge ? `<div class="agency-badges">${badge}</div>` : ''}
       ${p.headline ? `<p class="agency-headline">${esc(p.headline)}</p>` : `<p class="agency-headline">${esc(p.description || '')}</p>`}
-      ${primary ? `<a class="agency-primary" href="${ui.href(primary.file, primary.hash || '')}"><span>เริ่มเลย · ${esc(primary.label)}</span><span aria-hidden="true">→</span></a>` : ''}
-      ${more.length || extras.length ? '<details class="resource-fold"><summary>อ่านบทเรียนและตัวเลือกอื่น</summary>' : ''}
+      ${primary ? `<div class="agency-entry"><a class="agency-primary" href="${ui.href(primary.file, primary.hash || '')}"><span>${p.chapterBank ? '' : 'เริ่มเลย · '}${esc(primary.label)}</span></a>${mixed ? `<a class="agency-primary agency-mixed" href="${ui.href(mixed.file,mixed.hash)}">ชุดรวม 100 ข้อ</a>` : ''}</div>` : ''}
+      ${more.length || extras.length ? '<details class="resource-fold"><summary>ชุดเดิมและเอกสารเพิ่มเติม</summary>' : ''}
       ${more.length ? `<div class="res-list">${more.map(r => row(p, r)).join('')}</div>` : ''}
       ${extras.length ? `<div class="res-extras">${extras.map(e =>
           `<a href="${ui.href(e.file, e.hash || '')}">${esc(e.label)}</a>`).join('')}</div>` : ''}
@@ -109,7 +110,17 @@
   }
   {
     let recent;
-    for (const p of catalog.filter(p => p.sprint && p.sprintKey)) {
+    const latest = readSaved('chapter-bank:last');
+    const currentBanks = catalog.filter(p => p.chapterBank);
+    currentBanks.sort((a,b) => Number(b.chapterBank === latest?.agency) - Number(a.chapterBank === latest?.agency));
+    for (const p of currentBanks) {
+      const saved = readSaved('chapter-bank:' + p.chapterBank + ':v1');
+      if (isPending(saved?.session)) {
+        recent = {label:'ทำชุด ' + p.short + ' ที่ค้างไว้ต่อ',file:p.directoryFile || p.file,hash:'#resume'};
+        break;
+      }
+    }
+    if (!recent) for (const p of catalog.filter(p => p.sprint && p.sprintKey)) {
       const saved = readSaved(p.sprintKey);
       const session = saved && saved.session;
       if (isPending(session)) {

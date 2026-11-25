@@ -142,19 +142,39 @@ test('last visited page remains available when earlier storage records are malfo
   assert.match(home.recent.innerHTML, /เปิดล่าสุด/);
 });
 
-test('the Energy primary resource opens short practice while keeping its intensive course accessible', () => {
+test('new chapter sessions resume the most recently used bank ahead of legacy practice', () => {
+  const home = renderHome({
+    'chapter-bank:last': {agency:'central'},
+    'chapter-bank:energy:v1': {version:1, session:pending()},
+    'chapter-bank:central:v1': {version:1, session:pending()},
+    'energy100:v1': {session:pending()}
+  });
+  assert.equal(home.recent.hidden, false);
+  assert.match(home.recent.innerHTML, /href="question-bank\.html\?agency=central#resume"/);
+});
+
+test('completed new sessions do not obscure an unfinished session in another bank', () => {
+  const home = renderHome({
+    'chapter-bank:last': {agency:'central'},
+    'chapter-bank:central:v1': {version:1, session:pending({complete:true})},
+    'chapter-bank:rd:v1': {version:1, session:pending()}
+  });
+  assert.match(home.recent.innerHTML, /href="question-bank\.html\?agency=rd#resume"/);
+});
+
+test('the Energy primary resource opens chapters while keeping its intensive course accessible', () => {
   const energy = catalog.find(p => p.id === 'energy');
   const home = renderHome({}, {catalog:[energy]});
   const html = home.get('agency-cards').innerHTML;
-  assert.match(html, /class="agency-primary" href="energy-sprint\.html"/);
+  assert.match(html, /class="agency-primary" href="question-bank\.html\?agency=energy#chapters"/);
   assert.match(html, /class="res-row[^"]*" href="energy-intensive\.html"/);
 });
 
-test('the Diprom primary resource opens practice while keeping lessons accessible', () => {
+test('the Diprom primary resource opens chapters while keeping lessons accessible', () => {
   const diprom = catalog.find(p => p.id === 'diprom');
   const home = renderHome({}, {catalog:[diprom]});
   const html = home.get('archive-cards').innerHTML;
-  assert.match(html, /class="agency-primary" href="diprom\.html#practice"/);
+  assert.match(html, /class="agency-primary" href="question-bank\.html\?agency=diprom#chapters"/);
   assert.match(html, /class="res-row[^"]*" href="diprom\.html#read"/);
 });
 
