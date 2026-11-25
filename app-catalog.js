@@ -31,7 +31,7 @@ window.STUDY_CATALOG = [
       {kind:'read', label:'อ่านเนื้อหา',  meta:'11 บท · 48 ข้อท้ายบท', file:'energy.html', hash:'read'},
       {kind:'drill',label:'ฝึกรายหมวด',   meta:'10 หมวด · 195 ข้อ',    file:'energy.html', hash:'practice'},
       {kind:'mock', label:'จำลองสอบ · ชุดเข้มข้น', meta:'5 ชุด · 500 ข้อ', file:'energy-intensive.html', strong:true},
-      {kind:'mock', label:'จำลองสอบ · ชุดเก็ง',   meta:'2 ชุด · 200 ข้อ', file:'energy-sprint.html'}
+      {kind:'drill', label:'ฝึกสั้น 20 ข้อ', meta:'เลือกหัวข้อหรือซ้อมสอบได้ · คลัง 200 ข้อ', file:'energy-sprint.html', primary:true}
     ],
     extras:[
       {label:'จุดต้องท่อง',    file:'energy.html', hash:'summary'},
@@ -199,7 +199,7 @@ window.STUDY_CATALOG = [
     search:'diprom อุตสาหกรรม กสอ.',actions:['read','practice','sources'],
     resources:[
       {kind:'read', label:'อ่านเนื้อหา', meta:'13 บท · 629 ข้อท้ายบท', file:'diprom.html', hash:'read'},
-      {kind:'drill',label:'ฝึกรายหมวด',  meta:'10 หมวด · 360 ข้อ',    file:'diprom.html', hash:'practice'}
+      {kind:'drill',label:'ฝึกรายหมวด',  meta:'10 หมวด · 360 ข้อ',    file:'diprom.html', hash:'practice', primary:true}
     ],
     extras:[{label:'ตัวบทฉบับเต็ม', file:'diprom.html', hash:'sources'}]
   },

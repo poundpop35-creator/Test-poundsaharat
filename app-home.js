@@ -33,7 +33,8 @@
   function card(p) {
     const res = p.resources || [];
     const extras = p.extras || [];
-    const primary = res.find(r => r.file && r.file.startsWith('practice500.html?'))
+    const primary = res.find(r => r.primary === true)
+      || res.find(r => r.file && r.file.startsWith('practice500.html?'))
       || res.find(r => r.kind === 'mock') || res.find(r => r.strong) || res[0];
     const more = res.filter(r => r !== primary);
     const badge = p.flag ? `<span class="agency-flag">${esc(p.flag)}</span>`
@@ -98,27 +99,39 @@
   window.addEventListener('hashchange', () => openSection(location.hash));
 
   /* แถบ "กลับไปต่อ" — ชุดที่ค้างไว้มาก่อน แล้วค่อยเป็นหน้าที่เปิดล่าสุด */
-  try {
+  function readSaved(key) {
+    try { return JSON.parse(localStorage.getItem(key) || 'null'); }
+    catch (_) { return null; }
+  }
+  function isPending(session) {
+    return session && session.complete === false && Array.isArray(session.ids) && session.ids.length > 0 &&
+      Number.isInteger(session.idx) && session.idx >= 0 && session.idx < session.ids.length;
+  }
+  {
     let recent;
-    for (const p of catalog.filter(p => p.sprint && p.group === 'agencies')) {
-      let saved;
-      try { saved = JSON.parse(localStorage.getItem(p.sprintKey) || 'null'); } catch (_) { continue; }
+    for (const p of catalog.filter(p => p.sprint && p.sprintKey)) {
+      const saved = readSaved(p.sprintKey);
       const session = saved && saved.session;
-      if (session && !session.complete && Array.isArray(session.ids) &&
-          Number.isInteger(session.idx) && session.idx >= 0 && session.idx < session.ids.length) {
+      if (isPending(session)) {
         recent = {label: 'ทำชุด ' + p.short + ' ที่ค้างไว้ต่อ', file: p.sprint, hash: '#resume'};
         break;
       }
     }
+    if (!recent) {
+      const saved = readSaved('energy-intensive:500:v1');
+      if (isPending(saved && saved.session)) {
+        recent = {label:'ทำชุดพลังงานเข้มข้นที่ค้างไว้ต่อ',file:'energy-intensive.html',hash:'#quiz'};
+      }
+    }
     if (!recent) for (const id of ['rd','dmh','drr','opsmoac','namban']) {
-      const saved = JSON.parse(localStorage.getItem(id + ':practice500:v1') || 'null');
-      if (saved && !saved.complete && Array.isArray(saved.ids) && saved.ids.length && Number.isInteger(saved.idx)) {
+      const saved = readSaved(id + ':practice500:v1');
+      if (isPending(saved)) {
         recent = {label:'ทำข้อสอบ '+(catalog.find(p => p.id === id)?.short || id)+' ที่ค้างไว้ต่อ',file:'practice500.html?agency='+id,hash:'#resume'};
         break;
       }
     }
     if (!recent) {
-      const saved = JSON.parse(localStorage.getItem('study:last-page') || 'null');
+      const saved = readSaved('study:last-page');
       const page = saved && catalog.find(p => p.file === saved.file);
       if (page) recent = {label: 'เปิดล่าสุด: ' + page.short, file: page.file,
         hash: ['#read','#practice','#sources','#summary'].includes(saved.hash) ? saved.hash : ''};
@@ -127,7 +140,7 @@
       $('home-recent').innerHTML = `<span>${esc(recent.label)}</span><a href="${ui.href(recent.file, recent.hash)}">กลับไปต่อ →</a>`;
       $('home-recent').hidden = false;
     }
-  } catch (_) { /* Browsing remains available without storage. */ }
+  }
 
   render();
   if (location.hash) openSection(location.hash);
