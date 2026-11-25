@@ -35,10 +35,10 @@ test('all static local HTML links and script/style references point to real file
     }
   }
 });
-test('landing page and practice player load the unified interface',()=>{
-  assert.match(read('index.html'),/portal-home\.css\?v=/);
-  assert.match(read('index.html'),/portal-home\.js\?v=/);
-  assert.match(read('practice500.html'),/portal-practice\.css\?v=/);
+test('landing page loads the directory and the practice player exposes its navigation',()=>{
+  assert.match(read('index.html'),/app-home\.css\?v=/);
+  assert.match(read('index.html'),/app-home\.js\?v=/);
+  assert.match(read('practice500.html'),/practice500\/run\.js\?v=/);
   assert.match(read('practice500.html'),/id="practice-links"/);
 });
 test('portal navigation targets are valid and core virtual routes remain supported',()=>{
