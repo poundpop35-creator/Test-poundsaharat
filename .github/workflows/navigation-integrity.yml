@@ -16,5 +16,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Verify internal routes and assets
-        run: node --test tests/navigation-integrity.test.cjs tests/app-home.test.cjs
+          cache: npm
+      - name: Install test dependencies
+        run: npm ci --ignore-scripts
+      - name: Verify question banks, study flows, and navigation
+        run: npm test

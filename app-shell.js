@@ -19,7 +19,7 @@
   const page = catalog.find(p=>p.file===file);
   const groups = {agencies:'กำลังเตรียมสอบ',resources:'กฎหมายและตัวบท',english:'ภาษาอังกฤษ',archive:'หน่วยงานที่สอบแล้ว'};
   const bar = document.createElement('div');bar.className='app-bar';
-  bar.innerHTML=`<div class="app-bar-inner"><a class="app-brand" href="index.html" aria-label="คลังติว กลับหน้าเลือกหน่วยงาน"><span class="app-brand-mark">${icon('book')}</span><span>คลังติว</span></a><span class="app-breadcrumb">${esc(sprint?sprintPage.short+' / '+(sprintPage.sprintCount||60)+' ข้อ':page?page.short:'เลือกหน่วยงาน')}</span><details class="app-menu"><summary>${icon('menu')}<span>หน่วยงาน / หมวด</span></summary><nav aria-label="เลือกหน่วยงานและหมวด" class="app-menu-panel"><a class="app-menu-home" href="index.html">หน้าแรก · ทุกหมวด →</a><div class="app-menu-groups">${Object.entries(groups).map(([key,label])=>`<section><h2>${label}</h2>${catalog.filter(p=>p.group===key&&p.hub!==false).map(p=>`<a href="${href(p.file)}"${p.file===file?' aria-current="page"':''}><span>${esc(p.short)}</span>${p.total?'<small>'+p.total.toLocaleString('en-US')+' ข้อ</small>':''}</a>${(p.resources||[]).filter(r=>r.file!==p.file).map(r=>`<a class="app-menu-child" href="${href(r.file,r.hash||'')}"${r.file===file?' aria-current="page"':''}>↳ ${esc(r.label)}${r.meta?' · '+esc(r.meta):''}</a>`).join('')}`).join('')}</section>`).join('')}</div></nav></details></div>`;
+  bar.innerHTML=`<div class="app-bar-inner"><a class="app-brand" href="index.html" aria-label="คลังติว กลับหน้าเลือกหน่วยงาน"><span class="app-brand-mark">${icon('book')}</span><span>คลังติว</span></a><span class="app-breadcrumb">${esc(sprint?sprintPage.short+' / '+(sprintPage.sprintCount||60)+' ข้อ':page?page.short:'เลือกหน่วยงาน')}</span><details class="app-menu"><summary>${icon('menu')}<span>หน่วยงาน / หมวด</span></summary><nav aria-label="เลือกหน่วยงานและหมวด" class="app-menu-panel"><a class="app-menu-home" href="index.html">หน้าแรก · ทุกหมวด →</a><div class="app-menu-groups">${Object.entries(groups).map(([key,label])=>`<section><h2>${label}</h2>${catalog.filter(p=>p.group===key&&p.hub!==false).map(p=>`<a href="${href(p.directoryFile || p.file)}"${p.file===file?' aria-current="page"':''}><span>${esc(p.short)}</span>${p.total?'<small>'+p.total.toLocaleString('en-US')+' ข้อ</small>':''}</a>${(p.resources||[]).filter(r=>r.file!==p.file).map(r=>`<a class="app-menu-child" href="${href(r.file,r.hash||'')}"${r.file===file?' aria-current="page"':''}>↳ ${esc(r.label)}${r.meta?' · '+esc(r.meta):''}</a>`).join('')}`).join('')}</section>`).join('')}</div></nav></details></div>`;
   document.body.prepend(bar);
   const content = document.querySelector('main') || document.querySelector('body > .wrap');
   if(content){if(!content.id)content.id='app-content';content.tabIndex=-1;const skip=document.createElement('a');skip.className='app-skip';skip.href='#'+content.id;skip.textContent='ข้ามไปเนื้อหา';document.body.prepend(skip);}
@@ -46,8 +46,8 @@
     research.innerHTML='<span class="app-research-label">ลัดไปที่</span>';
     const link=document.createElement('a');link.href=page.research;
     link.textContent=page.id==='energy'?'สรุปเน้นสอบ + ชุดโจทย์ →':'สรุปเน้นสอบ + ชุด B เจาะลึก →';
-    const daily=document.createElement('a');daily.href='exam-14.html#day-1-'+page.id;
-    daily.textContent='แผนติว 14 วัน →';
+    const daily=document.createElement('a');daily.href='question-bank.html?agency='+page.id+'#chapters';
+    daily.textContent='บทเรียนและชุดรวม 100 ข้อ';
     research.append(link,daily);content.prepend(research);
   }
   /* แถบ "ชุดอื่นของหน่วยงานนี้" — สร้างจาก resources ในแคตาล็อก
@@ -97,7 +97,7 @@
     content.prepend(nav);
   } else if(sprint) {
     const nav=document.createElement('nav');nav.className='app-local-nav';nav.setAttribute('aria-label','หมวดตะลุย '+sprintPage.short);
-    nav.innerHTML=`${sprintPage.research?`<a href="exam-14.html#day-1-${sprintPage.id}">ติว 14 วัน + ข้อเขียน</a>`:''}<a href="#dashboard">เลือกชุดโจทย์</a>${sprintPage.research?'<a href="#briefing">สรุปเน้นสอบใหม่</a>':''}<a href="#notes">บัตรทวน ${sprintPage.sprintTopics} หมวด</a><a href="#sources">ตัวบทฉบับเต็ม</a><a href="${href(sprintPage.file)}">คลัง ${esc(sprintPage.short)} ทั้งหมด ↗</a>`;
+    nav.innerHTML=`${sprintPage.research?`<a href="question-bank.html?agency=${sprintPage.id}#chapters">บทเรียนและชุดรวม 100 ข้อ</a>`:''}<a href="#dashboard">เลือกชุดโจทย์</a>${sprintPage.research?'<a href="#briefing">สรุปเน้นสอบใหม่</a>':''}<a href="#notes">บัตรทวน ${sprintPage.sprintTopics} หมวด</a><a href="#sources">ตัวบทฉบับเต็ม</a><a href="${href(sprintPage.file)}">คลัง ${esc(sprintPage.short)} ทั้งหมด ↗</a>`;
     content.prepend(nav);
   }
   // On small screens, keep section shortcuts available without pinning a grid over the text.

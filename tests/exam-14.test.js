@@ -1,7 +1,7 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
 const C=require('../exam-14-core.js'),root=path.join(__dirname,'..');
-function load(){const ctx={window:{}};vm.createContext(ctx);const html=fs.readFileSync(path.join(root,'exam-14.html'),'utf8');for(const m of html.matchAll(/<script defer src="([^"]+)"/g)){const file=m[1].split('?')[0];if(['exam-14.js','app-shell.js'].includes(file))continue;vm.runInContext(fs.readFileSync(path.join(root,file),'utf8'),ctx);}return JSON.parse(JSON.stringify(ctx.window.EXAM14));}
+function load(){const ctx={window:{}};vm.createContext(ctx);for(const file of ['exam-14-data.js', 'exam-14-rd.js', 'exam-14-energy.js', 'rd-sprint-data.js', 'rd-sprint-1.js', 'rd-sprint-2.js', 'rd-sprint-3.js', 'rd-sprint-4.js', 'rd-sprint-b.js', 'role-research.js', 'exam-14-capture.js', 'energy-sprint-data.js', 'energy-sprint-1.js', 'energy-sprint-2.js', 'energy-sprint-3.js', 'energy-sprint-4.js', 'energy-sprint-b.js', 'role-research.js', 'exam-14-capture.js', 'exam-14-core.js', 'app-catalog.js']){vm.runInContext(fs.readFileSync(path.join(root,file),'utf8'),ctx);}return JSON.parse(JSON.stringify(ctx.window.EXAM14));}
 test('course covers both official syllabi, preserves banks and builds 280 unique daily questions',()=>{
  const d=load(),m=C.build(d);assert.equal(d.lessons.rd.length,14);assert.equal(d.lessons.energy.length,14);
  assert.equal(m.quizzes.flat().length,280);assert.equal(new Set(m.quizzes.flat()).size,280);assert.equal([...m.all.values()].filter(q=>q.fresh).length,56);

@@ -1,0 +1,12 @@
+{
+  "name": "civil-service-exam-bank",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/*.test.cjs tests/*.test.js",
+    "test:chapters": "node --test tests/bank-core.test.cjs tests/chapter-data.test.cjs tests/chapter-bank.dom.test.cjs tests/app-home.test.cjs tests/navigation-integrity.test.cjs tests/central-bank.test.cjs",
+    "build:banks": "node scripts/build-chapter-banks.cjs && node scripts/build-central-bank.cjs"
+  },
+  "devDependencies": {
+    "jsdom": "26.1.0"
+  }
+}

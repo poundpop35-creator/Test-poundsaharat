@@ -31,7 +31,7 @@ window.STUDY_CATALOG = [
       {kind:'read', label:'อ่านเนื้อหา',  meta:'11 บท · 48 ข้อท้ายบท', file:'energy.html', hash:'read'},
       {kind:'drill',label:'ฝึกรายหมวด',   meta:'10 หมวด · 195 ข้อ',    file:'energy.html', hash:'practice'},
       {kind:'mock', label:'จำลองสอบ · ชุดเข้มข้น', meta:'5 ชุด · 500 ข้อ', file:'energy-intensive.html', strong:true},
-      {kind:'drill', label:'ฝึกสั้น 20 ข้อ', meta:'เลือกหัวข้อหรือซ้อมสอบได้ · คลัง 200 ข้อ', file:'energy-sprint.html', primary:true}
+      {kind:'drill', label:'ฝึกสั้น 20 ข้อ', meta:'เลือกหัวข้อหรือซ้อมสอบได้ · คลัง 200 ข้อ', file:'energy-sprint.html', hash:'dashboard', primary:true}
     ],
     extras:[
       {label:'จุดต้องท่อง',    file:'energy.html', hash:'summary'},
@@ -103,19 +103,21 @@ window.STUDY_CATALOG = [
 
   /* ---- คลังกลาง: ใช้ได้มากกว่าหนึ่งหน่วยงาน ---- */
   {
-    id:'exam-14',group:'resources',short:'ติว 14 วัน',title:'ติว 14 วัน · สรรพากร + พลังงาน',
-    role:'ตารางอ่านรายวัน · วันละ 3–4 ชั่วโมง',icon:'book',color:'rd',standalone:true,
-    headline:'ใช้เมื่ออยากให้มีคนจัดลำดับให้ว่าวันนี้อ่านอะไร',
-    description:'28 บทอ่าน · โจทย์รายวัน · ฝึกเขียน 28 กรณี พร้อมทวนข้อผิดและบันทึกคำตอบ',
-    search:'14 วัน สรรพากร พลังงาน เขียน อัตนัย ตาราง แผนติว',actions:[],
+    id:'central',group:'resources',short:'ข้อสอบคลังกลาง',title:'ข้อสอบคลังกลาง',
+    file:'question-bank.html?agency=central',directoryFile:'question-bank.html?agency=central',
+    chapterBank:'central',role:'กฎหมายที่ใช้ร่วมกันหลายหน่วยงาน',icon:'book',color:'laws',total:200,
+    headline:'8 บทกฎหมาย · แยกบทและชุดรวมคละ 100 ข้อ พร้อมมาตราอ้างอิง',
+    description:'ข้อฝึกจาก พ.ร.บ. 8 ฉบับ มีเฉลย มาตรา และลิงก์ตัวบทต้นฉบับ',
+    search:'คลังกลาง กฎหมาย พรบ งบประมาณ พัสดุ จริยธรรม PDPA ข้อมูลข่าวสาร อิเล็กทรอนิกส์',actions:[],
     resources:[
-      {kind:'plan', label:'เปิดแผน 14 วัน', meta:'28 บทอ่าน · 28 กรณีเขียน', file:'exam-14.html', strong:true}
+      {kind:'read',label:'แยกเป็นบท',file:'question-bank.html?agency=central',hash:'chapters',primary:true},
+      {kind:'mock',label:'ชุดรวม 100 ข้อ',file:'question-bank.html?agency=central',hash:'mixed',featuredMixed:true}
     ]
   },
   {
-    id:'laws',group:'resources',short:'กฎหมายกลาง',title:'กฎหมายกลางที่ใช้สอบร่วมกัน',
+    id:'laws',group:'resources',short:'สรุปกฎหมายเดิม',title:'สรุปกฎหมายและแบบฝึกเดิม',
     role:'สรุป + แบบฝึกหัด ใช้ได้หลายหน่วยงาน',icon:'book',color:'laws',total:93,
-    headline:'กฎหมายชุดที่ออกสอบซ้ำแทบทุกสนาม อ่านรอบเดียวใช้ได้หลายหน่วยงาน',
+    headline:'เอกสารเสริมเดิม 13 บท พร้อมแบบฝึกหัดท้ายบท',
     description:'ระเบียบบริหารราชการแผ่นดิน บ้านเมืองที่ดี งบประมาณ วินัยการเงินการคลัง ข้อมูลข่าวสาร และ PDPA',
     search:'พรบ พ.ร.บ. ระเบียบ กฎหมายกลาง',actions:['read','exam','sources'],
     resources:[
@@ -226,4 +228,16 @@ window.STUDY_CATALOG = [
   }
 ]
 .map(item => ({...item, file: item.file || item.id + '.html'}))
+.map(item => {
+  const counts = {"coj":{"questions":520,"chapters":15},"energy":{"questions":842,"chapters":11},"rd":{"questions":528,"chapters":9},"dmh":{"questions":500,"chapters":15},"drr":{"questions":500,"chapters":5},"sao":{"questions":478,"chapters":11},"opsmoac":{"questions":500,"chapters":5},"diprom":{"questions":939,"chapters":13},"namban":{"questions":500,"chapters":6}};
+  if (!['agencies','archive'].includes(item.group) || item.hub === false) return item;
+  const url = 'question-bank.html?agency=' + item.id;
+  return {...item, total:counts[item.id].questions, chapterCount:counts[item.id].chapters, chapterBank:item.id, directoryFile:url, flag:'',
+    headline:counts[item.id].chapters + ' บท · อ่านและฝึกรายบท หรือทำชุดรวมคละ 100 ข้อ',
+    resources:[
+      {kind:'read',label:'แยกเป็นบท',file:url,hash:'chapters',primary:true},
+      {kind:'mock',label:'ชุดรวม 100 ข้อ',file:url,hash:'mixed',featuredMixed:true},
+      ...(item.resources || []).map(resource => ({...resource,primary:false}))
+    ]};
+})
 .sort((a,b) => (a.priorityRank||99) - (b.priorityRank||99));

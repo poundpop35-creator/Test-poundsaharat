@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#174e43">
+  <title>บทเรียนและข้อสอบ · คลังติวสอบราชการ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="question-bank.css?v=20261125-chapters">
+  <script defer src="bank-core.js?v=20261125-chapters"></script>
+  <script defer src="question-bank.js?v=20261125-chapters"></script>
+</head>
+<body>
+  <a class="skip" href="#view">ข้ามไปเนื้อหา</a>
+  <header class="topbar"><div class="topbar-inner"><a class="brand" href="index.html">▤ <span>คลังติวสอบราชการ</span></a><a class="switch-bank" href="index.html#agencies">เปลี่ยนหน่วยงาน</a></div></header>
+  <main class="bank-wrap">
+    <section class="bank-heading" id="bank-heading"><span class="eyebrow" id="bank-label">บทเรียนและข้อสอบ</span><h1 id="bank-title">กำลังเปิดคลังข้อสอบ</h1><p id="bank-subtitle"></p><div class="bank-meta" id="bank-meta"></div></section>
+    <p class="notice" id="storage-notice" role="status" hidden>บันทึกในเบราว์เซอร์นี้ไม่ได้ ขณะนี้ยังฝึกต่อได้ แต่เมื่อปิดหน้าอาจกลับมาทำต่อไม่ได้</p>
+    <nav class="bank-tabs" id="bank-tabs" aria-label="เลือกวิธีฝึก" hidden><a href="#chapters" data-view="chapters">แยกเป็นบท</a><a href="#mixed" data-view="mixed">ชุดรวม 100 ข้อ</a></nav>
+    <div class="bank-tools" id="bank-tools" hidden><a href="#history">ผลการฝึก</a><a href="#sources">ตัวบทและแหล่งอ้างอิง</a></div>
+    <div id="resume-slot"></div>
+    <section id="view" aria-live="polite" tabindex="-1"><div class="loading" role="status">กำลังโหลดบทเรียนและข้อสอบ…</div></section>
+    <footer class="bank-footer" id="bank-footer">ข้อฝึกเพื่อทบทวนความรู้ พร้อมเฉลยและแหล่งอ่านประกอบ<br>ความคืบหน้าบันทึกในเครื่องและเบราว์เซอร์ที่กำลังใช้งาน</footer>
+  </main>
+  <dialog id="replace-dialog" aria-labelledby="replace-title"><form method="dialog"><h2 id="replace-title">มีชุดที่ทำค้างไว้</h2><p>คุณสามารถกลับไปทำชุดเดิม หรือเริ่มชุดที่เลือกใหม่ได้</p><div class="dialog-actions"><button value="resume" class="primary">ทำชุดเดิมต่อ</button><button value="replace">เริ่มชุดใหม่</button><button value="cancel" class="quiet">ยกเลิก</button></div></form></dialog>
+  <noscript><p class="notice">เปิด JavaScript เพื่อเลือกบทและฝึกข้อสอบ หรือ <a href="index.html">กลับหน้าคลังติว</a></p></noscript>
+</body>
+</html>

@@ -42,5 +42,15 @@ test('legacy SAO corrections compile and preserve its 554-question bank',()=>{
   let q=find('พ.ร.ป. ว่าด้วยการตรวจเงินแผ่นดิน พ.ศ. 2561 มีทั้งสิ้นกี่มาตรา');assert.equal(q.c[q.a],'115 มาตรา');
   q=find('พ.ร.บ. วิธีการงบประมาณ พ.ศ. 2561 มีจำนวนกี่มาตรา');assert.equal(q.c[q.a],'61 มาตรา');
   assert.ok(!html.includes('มาตรา 4 กำหนดให้ประธานกรรมการตรวจเงินแผ่นดิน'));assert.ok(!html.includes('ครบทั้ง 10 วิชา ตามประกาศ'));
-  for(const file of ['index.html','sao.html'])assert.ok(fs.readFileSync(path.join(root,file),'utf8').includes('href="sao-sprint.html"'));
+  assert.ok(html.includes('href="sao-sprint.html"'));
+  const catalogContext={window:{}};
+  vm.runInNewContext(fs.readFileSync(path.join(root,'app-catalog.js'),'utf8'),catalogContext);
+  const entry=catalogContext.window.STUDY_CATALOG.find(item=>item.id==='sao');
+  assert.equal(entry.sprint,'sao-sprint.html');assert.equal(entry.sprintKey,'sao48:v1');
+  assert.ok(entry.resources.some(resource=>resource.file===entry.sprint),'The legacy sprint remains available from the catalog');
+  const primary=entry.resources.find(resource=>resource.primary===true),route=new URL(primary.file,'https://test.invalid/');
+  assert.equal(route.pathname,'/question-bank.html');assert.equal(route.searchParams.get('agency'),'sao');assert.equal(primary.hash,'chapters');
+  assert.ok(fs.existsSync(path.join(root,route.pathname.slice(1))));
+  const home=fs.readFileSync(path.join(root,'index.html'),'utf8');
+  assert.match(home,/<script\b[^>]*src="app-catalog\.js(?:\?[^"]*)?"/);assert.match(home,/<script\b[^>]*src="app-home\.js(?:\?[^"]*)?"/);
 });

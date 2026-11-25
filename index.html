@@ -7,7 +7,7 @@
   <meta name="description" content="คลังติวสอบราชการ อ่านบทเรียน ฝึกข้อสอบพร้อมเฉลย จำลองสอบ และทวนข้อผิด แยกตามหน่วยงาน">
   <title>คลังติวสอบราชการ · เลือกสนามและฝึกข้อสอบ</title>
   <link rel="stylesheet" href="theme.css?v=20261120">
-  <link rel="stylesheet" href="app-home.css?v=20261120-hub3">
+  <link rel="stylesheet" href="app-home.css?v=20261125-chapters">
   <style>
     :root{--a:#236958;--a-dk:#174e43;--a-sf:#edf5ee;--a-bd:#c5dcd0;--a-tint:#e4f0e7;--paper:#f7f8f4;--line:#e0e8e1}
     html{scroll-padding-top:88px}body{padding:0;font-family:"Sarabun","Noto Sans Thai",system-ui,sans-serif}
@@ -54,7 +54,7 @@
   <main class="home-wrap" id="app-content">
     <section class="home-hero" aria-labelledby="home-title">
       <h1 id="home-title">คลังข้อสอบราชการ</h1>
-      <p class="home-lead">เลือกหน่วยงานเพื่อฝึกข้อสอบตามตำแหน่ง หรือเปิดคลังกลางเพื่อทบทวนวิชาที่ใช้ร่วมกัน</p>
+      <p class="home-lead">เลือกหน่วยงานหรือคลังกลาง อ่านเป็นบท แล้วฝึกชุดรวมคละ 100 ข้อ</p>
     </section>
     <div id="home-recent" class="home-recent" hidden aria-live="polite"></div>
     <section aria-label="ค้นหาสนามสอบ">
@@ -74,7 +74,7 @@
       </section>
       <section id="resources" aria-labelledby="shared-title">
         <div class="home-section-heading"><h2 id="shared-title">คลังกลาง</h2><span class="home-count" id="shared-count"></span></div>
-        <p>กฎหมาย ภาษาอังกฤษ และเครื่องมือเตรียมสอบที่ใช้ร่วมกัน</p>
+        <p>ข้อสอบกฎหมายกลาง แยกบทและชุดรวม 100 ข้อ พร้อมภาษาอังกฤษและแหล่งอ่าน</p>
         <div class="home-cards" id="shared-cards"></div>
         <div id="english"><h3>ภาษาอังกฤษ</h3><div class="home-cards" id="english-cards"></div></div>
       </section>
@@ -88,15 +88,15 @@
     <details class="home-help">
       <summary>วิธีใช้งานคลังติว</summary>
       <dl class="home-legend">
-        <dt>เริ่มฝึก</dt><dd>เลือกชุดโจทย์และตอบทีละข้อ ดูเฉลยทันทีเมื่อมีให้</dd>
-        <dt>อ่านบทเรียนและตัวเลือกอื่น</dt><dd>กดเปิดเมนูใต้การ์ด เพื่ออ่านเนื้อหา ฝึกรายหมวด หรือเข้าสอบจำลองอีกชุด</dd>
+        <dt>แยกเป็นบท</dt><dd>เลือกอ่านและฝึกโจทย์เฉพาะบทที่ต้องการ</dd><dt>ชุดรวม 100 ข้อ</dt><dd>คละหลายบทภายในคลังเดียวกัน เลือกฝึกพร้อมเฉลยหรือซ้อมสอบได้</dd>
+        <dt>ชุดเดิมและเอกสารเพิ่มเติม</dt><dd>เปิดชุดที่เคยใช้และเอกสารประกอบเพิ่มเติมของหน่วยงาน</dd>
         <dt>กลับไปทำต่อ</dt><dd>ระบบพยายามบันทึกชุดที่ทำค้างในเครื่องและเบราว์เซอร์เดิม หากเปลี่ยนเครื่องข้อมูลอาจไม่ตามไปด้วย</dd>
       </dl>
     </details>
     <noscript><div class="home-noscript"><p>กรุณาเปิด JavaScript เพื่อใช้ระบบค้นหาและชุดฝึก</p><a href="coj-quiz.html">ศาลยุติธรรม</a><a href="energy.html">สป.พลังงาน</a><a href="practice500.html?agency=rd">สรรพากร</a><a href="practice500.html?agency=dmh">กรมสุขภาพจิต</a><a href="practice500.html?agency=drr">กรมทางหลวงชนบท</a><a href="laws.html">กฎหมายกลาง</a></div></noscript>
   </main>
   <footer class="home-footer">คลังติวสอบราชการ · ใช้ฝึกและทบทวนความรู้ส่วนบุคคล · <a href="law-sources.html">แหล่งกฎหมายและเอกสารต้นฉบับ</a></footer>
-  <script src="app-catalog.js?v=20261125-directory2"></script>
+  <script src="app-catalog.js?v=20261125-chapters"></script>
   <script>
     window.StudyUI = {
       escape: value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char])),
@@ -111,6 +111,6 @@
       }
     };
   </script>
-  <script src="app-home.js?v=20261125-directory2"></script>
+  <script src="app-home.js?v=20261125-chapters"></script>
 </body>
 </html>

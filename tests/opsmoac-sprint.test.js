@@ -51,7 +51,17 @@ test('OPS sprint: scripts compile, entrypoints resolve, source scope and separat
   for(const m of html.matchAll(/(?:src|href)="([^"#]+)"/g)){if(m[1].startsWith('http'))continue;assert.ok(fs.existsSync(path.join(root,m[1].split(/[?#]/)[0])),m[1]);}
   for(const f of ['opsmoac-sprint-data.js','opsmoac-sprint-extra.js','opsmoac-sprint-core.js','opsmoac-sprint.js',...additions])new vm.Script(fs.readFileSync(path.join(root,f),'utf8'),{filename:f});
   const js=fs.readFileSync(path.join(root,'opsmoac-sprint.js'),'utf8');assert.ok(js.includes("KEY='opsmoac60:v1'"));assert.ok(!js.includes("KEY='sao48:v1'"));assert.ok(js.includes('sourceLinks(q.sources)'));
-  for(const f of ['index.html','opsmoac.html'])assert.ok(fs.readFileSync(path.join(root,f),'utf8').includes('href="opsmoac-sprint.html"'));
+  assert.ok(fs.readFileSync(path.join(root,'opsmoac.html'),'utf8').includes('href="opsmoac-sprint.html"'));
+  const catalogContext={window:{}};
+  vm.runInNewContext(fs.readFileSync(path.join(root,'app-catalog.js'),'utf8'),catalogContext);
+  const entry=catalogContext.window.STUDY_CATALOG.find(item=>item.id==='opsmoac');
+  assert.equal(entry.sprint,'opsmoac-sprint.html');assert.equal(entry.sprintKey,'opsmoac60:v1');
+  assert.ok(entry.resources.some(resource=>resource.file===entry.sprint),'The legacy sprint remains available from the catalog');
+  const primary=entry.resources.find(resource=>resource.primary===true),route=new URL(primary.file,'https://test.invalid/');
+  assert.equal(route.pathname,'/question-bank.html');assert.equal(route.searchParams.get('agency'),'opsmoac');assert.equal(primary.hash,'chapters');
+  assert.ok(fs.existsSync(path.join(root,route.pathname.slice(1))));
+  const home=fs.readFileSync(path.join(root,'index.html'),'utf8');
+  assert.match(home,/<script\b[^>]*src="app-catalog\.js(?:\?[^"]*)?"/);assert.match(home,/<script\b[^>]*src="app-home\.js(?:\?[^"]*)?"/);
 });
 test('OPS sprint: hypothetical farm-income and subsidy arithmetic independently verified',()=>{
   const income=C.byId.get('ops60-33'),subsidy=C.byId.get('ops60-35');

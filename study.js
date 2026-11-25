@@ -18,8 +18,8 @@
       if(!doc||!doc.querySelector('main,body > .wrap'))throw Error('Content not available');
       doc.body.classList.add('study-app','app-legacy');
       await asset(doc,'link',{rel:'stylesheet',href:'app-shell.css?v='+version});
-      await asset(doc,'script',{src:'app-catalog.js?v='+version});
-      await asset(doc,'script',{src:'app-shell.js?v='+version});
+      await asset(doc,'script',{src:'app-catalog.js?v=20261125-chapters
+      await asset(doc,'script',{src:'app-shell.js?v=20261125-chapters
       // Keep navigation at the top level while respecting the quiz exit guard.
       doc.addEventListener('click',e=>{
         if(e.defaultPrevented)return;
