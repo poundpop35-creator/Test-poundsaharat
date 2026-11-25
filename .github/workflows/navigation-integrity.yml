@@ -17,4 +17,4 @@ jobs:
         with:
           node-version: '22'
       - name: Verify internal routes and assets
-        run: node --test tests/navigation-integrity.test.cjs
+        run: node --test tests/navigation-integrity.test.cjs tests/app-home.test.cjs
